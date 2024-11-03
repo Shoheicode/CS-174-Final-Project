@@ -15,6 +15,7 @@ scene.add( cube );
 
 const redCubeGeo = new THREE.BoxGeometry(1,1,1);
 const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
+const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
 
 
 camera.position.z = 5;
