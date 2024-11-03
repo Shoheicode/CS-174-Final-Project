@@ -45,7 +45,9 @@ redCubeBB.setFromObject(redCube);
 // camera.position.y = 5;
 
 function checkCollision() {
+	// console.log("RUNNINg")
 	if (redCubeBB.intersectsBox(blackCubeBB)) {
+		console.log("COLLIDE")
 		 cube.material.transparent = true;
 		 cube.material.opacity = 0.5;
 		 cube.material.color = new THREE.Color(Math.random * 0xffffff);
@@ -91,6 +93,7 @@ function onKeyUp(e) {
 }
 
 function animate() {
+	checkCollision()
 
 	// redCube.position.z-=0.01
 	if(run){
@@ -114,8 +117,20 @@ function animate() {
 	// console.log(speed = 5)
 	var speedX = Math.sin(rotation) * speed;
 	var speedZ = Math.cos(rotation) * speed;
-	console.log("SPEED:" + speed)
+	// console.log("SPEED:" + speed)
 	speed = -speed;
+
+	// const raycaster = new THREE.Raycaster();
+	// const direction = new THREE.Vector3(speedX, 0, speedZ); // Example direction
+	// raycaster.set(redCube.position, direction);
+
+	// const intersects = raycaster.intersectObject(cube);
+	// if (intersects.length > 0) {
+	// 	console.log('Collision detected!');
+	// 	redCube.position.x -= speedX;
+	// 	redCube.position.z -= speedZ;
+	// }
+
 
 	redCube.rotation.y = rotation;
 	redCube.position.z += speedZ;
