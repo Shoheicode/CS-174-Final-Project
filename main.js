@@ -18,8 +18,12 @@ const redCubeGeo = new THREE.BoxGeometry(1,1,1);
 const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
 const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
 redCube.position.set(2,0,0)
+scene.add(redCube)
 
 camera.position.z = 5;
+camera.position.y = 5;
+
+camera.rotateX(-0.5)
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
