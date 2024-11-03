@@ -56,7 +56,7 @@ function onDocumentKeyDown(event){
 document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {
 	switch(e.keyCode) {
-	  case 87: // w
+	  case 16: // w
 		run = false;
 		break;
 	  case 65: // a
