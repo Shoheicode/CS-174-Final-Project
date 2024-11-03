@@ -1,5 +1,10 @@
 import * as THREE from 'three'; // Imports the library that we will be using which is the Three.js
 
+//CONSTANTS:
+let zOffset = 5;
+let yOffset = 5;
+
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -26,30 +31,33 @@ scene.add(redCube)
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
+	console.log(keyCode)
 	switch(keyCode){
-		case 87:
-			console.log("HIHI")
-			redCube.position.z -=1;
-			break;
-		case 83: 
+		// case 87:
+		// 	console.log("HIHI")
+		// 	redCube.position.z -=1;
+		// 	break;
+		case 16: //Acceleration (Shift Key)
 			redCube.position.z +=1;
 			break;
-		case 65:
+		case 65: //LEFT (A key)
 			console.log("HIHI")
-			redCube.position.x -=1;
+			redCube.rotateY(0.1)
 			break;
-		case 68: 
-			redCube.position.x +=1;
+		case 68: //RIGHT (D KEY)
+			redCube.rotateY(-0.1)
 			break;
 	}
 }
 
 function animate() {
 
+	// redCube.position.z-=0.01
+
 	// Update camera to follow the block
 	camera.position.x = redCube.position.x
-	camera.position.z = redCube.position.z + 2; // Offset the camera slightly behind the block
-	camera.position.y = redCube.position.y + 2; // Offset the camera slightly above the block
+	camera.position.z = redCube.position.z + zOffset; // Offset the camera slightly behind the block
+	camera.position.y = redCube.position.y + yOffset; // Offset the camera slightly above the block
 
 	camera.lookAt(redCube.position)
 
