@@ -56,7 +56,7 @@ function onDocumentKeyDown(event){
 document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {
 	switch(e.keyCode) {
-	  case 16: // w
+	  case 16: // shift
 		run = false;
 		break;
 	  case 65: // a
@@ -74,6 +74,9 @@ function onKeyUp(e) {
 function animate() {
 
 	// redCube.position.z-=0.01
+	if(run){
+		
+	}
 
 	// Update camera to follow the block
 	camera.position.x = redCube.position.x
