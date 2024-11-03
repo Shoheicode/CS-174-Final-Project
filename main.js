@@ -41,10 +41,6 @@ function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
 	// console.log(keyCode)
 	switch(keyCode){
-		// case 87:
-		// 	console.log("HIHI")
-		// 	redCube.position.z -=1;
-		// 	break;
 		case 16: //Acceleration (Shift Key)
 			run = true;
 			break;
@@ -83,10 +79,10 @@ function animate() {
 		speed += acceleration;
 		if(speed > maxSpeed){
 			speed = maxSpeed;
-			console.log("ACHIEVED MAX SPEED")
+			// console.log("ACHIEVED MAX SPEED")
 		}
 	} else{
-		console.log("NOT RUNNING")
+		// console.log("NOT RUNNING")
 		speed -= acceleration;
 		if(speed < 0){
 			speed = 0;
@@ -108,10 +104,10 @@ function animate() {
 	redCube.position.x += speedX;
 
 	// Update camera to follow the block
-	camera.position.x = redCube.position.x
-	camera.position.z = redCube.position.z + zOffset; // Offset the camera slightly behind the block
-	camera.position.y = redCube.position.y + yOffset; // Offset the camera slightly above the block
-
+	camera.rotation.y = rotation;
+	camera.position.x = redCube.position.x + Math.sin(rotation) * 5;
+	camera.position.z = redCube.position.z + Math.cos(rotation) * 5;
+	camera.position.y = 5
 	camera.lookAt(redCube.position)
 
 	renderer.render( scene, camera );
