@@ -4,6 +4,11 @@ import * as THREE from 'three'; // Imports the library that we will be using whi
 let zOffset = 5;
 let yOffset = 5;
 
+let speed = 5;
+let acceleration = 0.1
+
+let rSpeed = 0;
+let run = false;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -27,9 +32,6 @@ scene.add(redCube)
 
 // camera.position.z = 5;
 // camera.position.y = 5;
-let speed = 5;
-let rSpeed = 0;
-let run = false;
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
