@@ -20,8 +20,8 @@ const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
 redCube.position.set(2,0,0)
 scene.add(redCube)
 
-camera.position.z = 5;
-camera.position.y = 5;
+// camera.position.z = 5;
+// camera.position.y = 5;
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
@@ -47,10 +47,11 @@ function onDocumentKeyDown(event){
 function animate() {
 
 	// Update camera to follow the block
-	camera.position.x = redCube.position.x + 2; // Offset the camera slightly behind the block
+	camera.position.x = redCube.position.x
+	camera.position.z = redCube.position.z + 2; // Offset the camera slightly behind the block
 	camera.position.y = redCube.position.y + 2; // Offset the camera slightly above the block
 
-	camera.lookAt(redCube)
+	camera.lookAt(redCube.position)
 
 	renderer.render( scene, camera );
 
