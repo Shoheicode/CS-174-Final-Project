@@ -23,14 +23,34 @@ scene.add(redCube)
 camera.position.z = 5;
 camera.position.y = 5;
 
-camera.rotateX(-0.5)
-
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
-
+	var keyCode= event.keyCode;
+	switch(keyCode){
+		case 87:
+			console.log("HIHI")
+			redCube.position.z -=1;
+			break;
+		case 83: 
+			redCube.position.z +=1;
+			break;
+		case 65:
+			console.log("HIHI")
+			redCube.position.x -=1;
+			break;
+		case 68: 
+			redCube.position.x +=1;
+			break;
+	}
 }
 
 function animate() {
+
+	// Update camera to follow the block
+	camera.position.x = redCube.position.x + 2; // Offset the camera slightly behind the block
+	camera.position.y = redCube.position.y + 2; // Offset the camera slightly above the block
+
+	camera.lookAt(redCube)
 
 	renderer.render( scene, camera );
 
