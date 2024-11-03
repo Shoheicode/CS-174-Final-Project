@@ -4,8 +4,9 @@ import * as THREE from 'three'; // Imports the library that we will be using whi
 let zOffset = 5;
 let yOffset = 5;
 
-let speed = 5;
+let speed = 1;
 let acceleration = 0.1
+let maxSpeed = 3
 
 let rSpeed = 0;
 let run = false;
@@ -77,7 +78,15 @@ function animate() {
 
 	// redCube.position.z-=0.01
 	if(run){
-		
+		speed += acceleration;
+		if(speed > maxSpeed){
+			speed = maxSpeed;
+		}
+	} else{
+		speed -= acceleration;
+		if(speed < 0){
+			speed = 0;
+		}
 	}
 
 	// Update camera to follow the block
