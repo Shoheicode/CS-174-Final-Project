@@ -21,6 +21,11 @@ redCube.position.set(2,0,0)
 
 camera.position.z = 5;
 
+document.addEventListener("keydown", onDocumentKeyDown, false);
+function onDocumentKeyDown(event){
+
+}
+
 function animate() {
 
 	renderer.render( scene, camera );
