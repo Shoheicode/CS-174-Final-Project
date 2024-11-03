@@ -33,8 +33,26 @@ const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
 redCube.position.set(2,0,0)
 scene.add(redCube)
 
+// Adding bounding box to our black box
+const blackCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
+blackCubeBB.setFromObject(cube);
+
+// Adding bounding box to our red box
+const redCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
+redCubeBB.setFromObject(redCube);
+
 // camera.position.z = 5;
 // camera.position.y = 5;
+
+function checkCollision() {
+	if (redCubeBB.intersectsBox(blackCubeBB)) {
+		 cube.material.transparent = true;
+		 cube.material.opacity = 0.5;
+		 cube.material.color = new THREE.Color(Math.random * 0xffffff);
+	   } else {
+		 cube.material.opacity = 1;
+	   }
+ }
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
