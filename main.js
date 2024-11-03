@@ -28,7 +28,8 @@ scene.add(redCube)
 // camera.position.z = 5;
 // camera.position.y = 5;
 let speed = 5;
-let rSpeed = 0
+let rSpeed = 0;
+let run = false;
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
@@ -40,14 +41,14 @@ function onDocumentKeyDown(event){
 		// 	redCube.position.z -=1;
 		// 	break;
 		case 16: //Acceleration (Shift Key)
-			
+			run = true;
 			break;
 		case 65: //LEFT (A key)
-			redCube.rotateY(0.1)
+			rSpeed = -0.02;
 			console.log(redCube)
 			break;
 		case 68: //RIGHT (D KEY)
-			redCube.rotateY(-0.1)
+			rSpeed = -0.02;
 			break;
 	}
 }
@@ -56,16 +57,16 @@ document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {
 	switch(e.keyCode) {
 	  case 87: // w
-		car.run = false;
+		run = false;
 		break;
 	  case 65: // a
-		car.rSpeed = 0;
+		rSpeed = 0;
 		break;
 	  case 68: // d
-		car.rSpeed = 0;
+		rSpeed = 0;
 		break;
 	  case 32: // space
-		car.cancelBrake();
+		// car.cancelBrake();
 		break;
 	}
 }
