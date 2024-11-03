@@ -1,12 +1,14 @@
 import * as THREE from 'three'; // Imports the library that we will be using which is the Three.js
+import { directionToColor } from 'three/webgpu';
 
 //CONSTANTS:
 let zOffset = 5;
 let yOffset = 5;
 
 let speed = 1;
-let acceleration = 0.1
-let maxSpeed = 3
+let acceleration = 0.1;
+let maxSpeed = 3;
+let dirRotation = 0;
 
 let rSpeed = 0;
 let run = false;
@@ -88,6 +90,12 @@ function animate() {
 			speed = 0;
 		}
 	}
+
+	var speed = -speed;
+	var rotation = dirRotation +=rSpeed;
+	var speedX = Math.sin(rotation) * speed;
+	var speedZ = Math.cos(rotation) * speed;
+	
 
 	// Update camera to follow the block
 	camera.position.x = redCube.position.x
