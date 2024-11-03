@@ -5,9 +5,9 @@ import { directionToColor } from 'three/webgpu';
 let zOffset = 5;
 let yOffset = 5;
 
-let speed = 1;
-let acceleration = 0.1;
-let maxSpeed = 3;
+let speed = 0;
+let acceleration = 0.01;
+let maxSpeed = 0.3;
 let dirRotation = 0;
 
 let rSpeed = 0;
@@ -39,7 +39,7 @@ scene.add(redCube)
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
-	console.log(keyCode)
+	// console.log(keyCode)
 	switch(keyCode){
 		// case 87:
 		// 	console.log("HIHI")
@@ -49,8 +49,8 @@ function onDocumentKeyDown(event){
 			run = true;
 			break;
 		case 65: //LEFT (A key)
-			rSpeed = -0.02;
-			console.log(redCube)
+			rSpeed = 0.02;
+			// console.log(redCube)
 			break;
 		case 68: //RIGHT (D KEY)
 			rSpeed = -0.02;
@@ -83,19 +83,29 @@ function animate() {
 		speed += acceleration;
 		if(speed > maxSpeed){
 			speed = maxSpeed;
+			console.log("ACHIEVED MAX SPEED")
 		}
 	} else{
+		console.log("NOT RUNNING")
 		speed -= acceleration;
 		if(speed < 0){
 			speed = 0;
 		}
 	}
 
-	var speed = -speed;
-	var rotation = dirRotation +=rSpeed;
+	speed = -speed; 
+	dirRotation +=rSpeed;
+	var rotation = dirRotation;
+	// console.log(Math.cos(rotation))
+	// console.log(speed = 5)
 	var speedX = Math.sin(rotation) * speed;
 	var speedZ = Math.cos(rotation) * speed;
-	
+	console.log("SPEED:" + speed)
+	speed = -speed;
+
+	redCube.rotation.y = rotation;
+	redCube.position.z += speedZ;
+	redCube.position.x += speedX;
 
 	// Update camera to follow the block
 	camera.position.x = redCube.position.x
