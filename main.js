@@ -159,14 +159,14 @@ function animate() {
 	// }
 
 	if(checkCollision()){
+		redCube.rotation.y = rotation;
 		redCube.position.x -= speedX;
 		redCube.position.z -= speedZ;
+	}else{
+		redCube.rotation.y = rotation;
+		redCube.position.z += speedZ;
+		redCube.position.x += speedX;
 	}
-
-
-	redCube.rotation.y = rotation;
-	redCube.position.z += speedZ;
-	redCube.position.x += speedX;
 
 	// Update camera to follow the block
 	camera.rotation.y = rotation;
