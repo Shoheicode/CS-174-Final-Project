@@ -120,16 +120,16 @@ function animate() {
 	// console.log("SPEED:" + speed)
 	speed = -speed;
 
-	// const raycaster = new THREE.Raycaster();
-	// const direction = new THREE.Vector3(speedX, 0, speedZ); // Example direction
-	// raycaster.set(redCube.position, direction);
+	const raycaster = new THREE.Raycaster();
+	const direction = new THREE.Vector3(speedX, 0, speedZ); // Example direction
+	raycaster.set(redCube.position, direction);
 
-	// const intersects = raycaster.intersectObject(cube);
-	// if (intersects.length > 0) {
-	// 	console.log('Collision detected!');
-	// 	redCube.position.x -= speedX;
-	// 	redCube.position.z -= speedZ;
-	// }
+	const intersects = raycaster.intersectObject(cube);
+	if (intersects.length > 0) {
+		console.log('Collision detected!');
+		redCube.position.x -= speedX;
+		redCube.position.z -= speedZ;
+	}
 
 
 	redCube.rotation.y = rotation;
