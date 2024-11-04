@@ -113,17 +113,25 @@ for (var i = -10; i < 10; i++){
 
 		cube1.userData.obb = new OBB()
 		cube1.position.z = floorCopy.position.y+5.5
-		cube1.position.y = ((Math.random()-0.5)*2)*10
-		cube1.position.x = ((Math.random()-0.5)*2)*10
-
+		cube1.position.y = ((Math.random()-0.5)*2)*5
+		cube1.position.x = ((Math.random()-0.5)*2)*5
 
 		// cube1.rotateZ(10)
+		if(j == -10){
+			cube1.material.color.setRGB(1, 0.5, 0.5)
+		}else{
+			cube1.material.color.setRGB(1, 1, 0.5)
+		}
+		
 
 		floorCopy.add(cube1)
-		scene.add(floorCopy)
+		console.log(floorCopy)
 		floors.push(floorCopy)
+		scene.add(floorCopy)
 	}
 }
+
+console.log(floors[5].children[0].material.color.setRGB(1, 0.5, 0.5))
 
 // Adding bounding box to our black box
 const blackCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
