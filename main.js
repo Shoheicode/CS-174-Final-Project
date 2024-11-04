@@ -27,21 +27,28 @@ geometry.computeBoundingBox()
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 const cube = new THREE.Mesh( geometry, material );
 cube.position.set(0,0,0);
+
+cube.geometry.userData.obb = new OBB().fromBox3(
+	cube.geometry.boundingBox
+)
+
+cube.userData.obb = new OBB()
+
 scene.add( cube );
 
 const redCubeGeo = new THREE.BoxGeometry(1,1,1);
 redCubeGeo.computeBoundingBox()
 const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
 const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
-redCube.position.set(2,0,0)
+redCube.position.set(2,0,0);
+
+
+
 scene.add(redCube)
 
 // Adding bounding box to our black box
 const blackCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
 blackCubeBB.setFromObject(cube);
-cube.geometry.userData.obb = new OBB().fromBox3(
-	cube.geometry.boundingBox
-)
 
 // Adding bounding box to our red box
 const redCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
