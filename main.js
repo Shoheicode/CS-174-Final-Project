@@ -22,12 +22,14 @@ renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+geometry.computeBoundingBox()
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 const cube = new THREE.Mesh( geometry, material );
 cube.position.set(0,0,0);
 scene.add( cube );
 
 const redCubeGeo = new THREE.BoxGeometry(1,1,1);
+redCubeGeo.computeBoundingBox()
 const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
 const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
 redCube.position.set(2,0,0)
