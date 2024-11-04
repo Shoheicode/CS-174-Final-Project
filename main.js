@@ -42,12 +42,19 @@ const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
 const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
 redCube.position.set(2,0,0);
 
-mesh2.geometry.userData.obb = new OBB().fromBox3(
-    mesh2.geometry.boundingBox
+redCube.geometry.userData.obb = new OBB().fromBox3(
+    redCube.geometry.boundingBox
 )
-mesh2.userData.obb = new OBB()
+redCube.userData.obb = new OBB()
 
 scene.add(redCube)
+
+const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 20, 10, 10),
+    new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
+)
+
+scene.add(floor)
 
 // Adding bounding box to our black box
 const blackCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
