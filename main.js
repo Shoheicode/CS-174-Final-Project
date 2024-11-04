@@ -30,7 +30,7 @@ const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 geometry.computeBoundingBox()
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 const cube = new THREE.Mesh( geometry, material );
-cube.position.set(0,0,0);
+cube.position.set(0,1.5,0);
 
 cube.geometry.userData.obb = new OBB().fromBox3(
 	cube.geometry.boundingBox
@@ -64,7 +64,7 @@ floor.geometry.userData.obb = new OBB().fromBox3(
     floor.geometry.boundingBox
 )
 floor.userData.obb = new OBB();
-floor.position.y = -0.49
+floor.position.y = 1
 floor.rotateX(-Math.PI / 2)
 scene.add(floor)
 
@@ -104,6 +104,17 @@ for (var i = -10; i < 10; i++){
 		xVal = 10 * j
 		zVal = 10 * i
 		floorCopy.rotateX(-Math.PI / 2)
+
+		let cube1 = new THREE.Mesh( geometry, material );
+		cube1.position.set(0,1.5,0);
+
+		cube1.geometry.userData.obb = new OBB().fromBox3(
+			cube1.geometry.boundingBox
+		)
+
+		cube1.userData.obb = new OBB()
+
+		floorCopy.add(cube1)
 		scene.add(floorCopy)
 		floors.push(floorCopy)
 	}
