@@ -10,6 +10,7 @@ let speed = 0;
 let acceleration = 0.01;
 let maxSpeed = 0.3;
 let dirRotation = 0;
+let goBackwards = false;
 
 let rSpeed = 0;
 let run = false;
@@ -86,7 +87,7 @@ function checkCollision() {
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
-	// console.log(keyCode)
+	console.log(keyCode)
 	switch(keyCode){
 		case 16: //Acceleration (Shift Key)
 			run = true;
@@ -98,24 +99,28 @@ function onDocumentKeyDown(event){
 		case 68: //RIGHT (D KEY)
 			rSpeed = -0.02;
 			break;
+		case 83:
+			goBackwards = true;
 	}
 }
 
 document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {
 	switch(e.keyCode) {
-	  case 16: // shift
-		run = false;
-		break;
-	  case 65: // a
-		rSpeed = 0;
-		break;
-	  case 68: // d
-		rSpeed = 0;
-		break;
-	  case 32: // space
-		// car.cancelBrake();
-		break;
+		case 16: // shift
+			run = false;
+			break;
+		case 65: // a
+			rSpeed = 0;
+			break;
+		case 68: // d
+			rSpeed = 0;
+			break;
+		case 83:
+			goBackwards = false;
+		case 32: // space
+			// car.cancelBrake();
+			break;
 	}
 }
 
@@ -159,9 +164,25 @@ function animate() {
 	// }
 
 	if(checkCollision()){
-		redCube.rotation.y = rotation;
+		// redCube.rotation.y = rotation;
+		if(speedX < 0){
+			redCube.position.x = speedX - 1
+		}
+		else if (speedX > 0) {
+			redCube.position.x = speedX + 1;
+		}
+		if(speedZ < 0){
+
+		}else if (speedX > 0) {
+			redCube.position.x = speedX + 1;
+		}
 		redCube.position.x -= speedX;
 		redCube.position.z -= speedZ;
+
+		// if(goBackwards){
+		// 	redCube.position.x -= speedZ;
+		// 	redCube.position.z -= speedZ;
+		// }
 	}else{
 		redCube.rotation.y = rotation;
 		redCube.position.z += speedZ;
