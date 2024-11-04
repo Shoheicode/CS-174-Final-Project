@@ -53,7 +53,8 @@ const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(20, 20, 10, 10),
     new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
 )
-
+floor.position.y = -0.5
+floor.rotateX(-Math.PI / 2)
 scene.add(floor)
 
 // Adding bounding box to our black box
