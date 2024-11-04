@@ -8,12 +8,15 @@ let yOffset = 5;
 
 let speed = 0;
 let acceleration = 0.01;
-let maxSpeed = 0.3;
+let maxSpeed = 1;
 let dirRotation = 0;
 let goBackwards = false;
+let speedY = 0;
 
 let rSpeed = 0;
 let run = false;
+
+let touchGround = true;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -41,7 +44,7 @@ const redCubeGeo = new THREE.BoxGeometry(1,1,1);
 redCubeGeo.computeBoundingBox()
 const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
 const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
-redCube.position.set(2,0,0);
+redCube.position.set(2,5,0);
 
 redCube.geometry.userData.obb = new OBB().fromBox3(
     redCube.geometry.boundingBox
@@ -50,13 +53,61 @@ redCube.userData.obb = new OBB()
 
 scene.add(redCube)
 
+const floorGeo = new THREE.PlaneGeometry(20, 20, 10, 10);
+floorGeo.computeBoundingBox();
+
 const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(20, 20, 10, 10),
+    floorGeo,
     new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
 )
-floor.position.y = -0.5
+floor.geometry.userData.obb = new OBB().fromBox3(
+    floor.geometry.boundingBox
+)
+floor.userData.obb = new OBB();
+floor.position.y = -0.49
 floor.rotateX(-Math.PI / 2)
 scene.add(floor)
+
+const floor2 = new THREE.Mesh(
+    floorGeo,
+    new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
+)
+floor2.geometry.userData.obb = new OBB().fromBox3(
+    floor2.geometry.boundingBox
+)
+floor2.userData.obb = new OBB();
+floor2.position.y = -4.99
+floor2.position.x += 10
+floor2.rotateX(-Math.PI / 2)
+scene.add(floor2)
+
+let floors = []
+
+floors.push(floor);
+floors.push(floor2);
+
+let xVal = 0;
+let zVal = 0;
+for (var i = -10; i < 10; i++){
+	for(var j = -10; j < 10; j++){
+		let floorCopy = new THREE.Mesh(
+			floorGeo,
+			new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
+		)
+		floorCopy.geometry.userData.obb = new OBB().fromBox3(
+			floorCopy.geometry.boundingBox
+		)
+		floorCopy.userData.obb = new OBB();
+		floorCopy.position.y = -4.99
+		floorCopy.position.x += xVal
+		floorCopy.position.z += zVal
+		xVal = 10 * j
+		zVal = 10 * i
+		floorCopy.rotateX(-Math.PI / 2)
+		scene.add(floorCopy)
+		floors.push(floorCopy)
+	}
+}
 
 // Adding bounding box to our black box
 const blackCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
@@ -76,10 +127,27 @@ function checkCollision(obj1, obj2) {
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
-        obj2.material.color.set(0x6F7567)
+        // obj2.material.color.set(0x6F7567)
+		// touchingGround = true;
 		return true;
     } else {
-        obj2.material.color.set(0x00ff00)
+        // obj2.material.color.set(0x00ff00)
+		return false;
+    }
+ }
+
+ function touchingGround(obj1, obj2) {
+	// console.log("RUNNINg")
+	obj1.userData.obb.copy(obj1.geometry.userData.obb)
+    obj2.userData.obb.copy(obj2.geometry.userData.obb)
+    obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
+    obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
+    if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+        // obj2.material.color.set(0x6F7567)
+		touchGround = true;
+		return true;
+    } else {
+        // obj2.material.color.set(0x00ff00)
 		return false;
     }
  }
@@ -128,17 +196,40 @@ function animate() {
 	// checkCollision()
 
 	// redCube.position.z-=0.01
-	if(run){
-		speed += acceleration;
-		if(speed > maxSpeed){
-			speed = maxSpeed;
-			// console.log("ACHIEVED MAX SPEED")
+
+	floors.forEach(function (obj, index) {
+		if(touchingGround(redCube, obj) && !touchGround){
+			console.log("REDCUBE: " + redCube.position.y)
+			console.log("OBJECT " + index + " : "+ obj.position.y)
+			redCube.position.y = obj.position.y + 0.50;
+			// console.log("TOUCHING GROUND")
+			// touchingGround = true;
 		}
-	} else{
-		// console.log("NOT RUNNING")
-		speed -= acceleration;
-		if(speed < 0){
-			speed = 0;
+		// else{
+		// 	speedY -= 0.001
+		// 	redCube.position.y += speedY;
+		// }
+	})
+
+	if(!touchGround){
+		speedY -= 0.001
+		redCube.position.y += speedY;
+		console.log(redCube.position.y)
+	}
+
+	if(touchGround){
+		if(run){
+			speed += acceleration;
+			if(speed > maxSpeed){
+				speed = maxSpeed;
+				// console.log("ACHIEVED MAX SPEED")
+			}
+		} else{
+			// console.log("NOT RUNNING")
+			speed -= acceleration;
+			if(speed < 0){
+				speed = 0;
+			}
 		}
 	}
 
@@ -175,15 +266,28 @@ function animate() {
 		redCube.position.x += speedX;
 	}
 
+	// if(checkCollision(redCube, floor)){
+	// 	redCube.position.y = floor.position.y + 0.5;
+	// 	console.log("TOUCHING GROUND")
+	// }
+	// else if(checkCollision(redCube, floor2)){
+	// 	redCube.position.y = floor2.position.y + 0.5;
+	// 	console.log("TOUCHING GROUND 2")
+		
+	// }
+
+	
+
 	speed = -speed;
 
 	// Update camera to follow the block
 	camera.rotation.y = rotation;
-	camera.position.x = redCube.position.x + Math.sin(rotation) * 5;
-	camera.position.z = redCube.position.z + Math.cos(rotation) * 5;
-	camera.position.y = 5
+	camera.position.x = redCube.position.x + Math.sin(rotation) * 10;
+	camera.position.z = redCube.position.z + Math.cos(rotation) * 10;
+	camera.position.y = redCube.position.y + 10
 	camera.lookAt(redCube.position)
 
 	renderer.render( scene, camera );
+	touchGround = false;
 
 }
