@@ -1,4 +1,5 @@
 import * as THREE from 'three'; // Imports the library that we will be using which is the Three.js
+import { OBB } from 'three/examples/jsm/Addons.js';
 import { directionToColor } from 'three/webgpu';
 
 //CONSTANTS:
@@ -38,6 +39,9 @@ scene.add(redCube)
 // Adding bounding box to our black box
 const blackCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
 blackCubeBB.setFromObject(cube);
+cube.geometry.userData.obb = new OBB().fromBox3(
+	cube.geometry.boundingBox
+)
 
 // Adding bounding box to our red box
 const redCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
