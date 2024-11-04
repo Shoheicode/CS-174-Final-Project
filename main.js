@@ -151,17 +151,6 @@ function animate() {
 	var speedZ = Math.cos(rotation) * speed;
 	// console.log("SPEED:" + speed)
 
-	// const raycaster = new THREE.Raycaster();
-	// const direction = new THREE.Vector3(speedX, 0, speedZ); // Example direction
-	// raycaster.set(redCube.position, direction);
-
-	// const intersects = raycaster.intersectObject(cube);
-	// if (intersects.length > 0) {
-	// 	console.log('Collision detected!');
-	// 	redCube.position.x -= speedX;
-	// 	redCube.position.z -= speedZ;
-	// }
-
 	if(checkCollision()){
 		// redCube.rotation.y = rotation;
 		console.log("BEFORE X:" + redCube.position.x);
