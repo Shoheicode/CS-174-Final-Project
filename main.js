@@ -113,8 +113,10 @@ for (var i = -10; i < 10; i++){
 
 		cube1.userData.obb = new OBB()
 		cube1.position.z = floorCopy.position.y+5.5
+		cube1.position.y = ((Math.random()-0.5)*2)*10
+		cube1.position.x = ((Math.random()-0.5)*2)*10
 
-		
+
 		// cube1.rotateZ(10)
 
 		floorCopy.add(cube1)
@@ -214,8 +216,8 @@ function animate() {
 	floors.forEach(function (obj, index) {
 		if(!touchGround){
 			if(touchingGround(redCube, obj)){
-				console.log("REDCUBE: " + redCube.position.y)
-				console.log("OBJECT " + index + " : "+ obj.position.y)
+				// console.log("REDCUBE: " + redCube.position.y)
+				// console.log("OBJECT " + index + " : "+ obj.position.y)
 				redCube.position.y = obj.position.y + 0.5;
 				// console.log("TOUCHING GROUND")
 				// touchingGround = true;
@@ -231,7 +233,7 @@ function animate() {
 	if(!touchGround){
 		speedY -= 0.0098 // 9.8 m/s
 		redCube.position.y += speedY;
-		console.log(redCube.position.y)
+		// console.log(redCube.position.y)
 	}
 
 	if(touchGround){
