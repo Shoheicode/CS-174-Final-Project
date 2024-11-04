@@ -69,17 +69,17 @@ redCubeBB.setFromObject(redCube);
 // camera.position.z = 5;
 // camera.position.y = 5;
 
-function checkCollision() {
+function checkCollision(obj1, obj2) {
 	// console.log("RUNNINg")
-	redCube.userData.obb.copy(redCube.geometry.userData.obb)
-    cube.userData.obb.copy(cube.geometry.userData.obb)
-    redCube.userData.obb.applyMatrix4(redCube.matrixWorld)
-    cube.userData.obb.applyMatrix4(cube.matrixWorld)
-    if (redCube.userData.obb.intersectsOBB(cube.userData.obb)) {
-        cube.material.color.set(0x6F7567)
+	obj1.userData.obb.copy(obj1.geometry.userData.obb)
+    obj2.userData.obb.copy(obj2.geometry.userData.obb)
+    obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
+    obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
+    if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+        obj2.material.color.set(0x6F7567)
 		return true;
     } else {
-        cube.material.color.set(0x00ff00)
+        obj2.material.color.set(0x00ff00)
 		return false;
     }
  }
@@ -145,13 +145,11 @@ function animate() {
 	speed = -speed; 
 	dirRotation +=rSpeed;
 	var rotation = dirRotation;
-	// console.log(Math.cos(rotation))
-	// console.log(speed = 5)
 	var speedX = Math.sin(rotation) * speed;
 	var speedZ = Math.cos(rotation) * speed;
 	// console.log("SPEED:" + speed)
 
-	if(checkCollision()){
+	if(checkCollision(redCube, cube)){
 		// redCube.rotation.y = rotation;
 		console.log("BEFORE X:" + redCube.position.x);
 		console.log("Before Z: " + redCube.position.z);
