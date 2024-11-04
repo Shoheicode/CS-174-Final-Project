@@ -75,9 +75,11 @@ function checkCollision() {
     redCube.userData.obb.applyMatrix4(redCube.matrixWorld)
     cube.userData.obb.applyMatrix4(cube.matrixWorld)
     if (redCube.userData.obb.intersectsOBB(cube.userData.obb)) {
-        cube.material.color.set(0xff0000)
+        cube.material.color.set(0x6F7567)
+		return true;
     } else {
         cube.material.color.set(0x00ff00)
+		return false;
     }
  }
 
@@ -118,7 +120,7 @@ function onKeyUp(e) {
 }
 
 function animate() {
-	checkCollision()
+	// checkCollision()
 
 	// redCube.position.z-=0.01
 	if(run){
@@ -145,13 +147,18 @@ function animate() {
 	// console.log("SPEED:" + speed)
 	speed = -speed;
 
-	const raycaster = new THREE.Raycaster();
-	const direction = new THREE.Vector3(speedX, 0, speedZ); // Example direction
-	raycaster.set(redCube.position, direction);
+	// const raycaster = new THREE.Raycaster();
+	// const direction = new THREE.Vector3(speedX, 0, speedZ); // Example direction
+	// raycaster.set(redCube.position, direction);
 
-	const intersects = raycaster.intersectObject(cube);
-	if (intersects.length > 0) {
-		console.log('Collision detected!');
+	// const intersects = raycaster.intersectObject(cube);
+	// if (intersects.length > 0) {
+	// 	console.log('Collision detected!');
+	// 	redCube.position.x -= speedX;
+	// 	redCube.position.z -= speedZ;
+	// }
+
+	if(checkCollision()){
 		redCube.position.x -= speedX;
 		redCube.position.z -= speedZ;
 	}
