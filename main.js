@@ -112,7 +112,9 @@ for (var i = -10; i < 10; i++){
 		)
 
 		cube1.userData.obb = new OBB()
-		cube1.translateZ(0.5)
+		cube1.position.z = floorCopy.position.y+5.5
+
+		
 		// cube1.rotateZ(10)
 
 		floorCopy.add(cube1)
