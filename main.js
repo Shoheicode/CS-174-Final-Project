@@ -166,16 +166,19 @@ function animate() {
 	if(checkCollision()){
 		// redCube.rotation.y = rotation;
 		if(speedX < 0){
-			redCube.position.x = speedX - 1
+			redCube.position.x -= (speedX - 1);
 		}
 		else if (speedX > 0) {
-			redCube.position.x = speedX + 1;
+			redCube.position.x -= (speedX + 1);
 		}
 		if(speedZ < 0){
-			redCube.position.z = speedX - 1;
+			redCube.position.z -= (speedZ - 1);
 		}else if (speedZ > 0) {
-			redCube.position.z = speedX + 1;
+			redCube.position.z -= (speedZ + 1);
 		}
+
+		console.log("X:" + redCube.position.x);
+		console.log("Z: " + redCube.position.z);
 		// redCube.position.x -= speedX;
 		// redCube.position.z -= speedZ;
 
