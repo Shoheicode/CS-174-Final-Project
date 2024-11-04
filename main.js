@@ -42,7 +42,10 @@ const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
 const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
 redCube.position.set(2,0,0);
 
-
+mesh2.geometry.userData.obb = new OBB().fromBox3(
+    mesh2.geometry.boundingBox
+)
+mesh2.userData.obb = new OBB()
 
 scene.add(redCube)
 
