@@ -70,14 +70,15 @@ redCubeBB.setFromObject(redCube);
 
 function checkCollision() {
 	// console.log("RUNNINg")
-	if (redCubeBB.intersectsBox(blackCubeBB)) {
-		console.log("COLLIDE")
-		 cube.material.transparent = true;
-		 cube.material.opacity = 0.5;
-		 cube.material.color = new THREE.Color(Math.random * 0xffffff);
-	   } else {
-		 cube.material.opacity = 1;
-	   }
+	redCube.userData.obb.copy(redCube.geometry.userData.obb)
+    cube.userData.obb.copy(cube.geometry.userData.obb)
+    redCube.userData.obb.applyMatrix4(redCube.matrixWorld)
+    cube.userData.obb.applyMatrix4(cube.matrixWorld)
+    if (redCube.userData.obb.intersectsOBB(cube.userData.obb)) {
+        cube.material.color.set(0xff0000)
+    } else {
+        cube.material.color.set(0x00ff00)
+    }
  }
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
