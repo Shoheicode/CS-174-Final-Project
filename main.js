@@ -98,7 +98,7 @@ for (var i = -10; i < 10; i++){
 			floorCopy.geometry.boundingBox
 		)
 		floorCopy.userData.obb = new OBB();
-		floorCopy.position.y = -4.99
+		floorCopy.position.y = -5
 		floorCopy.position.x += xVal
 		floorCopy.position.z += zVal
 		xVal = 10 * j
@@ -106,13 +106,14 @@ for (var i = -10; i < 10; i++){
 		floorCopy.rotateX(-Math.PI / 2)
 
 		let cube1 = new THREE.Mesh( geometry, material );
-		cube1.position.set(0,1.5,0);
 
 		cube1.geometry.userData.obb = new OBB().fromBox3(
 			cube1.geometry.boundingBox
 		)
 
 		cube1.userData.obb = new OBB()
+		cube1.translateZ(0.5)
+		// cube1.rotateZ(10)
 
 		floorCopy.add(cube1)
 		scene.add(floorCopy)
@@ -209,12 +210,15 @@ function animate() {
 	// redCube.position.z-=0.01
 
 	floors.forEach(function (obj, index) {
-		if(touchingGround(redCube, obj) && !touchGround){
-			console.log("REDCUBE: " + redCube.position.y)
-			console.log("OBJECT " + index + " : "+ obj.position.y)
-			redCube.position.y = obj.position.y + 0.51;
-			// console.log("TOUCHING GROUND")
-			// touchingGround = true;
+		if(!touchGround){
+			if(touchingGround(redCube, obj)){
+				console.log("REDCUBE: " + redCube.position.y)
+				console.log("OBJECT " + index + " : "+ obj.position.y)
+				redCube.position.y = obj.position.y + 0.5;
+				// console.log("TOUCHING GROUND")
+				// touchingGround = true;
+				speedY = 0;
+			}
 		}
 		// else{
 		// 	speedY -= 0.001
