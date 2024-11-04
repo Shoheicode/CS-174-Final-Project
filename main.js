@@ -172,12 +172,12 @@ function animate() {
 			redCube.position.x = speedX + 1;
 		}
 		if(speedZ < 0){
-
-		}else if (speedX > 0) {
-			redCube.position.x = speedX + 1;
+			redCube.position.z = speedX - 1;
+		}else if (speedZ > 0) {
+			redCube.position.z = speedX + 1;
 		}
-		redCube.position.x -= speedX;
-		redCube.position.z -= speedZ;
+		// redCube.position.x -= speedX;
+		// redCube.position.z -= speedZ;
 
 		// if(goBackwards){
 		// 	redCube.position.x -= speedZ;
