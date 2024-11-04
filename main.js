@@ -87,7 +87,7 @@ function checkCollision() {
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
-	console.log(keyCode)
+	// console.log(keyCode)
 	switch(keyCode){
 		case 16: //Acceleration (Shift Key)
 			run = true;
@@ -150,7 +150,6 @@ function animate() {
 	var speedX = Math.sin(rotation) * speed;
 	var speedZ = Math.cos(rotation) * speed;
 	// console.log("SPEED:" + speed)
-	speed = -speed;
 
 	// const raycaster = new THREE.Raycaster();
 	// const direction = new THREE.Vector3(speedX, 0, speedZ); // Example direction
@@ -165,32 +164,31 @@ function animate() {
 
 	if(checkCollision()){
 		// redCube.rotation.y = rotation;
-		if(speedX < 0){
-			redCube.position.x -= (speedX - 1);
+		console.log("BEFORE X:" + redCube.position.x);
+		console.log("Before Z: " + redCube.position.z);
+		let speedX2 = Math.sin(rotation) * (speed-0.3);
+		let speedZ2 = Math.cos(rotation) * (speed-0.3);
+		if(speedX2 < 0){
+			redCube.position.x -= (speedX2);
 		}
-		else if (speedX > 0) {
-			redCube.position.x -= (speedX + 1);
+		else if (speedX2 > 0) {
+			redCube.position.x -= (speedX2);
 		}
-		if(speedZ < 0){
-			redCube.position.z -= (speedZ - 1);
-		}else if (speedZ > 0) {
-			redCube.position.z -= (speedZ + 1);
+		if(speedZ2 < 0){
+			redCube.position.z -= (speedZ2);
+		}else if (speedZ2 > 0) {
+			redCube.position.z -= (speedZ2);
 		}
 
-		console.log("X:" + redCube.position.x);
-		console.log("Z: " + redCube.position.z);
-		// redCube.position.x -= speedX;
-		// redCube.position.z -= speedZ;
-
-		// if(goBackwards){
-		// 	redCube.position.x -= speedZ;
-		// 	redCube.position.z -= speedZ;
-		// }
+		console.log("after X:" + redCube.position.x);
+		console.log("after Z: " + redCube.position.z);
 	}else{
 		redCube.rotation.y = rotation;
 		redCube.position.z += speedZ;
 		redCube.position.x += speedX;
 	}
+
+	speed = -speed;
 
 	// Update camera to follow the block
 	camera.rotation.y = rotation;
