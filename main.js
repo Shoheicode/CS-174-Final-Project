@@ -7,8 +7,8 @@ let zOffset = 5;
 let yOffset = 5;
 
 let speed = 0;
-let acceleration = 0.01;
-let maxSpeed = 1;
+let acceleration = 0.01; // 1 m/s
+let maxSpeed = 0.7; // 7 m/s
 let dirRotation = 0;
 let goBackwards = false;
 let speedY = 0;
@@ -201,7 +201,7 @@ function animate() {
 		if(touchingGround(redCube, obj) && !touchGround){
 			console.log("REDCUBE: " + redCube.position.y)
 			console.log("OBJECT " + index + " : "+ obj.position.y)
-			redCube.position.y = obj.position.y + 0.50;
+			redCube.position.y = obj.position.y + 0.51;
 			// console.log("TOUCHING GROUND")
 			// touchingGround = true;
 		}
@@ -212,7 +212,7 @@ function animate() {
 	})
 
 	if(!touchGround){
-		speedY -= 0.001
+		speedY -= 0.0098 // 9.8 m/s
 		redCube.position.y += speedY;
 		console.log(redCube.position.y)
 	}
