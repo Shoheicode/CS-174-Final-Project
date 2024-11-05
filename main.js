@@ -46,6 +46,29 @@ const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
 const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
 redCube.position.set(2,5,0);
 
+const wheel = new THREE.CylinderGeometry(0.5, 0.5, 0.5, 32);
+const blue = new THREE.MeshBasicMaterial({color: "blue"});
+const green = new THREE.MeshBasicMaterial({color: "green"});
+const blueWheel = new THREE.Mesh(wheel, blue);
+redCube.add(blueWheel);
+blueWheel.position.set(-0.5,-0.5,0.5)
+blueWheel.rotateZ(-Math.PI/2)
+
+const blueWheel2 = new THREE.Mesh(wheel, blue);
+redCube.add(blueWheel2);
+blueWheel2.position.set(-0.5,-0.5,-0.5)
+blueWheel2.rotateZ(-Math.PI/2)
+
+const blueWheel3 = new THREE.Mesh(wheel, blue);
+redCube.add(blueWheel3);
+blueWheel3.position.set(0.5,-0.5,0.5)
+blueWheel3.rotateZ(-Math.PI/2)
+
+const blueWheel4 = new THREE.Mesh(wheel, blue);
+redCube.add(blueWheel4);
+blueWheel4.position.set(0.5,-0.5,-0.5)
+blueWheel4.rotateZ(-Math.PI/2)
+
 redCube.geometry.userData.obb = new OBB().fromBox3(
     redCube.geometry.boundingBox
 )
