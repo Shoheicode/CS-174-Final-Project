@@ -22,6 +22,20 @@ let touchGround = true;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
+// Orthongraphic Camera
+const minimapCamera = new THREE.OrthographicCamera(
+	-30, 30, 30, -30, 1, 1000 // Adjust these values based on your track size
+);
+minimapCamera.position.set(0, 100, 0); // Position above the track
+minimapCamera.lookAt(0, 0, 0); // Look at the center of the track
+const trackGeometry = new THREE.CircleGeometry(50, 32);
+const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x404040 });
+const track = new THREE.Mesh(trackGeometry, trackMaterial);
+scene.add(track);
+
+const minimapScene = new THREE.Scene();
+minimapScene.add(track.clone());
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
@@ -30,16 +44,6 @@ document.body.appendChild( renderer.domElement );
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 geometry.computeBoundingBox()
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-// const cube = new THREE.Mesh( geometry, material );
-// cube.position.set(0,1.5,0);
-
-// cube.geometry.userData.obb = new OBB().fromBox3(
-// 	cube.geometry.boundingBox
-// )
-
-// cube.userData.obb = new OBB()
-
-// scene.add( cube );
 
 const redCubeGeo = new THREE.BoxGeometry(1,1,1);
 const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
@@ -412,8 +416,17 @@ function animate() {
 	camera.lookAt(redCube.position)
 	// delay += elapsedTime
 	// }
-
+	renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
+	renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
+	renderer.setScissorTest(true);
 	renderer.render( scene, camera );
+
+	const minimapSize = 200;
+	renderer.setViewport(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
+	renderer.setScissor(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
+	renderer.setScissorTest(true);
+	renderer.render(minimapScene, minimapCamera);
+
 	touchGround = false;
 	collide = false;
 }
