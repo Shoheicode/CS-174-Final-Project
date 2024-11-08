@@ -102,59 +102,80 @@ floor2.userData.obb = new OBB();
 floor2.position.y = -4.99
 floor2.position.x += 10
 floor2.rotateX(-Math.PI / 2)
-scene.add(floor2)
+// scene.add(floor2)
+
+let map = [
+	[1,0,0,0,0,0,0,0,0,1],
+	[0,1,0,0,0,0,0,0,1,0],
+	[0,0,1,0,0,0,0,1,0,0],
+	[0,0,0,1,0,0,1,0,0,0],
+	[0,0,0,0,1,1,0,0,0,0],
+	[0,0,0,0,1,1,0,0,0,0],
+	[0,0,0,1,0,0,1,0,0,0],
+	[0,0,1,0,0,0,0,1,0,0],
+	[0,1,0,0,0,0,0,0,1,0],
+	[1,0,0,0,0,0,0,0,0,1],
+]
 
 let floors = []
 
 floors.push(floor);
-floors.push(floor2);
+// floors.push(floor2);
 
 let xVal = 0;
 let zVal = 0;
-for (var i = -10; i < 10; i++){
-	for(var j = -10; j < 10; j++){
-		let floorCopy = new THREE.Mesh(
-			floorGeo,
-			new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
-		)
-		floorCopy.geometry.userData.obb = new OBB().fromBox3(
-			floorCopy.geometry.boundingBox
-		)
-		floorCopy.userData.obb = new OBB();
-		floorCopy.position.y = -5
-		floorCopy.position.x += xVal
-		floorCopy.position.z += zVal
-		xVal = 10 * j
-		zVal = 10 * i
-		floorCopy.rotateX(-Math.PI / 2)
+for (var i = 0; i < 10; i++){
+	for(var j = 0; j < 10; j++){
+		if(map[j][i] == 1){
+			let floorCopy = new THREE.Mesh(
+				floorGeo,
+				new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
+			)
+			floorCopy.geometry.userData.obb = new OBB().fromBox3(
+				floorCopy.geometry.boundingBox
+			)
+			floorCopy.userData.obb = new OBB();
+			floorCopy.position.y = -5
+			floorCopy.position.x += xVal
+			floorCopy.position.z += zVal
+			xVal = 10 * j
+			zVal = 10 * i
+			floorCopy.rotateX(-Math.PI / 2)
 
-		let cube1 = new THREE.Mesh( geometry, material );
+			//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
+			let mat2 = material.clone()
 
-		cube1.geometry.userData.obb = new OBB().fromBox3(
-			cube1.geometry.boundingBox
-		)
+			let cube1 = new THREE.Mesh( geometry, mat2 );
+			let cube2 = cube1.clone()
 
-		cube1.userData.obb = new OBB()
-		cube1.position.z = floorCopy.position.y+5.5
-		cube1.position.y = ((Math.random()-0.5)*2)*5
-		cube1.position.x = ((Math.random()-0.5)*2)*5
+			cube2.geometry.userData.obb = new OBB().fromBox3(
+				cube1.geometry.boundingBox
+			)
 
-		// cube1.rotateZ(10)
-		if(j == -10){
-			cube1.material.color.setRGB(1, 0.5, 0.5)
-		}else{
-			cube1.material.color.setRGB(1, 1, 0.5)
+			cube2.userData.obb = new OBB()
+			cube2.position.z = floorCopy.position.y+5.5
+			cube2.position.y = ((Math.random()-0.5)*2)*5
+			cube2.position.x = ((Math.random()-0.5)*2)*5
+
+			// cube1.rotateZ(10)
+			if(j <= -5){
+				console.log("CUBE MAKING DIFFERENT COLOR")
+				cube2.material.color.setRGB(1, 0.5, 0.5)
+			}else{
+				cube2.material.color.setRGB(1, 1, 0.5)
+			}
+			
+			// cube1 = cube1.clone()
+
+			floorCopy.add(cube2)
+			console.log(floorCopy)
+			floors.push(floorCopy)
+			scene.add(floorCopy)
 		}
-		
-
-		floorCopy.add(cube1)
-		console.log(floorCopy)
-		floors.push(floorCopy)
-		scene.add(floorCopy)
 	}
 }
 
-console.log(floors[5].children[0].material.color.setRGB(1, 0.5, 0.5))
+// console.log(floors[5].children[0].material.color.setRGB(1, 0.5, 0.5))
 
 // Adding bounding box to our black box
 const blackCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
@@ -239,6 +260,15 @@ function onKeyUp(e) {
 	}
 }
 
+function outOfBounds(){
+	if(redCube.position.y < -50){
+		return true;
+	}
+	return false;
+}
+
+let clock = new THREE.Clock();
+
 function animate() {
 	// checkCollision()
 
@@ -264,7 +294,14 @@ function animate() {
 	if(!touchGround){
 		speedY -= 0.0098 // 9.8 m/s
 		redCube.position.y += speedY;
-		// console.log(redCube.position.y)
+		// if(touchingGround(redCube, obj)){
+		// 	// console.log("REDCUBE: " + redCube.position.y)
+		// 	// console.log("OBJECT " + index + " : "+ obj.position.y)
+		// 	redCube.position.y = obj.position.y + 0.5;
+		// 	// console.log("TOUCHING GROUND")
+		// 	// touchingGround = true;
+		// 	speedY = 0;
+		// }
 	}
 
 	if(touchGround){
@@ -281,10 +318,9 @@ function animate() {
 				speed = 0;
 			}
 		}
+		dirRotation +=rSpeed;
 	}
-
 	speed = -speed; 
-	dirRotation +=rSpeed;
 	var rotation = dirRotation;
 	var speedX = Math.sin(rotation) * speed;
 	var speedZ = Math.cos(rotation) * speed;
@@ -325,6 +361,12 @@ function animate() {
 	// 	console.log("TOUCHING GROUND 2")
 		
 	// }
+	if(outOfBounds()){
+		redCube.position.x = -5;
+		redCube.position.z = 0;
+		redCube.position.y = 15;
+		speed = 0;
+	}
 
 	
 
@@ -340,4 +382,9 @@ function animate() {
 	renderer.render( scene, camera );
 	touchGround = false;
 
+	// Get delta time (time between frames)
+    let deltaTime = clock.getDelta();
+
+    // Apply the time scaling factor
+    deltaTime *= timeScale;
 }
