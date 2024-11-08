@@ -97,12 +97,12 @@ blueWheel4.rotateZ(-Math.PI/2)
 
 redCubeGeo.computeBoundingBox()
 
+
+//Updated the boundary box in order to ensure that it includes the wheels
 redCube.geometry.userData.obb = new OBB().fromBox3(
     // redCube.geometry.boundingBox
 	new THREE.Box3(new THREE.Vector3(-0.75, -0.75, -0.75),new THREE.Vector3(0.75, 0.75, 0.75))
 )
-// console.log(redCube.geometry.boundingBox.min)
-// console.log(redCube.geometry.boundingBox.max)
 redCube.userData.obb = new OBB()
 
 scene.add(redCube)
