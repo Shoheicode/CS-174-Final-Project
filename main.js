@@ -1,6 +1,7 @@
 import * as THREE from 'three'; // Imports the library that we will be using which is the Three.js
 import { OBB } from 'three/examples/jsm/Addons.js';
 import { directionToColor } from 'three/webgpu';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 //CONSTANTS:
 let zOffset = 5;
@@ -24,25 +25,33 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
-	-100, 100, 100, -100, 1, 1000 // Adjust these values based on your track size
+	-50, 50, 50, -50, 1, 1000 // Adjust these values based on your track size
 );
 
-minimapCamera.position.set(500, 0, 100); // Position above the track
+minimapCamera.position.set(0, 800, 0); // Position above the track
+// minimapCamera.lookAt(0,0,0)
  // Look at the center of the track
 // const trackGeometry = new THREE.CircleGeometry(100, 32);
-// const trackMaterial = new THREE.MeshBasicMaterial({ acolor: 0x404040 });
+const trackMaterial = new THREE.MeshBasicMaterial({ acolor: 0x404040 });
+const planeForTrack = new THREE.PlaneGeometry(20, 20)
+const plane = new THREE.Mesh(planeForTrack, trackMaterial)
+
 // const track = new THREE.Mesh(trackGeometry, trackMaterial);
-// track.position.x +=500
-// scene.add(track);
+
+plane.position.y = 500
+// plane.position.y = 
+plane.rotateX(-Math.PI/2)
+scene.add(plane);
 
 const minimapScene = new THREE.Scene();
-// minimapScene.add(track.clone());
+minimapScene.add(plane.clone());
 
 const carMarkerGeometry = new THREE.SphereGeometry(5, 16, 16);
 const carMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 const carMarker = new THREE.Mesh(carMarkerGeometry, carMarkerMaterial);
 minimapScene.add(carMarker);
 minimapCamera.lookAt(carMarker.position);
+// minimapCamera.rotation.set(0,-Math.PI/2,Math.PI)
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -57,6 +66,7 @@ const redCubeGeo = new THREE.BoxGeometry(1,1,1);
 const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
 const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
 redCube.position.set(2,5,0);
+redCube.rotation.y = 0
 
 //WHEELS THE BLUE
 let wheels = [];
@@ -166,6 +176,14 @@ for (var i = -10; i < 10; i++){
 				floorGeo,
 				new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
 			)
+
+			let trackCopy = new THREE.Mesh(planeForTrack, trackMaterial)
+
+			trackCopy.position.y = 500;
+			trackCopy.position.x += xVal
+			trackCopy.position.z += zVal
+			trackCopy.rotateX(-Math.PI/2)
+
 			floorCopy.geometry.userData.obb = new OBB().fromBox3(
 				floorCopy.geometry.boundingBox
 			)
@@ -203,6 +221,8 @@ for (var i = -10; i < 10; i++){
 			// cube1 = cube1.clone()
 
 			floorCopy.add(cube2)
+			scene.add(trackCopy)
+			minimapScene.add(trackCopy.clone());
 			// console.log(floorCopy)
 			floors.push(floorCopy)
 			scene.add(floorCopy)
@@ -313,6 +333,7 @@ function updateMinimap() {
   
 	// Optionally, rotate the marker to match the player’s orientation
 	carMarker.rotation.y = redCube.rotation.y;
+	carMarker.position.y = 500
 }
 
 let clock = new THREE.Clock();
@@ -321,6 +342,10 @@ const timeScale = 0.00005;
 // let clock = new THREE.Clock();
 let delay = 0.00000001; // Delay in seconds
 let actionPerformed = false;
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+// camera.position.set(0, 5, 10); // Where the camera is.
+// controls.target.set(0, 0, 0); // Where the camera is looking towards.
 
 function animate() {
 	// checkCollision()
@@ -431,6 +456,7 @@ function animate() {
 	camera.position.z = redCube.position.z + Math.cos(rotation) * 10;
 	camera.position.y = redCube.position.y + 10
 	camera.lookAt(redCube.position)
+	// controls.update();
 	// delay += elapsedTime
 	// }
 	renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
@@ -444,6 +470,7 @@ function animate() {
 	renderer.setViewport(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
 	renderer.setScissor(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
 	renderer.setScissorTest(true);
+	// minimapCamera.rotateY(-Math.PI/2)
 	minimapCamera.lookAt(carMarker.position);
 	renderer.render(minimapScene, minimapCamera);
 	
