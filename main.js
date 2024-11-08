@@ -24,22 +24,25 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
-	-30, 30, 30, -30, 1, 1000 // Adjust these values based on your track size
+	-100, 100, 100, -100, 1, 1000 // Adjust these values based on your track size
 );
-minimapCamera.position.set(0, 100, 0); // Position above the track
-minimapCamera.lookAt(0, 0, 0); // Look at the center of the track
-const trackGeometry = new THREE.CircleGeometry(50, 32);
-const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x404040 });
-const track = new THREE.Mesh(trackGeometry, trackMaterial);
-scene.add(track);
+
+minimapCamera.position.set(500, 0, 100); // Position above the track
+ // Look at the center of the track
+// const trackGeometry = new THREE.CircleGeometry(100, 32);
+// const trackMaterial = new THREE.MeshBasicMaterial({ acolor: 0x404040 });
+// const track = new THREE.Mesh(trackGeometry, trackMaterial);
+// track.position.x +=500
+// scene.add(track);
 
 const minimapScene = new THREE.Scene();
-minimapScene.add(track.clone());
+// minimapScene.add(track.clone());
 
-const carMarkerGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+const carMarkerGeometry = new THREE.SphereGeometry(5, 16, 16);
 const carMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 const carMarker = new THREE.Mesh(carMarkerGeometry, carMarkerMaterial);
 minimapScene.add(carMarker);
+minimapCamera.lookAt(carMarker.position);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -435,11 +438,15 @@ function animate() {
 	renderer.setScissorTest(true);
 	renderer.render( scene, camera );
 
+	updateMinimap()
+
 	const minimapSize = 200;
 	renderer.setViewport(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
 	renderer.setScissor(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
 	renderer.setScissorTest(true);
+	minimapCamera.lookAt(carMarker.position);
 	renderer.render(minimapScene, minimapCamera);
+	
 
 	touchGround = false;
 	collide = false;
