@@ -30,30 +30,33 @@ document.body.appendChild( renderer.domElement );
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 geometry.computeBoundingBox()
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-cube.position.set(0,1.5,0);
+// const cube = new THREE.Mesh( geometry, material );
+// cube.position.set(0,1.5,0);
 
-cube.geometry.userData.obb = new OBB().fromBox3(
-	cube.geometry.boundingBox
-)
+// cube.geometry.userData.obb = new OBB().fromBox3(
+// 	cube.geometry.boundingBox
+// )
 
-cube.userData.obb = new OBB()
+// cube.userData.obb = new OBB()
 
-scene.add( cube );
+// scene.add( cube );
 
 const redCubeGeo = new THREE.BoxGeometry(1,1,1);
-redCubeGeo.computeBoundingBox()
 const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
 const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
 redCube.position.set(2,5,0);
 
+//WHEELS THE BLUE
+let wheels = [];
+
 const wheel = new THREE.CylinderGeometry(0.5, 0.5, 0.5, 32);
 const blue = new THREE.MeshBasicMaterial({color: "blue"});
-const green = new THREE.MeshBasicMaterial({color: "green"});
+// const green = new THREE.MeshBasicMaterial({color: "green"});
 const blueWheel = new THREE.Mesh(wheel, blue);
 redCube.add(blueWheel);
 blueWheel.position.set(-0.5,-0.5,0.5)
 blueWheel.rotateZ(-Math.PI/2)
+// wheel.computeBoundingBox()
 
 const blueWheel2 = new THREE.Mesh(wheel, blue);
 redCube.add(blueWheel2);
@@ -70,9 +73,14 @@ redCube.add(blueWheel4);
 blueWheel4.position.set(0.5,-0.5,-0.5)
 blueWheel4.rotateZ(-Math.PI/2)
 
+redCubeGeo.computeBoundingBox()
+
 redCube.geometry.userData.obb = new OBB().fromBox3(
-    redCube.geometry.boundingBox
+    // redCube.geometry.boundingBox
+	new THREE.Box3(new THREE.Vector3(-0.75, -0.75, -0.75),new THREE.Vector3(0.75, 0.75, 0.75))
 )
+// console.log(redCube.geometry.boundingBox.min)
+// console.log(redCube.geometry.boundingBox.max)
 redCube.userData.obb = new OBB()
 
 scene.add(redCube)
@@ -179,7 +187,7 @@ for (var i = -10; i < 10; i++){
 			// cube1 = cube1.clone()
 
 			floorCopy.add(cube2)
-			console.log(floorCopy)
+			// console.log(floorCopy)
 			floors.push(floorCopy)
 			scene.add(floorCopy)
 		}
@@ -189,8 +197,8 @@ for (var i = -10; i < 10; i++){
 // console.log(floors[5].children[0].material.color.setRGB(1, 0.5, 0.5))
 
 // Adding bounding box to our black box
-const blackCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
-blackCubeBB.setFromObject(cube);
+// const blackCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
+// blackCubeBB.setFromObject(cube);
 
 // Adding bounding box to our red box
 const redCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
@@ -300,9 +308,7 @@ function animate() {
 	floors.forEach(function (obj, index) {
 		if(!touchGround){
 			if(touchingGround(redCube, obj)){
-				// console.log("REDCUBE: " + redCube.position.y)
-				// console.log("OBJECT " + index + " : "+ obj.position.y)
-				redCube.position.y = obj.position.y + 0.5;
+				redCube.position.y = obj.position.y + 0.75;
 				// console.log("TOUCHING GROUND")
 				// touchingGround = true;
 				speedY = 0;
