@@ -471,6 +471,11 @@ function animate() {
 	renderer.setScissor(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
 	renderer.setScissorTest(true);
 	// minimapCamera.rotateY(-Math.PI/2)
+	minimapCamera.position.set(
+		carMarker.position.x,
+		800,
+		carMarker.position.z,
+	)
 	minimapCamera.lookAt(carMarker.position);
 	renderer.render(minimapScene, minimapCamera);
 	
