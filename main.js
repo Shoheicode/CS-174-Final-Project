@@ -7,10 +7,11 @@ let zOffset = 5;
 let yOffset = 5;
 
 let speed = 0;
-let acceleration = 0.01; // 1 m/s
+let acceleration = 0.01; // 10 m/s^2
 let maxSpeed = 0.7; // 7 m/s
 let dirRotation = 0;
 let goBackwards = false;
+let collide = false;
 let speedY = 0;
 
 let rSpeed = 0;
@@ -105,16 +106,26 @@ floor2.rotateX(-Math.PI / 2)
 // scene.add(floor2)
 
 let map = [
-	[1,0,0,0,0,0,0,0,0,1],
-	[0,1,0,0,0,0,0,0,1,0],
-	[0,0,1,0,0,0,0,1,0,0],
-	[0,0,0,1,0,0,1,0,0,0],
-	[0,0,0,0,1,1,0,0,0,0],
-	[0,0,0,0,1,1,0,0,0,0],
-	[0,0,0,1,0,0,1,0,0,0],
-	[0,0,1,0,0,0,0,1,0,0],
-	[0,1,0,0,0,0,0,0,1,0],
-	[1,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
+	[0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0],
+	[0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+	[0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0],
+	[0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0],
+	[0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0],
+	[0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0],
+	[0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+	[0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0],
+	[1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
+	[0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0],
+	[0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+	[0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0],
+	[0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0],
+	[0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0],
+	[0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0],
+	[0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+	[0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0],
+	[1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
 ]
 
 let floors = []
@@ -124,9 +135,9 @@ floors.push(floor);
 
 let xVal = 0;
 let zVal = 0;
-for (var i = 0; i < 10; i++){
-	for(var j = 0; j < 10; j++){
-		if(map[j][i] == 1){
+for (var i = -10; i < 10; i++){
+	for(var j = -10; j < 10; j++){
+		if(map[j+10][i+10] == 1){
 			let floorCopy = new THREE.Mesh(
 				floorGeo,
 				new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
@@ -159,7 +170,7 @@ for (var i = 0; i < 10; i++){
 
 			// cube1.rotateZ(10)
 			if(j <= -5){
-				console.log("CUBE MAKING DIFFERENT COLOR")
+				// console.log("CUBE MAKING DIFFERENT COLOR")
 				cube2.material.color.setRGB(1, 0.5, 0.5)
 			}else{
 				cube2.material.color.setRGB(1, 1, 0.5)
@@ -197,6 +208,7 @@ function checkCollision(obj1, obj2) {
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
         // obj2.material.color.set(0x6F7567)
 		// touchingGround = true;
+		collide = true;
 		return true;
     } else {
         // obj2.material.color.set(0x00ff00)
@@ -227,6 +239,9 @@ function onDocumentKeyDown(event){
 	switch(keyCode){
 		case 16: //Acceleration (Shift Key)
 			run = true;
+			break;
+		case 32:
+			run = false;
 			break;
 		case 65: //LEFT (A key)
 			rSpeed = 0.02;
@@ -268,11 +283,19 @@ function outOfBounds(){
 }
 
 let clock = new THREE.Clock();
+const timeScale = 0.00005;
+
+// let clock = new THREE.Clock();
+let delay = 0.00000001; // Delay in seconds
+let actionPerformed = false;
 
 function animate() {
 	// checkCollision()
 
 	// redCube.position.z-=0.01
+	// let elapsedTime = clock.getElapsedTime();
+
+	// if (elapsedTime > delay){
 
 	floors.forEach(function (obj, index) {
 		if(!touchGround){
@@ -285,10 +308,6 @@ function animate() {
 				speedY = 0;
 			}
 		}
-		// else{
-		// 	speedY -= 0.001
-		// 	redCube.position.y += speedY;
-		// }
 	})
 
 	if(!touchGround){
@@ -326,27 +345,30 @@ function animate() {
 	var speedZ = Math.cos(rotation) * speed;
 	// console.log("SPEED:" + speed)
 
-	if(checkCollision(redCube, cube)){
-		// redCube.rotation.y = rotation;
-		console.log("BEFORE X:" + redCube.position.x);
-		console.log("Before Z: " + redCube.position.z);
-		let speedX2 = Math.sin(rotation) * (speed-0.3);
-		let speedZ2 = Math.cos(rotation) * (speed-0.3);
-		if(speedX2 < 0){
-			redCube.position.x -= (speedX2);
-		}
-		else if (speedX2 > 0) {
-			redCube.position.x -= (speedX2);
-		}
-		if(speedZ2 < 0){
-			redCube.position.z -= (speedZ2);
-		}else if (speedZ2 > 0) {
-			redCube.position.z -= (speedZ2);
-		}
+	floors.forEach(function (obj, index) {
+		obj["children"].forEach(function(obj2, index){
+			if(!collide){
+				if(checkCollision(redCube, obj2)){
+					let speedX2 = Math.sin(rotation) * (speed-0.3);
+					let speedZ2 = Math.cos(rotation) * (speed-0.3);
+					if(speedX2 < 0){
+						redCube.position.x -= (speedX2);
+					}
+					else if (speedX2 > 0) {
+						redCube.position.x -= (speedX2);
+					}
+					if(speedZ2 < 0){
+						redCube.position.z -= (speedZ2);
+					}else if (speedZ2 > 0) {
+						redCube.position.z -= (speedZ2);
+					}
+					speed = 0
+				}
+			}
+		})
+	})
 
-		console.log("after X:" + redCube.position.x);
-		console.log("after Z: " + redCube.position.z);
-	}else{
+	if(!collide){
 		redCube.rotation.y = rotation;
 		redCube.position.z += speedZ;
 		redCube.position.x += speedX;
@@ -378,13 +400,10 @@ function animate() {
 	camera.position.z = redCube.position.z + Math.cos(rotation) * 10;
 	camera.position.y = redCube.position.y + 10
 	camera.lookAt(redCube.position)
+	// delay += elapsedTime
+	// }
 
 	renderer.render( scene, camera );
 	touchGround = false;
-
-	// Get delta time (time between frames)
-    let deltaTime = clock.getDelta();
-
-    // Apply the time scaling factor
-    deltaTime *= timeScale;
+	collide = false;
 }
