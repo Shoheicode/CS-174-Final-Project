@@ -36,6 +36,11 @@ scene.add(track);
 const minimapScene = new THREE.Scene();
 minimapScene.add(track.clone());
 
+const carMarkerGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+const carMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+const carMarker = new THREE.Mesh(carMarkerGeometry, carMarkerMaterial);
+minimapScene.add(carMarker);
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
@@ -296,6 +301,15 @@ function outOfBounds(){
 		return true;
 	}
 	return false;
+}
+
+function updateMinimap() {
+	// Update carMarker position based on player's car position
+	carMarker.position.x = redCube.position.x;
+	carMarker.position.z = redCube.position.z;
+  
+	// Optionally, rotate the marker to match the player’s orientation
+	carMarker.rotation.y = redCube.rotation.y;
 }
 
 let clock = new THREE.Clock();
