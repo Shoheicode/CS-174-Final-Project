@@ -1,5 +1,6 @@
 const ObstacleType = {
-        
+    Rock: "ROCK",
+    
 }
 
 class Obstacle{
