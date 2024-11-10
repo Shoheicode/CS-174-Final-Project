@@ -1,0 +1,12 @@
+#info {
+	position: absolute;
+	/* top: 80%; */
+    bottom: 10%;
+    left: 5%;
+	width: 10%;
+	text-align: center;
+	z-index: 100;
+	display:block;
+    color: white;
+    background-color: blue;
+}

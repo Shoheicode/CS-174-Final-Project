@@ -1,6 +1,7 @@
 import * as THREE from 'three'; // Imports the library that we will be using which is the Three.js
 import { OBB } from 'three/examples/jsm/Addons.js';
 import { directionToColor } from 'three/webgpu';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 //CONSTANTS:
@@ -134,6 +135,26 @@ floor2.position.y = -4.99
 floor2.position.x += 10
 floor2.rotateX(-Math.PI / 2)
 // scene.add(floor2)
+
+//Addding text to camera
+// Load font for text
+// const fontLoader = new THREE.FontLoader();
+// fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+// 	const textGeometry = new THREE.TextGeometry("Time: 0s", {
+// 		font: font,
+// 		size: 0.2,
+// 		height: 0.02,
+// 	});
+
+// 	const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+// 	timerText = new THREE.Mesh(textGeometry, textMaterial);
+
+// 	// Attach text to the camera
+// 	camera.add(timerText);
+// 	timerText.position.set(-1, 1, -2);  // Adjust position relative to the camera
+// 	// scene.add(camera);
+// });
+
 
 // -> -x 
 // z+
@@ -279,7 +300,7 @@ function checkCollision(obj1, obj2) {
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
-	// console.log(keyCode)
+	console.log(keyCode)
 	switch(keyCode){
 		case 16: //Acceleration (Shift Key)
 			run = true;
