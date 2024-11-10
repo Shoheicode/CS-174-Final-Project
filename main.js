@@ -141,7 +141,7 @@ floor2.rotateX(-Math.PI / 2)
 // ^
 // |
 let map = [
-	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -151,7 +151,7 @@ let map = [
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1],
-	[1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1],
+	[1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,2],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -160,7 +160,7 @@ let map = [
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1],
 ]
 
 let floors = []
@@ -172,13 +172,15 @@ let xVal = 0;
 let zVal = 0;
 for (var i = -10; i < 10; i++){
 	for(var j = -10; j < 10; j++){
-		if(map[j+10][i+10] == 1){
+		if(map[j+10][i+10] != 0){
 			let floorCopy = new THREE.Mesh(
 				floorGeo,
 				new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
 			)
 
-			let trackCopy = new THREE.Mesh(planeForTrack, trackMaterial)
+			let trackMatCopy = trackMaterial.clone()
+
+			let trackCopy = new THREE.Mesh(planeForTrack, trackMatCopy)
 
 			trackCopy.position.y = 500;
 			trackCopy.position.x += xVal
@@ -212,9 +214,11 @@ for (var i = -10; i < 10; i++){
 			cube2.position.x = ((Math.random()-0.5)*2)*5
 
 			// cube1.rotateZ(10)
-			if(j <= -5){
+			if(map[j+10][i+10] == 2){
 				// console.log("CUBE MAKING DIFFERENT COLOR")
-				cube2.material.color.setRGB(1, 0.5, 0.5)
+				floorCopy.material.color.setRGB(1,0.5,1);
+				trackCopy.material.color.setRGB(1,0.5,1)
+				// cube2.material.color.setRGB(1, 0.5, 0.5)
 			}else{
 				cube2.material.color.setRGB(1, 1, 0.5)
 			}
