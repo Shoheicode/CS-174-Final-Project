@@ -368,6 +368,19 @@ let actionPerformed = false;
 // camera.position.set(0, 5, 10); // Where the camera is.
 // controls.target.set(0, 0, 0); // Where the camera is looking towards.
 
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+
+    // Format with leading zeros if needed
+    const hoursStr = hours.toString().padStart(2, '0');
+    const minutesStr = minutes.toString().padStart(2, '0');
+    const secondsStr = secs.toString().padStart(2, '0');
+
+    return `${hoursStr}:${minutesStr}:${secondsStr}`;
+}
+
 function animate() {
 	// checkCollision()
 
@@ -375,6 +388,8 @@ function animate() {
 	// let elapsedTime = clock.getElapsedTime();
 
 	// if (elapsedTime > delay){
+	let elapsedTime = Math.floor(clock.getElapsedTime())
+	document.getElementById("info").innerText = `Time: ${elapsedTime}s`
 
 	floors.forEach(function (obj, index) {
 		if(!touchGround){
