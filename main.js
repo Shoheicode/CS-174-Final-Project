@@ -150,7 +150,7 @@ let map = [
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-	[1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1],
+	[3,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1],
 	[1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,2],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -166,7 +166,6 @@ let map = [
 let floors = []
 
 floors.push(floor);
-// floors.push(floor2);
 
 let xVal = 0;
 let zVal = 0;
@@ -219,7 +218,11 @@ for (var i = -10; i < 10; i++){
 				floorCopy.material.color.setRGB(1,0.5,1);
 				trackCopy.material.color.setRGB(1,0.5,1)
 				// cube2.material.color.setRGB(1, 0.5, 0.5)
-			}else{
+			}else if(map[j+10][i+10] == 3){
+				floorCopy.material.color.setRGB(1,0.5,0.5);
+				trackCopy.material.color.setRGB(1,0.5,0.5)
+			}
+			else{
 				cube2.material.color.setRGB(1, 1, 0.5)
 			}
 			
