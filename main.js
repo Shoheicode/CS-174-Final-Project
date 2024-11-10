@@ -378,6 +378,10 @@ function formatTime(seconds) {
     const minutesStr = minutes.toString().padStart(2, '0');
     const secondsStr = secs.toString().padStart(2, '0');
 
+	if(hours > 99){
+		return '99:99:99';
+	}
+
     return `${hoursStr}:${minutesStr}:${secondsStr}`;
 }
 
@@ -389,7 +393,7 @@ function animate() {
 
 	// if (elapsedTime > delay){
 	let elapsedTime = Math.floor(clock.getElapsedTime())
-	document.getElementById("info").innerText = `Time: ${elapsedTime}s`
+	document.getElementById("info").innerText = `Time: ${formatTime(elapsedTime)}s`
 
 	floors.forEach(function (obj, index) {
 		if(!touchGround){
