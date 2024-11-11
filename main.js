@@ -111,17 +111,17 @@ scene.add(redCube)
 const floorGeo = new THREE.PlaneGeometry(20, 20, 10, 10);
 floorGeo.computeBoundingBox();
 
-const floor = new THREE.Mesh(
-    floorGeo,
-    new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
-)
-floor.geometry.userData.obb = new OBB().fromBox3(
-    floor.geometry.boundingBox
-)
-floor.userData.obb = new OBB();
-floor.position.y = 1
-floor.rotateX(-Math.PI / 2)
-scene.add(floor)
+// const floor = new THREE.Mesh(
+//     floorGeo,
+//     new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
+// )
+// floor.geometry.userData.obb = new OBB().fromBox3(
+//     floor.geometry.boundingBox
+// )
+// floor.userData.obb = new OBB();
+// floor.position.y = 1
+// floor.rotateX(-Math.PI / 2)
+// scene.add(floor)
 
 const floor2 = new THREE.Mesh(
     floorGeo,
@@ -163,11 +163,13 @@ let map = [
 	[2,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,2],
 ]
 
+let currentTile = null;
+
 console.log(map.length)
 
 let floors = []
 
-floors.push(floor);
+// floors.push(floor);
 
 let xVal = 0;
 let zVal = 0;
@@ -223,6 +225,7 @@ for (var i = -10; i < 10; i++){
 			}else if(map[i+10][j+10] == 3){
 				floorCopy.material.color.setRGB(1,0.5,0.5);
 				trackCopy.material.color.setRGB(1,0.5,0.5);
+				currentTile = floorCopy;
 				redCube.position.set(xVal,5,zVal);
 			}
 			else{
@@ -389,6 +392,8 @@ function animate() {
 		if(!touchGround){
 			if(touchingGround(redCube, obj)){
 				redCube.position.y = obj.position.y + 0.75;
+				// fallen = false;
+				currentTile = obj;
 				// console.log("TOUCHING GROUND")
 				// touchingGround = true;
 				speedY = 0;
@@ -470,8 +475,9 @@ function animate() {
 		
 	// }
 	if(outOfBounds()){
-		redCube.position.x = -5;
-		redCube.position.z = 0;
+		console.log(currentTile)
+		redCube.position.x = currentTile.position.x;
+		redCube.position.z = currentTile.position.z;
 		redCube.position.y = 15;
 		speed = 0;
 	}
