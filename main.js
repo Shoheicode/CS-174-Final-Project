@@ -482,8 +482,6 @@ function animate() {
 		speed = 0;
 	}
 
-	
-
 	speed = -speed;
 
 	// Update camera to follow the block
