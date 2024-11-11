@@ -11,7 +11,7 @@ let yOffset = 5;
 let speed = 0;
 let acceleration = 0.01; // 10 m/s^2
 let maxSpeed = 0.7; // 7 m/s
-let dirRotation = 0;
+let dirRotation = -Math.PI/2; // Start turn angle
 let goBackwards = false;
 let collide = false;
 let speedY = 0;
@@ -66,8 +66,6 @@ const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 const redCubeGeo = new THREE.BoxGeometry(1,1,1);
 const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
 const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
-redCube.position.set(2,5,0);
-redCube.rotation.y = 0
 
 //WHEELS THE BLUE
 let wheels = [];
@@ -95,6 +93,8 @@ const blueWheel4 = new THREE.Mesh(wheel, blue);
 redCube.add(blueWheel4);
 blueWheel4.position.set(0.5,-0.5,-0.5)
 blueWheel4.rotateZ(-Math.PI/2)
+
+// redCube.rotateY(-Math.PI/4)
 
 redCubeGeo.computeBoundingBox()
 
@@ -141,7 +141,7 @@ floor2.rotateX(-Math.PI / 2)
 // ^
 // |
 let map = [
-	[1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1],
+	[2,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,2],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -150,8 +150,8 @@ let map = [
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-	[3,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1],
-	[1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,2],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -160,8 +160,10 @@ let map = [
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-	[1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1],
+	[2,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,2],
 ]
+
+console.log(map.length)
 
 let floors = []
 
@@ -171,7 +173,9 @@ let xVal = 0;
 let zVal = 0;
 for (var i = -10; i < 10; i++){
 	for(var j = -10; j < 10; j++){
-		if(map[j+10][i+10] != 0){
+		if(map[i+10][j+10] != 0){
+			xVal = 20 * i
+			zVal = 20 * j
 			let floorCopy = new THREE.Mesh(
 				floorGeo,
 				new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
@@ -182,8 +186,8 @@ for (var i = -10; i < 10; i++){
 			let trackCopy = new THREE.Mesh(planeForTrack, trackMatCopy)
 
 			trackCopy.position.y = 500;
-			trackCopy.position.x += xVal
-			trackCopy.position.z += zVal
+			trackCopy.position.x = xVal
+			trackCopy.position.z = zVal
 			trackCopy.rotateX(-Math.PI/2)
 
 			floorCopy.geometry.userData.obb = new OBB().fromBox3(
@@ -191,10 +195,8 @@ for (var i = -10; i < 10; i++){
 			)
 			floorCopy.userData.obb = new OBB();
 			floorCopy.position.y = -5
-			floorCopy.position.x += xVal
-			floorCopy.position.z += zVal
-			xVal = 20 * j
-			zVal = 20 * i
+			floorCopy.position.x = xVal
+			floorCopy.position.z = zVal
 			floorCopy.rotateX(-Math.PI / 2)
 
 			//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
@@ -213,14 +215,15 @@ for (var i = -10; i < 10; i++){
 			cube2.position.x = ((Math.random()-0.5)*2)*5
 
 			// cube1.rotateZ(10)
-			if(map[j+10][i+10] == 2){
+			if(map[i+10][j+10] == 2){
 				// console.log("CUBE MAKING DIFFERENT COLOR")
 				floorCopy.material.color.setRGB(1,0.5,1);
 				trackCopy.material.color.setRGB(1,0.5,1)
 				// cube2.material.color.setRGB(1, 0.5, 0.5)
-			}else if(map[j+10][i+10] == 3){
+			}else if(map[i+10][j+10] == 3){
 				floorCopy.material.color.setRGB(1,0.5,0.5);
-				trackCopy.material.color.setRGB(1,0.5,0.5)
+				trackCopy.material.color.setRGB(1,0.5,0.5);
+				redCube.position.set(xVal,5,zVal);
 			}
 			else{
 				cube2.material.color.setRGB(1, 1, 0.5)
