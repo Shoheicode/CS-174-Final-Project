@@ -171,6 +171,8 @@ let floors = []
 
 // floors.push(floor);
 
+let checkpointNum = 0;
+
 let xVal = 0;
 let zVal = 0;
 for (var i = -10; i < 10; i++){
@@ -220,7 +222,9 @@ for (var i = -10; i < 10; i++){
 			if(map[i+10][j+10] == 2){
 				// console.log("CUBE MAKING DIFFERENT COLOR")
 				floorCopy.material.color.setRGB(1,0.5,1);
-				trackCopy.material.color.setRGB(1,0.5,1)
+				trackCopy.material.color.setRGB(1,0.5,1);
+				floorCopy.name = "CHECKPOINT" + checkpointNum;
+				checkpointNum++;
 				// cube2.material.color.setRGB(1, 0.5, 0.5)
 			}else if(map[i+10][j+10] == 3){
 				floorCopy.material.color.setRGB(1,0.5,0.5);
@@ -379,6 +383,7 @@ function formatTime(seconds) {
 }
 
 function animate() {
+	console.log(currentTile.name)
 	// checkCollision()
 
 	// redCube.position.z-=0.01
