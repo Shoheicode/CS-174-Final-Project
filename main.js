@@ -8,6 +8,10 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 let zOffset = 5;
 let yOffset = 5;
 
+let lapCount = 0;
+let lapTimes = []
+let elapsedTime = 0
+
 let speed = 0;
 let acceleration = 0.01; // 10 m/s^2
 let maxSpeed = 0.7; // 7 m/s
@@ -30,9 +34,6 @@ const minimapCamera = new THREE.OrthographicCamera(
 );
 
 minimapCamera.position.set(0, 800, 0); // Position above the track
-// minimapCamera.lookAt(0,0,0)
- // Look at the center of the track
-// const trackGeometry = new THREE.CircleGeometry(100, 32);
 const trackMaterial = new THREE.MeshBasicMaterial({ acolor: 0x404040 });
 const planeForTrack = new THREE.PlaneGeometry(20, 20)
 const plane = new THREE.Mesh(planeForTrack, trackMaterial)
@@ -171,6 +172,9 @@ let floors = []
 
 // floors.push(floor);
 
+let completedCheckPoints = []
+let allCheckPoints = []
+
 let checkpointNum = 0;
 
 let xVal = 0;
@@ -224,12 +228,15 @@ for (var i = -10; i < 10; i++){
 				floorCopy.material.color.setRGB(1,0.5,1);
 				trackCopy.material.color.setRGB(1,0.5,1);
 				floorCopy.name = "CHECKPOINT" + checkpointNum;
+				completedCheckPoints.push(floorCopy.name)
+				allCheckPoints.push(floorCopy.name)
 				checkpointNum++;
 				// cube2.material.color.setRGB(1, 0.5, 0.5)
 			}else if(map[i+10][j+10] == 3){
 				floorCopy.material.color.setRGB(1,0.5,0.5);
 				trackCopy.material.color.setRGB(1,0.5,0.5);
 				currentTile = floorCopy;
+				floorCopy.name = "ENDING"
 				redCube.position.set(xVal,5,zVal);
 			}
 			else{
@@ -237,8 +244,9 @@ for (var i = -10; i < 10; i++){
 			}
 			
 			// cube1 = cube1.clone()
-
-			floorCopy.add(cube2)
+			if(floorCopy.name != "ENDING"){
+				floorCopy.add(cube2)
+			}
 			scene.add(trackCopy)
 			minimapScene.add(trackCopy.clone());
 			// console.log(floorCopy)
@@ -285,6 +293,22 @@ function checkCollision(obj1, obj2) {
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
+		if (indexToRemove > -1) {
+			completedCheckPoints.splice(indexToRemove, 1);
+		}
+
+		if(obj2.name == "ENDING" && completedCheckPoints.length == 0){
+			document.getElementById("lapTimes").innerHTML = ""
+			completedCheckPoints = [... allCheckPoints]
+			lapTimes.push(elapsedTime);
+			console.log("LAP COMPLETE")
+			lapCount++;
+			lapTimes.forEach(function(time, index){
+				console.log(index)
+				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `Time: ${formatTime(time)}s` + '\n'
+			})
+		}
         // obj2.material.color.set(0x6F7567)
 		touchGround = true;
 		return true;
@@ -383,15 +407,21 @@ function formatTime(seconds) {
 }
 
 function animate() {
-	console.log(currentTile.name)
+
+	console.log(completedCheckPoints.length)
+	// if(checkpointNum.length == 6){
+	// 	console.log("HI")
+	// }
+
+	// console.log(currentTile.name)
 	// checkCollision()
 
 	// redCube.position.z-=0.01
 	// let elapsedTime = clock.getElapsedTime();
 
 	// if (elapsedTime > delay){
-	let elapsedTime = Math.floor(clock.getElapsedTime())
-	document.getElementById("info").innerText = `Time: ${formatTime(elapsedTime)}s`
+	elapsedTime = Math.floor(clock.getElapsedTime())
+	document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
 
 	floors.forEach(function (obj, index) {
 		if(!touchGround){
@@ -517,6 +547,10 @@ function animate() {
 	)
 	minimapCamera.lookAt(carMarker.position);
 	renderer.render(minimapScene, minimapCamera);
+
+	if(lapCount == 3){
+		console.log("FINISH RACE")
+	}
 	
 
 	touchGround = false;

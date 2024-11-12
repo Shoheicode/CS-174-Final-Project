@@ -1,7 +1,20 @@
-#info {
+#time {
 	position: absolute;
 	/* top: 80%; */
-    bottom: 10%;
+    bottom: 12%;
+    left: 5%;
+	width: 10%;
+	text-align: center;
+	z-index: 100;
+	display:block;
+    color: white;
+    background-color: blue;
+}
+
+#lapTimes {
+	position: absolute;
+	/* top: 80%; */
+    bottom: 6%;
     left: 5%;
 	width: 10%;
 	text-align: center;
