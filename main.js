@@ -10,7 +10,8 @@ let yOffset = 5;
 
 let lapCount = 0;
 let lapTimes = []
-let elapsedTime = 0
+let elapsedTime = 0;
+let prevTime = 0;
 
 let speed = 0;
 let acceleration = 0.01; // 10 m/s^2
@@ -19,6 +20,7 @@ let dirRotation = -Math.PI/2; // Start turn angle
 let goBackwards = false;
 let collide = false;
 let speedY = 0;
+let raceOver = false;
 
 let rSpeed = 0;
 let run = false;
@@ -301,12 +303,13 @@ function checkCollision(obj1, obj2) {
 		if(obj2.name == "ENDING" && completedCheckPoints.length == 0){
 			document.getElementById("lapTimes").innerHTML = ""
 			completedCheckPoints = [... allCheckPoints]
-			lapTimes.push(elapsedTime);
+			lapTimes.push(elapsedTime-prevTime);
+			prevTime = elapsedTime
 			console.log("LAP COMPLETE")
 			lapCount++;
 			lapTimes.forEach(function(time, index){
 				console.log(index)
-				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `Time: ${formatTime(time)}s` + '\n'
+				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n'
 			})
 		}
         // obj2.material.color.set(0x6F7567)
@@ -407,6 +410,9 @@ function formatTime(seconds) {
 }
 
 function animate() {
+	if(raceOver){
+		return;
+	}
 
 	console.log(completedCheckPoints.length)
 	// if(checkpointNum.length == 6){
@@ -550,6 +556,7 @@ function animate() {
 
 	if(lapCount == 3){
 		console.log("FINISH RACE")
+		raceOver = true;
 	}
 	
 
