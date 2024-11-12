@@ -13,6 +13,9 @@ let lapTimes = []
 let elapsedTime = 0;
 let prevTime = 0;
 
+let powerupActivate = false;
+let timePowerupDuration = 0;
+
 let speed = 0;
 let acceleration = 0.01; // 10 m/s^2
 let maxSpeed = 0.7; // 7 m/s
@@ -244,7 +247,14 @@ for (var i = -10; i < 10; i++){
 				redCube.position.set(xVal,5,zVal);
 			}
 			else{
-				cube2.material.color.setRGB(1, 1, 0.5)
+				if(Math.random() <= 0.2){
+					cube2.material.color.setRGB(0.5, 0.5, 0.5)
+					cube2.name = "POWERUP"
+					console.log("HIHIHI")
+				}
+				else{
+					cube2.material.color.setRGB(1, 1, 0.5)
+				}
 			}
 			
 			// cube1 = cube1.clone()
@@ -459,10 +469,16 @@ function animate() {
 
 	if(touchGround){
 		if(run){
-			speed += acceleration;
-			if(speed > maxSpeed){
-				speed = maxSpeed;
-				// console.log("ACHIEVED MAX SPEED")
+
+			if(powerupActivate){
+				speed = 1;
+			}
+				else{
+				speed += acceleration;
+				if(speed > maxSpeed){
+					speed = maxSpeed;
+					// console.log("ACHIEVED MAX SPEED")
+				}
 			}
 		} else{
 			// console.log("NOT RUNNING")
@@ -482,7 +498,10 @@ function animate() {
 	floors.forEach(function (obj, index) {
 		obj["children"].forEach(function(obj2, index){
 			if(!collide){
-				if(checkCollision(redCube, obj2)){
+				if(checkCollision(redCube, obj2) && obj2.name == "POWERUP"){
+					obj.remove(obj2)
+				}
+				else if(checkCollision(redCube, obj2)){
 					let speedX2 = Math.sin(rotation) * (speed-0.3);
 					let speedZ2 = Math.cos(rotation) * (speed-0.3);
 					if(speedX2 < 0){
