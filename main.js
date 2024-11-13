@@ -3,6 +3,44 @@ import { OBB } from 'three/examples/jsm/Addons.js';
 import { directionToColor } from 'three/webgpu';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { GUI } from 'dat.gui'
+
+// Translation Matrices
+function translationMatrix(tx, ty, tz) {
+	return new THREE.Matrix4().set(
+		1, 0, 0, tx,
+		0, 1, 0, ty,
+		0, 0, 1, tz,
+		0, 0, 0, 1
+	);
+}
+
+function rotationMatrixX(theta) {
+    return new THREE.Matrix4().set(
+        1, 0, 0, 0,
+        0, Math.cos(theta), -Math.sin(theta), 0,
+        0, Math.sin(theta), Math.cos(theta), 0,
+        0, 0, 0, 1
+    );
+}
+
+function rotationMatrixY(theta) {
+    return new THREE.Matrix4().set(
+        Math.cos(theta), 0, Math.sin(theta), 0,
+        0, 1, 0, 0,
+        -Math.sin(theta), 0, Math.cos(theta), 0,
+        0, 0, 0, 1
+    );
+}
+
+function rotationMatrixZ(theta) {
+	return new THREE.Matrix4().set(
+		Math.cos(theta), -Math.sin(theta), 0, 0,
+		Math.sin(theta),  Math.cos(theta), 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1
+	);
+}
 
 //CONSTANTS:
 let zOffset = 5;
@@ -129,17 +167,17 @@ floorGeo.computeBoundingBox();
 // floor.rotateX(-Math.PI / 2)
 // scene.add(floor)
 
-const floor2 = new THREE.Mesh(
-    floorGeo,
-    new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
-)
-floor2.geometry.userData.obb = new OBB().fromBox3(
-    floor2.geometry.boundingBox
-)
-floor2.userData.obb = new OBB();
-floor2.position.y = -4.99
-floor2.position.x += 10
-floor2.rotateX(-Math.PI / 2)
+// const floor2 = new THREE.Mesh(
+//     floorGeo,
+//     new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
+// )
+// floor2.geometry.userData.obb = new OBB().fromBox3(
+//     floor2.geometry.boundingBox
+// )
+// floor2.userData.obb = new OBB();
+// floor2.position.y = -4.99
+// floor2.position.x += 10
+// floor2.rotateX(-Math.PI / 2)
 // scene.add(floor2)
 
 // -> -x 
@@ -174,6 +212,7 @@ let currentTile = null;
 console.log(map.length)
 
 let floors = []
+let floors2 = []
 
 // floors.push(floor);
 
@@ -185,16 +224,45 @@ let checkpointNum = 0;
 let xVal = 0;
 let zVal = 0;
 
+let floorCopy = new THREE.Mesh(
+	floorGeo,
+	new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
+)
+
+let trackMatCopy1 = trackMaterial.clone()
+
+let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
+
+// trackCopy.position.y = 500;
+// trackCopy.position.x = xVal
+// trackCopy.position.z = zVal
+// trackCopy.rotateX(-Math.PI/2)
+
+let x = 0;
+let z = 0;
+
 
 for (var i = -10; i < 10; i++){
 	for(var j = -10; j < 10; j++){
 		if(map[i+10][j+10] != 0){
 			xVal = 20 * i
 			zVal = 20 * j
+
+			const mat = new THREE.MeshPhongMaterial()
+			const texture = new THREE.TextureLoader().load('road-texture-4k-02.jpg')
+			mat.map = texture
+			const bumpTexture = new THREE.TextureLoader().load('road-texture-4k-02.jpg')
+			mat.bumpMap = bumpTexture
+			mat.bumpScale = 0.015
+
 			let floorCopy = new THREE.Mesh(
 				floorGeo,
-				new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
+				mat
 			)
+			// let floorCopy = new THREE.Mesh(
+			// 	floorGeo,
+			// 	new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
+			// )
 
 			let trackMatCopy = trackMaterial.clone()
 
@@ -232,7 +300,9 @@ for (var i = -10; i < 10; i++){
 			// cube1.rotateZ(10)
 			if(map[i+10][j+10] == 2){
 				// console.log("CUBE MAKING DIFFERENT COLOR")
-				floorCopy.material.color.setRGB(1,0.5,1);
+				// floorCopy.material.color.setRGB(1,0.5,1);
+				// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmap.jpg')
+
 				trackCopy.material.color.setRGB(1,0.5,1);
 				floorCopy.name = "CHECKPOINT" + checkpointNum;
 				completedCheckPoints.push(floorCopy.name)
@@ -240,11 +310,15 @@ for (var i = -10; i < 10; i++){
 				checkpointNum++;
 				// cube2.material.color.setRGB(1, 0.5, 0.5)
 			}else if(map[i+10][j+10] == 3){
-				floorCopy.material.color.setRGB(1,0.5,0.5);
+				// floorCopy.material.color.setRGB(1,0.5,0.5);
 				trackCopy.material.color.setRGB(1,0.5,0.5);
 				currentTile = floorCopy;
 				floorCopy.name = "ENDING"
 				redCube.position.set(xVal,5,zVal);
+				// redCube.matrix.set(xVal, 5, zVal);
+				x = xVal;
+				z = zVal
+				// redCube.matrixAutoUpdate = false;
 			}
 			else{
 				if(Math.random() <= 0.2){
@@ -261,11 +335,65 @@ for (var i = -10; i < 10; i++){
 			if(floorCopy.name != "ENDING"){
 				floorCopy.add(cube2)
 			}
+
+			const light = new THREE.PointLight(0xffffff, 1000)
+			light.position.set(xVal, 100, zVal)
+			scene.add(light)
+
 			scene.add(trackCopy)
 			minimapScene.add(trackCopy.clone());
 			// console.log(floorCopy)
 			floors.push(floorCopy)
 			scene.add(floorCopy)
+
+			// scene.add(floorCopy2)
+		}
+	}
+}
+
+
+function createMap(){
+	for (var i = -10; i < 10; i++){
+		for(var j = -10; j < 10; j++){
+			if(map[i+10][j+10] != 0){
+				xVal = 20 * i
+				zVal = 20 * j
+	
+				let floorCopy2 = new THREE.Mesh(
+					floorGeo,
+					new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
+				)
+	
+				floorCopy2.geometry.userData.obb = new OBB().fromBox3(
+					floorCopy2.geometry.boundingBox
+				);
+				floorCopy2.userData.obb = new OBB();
+				let M = new THREE.Matrix4();
+				M = rotationMatrixX(-Math.PI/2).multiply(M);
+				M = translationMatrix(xVal, -5, zVal).multiply(M);
+				floorCopy2.matrix.copy(M)
+				floorCopy2.matrixAutoUpdate = false;
+
+				if(map[i+10][j+10] == 3){
+					// floorCopy.material.color.setRGB(1,0.5,0.5);
+					// trackCopy.material.color.setRGB(1,0.5,0.5);
+					// currentTile = floorCopy;
+					// floorCopy.name = "ENDING"
+					redCube.position.set(xVal,5,zVal);
+					// let MPLAYER = new THREE.Matrix4()
+					// MPLAYER = translationMatrix(xVal, 5, zVal).multiply(MPLAYER);
+					// redCube.matrix.copy(MPLAYER)
+					// // MCAM = translationMatrix(redCube.position.x + Math.sin(rotation) * 10, 0, redCube.position.y + 10 , redCube.position.z + Math.cos(rotation) * 10)
+					// camera.matrix.copy(MPLAYER)
+					// camera.matrixAutoUpdate = false;
+					// x = xVal;
+					// z = zVal
+					// redCube.matrixAutoUpdate = false;
+				}
+	
+				scene.add(floorCopy2)
+				floors2.push(floorCopy2)
+			}
 		}
 	}
 }
@@ -345,11 +473,11 @@ function onDocumentKeyDown(event){
 			run = false;
 			break;
 		case 65: //LEFT (A key)
-			rSpeed = 0.02;
+			rSpeed = 0.025;
 			// console.log(redCube)
 			break;
 		case 68: //RIGHT (D KEY)
-			rSpeed = -0.02;
+			rSpeed = -0.025;
 			break;
 		case 83:
 			goBackwards = true;
@@ -422,9 +550,17 @@ function formatTime(seconds) {
 }
 
 function animate() {
+	// createMap()
+
+	// trackCopy1.matrix.copy(translationMatrix(x, -5, z))
+	// trackCopy1.matrixAutoUpdate = false
+
 	if(raceOver){
 		return;
 	}
+
+	let M = new THREE.Matrix4();
+	// M = translationMatrix(0, speedY, 0);
 
 	// console.log(completedCheckPoints.length)
 	// if(checkpointNum.length == 6){
@@ -454,9 +590,32 @@ function animate() {
 		}
 	})
 
+	// floors2.forEach(function (obj, index) {
+	// 	if(!touchGround){
+	// 		if(touchingGround(redCube, obj)){
+	// 			console.log("TOUCHING")
+	// 			let M = new THREE.Matrix4();
+	// 			M = translationMatrix(0, 0, 0).multiply(M);
+	// 			redCube.matrix.multiply(M);
+	// 			redCube.matrixAutoUpdate = false;
+	// 			// redCube.position.y = obj.position.y + 0.75;
+	// 			// fallen = false;
+	// 			currentTile = obj;
+	// 			// console.log("TOUCHING GROUND")
+	// 			// touchingGround = true;
+	// 			speedY = 0;
+	// 		}
+	// 	}
+	// })
+
 	if(!touchGround){
+		console.log("FALLING")
 		speedY -= 0.0098 // 9.8 m/s
-		redCube.position.y += speedY;
+		// let M = new THREE.Matrix4();
+		// M = translationMatrix(0, speedY, 0);
+		// redCube.matrix.multiply(M);
+		// redCube.matrixAutoUpdate = false;
+		redCube.position.y += speedY
 		// if(touchingGround(redCube, obj)){
 		// 	// console.log("REDCUBE: " + redCube.position.y)
 		// 	// console.log("OBJECT " + index + " : "+ obj.position.y)
@@ -481,6 +640,7 @@ function animate() {
 				}
 			}
 		} else{
+			powerupActivate = false;
 			// console.log("NOT RUNNING")
 			speed -= acceleration;
 			if(speed < 0){
@@ -500,6 +660,8 @@ function animate() {
 			if(!collide){
 				if(checkCollision(redCube, obj2) && obj2.name == "POWERUP"){
 					obj.remove(obj2)
+					powerupActivate = true
+					timePowerupDuration = elapsedTime + 3;
 				}
 				else if(checkCollision(redCube, obj2)){
 					let speedX2 = Math.sin(rotation) * (speed-0.3);
@@ -516,6 +678,7 @@ function animate() {
 						redCube.position.z -= (speedZ2);
 					}
 					speed = 0
+
 				}
 			}
 		})
@@ -525,6 +688,17 @@ function animate() {
 		redCube.rotation.y = rotation;
 		redCube.position.z += speedZ;
 		redCube.position.x += speedX;
+		// console.log("HIHIH")
+		// let M = new THREE.Matrix4();
+		// let prev = redCube.matrix.clone();
+		// M = redCube.matrix;
+		// // M = prev.clone().invert()
+		// M = rotationMatrixY(rotation).multiply(M)
+		// // M = prev.multiply(M);
+		// M = translationMatrix(0.1, 0, 0.1).multiply(M);
+		// M = prev.multiply(M)
+		// redCube.matrix.copy(M)//multiply(M);
+		// redCube.matrixAutoUpdate = false;
 	}
 
 	// if(checkCollision(redCube, floor)){
@@ -542,11 +716,15 @@ function animate() {
 		redCube.position.z = currentTile.position.z;
 		redCube.position.y = 15;
 		speed = 0;
+		powerupActivate = false;
 	}
 
 	speed = -speed;
 
 	// Update camera to follow the block
+	let MCAM = new THREE.Matrix4()
+	// MCAM = rotationMatrixY(rotation)
+	// MCAM = translationMatrix(redCube.position.x + Math.sin(rotation) * 10, 0, redCube.position.y + 10 , redCube.position.z + Math.cos(rotation) * 10)
 	camera.rotation.y = rotation;
 	camera.position.x = redCube.position.x + Math.sin(rotation) * 10;
 	camera.position.z = redCube.position.z + Math.cos(rotation) * 10;
@@ -578,6 +756,10 @@ function animate() {
 	if(lapCount == 3){
 		console.log("FINISH RACE")
 		raceOver = true;
+	}
+
+	if(powerupActivate && timePowerupDuration <= elapsedTime){
+		powerupActivate = false;
 	}
 	
 
