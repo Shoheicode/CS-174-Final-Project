@@ -1,3 +1,15 @@
+#deaths {
+	position: absolute;
+    bottom: 20%;
+    left: 5%;
+	width: 10%;
+	text-align: center;
+	z-index: 100;
+	display:block;
+    color: white;
+    background-color: green;
+}
+
 #time {
 	position: absolute;
 	/* top: 80%; */

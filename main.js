@@ -27,6 +27,10 @@ let run = false;
 
 let touchGround = true;
 
+// init death counters
+let deaths = 0;
+let currentDeaths = 0;
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -313,6 +317,8 @@ function checkCollision(obj1, obj2) {
 				console.log(index)
 				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n'
 			})
+			// reset currentDeaths
+			currentDeaths = 0;
 		}
         // obj2.material.color.set(0x6F7567)
 		touchGround = true;
@@ -430,6 +436,9 @@ function animate() {
 	// if (elapsedTime > delay){
 	elapsedTime = Math.floor(clock.getElapsedTime())
 	document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
+	
+	// track # of deaths
+	document.getElementById("deaths").innerText = `Deaths: ${currentDeaths} (Total: ${deaths})`;
 
 	floors.forEach(function (obj, index) {
 		if(!touchGround){
@@ -523,6 +532,10 @@ function animate() {
 		redCube.position.z = currentTile.position.z;
 		redCube.position.y = 15;
 		speed = 0;
+
+		// increment death counters
+		deaths++;
+		currentDeaths++;
 	}
 
 	speed = -speed;
