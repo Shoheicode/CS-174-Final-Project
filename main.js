@@ -14,7 +14,8 @@ let elapsedTime = 0;
 let prevTime = 0;
 
 let powerupActivate = false;
-let timePowerupDuration = 0;
+let powerupActivationTime = null;
+let timePowerupDuration = 3;
 
 let speed = 0;
 let acceleration = 0.01; // 10 m/s^2
@@ -477,12 +478,15 @@ function animate() {
 	}
 
 	if(touchGround){
+		if (powerupActivationTime != null && elapsedTime > powerupActivationTime + timePowerupDuration) {
+			powerupActivate = false;
+			powerupActivationTime = null;
+		}
 		if(run){
-
 			if(powerupActivate){
 				speed = 1;
 			}
-				else{
+			else{
 				speed += acceleration;
 				if(speed > maxSpeed){
 					speed = maxSpeed;
@@ -509,6 +513,8 @@ function animate() {
 			if(!collide){
 				if(checkCollision(redCube, obj2) && obj2.name == "POWERUP"){
 					obj.remove(obj2)
+					powerupActivate = true;
+					powerupActivationTime = elapsedTime;
 				}
 				else if(checkCollision(redCube, obj2)){
 					let speedX2 = Math.sin(rotation) * (speed-0.3);
@@ -555,6 +561,10 @@ function animate() {
 		// increment death counters
 		deaths++;
 		currentDeaths++;
+		
+		// reset powerup effect
+		powerupActivate = false;
+		powerupActivationTime = null;
 	}
 
 	speed = -speed;
