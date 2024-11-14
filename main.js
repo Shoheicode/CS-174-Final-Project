@@ -220,8 +220,6 @@ let map = [
 
 let currentTile = null;
 
-// console.log(map.length)
-
 let floors = []
 let floors2 = []
 
@@ -369,10 +367,11 @@ for (var i = -10; i < 10; i++){
 	}
 }
 console.log("LENGTH AFTER PT 2:" +  scene.children.length)
+completedCheckPoints.reverse()
 }
 createMap()
 
-completedCheckPoints.reverse()
+// completedCheckPoints.reverse()
 
 function deleteMap(){
 	let deleteObj = []
@@ -446,6 +445,7 @@ function createMap2(){
 		}
 	}
 }
+createMap2()
 
 // console.log(floors[5].children[0].material.color.setRGB(1, 0.5, 0.5))
 
