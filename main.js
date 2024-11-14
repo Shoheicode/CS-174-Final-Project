@@ -77,7 +77,11 @@ let run = false;
 
 let touchGround = true;
 
+//Scene Code
 const scene = new THREE.Scene();
+const textureLoader = new THREE.TextureLoader();
+const bgTexture = textureLoader.load('39608.jpg');
+scene.background = bgTexture;
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 // Orthongraphic Camera
@@ -445,7 +449,7 @@ function createMap2(){
 		}
 	}
 }
-createMap2()
+// createMap2()
 
 // console.log(floors[5].children[0].material.color.setRGB(1, 0.5, 0.5))
 
