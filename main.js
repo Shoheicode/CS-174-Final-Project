@@ -3,6 +3,7 @@ import { OBB } from 'three/examples/jsm/Addons.js';
 import { directionToColor } from 'three/webgpu';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { mx_bilerp_0 } from 'three/src/nodes/materialx/lib/mx_noise.js';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -43,8 +44,16 @@ function rotationMatrixZ(theta) {
 }
 
 //CONSTANTS:
+
+let gameState = ["Start", "Map1", "Map2", "Map 3", "Reset"]
+
+let clock = new THREE.Clock();
+
 let zOffset = 5;
 let yOffset = 5;
+
+let startX = 0;
+let startZ = 0;
 
 let lapCount = 0;
 let lapTimes = []
@@ -86,7 +95,7 @@ const plane = new THREE.Mesh(planeForTrack, trackMaterial)
 plane.position.y = 500
 // plane.position.y = 
 plane.rotateX(-Math.PI/2)
-scene.add(plane);
+// scene.add(plane);
 
 const minimapScene = new THREE.Scene();
 minimapScene.add(plane.clone());
@@ -150,7 +159,7 @@ redCube.geometry.userData.obb = new OBB().fromBox3(
 )
 redCube.userData.obb = new OBB()
 
-scene.add(redCube)
+// scene.add(redCube)
 
 const floorGeo = new THREE.PlaneGeometry(20, 20, 10, 10);
 floorGeo.computeBoundingBox();
@@ -184,13 +193,15 @@ floorGeo.computeBoundingBox();
 // z+
 // ^
 // |
+
+//17 + 20 + 17 + 20 = 
 let map = [
-	[1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,0,0,0],
+	[1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
@@ -199,17 +210,17 @@ let map = [
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
 	[1,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0],
 	[1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0],
 	[1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0],
-	[1,1,1,1,1,0,0,1,1,2,1,1,1,1,1,1,1,0,0,0],
+	[1,1,1,1,1,0,0,1,1,8,1,1,1,1,1,1,1,0,0,0],
 ]
 
 let currentTile = null;
 
-console.log(map.length)
+// console.log(map.length)
 
 let floors = []
 let floors2 = []
@@ -233,27 +244,26 @@ let trackMatCopy1 = trackMaterial.clone()
 
 let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
 
+const texture = new THREE.TextureLoader().load('road-texture-4k-02.jpg')
+
 // trackCopy.position.y = 500;
 // trackCopy.position.x = xVal
 // trackCopy.position.z = zVal
 // trackCopy.rotateX(-Math.PI/2)
 
-let x = 0;
-let z = 0;
-
-
+function createMap(){
+	scene.add(redCube)
+	console.log("LENGTH AFTER" +  scene.children.length)
 for (var i = -10; i < 10; i++){
 	for(var j = -10; j < 10; j++){
 		if(map[i+10][j+10] != 0){
 			xVal = 20 * i
 			zVal = 20 * j
 
-			const mat = new THREE.MeshPhongMaterial()
-			const texture = new THREE.TextureLoader().load('road-texture-4k-02.jpg')
-			mat.map = texture
-			const bumpTexture = new THREE.TextureLoader().load('road-texture-4k-02.jpg')
-			mat.bumpMap = bumpTexture
-			mat.bumpScale = 0.015
+			const mat = new THREE.MeshPhongMaterial();
+			// const bumpTexture = new THREE.TextureLoader().load('road-texture-4k-02.jpg')
+			// mat.bumpMap = bumpTexture
+			// mat.bumpScale = 0.015
 
 			let floorCopy = new THREE.Mesh(
 				floorGeo,
@@ -268,6 +278,8 @@ for (var i = -10; i < 10; i++){
 
 			let trackCopy = new THREE.Mesh(planeForTrack, trackMatCopy)
 
+			trackCopy.name = "track"
+
 			trackCopy.position.y = 500;
 			trackCopy.position.x = xVal
 			trackCopy.position.z = zVal
@@ -281,6 +293,11 @@ for (var i = -10; i < 10; i++){
 			floorCopy.position.x = xVal
 			floorCopy.position.z = zVal
 			floorCopy.rotateX(-Math.PI / 2)
+
+			const light = new THREE.PointLight(0xffffff, 1000)
+			light.name = "light";
+			light.position.set(xVal, 100, zVal)
+			scene.add(light)
 
 			//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
 			let mat2 = material.clone()
@@ -298,33 +315,38 @@ for (var i = -10; i < 10; i++){
 			cube2.position.x = ((Math.random()-0.5)*2)*5
 
 			// cube1.rotateZ(10)
-			if(map[i+10][j+10] == 2){
-				// console.log("CUBE MAKING DIFFERENT COLOR")
-				// floorCopy.material.color.setRGB(1,0.5,1);
+			if(map[i+10][j+10] <10 && map[i+10][j+10] > 4){
+				floorCopy.material.color.setRGB(1,0.5,1);
 				// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmap.jpg')
 
 				trackCopy.material.color.setRGB(1,0.5,1);
-				floorCopy.name = "CHECKPOINT" + checkpointNum;
+				floorCopy.material.wireframe = true
+				floorCopy.name = "CHECKPOINT" + map[i+10][j+10];
+				console.log(map[i+10][j+10])
 				completedCheckPoints.push(floorCopy.name)
 				allCheckPoints.push(floorCopy.name)
 				checkpointNum++;
 				// cube2.material.color.setRGB(1, 0.5, 0.5)
 			}else if(map[i+10][j+10] == 3){
-				// floorCopy.material.color.setRGB(1,0.5,0.5);
+				floorCopy.material.color.setRGB(1,0.5,0.5);
 				trackCopy.material.color.setRGB(1,0.5,0.5);
+				floorCopy.material.wireframe = true
 				currentTile = floorCopy;
 				floorCopy.name = "ENDING"
 				redCube.position.set(xVal,5,zVal);
 				// redCube.matrix.set(xVal, 5, zVal);
-				x = xVal;
-				z = zVal
+				startX = xVal;
+				startZ = zVal
 				// redCube.matrixAutoUpdate = false;
 			}
 			else{
+				floorCopy.material.color.setRGB(0.5,0.5,0.5);
+				floorCopy.material.map = texture
+				floorCopy.name = "floor";
 				if(Math.random() <= 0.2){
 					cube2.material.color.setRGB(0.5, 0.5, 0.5)
 					cube2.name = "POWERUP"
-					console.log("HIHIHI")
+					// console.log("HIHIHI")
 				}
 				else{
 					cube2.material.color.setRGB(1, 1, 0.5)
@@ -336,10 +358,6 @@ for (var i = -10; i < 10; i++){
 				floorCopy.add(cube2)
 			}
 
-			const light = new THREE.PointLight(0xffffff, 1000)
-			light.position.set(xVal, 100, zVal)
-			scene.add(light)
-
 			scene.add(trackCopy)
 			minimapScene.add(trackCopy.clone());
 			// console.log(floorCopy)
@@ -350,9 +368,40 @@ for (var i = -10; i < 10; i++){
 		}
 	}
 }
+console.log("LENGTH AFTER PT 2:" +  scene.children.length)
+}
+createMap()
+
+completedCheckPoints.reverse()
+
+function deleteMap(){
+	let deleteObj = []
+	let i = 0;
+	console.log("scene.children after: ");
+	console.log(scene.children);
+	console.log("Length BEOFRE" + scene.children.length)
+	scene.children.forEach((obj)=>{
+		deleteObj.push(obj)
+	})
+
+	deleteObj.forEach((obj)=>{
+		scene.remove(obj)
+	})
+
+	minimapScene.children.forEach((obj)=>{
+		// console.log(obj.name)
+		if(obj.name == "track"){
+			console.log(obj.name)
+			scene.remove(obj)
+		}
+	})
+	
+	// console.log(floors)
+	floors = []
+}
 
 
-function createMap(){
+function createMap2(){
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
 			if(map[i+10][j+10] != 0){
@@ -436,7 +485,8 @@ function checkCollision(obj1, obj2) {
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
 		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
-		if (indexToRemove > -1) {
+		if (indexToRemove == 0) {
+			console.log("hi ho")
 			completedCheckPoints.splice(indexToRemove, 1);
 		}
 
@@ -448,7 +498,7 @@ function checkCollision(obj1, obj2) {
 			console.log("LAP COMPLETE")
 			lapCount++;
 			lapTimes.forEach(function(time, index){
-				console.log(index)
+				// console.log(index)
 				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n'
 			})
 		}
@@ -461,26 +511,48 @@ function checkCollision(obj1, obj2) {
     }
  }
 
+function reset(){
+	// console.log("RUNNINg")
+	speed = 0;
+	redCube.position.set(startX, 5, startZ);
+	dirRotation = -Math.PI/2;
+	clock.elapsedTime = 0;
+	completedCheckPoints = [... allCheckPoints]
+	lapTimes = [];
+	lapCount = 0;
+	prevTime = 0;
+	document.getElementById("lapTimes").innerText=""
+	deleteMap()
+	createMap()
+
+}
+
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
-	console.log(keyCode)
+	// console.log(keyCode)
 	switch(keyCode){
 		case 16: //Acceleration (Shift Key)
 			run = true;
 			break;
-		case 32:
+		case 32: // Space bar
 			run = false;
+			// scene.children = []
 			break;
 		case 65: //LEFT (A key)
-			rSpeed = 0.025;
+			rSpeed = 0.03;
 			// console.log(redCube)
 			break;
 		case 68: //RIGHT (D KEY)
-			rSpeed = -0.025;
+			rSpeed = -0.03;
 			break;
 		case 83:
 			goBackwards = true;
+			break;
+		case 82:
+			console.log("RESET")
+			reset();
+			break;
 	}
 }
 
@@ -488,6 +560,7 @@ document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {
 	switch(e.keyCode) {
 		case 16: // shift
+			console.log("KEY UP")
 			run = false;
 			break;
 		case 65: // a
@@ -521,7 +594,6 @@ function updateMinimap() {
 	carMarker.position.y = 500
 }
 
-let clock = new THREE.Clock();
 const timeScale = 0.00005;
 
 // let clock = new THREE.Clock();
@@ -609,7 +681,7 @@ function animate() {
 	// })
 
 	if(!touchGround){
-		console.log("FALLING")
+		// console.log("FALLING")
 		speedY -= 0.0098 // 9.8 m/s
 		// let M = new THREE.Matrix4();
 		// M = translationMatrix(0, speedY, 0);
@@ -761,7 +833,6 @@ function animate() {
 	if(powerupActivate && timePowerupDuration <= elapsedTime){
 		powerupActivate = false;
 	}
-	
 
 	touchGround = false;
 	collide = false;
