@@ -65,7 +65,7 @@ let powerupActivate = false;
 let timePowerupDuration = 0;
 
 let speed = 0;
-let acceleration = 0.01; // 10 m/s^2
+let acceleration = 0.005; // 5 m/s^2
 let maxSpeed = 0.7; // 7 m/s
 let dirRotation = -Math.PI/2; // Start turn angle
 let goBackwards = false;
@@ -86,6 +86,8 @@ let touchGround = true;
 const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
 const bgTexture = textureLoader.load('39608.jpg');
+// https://wallpaperaccess.com/universe-landscape
+
 scene.background = bgTexture;
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -136,7 +138,8 @@ const player = new THREE.Mesh(playerGeo, playerMat);
 let wheels = [];
 
 const wheel = new THREE.CylinderGeometry(0.5, 0.5, 0.5, 32);
-const blue = new THREE.MeshPhongMaterial({color: "blue"});
+const blue = new THREE.MeshPhongMaterial();
+blue.map = textureLoader.load('RainbowWheelTexture.jpg')
 // const green = new THREE.MeshBasicMaterial({color: "green"});
 const blueWheel = new THREE.Mesh(wheel, blue);
 player.add(blueWheel);
@@ -834,7 +837,7 @@ function animate() {
 	if(touchGround){
 		if(run){
 			wheels.forEach((obj)=>{
-				obj.rotateY(Math.PI/4)
+				obj.rotateY(-Math.PI/4)
 			})
 			if(powerupActivate){
 				speed = 1;
