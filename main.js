@@ -365,11 +365,13 @@ function createMap(){
 					if(Math.random() <= 0.2){
 						let num = Math.random();
 						if (num <= 0.3) {
-							// cube2.material.color.setRGB(1.0, 0.0, 0.0);
-							cube2.material = new THREE.MeshBasicMaterial()
+							// cube2.material.colorftm.setRGB(1.0, 0.0, 0.0);
+							cube2.material = new THREE.MeshPhongMaterial()
 							cube2.material.map = powerupTexture
-							cube2.material.bumpScale = 0.1
-							
+							cube2.material.bumpMap = powerupTexture
+							// cube2.material.bumpScale = 0.1
+							cube2.rotation.x = Math.PI/4
+							// cube2.rotateX(Math.PI/4)
 							cube2.name = "POWERUPINCREASE";
 						}
 						else if (num <= 0.7) {
@@ -628,7 +630,7 @@ function reset(){
 	document.getElementById("Finished").innerHTML = ""
 	deaths = 0;
 	currentDeaths = 0;
-
+	offset = 0
 }
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
@@ -823,6 +825,7 @@ function animate() {
 
 	floors.forEach(function (obj, index) {
 		obj["children"].forEach(function(obj2, index){
+			obj2.rotateZ(Math.PI/124)
 			if(!collide){
 				if(checkCollision(redCube, obj2) && (obj2.name == "POWERUPDECREASE" || obj2.name == "POWERUPSPEED" || obj2.name == "POWERUPINCREASE")){
 					if (obj2.name == "POWERUPSPEED") {
