@@ -73,6 +73,10 @@ let collide = false;
 let speedY = 0;
 let raceOver = false;
 
+// init death counters
+let deaths = 0;
+let currentDeaths = 0;
+
 let rSpeed = 0;
 let run = false;
 
@@ -583,6 +587,8 @@ function checkCollision(obj1, obj2) {
 			console.log("LAP TIMES:" + lapTimes);
 			completedCheckPoints.reverse()
 			console.log("COMPLETE: " + completedCheckPoints)
+			// reset currentDeaths
+			currentDeaths = 0;
 		}
         // obj2.material.color.set(0x6F7567)
 		touchGround = true;
@@ -720,6 +726,9 @@ function animate() {
 	// if (elapsedTime > delay){
 	elapsedTime = Math.floor(clock.getElapsedTime()) + offset;
 	document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
+	
+	// track # of deaths
+	document.getElementById("deaths").innerText = `Deaths: ${currentDeaths} (Total: ${deaths})`;
 
 	floors.forEach(function (obj, index) {
 		if(!touchGround){
@@ -858,6 +867,10 @@ function animate() {
 		redCube.position.y = 15;
 		speed = 0;
 		powerupActivate = false;
+		
+		// increment death counters
+		deaths++;
+		currentDeaths++;
 	}
 
 	speed = -speed;
