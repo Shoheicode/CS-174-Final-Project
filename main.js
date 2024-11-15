@@ -632,7 +632,11 @@ function checkCollision(obj1, obj2) {
 		if(obj2.name == "ENDING" && completedCheckPoints.length == 0){
 			document.getElementById("lapTimes").innerHTML = ""
 			completedCheckPoints = [... allCheckPoints]
-			lapTimes.push(elapsedTime-prevTime);
+			if(prevTime < 0){
+				lapTimes.push(elapsedTime+prevTime);
+			}else{
+				lapTimes.push(elapsedTime-prevTime);
+			}
 			prevTime = elapsedTime
 			// console.log("LAP COMPLETE")
 			lapCount++;
@@ -826,19 +830,7 @@ function animate() {
 	if(!touchGround){
 		// console.log("FALLING")
 		speedY -= 0.0098 // 9.8 m/s
-		// let M = new THREE.Matrix4();
-		// M = translationMatrix(0, speedY, 0);
-		// redCube.matrix.multiply(M);
-		// redCube.matrixAutoUpdate = false;
 		redCube.position.y += speedY
-		// if(touchingGround(redCube, obj)){
-		// 	// console.log("REDCUBE: " + redCube.position.y)
-		// 	// console.log("OBJECT " + index + " : "+ obj.position.y)
-		// 	redCube.position.y = obj.position.y + 0.5;
-		// 	// console.log("TOUCHING GROUND")
-		// 	// touchingGround = true;
-		// 	speedY = 0;
-		// }
 	}
 
 	if(touchGround){
