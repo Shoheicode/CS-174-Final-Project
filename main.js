@@ -93,6 +93,7 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 const powerupTexture = textureLoader.load('powerUp1Texture.png');
 
 // Finish Line Texture
+const finishTexture = textureLoader.load('finishline.jpg');
 
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
@@ -337,21 +338,23 @@ function createMap(){
 
 				// cube1.rotateZ(10)
 				if(map[i+10][j+10] <10 && map[i+10][j+10] > 4){
-					floorCopy.material.color.setRGB(1,0.5,1);
+					// floorCopy.material.color.setRGB(1,0.5,1);
 					// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmap.jpg')
-
+					floorCopy.material.color.setRGB(0.5,0.5,0.5);
 					trackCopy.material.color.setRGB(1,0.5,1);
-					floorCopy.material.wireframe = true
+					// floorCopy.material.wireframe = true
 					floorCopy.name = "CHECKPOINT" + map[i+10][j+10];
 					console.log(map[i+10][j+10])
 					completedCheckPoints.push(floorCopy.name)
 					allCheckPoints.push(floorCopy.name)
 					checkpointNum++;
+					floorCopy.material.map = texture
 					// cube2.material.color.setRGB(1, 0.5, 0.5)
 				}else if(map[i+10][j+10] == 3){
-					floorCopy.material.color.setRGB(1,0.5,0.5);
+					// floorCopy.material.color.setRGB(1,0.5,0.5);
 					trackCopy.material.color.setRGB(1,0.5,0.5);
-					floorCopy.material.wireframe = true
+					// floorCopy.material.wireframe = true
+					floorCopy.material.map = finishTexture;
 					currentTile = floorCopy;
 					floorCopy.name = "ENDING"
 					redCube.position.set(xVal,5,zVal);
