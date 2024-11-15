@@ -448,6 +448,8 @@ function createMap(){
 }
 createMap()
 
+console.log(allCheckPoints)
+
 // completedCheckPoints.reverse()
 
 function deleteMap(){
@@ -660,7 +662,8 @@ function reset(){
 	redCube.position.set(startX, 5, startZ);
 	dirRotation = -Math.PI/2;
 	clock.elapsedTime = 0;
-	completedCheckPoints = [... allCheckPoints]
+	completedCheckPoints = []
+	allCheckPoints = []
 	lapTimes = [];
 	lapCount = 0;
 	prevTime = 0;
@@ -672,6 +675,7 @@ function reset(){
 	deaths = 0;
 	currentDeaths = 0;
 	offset = 0
+	console.log(completedCheckPoints)
 }
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
@@ -757,12 +761,18 @@ function formatTime(seconds) {
     const secs = seconds % 60;
 
     // Format with leading zeros if needed
-    const hoursStr = hours.toString().padStart(2, '0');
-    const minutesStr = minutes.toString().padStart(2, '0');
-    const secondsStr = secs.toString().padStart(2, '0');
+    let hoursStr = hours.toString().padStart(2, '0');
+    let minutesStr = minutes.toString().padStart(2, '0');
+    let secondsStr = secs.toString().padStart(2, '0');
 
 	if(hours > 99){
 		return '99:99:99';
+	}
+	if(hours < 0){
+		hoursStr = "00"
+	}
+	if (minutes < 0){
+		minutesStr="00"
 	}
 
     return `${hoursStr}:${minutesStr}:${secondsStr}`;
