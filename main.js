@@ -96,6 +96,7 @@ const powerupTexture = textureLoader.load('powerUp1Texture.png');
 
 // Finish Line Texture
 const finishTexture = textureLoader.load('finishline.jpg');
+// https://www.istockphoto.com/bot-wall?returnUrl=%2Fphotos%2Ffinish-line
 
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
