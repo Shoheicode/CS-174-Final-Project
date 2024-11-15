@@ -89,6 +89,9 @@ const bgTexture = textureLoader.load('39608.jpg');
 scene.background = bgTexture;
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
+// Power-Up Texture
+const powerupTexture = textureLoader.load('powerUp1Texture.png');
+
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
 	-50, 50, 50, -50, 1, 1000 // Adjust these values based on your track size
@@ -362,7 +365,8 @@ function createMap(){
 					if(Math.random() <= 0.2){
 						let num = Math.random();
 						if (num <= 0.3) {
-							cube2.material.color.setRGB(1.0, 0.0, 0.0);
+							// cube2.material.color.setRGB(1.0, 0.0, 0.0);
+							cube2.material.map = new
 							cube2.name = "POWERUPINCREASE";
 						}
 						else if (num <= 0.7) {
