@@ -366,7 +366,10 @@ function createMap(){
 						let num = Math.random();
 						if (num <= 0.3) {
 							// cube2.material.color.setRGB(1.0, 0.0, 0.0);
-							cube2.material.map = new
+							cube2.material = new THREE.MeshBasicMaterial()
+							cube2.material.map = powerupTexture
+							cube2.material.bumpScale = 0.1
+							
 							cube2.name = "POWERUPINCREASE";
 						}
 						else if (num <= 0.7) {
