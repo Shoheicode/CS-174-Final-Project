@@ -644,9 +644,9 @@ function checkCollision(obj1, obj2) {
 				// console.log(index)
 				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n'
 			})
-			// console.log("LAP TIMES:" + lapTimes);
+
 			completedCheckPoints.reverse()
-			// console.log("COMPLETE: " + completedCheckPoints)
+
 			// reset currentDeaths
 			currentDeaths = 0;
 		}
