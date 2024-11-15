@@ -59,6 +59,7 @@ let lapCount = 0;
 let lapTimes = []
 let elapsedTime = 0;
 let prevTime = 0;
+let offset = 0; // for powerup
 
 let powerupActivate = false;
 let timePowerupDuration = 0;
@@ -350,8 +351,19 @@ function createMap(){
 					floorCopy.material.map = texture
 					floorCopy.name = "floor";
 					if(Math.random() <= 0.2){
-						cube2.material.color.setRGB(0.5, 0.5, 0.5)
-						cube2.name = "POWERUP"
+						let num = Math.random();
+						if (num <= 0.3) {
+							cube2.material.color.setRGB(1.0, 0.0, 0.0);
+							cube2.name = "POWERUPINCREASE";
+						}
+						else if (num <= 0.7) {
+							cube2.material.color.setRGB(0.5, 0.5, 0.5);
+							cube2.name = "POWERUPSPEED";
+						}
+						else {
+							cube2.material.color.setRGB(0.0, 1.0, 0.0);
+							cube2.name = "POWERUPDECREASE";
+						}
 						// console.log("HIHIHI")
 					}
 					else{
@@ -706,7 +718,7 @@ function animate() {
 	}
 
 	// if (elapsedTime > delay){
-	elapsedTime = Math.floor(clock.getElapsedTime())
+	elapsedTime = Math.floor(clock.getElapsedTime()) + offset;
 	document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
 
 	floors.forEach(function (obj, index) {
@@ -790,10 +802,18 @@ function animate() {
 	floors.forEach(function (obj, index) {
 		obj["children"].forEach(function(obj2, index){
 			if(!collide){
-				if(checkCollision(redCube, obj2) && obj2.name == "POWERUP"){
+				if(checkCollision(redCube, obj2) && (obj2.name == "POWERUPDECREASE" || obj2.name == "POWERUPSPEED" || obj2.name == "POWERUPINCREASE")){
+					if (obj2.name == "POWERUPSPEED") {
+						powerupActivate = true
+						timePowerupDuration = elapsedTime + 3;
+					}
+					else if (obj2.name == "POWERUPDECREASE") {
+						offset -= 10;
+					}
+					else if (obj2.name == "POWERUPINCREASE") {
+						offset += 10;
+					}
 					obj.remove(obj2)
-					powerupActivate = true
-					timePowerupDuration = elapsedTime + 3;
 				}
 				else if(checkCollision(redCube, obj2)){
 					let speedX2 = Math.sin(rotation) * (speed-0.3);
