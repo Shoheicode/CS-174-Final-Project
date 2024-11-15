@@ -318,17 +318,17 @@ function createMap(){
 				//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
 				let mat2 = matSphere.clone()
 
-				let sphere1 = new THREE.Mesh( sphereGeo, mat2 );
-				let sphere2 = sphere1.clone()
+				let cube1 = new THREE.Mesh( sphereGeo, mat2 );
+				let cube2 = cube1.clone()
 
-				sphere2.geometry.userData.obb = new OBB().fromBox3(
+				cube2.geometry.userData.obb = new OBB().fromBox3(
 					cube1.geometry.boundingBox
 				)
 
-				sphere2.userData.obb = new OBB()
-				sphere2.position.z = floorCopy.position.y+6
-				sphere2.position.y = ((Math.random()-0.5)*2)*5
-				sphere2.position.x = ((Math.random()-0.5)*2)*5
+				cube2.userData.obb = new OBB()
+				cube2.position.z = floorCopy.position.y+6
+				cube2.position.y = ((Math.random()-0.5)*2)*5
+				cube2.position.x = ((Math.random()-0.5)*2)*5
 
 				// cube1.rotateZ(10)
 				if(map[i+10][j+10] <10 && map[i+10][j+10] > 4){
@@ -362,24 +362,25 @@ function createMap(){
 					if(Math.random() <= 0.2){
 						let num = Math.random();
 						if (num <= 0.3) {
-							sphere2.material.color.setRGB(1.0, 0.0, 0.0);
-							sphere2.name = "POWERUPINCREASE";
+							cube2.material.color.setRGB(1.0, 0.0, 0.0);
+							cube2.name = "POWERUPINCREASE";
 						}
 						else if (num <= 0.7) {
-							sphere2.material.color.setRGB(0.5, 0.5, 0.5);
-							sphere2.name = "POWERUPSPEED";
+							cube2.material.color.setRGB(0.5, 0.5, 0.5);
+							cube2.name = "POWERUPSPEED";
 						}
 						else {
-							sphere2.material.color.setRGB(0.0, 1.0, 0.0);
-							sphere2.name = "POWERUPDECREASE";
+							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+							cube2.material.color.setRGB(0.0, 1.0, 0.0);
+							cube2.name = "POWERUPDECREASE";
 						}
 						// console.log("HIHIHI")
 					}
 					else{
-						sphere2.material.color.setRGB(1, 1, 0.5)
+						cube2.material.color.setRGB(1, 1, 0.5)
 					}
 					// cube1 = cube1.clone()
-					floorCopy.add(sphere2)
+					floorCopy.add(cube2)
 				}
 
 				scene.add(trackCopy)
