@@ -125,57 +125,55 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-geometry.computeBoundingBox()
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-
 const sphereGeo = new THREE.SphereGeometry(1, 32, 32);
 sphereGeo.computeBoundingBox()
 
-const redCubeGeo = new THREE.BoxGeometry(1,1,1);
-const redCubeMat = new THREE.MeshBasicMaterial({color: "red"});
-const redCube = new THREE.Mesh(redCubeGeo, redCubeMat);
+const playerGeo = new THREE.BoxGeometry(1,1,1);
+const playerMat = new THREE.MeshPhongMaterial({color: "red"});
+const player = new THREE.Mesh(playerGeo, playerMat);
 
 //WHEELS THE BLUE
 let wheels = [];
 
 const wheel = new THREE.CylinderGeometry(0.5, 0.5, 0.5, 32);
-const blue = new THREE.MeshBasicMaterial({color: "blue"});
+const blue = new THREE.MeshPhongMaterial({color: "blue"});
 // const green = new THREE.MeshBasicMaterial({color: "green"});
 const blueWheel = new THREE.Mesh(wheel, blue);
-redCube.add(blueWheel);
+player.add(blueWheel);
 blueWheel.position.set(-0.5,-0.5,0.5)
 blueWheel.rotateZ(-Math.PI/2)
 // wheel.computeBoundingBox()
 
 const blueWheel2 = new THREE.Mesh(wheel, blue);
-redCube.add(blueWheel2);
+player.add(blueWheel2);
 blueWheel2.position.set(-0.5,-0.5,-0.5)
 blueWheel2.rotateZ(-Math.PI/2)
 
 const blueWheel3 = new THREE.Mesh(wheel, blue);
-redCube.add(blueWheel3);
+player.add(blueWheel3);
 blueWheel3.position.set(0.5,-0.5,0.5)
 blueWheel3.rotateZ(-Math.PI/2)
 
 const blueWheel4 = new THREE.Mesh(wheel, blue);
-redCube.add(blueWheel4);
+player.add(blueWheel4);
 blueWheel4.position.set(0.5,-0.5,-0.5)
 blueWheel4.rotateZ(-Math.PI/2)
 
-// redCube.rotateY(-Math.PI/4)
+wheels = [blueWheel,blueWheel2,blueWheel3,blueWheel4]
 
-redCubeGeo.computeBoundingBox()
+// player.rotateY(-Math.PI/4)
+
+playerGeo.computeBoundingBox()
 
 
 //Updated the boundary box in order to ensure that it includes the wheels
-redCube.geometry.userData.obb = new OBB().fromBox3(
-    // redCube.geometry.boundingBox
+player.geometry.userData.obb = new OBB().fromBox3(
+    // player.geometry.boundingBox
 	new THREE.Box3(new THREE.Vector3(-0.75, -0.75, -0.75),new THREE.Vector3(0.75, 0.75, 0.75))
 )
-redCube.userData.obb = new OBB()
+player.userData.obb = new OBB()
 
-// scene.add(redCube)
+// scene.add(player)
 
 const floorGeo = new THREE.PlaneGeometry(20, 20, 10, 10);
 floorGeo.computeBoundingBox();
@@ -268,7 +266,7 @@ const texture = new THREE.TextureLoader().load('road-texture-4k-02.jpg')
 let matSphere = new THREE.MeshPhongMaterial();
 
 function createMap(){
-	scene.add(redCube)
+	scene.add(player)
 	console.log("LENGTH AFTER" +  scene.children.length)
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
@@ -390,12 +388,12 @@ function createMap(){
 					floorCopy.material.map = finishTexture;
 					currentTile = floorCopy;
 					floorCopy.name = "ENDING"
-					redCube.position.set(xVal,5,zVal);
-					// redCube.matrix.set(xVal, 5, zVal);
+					player.position.set(xVal,5,zVal);
+					// player.matrix.set(xVal, 5, zVal);
 					startX = xVal;
 					startZ = zVal;
 
-					// redCube.matrixAutoUpdate = false;
+					// player.matrixAutoUpdate = false;
 				}
 				else{
 					floorCopy.material.color.setRGB(0.5,0.5,0.5);
@@ -480,7 +478,7 @@ function deleteMap(){
 
 
 function createMap2(){
-	scene.add(redCube)
+	scene.add(player)
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
 			if(map[i+10][j+10] != 0){
@@ -548,14 +546,14 @@ function createMap2(){
 					checkpointNum++;
 					// cube2.material.color.setRGB(1, 0.5, 0.5)
 				}else if(map[i+10][j+10] == 3){
-					redCube.position.set(xVal,5,zVal);
+					player.position.set(xVal,5,zVal);
 					floorCopy2.material.color.setRGB(1,0.5,0.5);
 					trackCopy.material.color.setRGB(1,0.5,0.5);
 					floorCopy2.material.wireframe = true
 					currentTile = floorCopy;
 					floorCopy2.name = "ENDING"
-					redCube.position.set(xVal,5,zVal);
-					// redCube.matrix.set(xVal, 5, zVal);
+					player.position.set(xVal,5,zVal);
+					// player.matrix.set(xVal, 5, zVal);
 					startX = xVal;
 					startZ = zVal;
 				}else{
@@ -593,8 +591,8 @@ function createMap2(){
 // blackCubeBB.setFromObject(cube);
 
 // Adding bounding box to our red box
-const redCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
-redCubeBB.setFromObject(redCube);
+const playerBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
+playerBB.setFromObject(player);
 
 // camera.position.z = 5;
 // camera.position.y = 5;
@@ -663,7 +661,7 @@ function reset(){
 	// console.log("RUNNINg")
 	speed = 0;
 	speedY = 0;
-	redCube.position.set(startX, 5, startZ);
+	player.position.set(startX, 5, startZ);
 	dirRotation = -Math.PI/2;
 	clock.elapsedTime = 0;
 	completedCheckPoints = []
@@ -696,7 +694,7 @@ function onDocumentKeyDown(event){
 			break;
 		case 65: //LEFT (A key)
 			rSpeed = 0.03;
-			// console.log(redCube)
+			// console.log(player)
 			break;
 		case 68: //RIGHT (D KEY)
 			rSpeed = -0.03;
@@ -733,7 +731,7 @@ function onKeyUp(e) {
 }
 
 function outOfBounds(){
-	if(redCube.position.y < -50){
+	if(player.position.y < -50){
 		return true;
 	}
 	return false;
@@ -741,11 +739,11 @@ function outOfBounds(){
 
 function updateMinimap() {
 	// Update carMarker position based on player's car position
-	carMarker.position.x = redCube.position.x;
-	carMarker.position.z = redCube.position.z;
+	carMarker.position.x = player.position.x;
+	carMarker.position.z = player.position.z;
   
 	// Optionally, rotate the marker to match the player’s orientation
-	carMarker.rotation.y = redCube.rotation.y;
+	carMarker.rotation.y = player.rotation.y;
 	carMarker.position.y = 500
 }
 
@@ -798,8 +796,8 @@ function animate() {
 
 	floors.forEach(function (obj, index) {
 		if(!touchGround){
-			if(touchingGround(redCube, obj)){
-				redCube.position.y = obj.position.y + 0.74;
+			if(touchingGround(player, obj)){
+				player.position.y = obj.position.y + 0.74;
 				// fallen = false;
 				currentTile = obj;
 				// console.log("TOUCHING GROUND")
@@ -811,13 +809,13 @@ function animate() {
 
 	// floors2.forEach(function (obj, index) {
 	// 	if(!touchGround){
-	// 		if(touchingGround(redCube, obj)){
+	// 		if(touchingGround(player, obj)){
 	// 			console.log("TOUCHING")
 	// 			let M = new THREE.Matrix4();
 	// 			M = translationMatrix(0, 0, 0).multiply(M);
-	// 			redCube.matrix.multiply(M);
-	// 			redCube.matrixAutoUpdate = false;
-	// 			// redCube.position.y = obj.position.y + 0.75;
+	// 			player.matrix.multiply(M);
+	// 			player.matrixAutoUpdate = false;
+	// 			// player.position.y = obj.position.y + 0.75;
 	// 			// fallen = false;
 	// 			currentTile = obj;
 	// 			// console.log("TOUCHING GROUND")
@@ -830,12 +828,14 @@ function animate() {
 	if(!touchGround){
 		// console.log("FALLING")
 		speedY -= 0.0098 // 9.8 m/s
-		redCube.position.y += speedY
+		player.position.y += speedY
 	}
 
 	if(touchGround){
 		if(run){
-
+			wheels.forEach((obj)=>{
+				obj.rotateY(Math.PI/4)
+			})
 			if(powerupActivate){
 				speed = 1;
 			}
@@ -866,7 +866,7 @@ function animate() {
 		obj["children"].forEach(function(obj2, index){
 			obj2.rotateZ(Math.PI/124)
 			if(!collide){
-				if(checkCollision(redCube, obj2) && (obj2.name == "POWERUPDECREASE" || obj2.name == "POWERUPSPEED" || obj2.name == "POWERUPINCREASE")){
+				if(checkCollision(player, obj2) && (obj2.name == "POWERUPDECREASE" || obj2.name == "POWERUPSPEED" || obj2.name == "POWERUPINCREASE")){
 					if (obj2.name == "POWERUPSPEED") {
 						powerupActivate = true
 						timePowerupDuration = elapsedTime + 3;
@@ -879,19 +879,19 @@ function animate() {
 					}
 					obj.remove(obj2)
 				}
-				else if(checkCollision(redCube, obj2)){
+				else if(checkCollision(player, obj2)){
 					let speedX2 = Math.sin(rotation) * (speed-0.3);
 					let speedZ2 = Math.cos(rotation) * (speed-0.3);
 					if(speedX2 < 0){
-						redCube.position.x -= (speedX2);
+						player.position.x -= (speedX2);
 					}
 					else if (speedX2 > 0) {
-						redCube.position.x -= (speedX2);
+						player.position.x -= (speedX2);
 					}
 					if(speedZ2 < 0){
-						redCube.position.z -= (speedZ2);
+						player.position.z -= (speedZ2);
 					}else if (speedZ2 > 0) {
-						redCube.position.z -= (speedZ2);
+						player.position.z -= (speedZ2);
 					}
 					speed = 0
 
@@ -901,25 +901,25 @@ function animate() {
 	})
 
 	if(!collide){
-		redCube.rotation.y = rotation;
-		redCube.position.z += speedZ;
-		redCube.position.x += speedX;
+		player.rotation.y = rotation;
+		player.position.z += speedZ;
+		player.position.x += speedX;
 	}
 
-	// if(checkCollision(redCube, floor)){
-	// 	redCube.position.y = floor.position.y + 0.5;
+	// if(checkCollision(player, floor)){
+	// 	player.position.y = floor.position.y + 0.5;
 	// 	console.log("TOUCHING GROUND")
 	// }
-	// else if(checkCollision(redCube, floor2)){
-	// 	redCube.position.y = floor2.position.y + 0.5;
+	// else if(checkCollision(player, floor2)){
+	// 	player.position.y = floor2.position.y + 0.5;
 	// 	console.log("TOUCHING GROUND 2")
 		
 	// }
 	if(outOfBounds()){
 		// console.log(currentTile)
-		redCube.position.x = currentTile.position.x;
-		redCube.position.z = currentTile.position.z;
-		redCube.position.y = 15;
+		player.position.x = currentTile.position.x;
+		player.position.z = currentTile.position.z;
+		player.position.y = 15;
 		speed = 0;
 		powerupActivate = false;
 		
@@ -933,12 +933,12 @@ function animate() {
 	// Update camera to follow the block
 	let MCAM = new THREE.Matrix4()
 	// MCAM = rotationMatrixY(rotation)
-	// MCAM = translationMatrix(redCube.position.x + Math.sin(rotation) * 10, 0, redCube.position.y + 10 , redCube.position.z + Math.cos(rotation) * 10)
+	// MCAM = translationMatrix(player.position.x + Math.sin(rotation) * 10, 0, player.position.y + 10 , player.position.z + Math.cos(rotation) * 10)
 	camera.rotation.y = rotation;
-	camera.position.x = redCube.position.x + Math.sin(rotation) * 10;
-	camera.position.z = redCube.position.z + Math.cos(rotation) * 10;
-	camera.position.y = redCube.position.y + 10
-	camera.lookAt(redCube.position)
+	camera.position.x = player.position.x + Math.sin(rotation) * 10;
+	camera.position.z = player.position.z + Math.cos(rotation) * 10;
+	camera.position.y = player.position.y + 10
+	camera.lookAt(player.position)
 	// controls.update();
 	// delay += elapsedTime
 	// }
