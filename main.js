@@ -769,10 +769,6 @@ function formatTime(seconds) {
 }
 
 function animate() {
-	// createMap()
-
-	// trackCopy1.matrix.copy(translationMatrix(x, -5, z))
-	// trackCopy1.matrixAutoUpdate = false
 
 	if(raceOver){
 		document.getElementById("Finished").innerHTML = "FINISHED"
