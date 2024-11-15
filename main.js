@@ -349,6 +349,33 @@ function createMap(){
 					allCheckPoints.push(floorCopy.name)
 					checkpointNum++;
 					floorCopy.material.map = texture
+					if(Math.random() <= 0.2){
+						let num = Math.random();
+						if (num <= 0.3) {
+							// cube2.material.colorftm.setRGB(1.0, 0.0, 0.0);
+							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material.map = powerupTexture
+							cube2.material.bumpMap = powerupTexture
+							// cube2.material.bumpScale = 0.1
+							cube2.rotation.x = Math.PI/4
+							// cube2.rotateX(Math.PI/4)
+							cube2.name = "POWERUPINCREASE";
+						}
+						else if (num <= 0.7) {
+							cube2.material.color.setRGB(0.5, 0.5, 0.5);
+							cube2.name = "POWERUPSPEED";
+						}
+						else {
+							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+							cube2.material.color.setRGB(0.0, 1.0, 0.0);
+							cube2.name = "POWERUPDECREASE";
+						}
+						// console.log("HIHIHI")
+					}
+					else{
+						cube2.material.color.setRGB(1, 1, 0.5)
+					}
+					floorCopy.add(cube2)
 					// cube2.material.color.setRGB(1, 0.5, 0.5)
 				}else if(map[i+10][j+10] == 3){
 					// floorCopy.material.color.setRGB(1,0.5,0.5);
@@ -360,7 +387,8 @@ function createMap(){
 					redCube.position.set(xVal,5,zVal);
 					// redCube.matrix.set(xVal, 5, zVal);
 					startX = xVal;
-					startZ = zVal
+					startZ = zVal;
+
 					// redCube.matrixAutoUpdate = false;
 				}
 				else{
@@ -393,7 +421,6 @@ function createMap(){
 					else{
 						cube2.material.color.setRGB(1, 1, 0.5)
 					}
-					// cube1 = cube1.clone()
 					floorCopy.add(cube2)
 				}
 
