@@ -92,6 +92,8 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 // Power-Up Texture
 const powerupTexture = textureLoader.load('powerUp1Texture.png');
 
+// Finish Line Texture
+
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
 	-50, 50, 50, -50, 1, 1000 // Adjust these values based on your track size
