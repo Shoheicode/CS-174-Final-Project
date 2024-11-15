@@ -212,7 +212,7 @@ floorGeo.computeBoundingBox();
 
 //17 + 20 + 17 + 20 = 
 let map = [
-	[1,1,1,1,1,1,1,1,1,5,1,0,0,0,0,0,0,0,0,0],
+	[1,2,2,2,2,2,2,2,2,5,1,0,0,0,0,0,0,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
@@ -228,10 +228,10 @@ let map = [
 	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0],
 	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,1,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0],
+	[1,0,0,0,1,2,2,1,0,0,1,0,0,0,0,0,0,0,0,0],
 	[1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0],
 	[1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,1,1,1,1,0,0,1,1,8,1,0,0,0,0,0,0,0,0,0],
+	[1,2,2,2,1,0,0,1,2,8,1,0,0,0,0,0,0,0,0,0],
 ]
 
 let currentTile = null;
@@ -344,11 +344,17 @@ function createMap(){
 					trackCopy.material.color.setRGB(1,0.5,1);
 					// floorCopy.material.wireframe = true
 					floorCopy.name = "CHECKPOINT" + map[i+10][j+10];
-					console.log(map[i+10][j+10])
+					// console.log(map[i+10][j+10])
 					completedCheckPoints.push(floorCopy.name)
 					allCheckPoints.push(floorCopy.name)
 					checkpointNum++;
 					floorCopy.material.map = texture
+
+					if(map[i+10][j+10] == 5 || map[i+10][j+10] == 8){
+						// console.log("ROTATE Z S")
+						floorCopy.rotateZ(-Math.PI / 2)
+					}
+
 					if(Math.random() <= 0.2){
 						let num = Math.random();
 						if (num <= 0.3) {
@@ -395,6 +401,9 @@ function createMap(){
 					floorCopy.material.color.setRGB(0.5,0.5,0.5);
 					floorCopy.material.map = texture
 					floorCopy.name = "floor";
+					if(map[i+10][j+10] == 2){
+						floorCopy.rotateZ(-Math.PI / 2)
+					}
 					if(Math.random() <= 0.2){
 						let num = Math.random();
 						if (num <= 0.3) {
@@ -434,7 +443,7 @@ function createMap(){
 			}
 		}
 	}
-	console.log("LENGTH AFTER PT 2:" +  scene.children.length)
+	// console.log("LENGTH AFTER PT 2:" +  scene.children.length)
 	completedCheckPoints.reverse()
 }
 createMap()
@@ -444,9 +453,9 @@ createMap()
 function deleteMap(){
 	let deleteObj = []
 	let i = 0;
-	console.log("scene.children after: ");
-	console.log(scene.children);
-	console.log("Length BEOFRE" + scene.children.length)
+	// console.log("scene.children after: ");
+	// console.log(scene.children);
+	// console.log("Length BEOFRE" + scene.children.length)
 	scene.children.forEach((obj)=>{
 		deleteObj.push(obj)
 	})
@@ -458,7 +467,7 @@ function deleteMap(){
 	minimapScene.children.forEach((obj)=>{
 		// console.log(obj.name)
 		if(obj.name == "track"){
-			console.log(obj.name)
+			// console.log(obj.name)
 			scene.remove(obj)
 		}
 	})
@@ -531,7 +540,7 @@ function createMap2(){
 					trackCopy.material.color.setRGB(1,0.5,1);
 					floorCopy2.material.wireframe = true
 					floorCopy2.name = "CHECKPOINT" + map[i+10][j+10];
-					console.log(map[i+10][j+10])
+					// console.log(map[i+10][j+10])
 					completedCheckPoints.push(floorCopy2.name)
 					allCheckPoints.push(floorCopy2.name)
 					checkpointNum++;
@@ -614,7 +623,7 @@ function checkCollision(obj1, obj2) {
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
 		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
 		if (indexToRemove == 0) {
-			console.log("hi ho")
+			// console.log("hi ho")
 			completedCheckPoints.splice(indexToRemove, 1);
 		}
 
@@ -623,15 +632,15 @@ function checkCollision(obj1, obj2) {
 			completedCheckPoints = [... allCheckPoints]
 			lapTimes.push(elapsedTime-prevTime);
 			prevTime = elapsedTime
-			console.log("LAP COMPLETE")
+			// console.log("LAP COMPLETE")
 			lapCount++;
 			lapTimes.forEach(function(time, index){
 				// console.log(index)
 				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n'
 			})
-			console.log("LAP TIMES:" + lapTimes);
+			// console.log("LAP TIMES:" + lapTimes);
 			completedCheckPoints.reverse()
-			console.log("COMPLETE: " + completedCheckPoints)
+			// console.log("COMPLETE: " + completedCheckPoints)
 			// reset currentDeaths
 			currentDeaths = 0;
 		}
@@ -688,7 +697,7 @@ function onDocumentKeyDown(event){
 			goBackwards = true;
 			break;
 		case 82:
-			console.log("RESET")
+			// console.log("RESET")
 			reset();
 			break;
 	}
@@ -698,7 +707,7 @@ document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {
 	switch(e.keyCode) {
 		case 16: // shift
-			console.log("KEY UP")
+			// console.log("KEY UP")
 			run = false;
 			break;
 		case 65: // a
@@ -783,7 +792,7 @@ function animate() {
 				redCube.position.y = obj.position.y + 0.74;
 				// fallen = false;
 				currentTile = obj;
-				console.log("TOUCHING GROUND")
+				// console.log("TOUCHING GROUND")
 				// touchingGround = true;
 				speedY = 0;
 			}
@@ -809,7 +818,7 @@ function animate() {
 	// })
 
 	if(!touchGround){
-		console.log("FALLING")
+		// console.log("FALLING")
 		speedY -= 0.0098 // 9.8 m/s
 		// let M = new THREE.Matrix4();
 		// M = translationMatrix(0, speedY, 0);
@@ -909,7 +918,7 @@ function animate() {
 		
 	// }
 	if(outOfBounds()){
-		console.log(currentTile)
+		// console.log(currentTile)
 		redCube.position.x = currentTile.position.x;
 		redCube.position.z = currentTile.position.z;
 		redCube.position.y = 15;
@@ -956,7 +965,7 @@ function animate() {
 	renderer.render(minimapScene, minimapCamera);
 
 	if(lapCount == 3){
-		console.log("FINISH RACE")
+		// console.log("FINISH RACE")
 		raceOver = true;
 	}
 
