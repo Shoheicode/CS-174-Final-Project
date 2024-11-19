@@ -818,7 +818,7 @@ function animate() {
 			if(name == ""){
 
 			}else{
-
+				if(check)
 				addData(name);
 			}
 			
