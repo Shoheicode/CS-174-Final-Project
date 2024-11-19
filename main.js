@@ -161,7 +161,7 @@ let wheels = [];
 
 const wheel = new THREE.CylinderGeometry(0.5, 0.5, 0.5, 32);
 const blue = new THREE.MeshPhongMaterial();
-blue.map = textureLoader.load('RainbowWheelTexture.jpg')
+blue.map = textureLoader.load('Assets/Images/RainbowWheelTexture.jpg')
 // const green = new THREE.MeshBasicMaterial({color: "green"});
 const blueWheel = new THREE.Mesh(wheel, blue);
 player.add(blueWheel);
