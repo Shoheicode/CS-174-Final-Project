@@ -935,16 +935,6 @@ function animate() {
 		// carMesh.rotaateY(rotation)
 	}
 
-
-	// if(checkCollision(player, floor)){
-	// 	player.position.y = floor.position.y + 0.5;
-	// 	console.log("TOUCHING GROUND")
-	// }
-	// else if(checkCollision(player, floor2)){
-	// 	player.position.y = floor2.position.y + 0.5;
-	// 	console.log("TOUCHING GROUND 2")
-		
-	// }
 	if(outOfBounds()){
 		// console.log(currentTile)
 		player.position.x = currentTile.position.x;
