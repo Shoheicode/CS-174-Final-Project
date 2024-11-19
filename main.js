@@ -802,195 +802,201 @@ function formatTime(seconds) {
 
 function animate() {
 	// Put in animate()
-	if(raceOver){
-		document.getElementById("Finished").innerHTML = "FINISHED"
-		return;
+	if(gameState[0] == "Start"){
+
 	}
+	else{
 
-	// if (elapsedTime > delay){
-	elapsedTime = Math.floor(clock.getElapsedTime()) + offset;
-	document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
-	
-	// track # of deaths
-	document.getElementById("deaths").innerText = `Deaths: ${currentDeaths} (Total: ${deaths})`;
-
-	floors.forEach(function (obj, index) {
-		if(!touchGround){
-			if(touchingGround(player, obj)){
-				player.position.y = obj.position.y + 0.74;
-				// fallen = false;
-				currentTile = obj;
-				// console.log("TOUCHING GROUND")
-				// touchingGround = true;
-				speedY = 0;
-			}
+		if(raceOver){
+			document.getElementById("Finished").innerHTML = "FINISHED"
+			return;
 		}
-	})
 
-	// floors2.forEach(function (obj, index) {
-	// 	if(!touchGround){
-	// 		if(touchingGround(player, obj)){
-	// 			console.log("TOUCHING")
-	// 			let M = new THREE.Matrix4();
-	// 			M = translationMatrix(0, 0, 0).multiply(M);
-	// 			player.matrix.multiply(M);
-	// 			player.matrixAutoUpdate = false;
-	// 			// player.position.y = obj.position.y + 0.75;
-	// 			// fallen = false;
-	// 			currentTile = obj;
-	// 			// console.log("TOUCHING GROUND")
-	// 			// touchingGround = true;
-	// 			speedY = 0;
-	// 		}
-	// 	}
-	// })
+		// if (elapsedTime > delay){
+		elapsedTime = Math.floor(clock.getElapsedTime()) + offset;
+		document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
+		
+		// track # of deaths
+		document.getElementById("deaths").innerText = `Deaths: ${currentDeaths} (Total: ${deaths})`;
 
-	if(!touchGround){
-		// console.log("FALLING")
-		speedY -= 0.0098 // 9.8 m/s
-		player.position.y += speedY
-	}
-
-	if(touchGround){
-		if(run){
-			wheels.forEach((obj)=>{
-				obj.rotateY(-Math.PI/4)
-			})
-			if(powerupActivate){
-				speed = 1;
-			}
-				else{
-				speed += acceleration;
-				if(speed > maxSpeed){
-					speed = maxSpeed;
-					// console.log("ACHIEVED MAX SPEED")
-				}
-			}
-		} else{
-			powerupActivate = false;
-			// console.log("NOT RUNNING")
-			speed -= acceleration;
-			if(speed < 0){
-				speed = 0;
-			}
-		}
-		dirRotation +=rSpeed;
-	}
-	speed = -speed; 
-	var rotation = dirRotation;
-	var speedX = Math.sin(rotation) * speed;
-	var speedZ = Math.cos(rotation) * speed;
-	// console.log("SPEED:" + speed)
-
-	floors.forEach(function (obj, index) {
-		obj["children"].forEach(function(obj2, index){
-			obj2.rotateZ(Math.PI/124)
-			if(!collide){
-				if(checkCollision(player, obj2) && (obj2.name == "POWERUPDECREASE" || obj2.name == "POWERUPSPEED" || obj2.name == "POWERUPINCREASE")){
-					if (obj2.name == "POWERUPSPEED") {
-						powerupActivate = true
-						timePowerupDuration = elapsedTime + 3;
-					}
-					else if (obj2.name == "POWERUPDECREASE") {
-						offset -= 10;
-					}
-					else if (obj2.name == "POWERUPINCREASE") {
-						offset += 10;
-					}
-					obj.remove(obj2)
-				}
-				else if(checkCollision(player, obj2)){
-					let speedX2 = Math.sin(rotation) * (speed-0.3);
-					let speedZ2 = Math.cos(rotation) * (speed-0.3);
-					if(speedX2 < 0){
-						player.position.x -= (speedX2);
-					}
-					else if (speedX2 > 0) {
-						player.position.x -= (speedX2);
-					}
-					if(speedZ2 < 0){
-						player.position.z -= (speedZ2);
-					}else if (speedZ2 > 0) {
-						player.position.z -= (speedZ2);
-					}
-					speed = 0
-
+		floors.forEach(function (obj, index) {
+			if(!touchGround){
+				if(touchingGround(player, obj)){
+					player.position.y = obj.position.y + 0.74;
+					// fallen = false;
+					currentTile = obj;
+					// console.log("TOUCHING GROUND")
+					// touchingGround = true;
+					speedY = 0;
 				}
 			}
 		})
-	})
 
-	if(!collide){
-		player.rotation.y = rotation;
-		player.position.z += speedZ;
-		player.position.x += speedX;
+		// floors2.forEach(function (obj, index) {
+		// 	if(!touchGround){
+		// 		if(touchingGround(player, obj)){
+		// 			console.log("TOUCHING")
+		// 			let M = new THREE.Matrix4();
+		// 			M = translationMatrix(0, 0, 0).multiply(M);
+		// 			player.matrix.multiply(M);
+		// 			player.matrixAutoUpdate = false;
+		// 			// player.position.y = obj.position.y + 0.75;
+		// 			// fallen = false;
+		// 			currentTile = obj;
+		// 			// console.log("TOUCHING GROUND")
+		// 			// touchingGround = true;
+		// 			speedY = 0;
+		// 		}
+		// 	}
+		// })
+
+		if(!touchGround){
+			// console.log("FALLING")
+			speedY -= 0.0098 // 9.8 m/s
+			player.position.y += speedY
+		}
+
+		if(touchGround){
+			if(run){
+				wheels.forEach((obj)=>{
+					obj.rotateY(-Math.PI/4)
+				})
+				if(powerupActivate){
+					speed = 1;
+				}
+					else{
+					speed += acceleration;
+					if(speed > maxSpeed){
+						speed = maxSpeed;
+						// console.log("ACHIEVED MAX SPEED")
+					}
+				}
+			} else{
+				powerupActivate = false;
+				// console.log("NOT RUNNING")
+				speed -= acceleration;
+				if(speed < 0){
+					speed = 0;
+				}
+			}
+			dirRotation +=rSpeed;
+		}
+		speed = -speed; 
+		var rotation = dirRotation;
+		var speedX = Math.sin(rotation) * speed;
+		var speedZ = Math.cos(rotation) * speed;
+		// console.log("SPEED:" + speed)
+
+		floors.forEach(function (obj, index) {
+			obj["children"].forEach(function(obj2, index){
+				obj2.rotateZ(Math.PI/124)
+				if(!collide){
+					if(checkCollision(player, obj2) && (obj2.name == "POWERUPDECREASE" || obj2.name == "POWERUPSPEED" || obj2.name == "POWERUPINCREASE")){
+						if (obj2.name == "POWERUPSPEED") {
+							powerupActivate = true
+							timePowerupDuration = elapsedTime + 3;
+						}
+						else if (obj2.name == "POWERUPDECREASE") {
+							offset -= 10;
+						}
+						else if (obj2.name == "POWERUPINCREASE") {
+							offset += 10;
+						}
+						obj.remove(obj2)
+					}
+					else if(checkCollision(player, obj2)){
+						let speedX2 = Math.sin(rotation) * (speed-0.3);
+						let speedZ2 = Math.cos(rotation) * (speed-0.3);
+						if(speedX2 < 0){
+							player.position.x -= (speedX2);
+						}
+						else if (speedX2 > 0) {
+							player.position.x -= (speedX2);
+						}
+						if(speedZ2 < 0){
+							player.position.z -= (speedZ2);
+						}else if (speedZ2 > 0) {
+							player.position.z -= (speedZ2);
+						}
+						speed = 0
+
+					}
+				}
+			})
+		})
+
+		if(!collide){
+			player.rotation.y = rotation;
+			player.position.z += speedZ;
+			player.position.x += speedX;
+		}
+
+		if(carMesh){
+			carMesh.position.x = player.position.x;
+			carMesh.position.y = player.position.y;
+			carMesh.position.z = player.position.z;
+			carMesh.rotation.y = rotation + Math.PI
+			console.log(carMesh)
+			// carMesh.rotaateY(rotation)
+		}
+
+		if(outOfBounds()){
+			// console.log(currentTile)
+			player.position.x = currentTile.position.x;
+			player.position.z = currentTile.position.z;
+			player.position.y = 15;
+			speed = 0;
+			powerupActivate = false;
+			
+			// increment death counters
+			deaths++;
+			currentDeaths++;
+		}
+
+		speed = -speed;
+
+		// Update camera to follow the block
+		let MCAM = new THREE.Matrix4()
+		// MCAM = rotationMatrixY(rotation)
+		// MCAM = translationMatrix(player.position.x + Math.sin(rotation) * 10, 0, player.position.y + 10 , player.position.z + Math.cos(rotation) * 10)
+		camera.rotation.y = -rotation;
+		camera.position.x = player.position.x + Math.sin(rotation) * 10;
+		camera.position.z = player.position.z + Math.cos(rotation) * 10;
+		camera.position.y = player.position.y + 10
+		camera.lookAt(player.position)
+		// controls.update();
+		// delay += elapsedTime
+		// }
+		renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
+		renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
+		renderer.setScissorTest(true);
+		renderer.render( scene, camera );
+
+		updateMinimap()
+
+		const minimapSize = 200;
+		renderer.setViewport(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
+		renderer.setScissor(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
+		renderer.setScissorTest(true);
+		// minimapCamera.rotateY(-Math.PI/2)
+		minimapCamera.position.set(
+			carMarker.position.x,
+			800,
+			carMarker.position.z,
+		)
+		minimapCamera.lookAt(carMarker.position);
+		renderer.render(minimapScene, minimapCamera);
+
+		if(lapCount == 3){
+			// console.log("FINISH RACE")
+			raceOver = true;
+		}
+
+		if(powerupActivate && timePowerupDuration <= elapsedTime){
+			powerupActivate = false;
+		}
+
+		touchGround = false;
+		collide = false;
 	}
-
-	if(carMesh){
-		carMesh.position.x = player.position.x;
-		carMesh.position.y = player.position.y;
-		carMesh.position.z = player.position.z;
-		carMesh.rotation.y = rotation + Math.PI
-		console.log(carMesh)
-		// carMesh.rotaateY(rotation)
-	}
-
-	if(outOfBounds()){
-		// console.log(currentTile)
-		player.position.x = currentTile.position.x;
-		player.position.z = currentTile.position.z;
-		player.position.y = 15;
-		speed = 0;
-		powerupActivate = false;
-		
-		// increment death counters
-		deaths++;
-		currentDeaths++;
-	}
-
-	speed = -speed;
-
-	// Update camera to follow the block
-	let MCAM = new THREE.Matrix4()
-	// MCAM = rotationMatrixY(rotation)
-	// MCAM = translationMatrix(player.position.x + Math.sin(rotation) * 10, 0, player.position.y + 10 , player.position.z + Math.cos(rotation) * 10)
-	camera.rotation.y = -rotation;
-	camera.position.x = player.position.x + Math.sin(rotation) * 10;
-	camera.position.z = player.position.z + Math.cos(rotation) * 10;
-	camera.position.y = player.position.y + 10
-	camera.lookAt(player.position)
-	// controls.update();
-	// delay += elapsedTime
-	// }
-	renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
-	renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
-	renderer.setScissorTest(true);
-	renderer.render( scene, camera );
-
-	updateMinimap()
-
-	const minimapSize = 200;
-	renderer.setViewport(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
-	renderer.setScissor(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
-	renderer.setScissorTest(true);
-	// minimapCamera.rotateY(-Math.PI/2)
-	minimapCamera.position.set(
-		carMarker.position.x,
-		800,
-		carMarker.position.z,
-	)
-	minimapCamera.lookAt(carMarker.position);
-	renderer.render(minimapScene, minimapCamera);
-
-	if(lapCount == 3){
-		// console.log("FINISH RACE")
-		raceOver = true;
-	}
-
-	if(powerupActivate && timePowerupDuration <= elapsedTime){
-		powerupActivate = false;
-	}
-
-	touchGround = false;
-	collide = false;
 }
