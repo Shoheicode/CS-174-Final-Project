@@ -108,7 +108,7 @@ let carMesh;
 function loadGLTF() {
     let carLoader = new GLTFLoader();
 
-    carLoader.load('car.glb', (gltf) => {
+    carLoader.load('Assets/Models/car.glb', (gltf) => {
         carMesh = gltf.scene;
         carMesh.scale.set(1, 1, 1);
         // carMesh.rotateZ(3.14);
