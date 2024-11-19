@@ -93,10 +93,10 @@ scene.background = bgTexture;
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 // Power-Up Texture
-const powerupTexture = textureLoader.load('powerUp1Texture.png');
+const powerupTexture = textureLoader.load('Assets/Images/powerUp1Texture.png');
 
 // Finish Line Texture
-const finishTexture = textureLoader.load('finishline.jpg');
+const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
 // https://www.istockphoto.com/bot-wall?returnUrl=%2Fphotos%2Ffinish-line
 
 let carMesh;
@@ -276,7 +276,7 @@ let trackMatCopy1 = trackMaterial.clone()
 
 let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
 
-const texture = new THREE.TextureLoader().load('road-texture-4k-02.jpg')
+const texture = new THREE.TextureLoader().load('Assets/Images/road-texture-4k-02.jpg')
 
 // trackCopy.position.y = 500;
 // trackCopy.position.x = xVal
