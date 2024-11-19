@@ -23,24 +23,25 @@ const app = initializeApp(firebaseConfig);
 
 const database = getFirestore(app);
 
-const addData = async (Name) => {
+const addData = async (Name, time) => {
+    console.log("HELLo")
     await setDoc(doc(database, "NAME", Name), {
         key: Name,
-        time: ""
+        time: time
     });
 };
 
 const checkDocumentExists = async (documentId) => {
-    const docRef = doc(db, "NAME", documentId);
+    const docRef = doc(database, "NAME", documentId);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-        console.log("Document exists:", docSnap.data());
+        // console.log("Document exists:", docSnap.data());
         return true; // Document exists
     } else {
-        console.log("No such document!");
+        // console.log("No such document!");
         return false; // Document does not exist
     }
 };
 
-export {app, database, addData}
+export {app, database, addData, checkDocumentExists}

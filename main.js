@@ -6,7 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { mx_bilerp_0 } from 'three/src/nodes/materialx/lib/mx_noise.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { myFunction } from './Start/introduction';
-import { addData } from './firebase';
+import { addData, checkDocumentExists } from './firebase';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -49,6 +49,7 @@ function rotationMatrixZ(theta) {
 //CONSTANTS:
 
 let gameState = ["Start", "Map1", "Map2", "Map 3", "Reset"]
+let currentState = "Start";
 
 let clock = new THREE.Clock();
 
@@ -739,6 +740,27 @@ document.getElementById('text').addEventListener('input', function() {
 	console.log(name)
 });
 
+document.getElementById("SUBMIT").onclick = function() {{
+	console.log("AM RUNNING")
+	if(name == ""){
+
+	}else{
+		checkDocumentExists(name).then((value) =>{
+			if(value){
+				console.log("RUNNING")
+			}else{
+				console.log("FALSE")
+				// addData(name, "");
+				document.getElementById("text").style.display = "none";
+				document.getElementById("SUBMIT").style.display = "none";
+				currentState = "Map1"
+			}
+		})
+	}
+	
+}
+};
+
 document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {
 	switch(e.keyCode) {
@@ -812,23 +834,12 @@ function formatTime(seconds) {
 
 function animate() {
 	// Put in animate()
-	if(gameState[0] == "Start"){
-		document.getElementById("SUBMIT").onclick = function() {{
-			console.log("AM RUNNING")
-			if(name == ""){
+	if(currentState == "Start"){
 
-			}else{
-				if(check)
-				addData(name);
-			}
-			
-		}
-	};
 	}
 	else{
 
 		if(raceOver){
-			document.getElementById("Finished").innerHTML = "FINISHED"
 			return;
 		}
 
@@ -1010,6 +1021,8 @@ function animate() {
 		if(lapCount == 3){
 			// console.log("FINISH RACE")
 			raceOver = true;
+			document.getElementById("Finished").innerHTML = "FINISHED" + " <br> " + name + ": " + lapTimes[2];
+			addData(name, formatTime(elapsedTime));
 		}
 
 		if(powerupActivate && timePowerupDuration <= elapsedTime){
