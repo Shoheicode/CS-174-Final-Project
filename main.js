@@ -194,7 +194,7 @@ playerGeo.computeBoundingBox()
 //Updated the boundary box in order to ensure that it includes the wheels
 player.geometry.userData.obb = new OBB().fromBox3(
     // player.geometry.boundingBox
-	new THREE.Box3(new THREE.Vector3(-0.75, -0.75, -0.75),new THREE.Vector3(0.75, 0.75, 0.75))
+	new THREE.Box3(new THREE.Vector3(-0.75, -0.75, -1.55),new THREE.Vector3(0.75, 0.75, 1.55))
 )
 player.userData.obb = new OBB()
 
