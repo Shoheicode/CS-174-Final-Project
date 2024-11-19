@@ -86,7 +86,7 @@ let touchGround = true;
 //Scene Code
 const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
-const bgTexture = textureLoader.load('39608.jpg');
+const bgTexture = textureLoader.load('Assets/Images/39608.jpg');
 // https://wallpaperaccess.com/universe-landscape
 
 scene.background = bgTexture;
