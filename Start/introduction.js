@@ -4,7 +4,7 @@ function intro(){
 
 }
 
-function myFunction(){
+function checkData(){
     console.log("HELLO")
     // set(red(database, "hi"), {
     //     username: "HELLO",
@@ -12,4 +12,4 @@ function myFunction(){
     addData()
 }
 
-export {myFunction}
+// export {myFunction}

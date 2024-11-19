@@ -5,7 +5,8 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { mx_bilerp_0 } from 'three/src/nodes/materialx/lib/mx_noise.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { myFunction } from './Start/introduction';
+// import { myFunction } from './Start/introduction';
+import { addData } from './firebase';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -50,6 +51,8 @@ function rotationMatrixZ(theta) {
 let gameState = ["Start", "Map1", "Map2", "Map 3", "Reset"]
 
 let clock = new THREE.Clock();
+
+let name = ""
 
 let zOffset = 5;
 let yOffset = 5;
@@ -730,6 +733,12 @@ function onDocumentKeyDown(event){
 	}
 }
 
+document.getElementById('text').addEventListener('input', function() {
+	// console.log('Input value changed to:', this.value);
+	name = this.value;
+	console.log(name)
+});
+
 document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {
 	switch(e.keyCode) {
@@ -804,7 +813,17 @@ function formatTime(seconds) {
 function animate() {
 	// Put in animate()
 	if(gameState[0] == "Start"){
-		document.getElementById("SUBMIT").onclick = function() {myFunction()};
+		document.getElementById("SUBMIT").onclick = function() {{
+			console.log("AM RUNNING")
+			if(name == ""){
+
+			}else{
+
+				addData(name);
+			}
+			
+		}
+	};
 	}
 	else{
 

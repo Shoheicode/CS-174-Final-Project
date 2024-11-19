@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc,getDoc } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,10 +23,24 @@ const app = initializeApp(firebaseConfig);
 
 const database = getFirestore(app);
 
-const addData = async () => {
-    await setDoc(doc(db, "collectionName", "documentID"), {
-        key: "value"
+const addData = async (Name) => {
+    await setDoc(doc(database, "NAME", Name), {
+        key: Name,
+        time: ""
     });
+};
+
+const checkDocumentExists = async (documentId) => {
+    const docRef = doc(db, "NAME", documentId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        console.log("Document exists:", docSnap.data());
+        return true; // Document exists
+    } else {
+        console.log("No such document!");
+        return false; // Document does not exist
+    }
 };
 
 export {app, database, addData}
