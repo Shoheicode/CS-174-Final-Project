@@ -4,6 +4,7 @@ import { directionToColor } from 'three/webgpu';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { mx_bilerp_0 } from 'three/src/nodes/materialx/lib/mx_noise.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -97,6 +98,21 @@ const powerupTexture = textureLoader.load('powerUp1Texture.png');
 // Finish Line Texture
 const finishTexture = textureLoader.load('finishline.jpg');
 // https://www.istockphoto.com/bot-wall?returnUrl=%2Fphotos%2Ffinish-line
+
+let carMesh;
+function loadGLTF() {
+    let carLoader = new GLTFLoader();
+
+    carLoader.load('car.glb', (gltf) => {
+        carMesh = gltf.scene;
+        carMesh.scale.set(1, 1, 1);
+        // carMesh.rotateZ(3.14);
+        scene.add(carMesh)
+    });
+}
+
+// Call in create map
+loadGLTF();
 
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
@@ -785,7 +801,7 @@ function formatTime(seconds) {
 }
 
 function animate() {
-
+	// Put in animate()
 	if(raceOver){
 		document.getElementById("Finished").innerHTML = "FINISHED"
 		return;
@@ -910,6 +926,16 @@ function animate() {
 		player.position.x += speedX;
 	}
 
+	if(carMesh){
+		carMesh.position.x = player.position.x;
+		carMesh.position.y = player.position.y;
+		carMesh.position.z = player.position.z;
+		carMesh.rotation.y = rotation + Math.PI
+		console.log(carMesh)
+		// carMesh.rotaateY(rotation)
+	}
+
+
 	// if(checkCollision(player, floor)){
 	// 	player.position.y = floor.position.y + 0.5;
 	// 	console.log("TOUCHING GROUND")
@@ -938,7 +964,7 @@ function animate() {
 	let MCAM = new THREE.Matrix4()
 	// MCAM = rotationMatrixY(rotation)
 	// MCAM = translationMatrix(player.position.x + Math.sin(rotation) * 10, 0, player.position.y + 10 , player.position.z + Math.cos(rotation) * 10)
-	camera.rotation.y = rotation;
+	camera.rotation.y = -rotation;
 	camera.position.x = player.position.x + Math.sin(rotation) * 10;
 	camera.position.z = player.position.z + Math.cos(rotation) * 10;
 	camera.position.y = player.position.y + 10
