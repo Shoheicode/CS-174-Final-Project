@@ -5,6 +5,7 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { mx_bilerp_0 } from 'three/src/nodes/materialx/lib/mx_noise.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { myFunction } from './Start/introduction';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -803,7 +804,7 @@ function formatTime(seconds) {
 function animate() {
 	// Put in animate()
 	if(gameState[0] == "Start"){
-
+		document.getElementById("SUBMIT").onclick = function() {myFunction()};
 	}
 	else{
 
