@@ -31,6 +31,12 @@ const addData = async (Name, time) => {
     });
 };
 
+const addToTopTime = async (name, time) => {
+    const docRef = doc(database, "NAME", documentId);
+    const docSnap = await getDoc(docRef);
+
+}
+
 const checkDocumentExists = async (documentId) => {
     const docRef = doc(database, "NAME", documentId);
     const docSnap = await getDoc(docRef);
