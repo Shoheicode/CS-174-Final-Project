@@ -18,8 +18,8 @@ This project is a racing game built using Three.js. It features interactive game
 ## Installation
 Clone the Repository:
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/Shoheicode/CS-174-Final-Project.git
+cd CS-174-Final-Project
 ``` 
 Install Dependencies:
 
