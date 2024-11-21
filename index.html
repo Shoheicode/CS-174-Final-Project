@@ -8,6 +8,7 @@
 		</style>
 		<link rel="stylesheet" href="stylesheets/style.css">
 		<link rel="stylesheet" href="stylesheets/leaderboard.css">
+		<link rel="stylesheet" href="stylesheets/startscreen.css">
 	</head>
 	<body>
 		<div id="leaderboard"></div>
@@ -16,8 +17,16 @@
 		<div id="lapTimes"></div>
 		<div id="Finished"></div>
 		<!-- <div id></div> -->
-		<input id="text" type="text" placeholder="Name?">
-		<button id = "SUBMIT">SUBMIT</button>
+		<div class="check-in-container">
+			<div class="title">RACE CHECK-IN</div>
+			<div class="input-group">
+                <label>Driver Name</label>
+                <input type="text" id="text" placeholder="Enter your name" required>
+            </div>
+            <button class="btn" type="submit">Check In</button>
+			<!-- <input id="text" type="text" placeholder="Name?">
+			<button id = "SUBMIT">SUBMIT</button> -->
+		</div>
 		<script type="module" src="/main.js"></script>
 	</body>
 </html>
