@@ -1,26 +1,28 @@
 # Render Racers
-Overview
+## Overview
 This project is a racing game built using Three.js. It features interactive gameplay, dynamic physics, power-ups, and lap tracking. The game utilizes WebGL for rendering 3D objects and Firebase for leaderboard management.
 
-Features
-Dynamic Racing Tracks: Procedurally generated maps with checkpoints, obstacles, and power-ups.
-Interactive Gameplay:
-Acceleration, steering, and braking mechanics.
-Collision detection with objects and out-of-bounds handling.
-Power-Ups: Three types of power-ups:
-Speed Boost
-Time Deduction
-Time Penalty
-Lap Tracking: Tracks lap times and displays them dynamically.
-Minimap: A minimap for better navigation during the race.
-Leaderboard: Firebase integration to store and retrieve best lap times.
-Installation
+## Features
+- Dynamic Racing Tracks: Procedurally generated maps with checkpoints, obstacles, and power-ups.
+- Interactive Gameplay:
+- - Acceleration, steering, and braking mechanics.
+- - Collision detection with objects and out-of-bounds handling.
+- Power-Ups: Three types of power-ups:
+- - Speed Boost
+- - Time Deduction
+- - Time Penalty
+- Lap Tracking: Tracks lap times and displays them dynamically.
+- Minimap: A minimap for better navigation during the race.
+- Leaderboard: Firebase integration to store and retrieve best lap times.
+
+## Installation
 Clone the Repository:
 
-bash
+```bash
 Copy code
 git clone https://github.com/your-username/your-repo.git
 cd your-repo
+``` 
 Install Dependencies:
 
 Ensure you have a local web server running (e.g., http-server or live-server).
