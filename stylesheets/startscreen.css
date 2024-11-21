@@ -4,6 +4,9 @@ body {
     height: 100vh;
     margin: 0;
     color: white;
+    background-image: url('../../Assets/Images/39608.jpg');
+    background-size: cover;
+    background-position: center;
 }
 .check-in-container {
     position: absolute;
