@@ -745,11 +745,8 @@ document.getElementById("SUBMIT").onclick = function() {{
 			}else{
 				console.log("FALSE")
 				// addData(name, "");
-				document.getElementById("text").style.display = "none";
-				document.getElementById("SUBMIT").style.display = "none";
+				document.getElementById("checkin").style.display = "none";
 				currentState = "Map1"
-				// addData(name, elapsedTime)
-				// addData(name, 0);
 			}
 		})
 	}
