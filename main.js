@@ -6,7 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { mx_bilerp_0 } from 'three/src/nodes/materialx/lib/mx_noise.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { myFunction } from './Start/introduction';
-import { addData, checkDocumentExists } from './firebase';
+import { addData, checkDocumentExists, getBestLapTimes } from './firebase';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -119,6 +119,16 @@ function loadGLTF() {
 // Call in create map
 loadGLTF();
 
+let bestTimes = []
+getBestLapTimes().then((value) =>{
+	console.log("HEYO")
+	console.log(value)
+	bestTimes = value;
+	console.log(bestTimes)
+})
+
+// console.log(bestTimes)
+
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
 	-50, 50, 50, -50, 1, 1000 // Adjust these values based on your track size
@@ -148,6 +158,12 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
 
 window.addEventListener('resize', onWindowResize, true);
 

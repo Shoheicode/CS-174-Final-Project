@@ -96,8 +96,14 @@ const getBestLapTimes = async ()=>{
     const querySnapshot = await getDocs(q);
     let i = 0;
     querySnapshot.forEach((doc) => {
-        list.push(doc)
+        list.push({
+            name: doc.id,
+            time:doc.data()["time"]
+        })
     });
+
+    console.log("HELLO")
+    console.log(list)
 
     return list;
     
