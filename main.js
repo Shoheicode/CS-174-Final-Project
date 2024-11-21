@@ -866,7 +866,6 @@ function animate() {
 			console.log(bestTimes)
 			updateleaderboard(bestTimes)
 
-			// document.getElementById("leaderboard").innerHTML += "<div class='leaderboard-title'>Leaderboard</div> " +s + "</div>"
 			update = false;
 		}
 	}
