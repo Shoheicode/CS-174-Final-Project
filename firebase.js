@@ -60,7 +60,7 @@ const addToTopTime = async (name, time) => {
             name: name,
             time: time
         });
-    } else if (deleteDoc) {
+    } else if (delDocu) {
         await setDoc(doc(database, "TopTimes", name), {
             name: name,
             time: time

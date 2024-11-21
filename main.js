@@ -741,7 +741,6 @@ document.getElementById('text').addEventListener('input', function() {
 });
 
 document.getElementById("SUBMIT").onclick = function() {{
-	console.log("AM RUNNING")
 	if(name == ""){
 
 	}else{
@@ -884,7 +883,7 @@ function animate() {
 		// })
 
 		if(!touchGround){
-			// console.log("FALLING")
+			console.log("FALLING")
 			speedY -= 0.0098 // 9.8 m/s
 			player.position.y += speedY
 		}
@@ -969,7 +968,7 @@ function animate() {
 			carMesh.position.y = player.position.y;
 			carMesh.position.z = player.position.z;
 			carMesh.rotation.y = rotation + Math.PI
-			console.log(carMesh)
+			// console.log(carMesh)
 			// carMesh.rotaateY(rotation)
 		}
 
