@@ -1022,7 +1022,7 @@ function animate() {
 			// console.log("FINISH RACE")
 			raceOver = true;
 			document.getElementById("Finished").innerHTML = "FINISHED" + " <br> " + name + ": " + lapTimes[2];
-			addData(name, formatTime(elapsedTime));
+			addData(name, elapsedTime);
 		}
 
 		if(powerupActivate && timePowerupDuration <= elapsedTime){
