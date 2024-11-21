@@ -23,7 +23,7 @@ cd CS-174-Final-Project
 ``` 
 2. Install Dependencies:
 
-Ensure you have a local web server running (e.g., http-server or live-server).
+ - Ensure you have a local web server running (e.g., http-server or live-server).
 
 3. Install required Node modules:
 bash
