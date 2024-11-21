@@ -5,12 +5,12 @@ This project is a racing game built using Three.js. It features interactive game
 ## Features
 - Dynamic Racing Tracks: Procedurally generated maps with checkpoints, obstacles, and power-ups.
 - Interactive Gameplay:
-- - Acceleration, steering, and braking mechanics.
-- - Collision detection with objects and out-of-bounds handling.
+  - Acceleration, steering, and braking mechanics.
+  - Collision detection with objects and out-of-bounds handling.
 - Power-Ups: Three types of power-ups:
-- - Speed Boost
-- - Time Deduction
-- - Time Penalty
+  - Speed Boost
+  - Time Deduction
+  - Time Penalty
 - Lap Tracking: Tracks lap times and displays them dynamically.
 - Minimap: A minimap for better navigation during the race.
 - Leaderboard: Firebase integration to store and retrieve best lap times.
