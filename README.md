@@ -16,15 +16,16 @@ This project is a racing game built using Three.js. It features interactive game
 - Leaderboard: Firebase integration to store and retrieve best lap times.
 
 ## Installation
-Clone the Repository:
+1. Clone the Repository:
 ```bash
 git clone https://github.com/Shoheicode/CS-174-Final-Project.git
 cd CS-174-Final-Project
 ``` 
-Install Dependencies:
+2. Install Dependencies:
 
 Ensure you have a local web server running (e.g., http-server or live-server).
-Install required Node modules:
+
+3. Install required Node modules:
 bash
 Copy code
 npm install three
