@@ -54,10 +54,6 @@ const addToTopTime = async (name, time) => {
         i++;
     });
 
-    // console.log(i)
-
-    // console.log(nameSaved)
-
     if(delDocu && i == 3){
         console.log("HELlnkljdljakfldjslLO")
         console.log(nameSaved)
@@ -66,7 +62,6 @@ const addToTopTime = async (name, time) => {
             name: name,
             time: time
         });
-        // addToTopTime(name, time)
     } else if (deleteDoc) {
         console.log("HELLO")
         await setDoc(doc(database, "TopTimes", name), {
