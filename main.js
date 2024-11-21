@@ -3,6 +3,7 @@ import { OBB } from 'three/examples/jsm/Addons.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { myFunction } from './Start/introduction';
 import { addData, checkDocumentExists, getBestLapTimes } from './firebase';
+import { updateleaderboard } from './startpage';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -94,6 +95,7 @@ const bgTexture = textureLoader.load('Assets/Images/39608.jpg');
 
 scene.background = bgTexture;
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+camera.frustumCulled = true
 
 // Power-Up Texture
 const powerupTexture = textureLoader.load('Assets/Images/powerUp1Texture.png');
@@ -290,6 +292,11 @@ let matSphere = new THREE.MeshPhongMaterial();
 
 function createMap(){
 	scene.add(player)
+	const light = new THREE.PointLight(0xffffff, 2, 0, 0.0001)
+	light.name = "light";
+	light.position.set(0, 10000000, 0)
+	// light.rotation.z = -Math.PI;
+	scene.add(light);
 	console.log("LENGTH AFTER" +  scene.children.length)
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
@@ -337,10 +344,12 @@ function createMap(){
 				floorCopy.position.z = zVal
 				floorCopy.rotateX(-Math.PI / 2)
 
-				const light = new THREE.PointLight(0xffffff, 1000)
-				light.name = "light";
-				light.position.set(xVal, 100, zVal)
-				scene.add(light)
+				// if(j % 3 == 0){
+				// 	const light = new THREE.PointLight(0xffffff, 1000)
+				// 	light.name = "light";
+				// 	light.position.set(xVal, 100, zVal)
+				// 	scene.add(light)
+				// }
 
 				//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
 				let mat2 = matSphere.clone()
@@ -551,10 +560,12 @@ function createMap2(){
 				floorCopy2.matrix.copy(M)
 				floorCopy2.matrixAutoUpdate = false;
 
-				const light = new THREE.PointLight(0xffffff, 1000)
-				light.name = "light";
-				light.position.set(xVal, 100, zVal)
-				scene.add(light)
+				if(j % 5 == 0){
+					const light = new THREE.PointLight(0xffffff, 1000)
+					light.name = "light";
+					light.position.set(xVal, 100, zVal)
+					scene.add(light)
+				}
 
 				if(map[i+10][j+10] <10 && map[i+10][j+10] > 4){
 					floorCopy2.material.color.setRGB(1,0.5,1);
@@ -847,30 +858,20 @@ function formatTime(seconds) {
 
 function animate() {
 	// Put in animate()
+
+	// requestAnimationFrame(animate);
+
 	if(currentState == "Start"){
 		if(bestTimes.length > 0 && update){
-			let s = ""
-			bestTimes.forEach((value, index)=>{
-				s += "<div class='leaderboard-entry'>";
-				if(index+1 == 1){
-					s += `<span class='rank'>${index+1}st</span>`
-				}
-				else if(index +1 == 2){
-					s += `<span class='rank'>${index+1}nd</span>`
-				}
-				else{
-					s += `<span class='rank'>${index+1}rd</span>`
-				}
-				s += "<span>" + value["name"] + "</span>"
-				s += "<span>" + formatTime(value["time"]) + "</span>"
-				s += "</div>"
-			})
+			console.log(bestTimes)
+			updateleaderboard(bestTimes)
 
-			document.getElementById("leaderboard").innerHTML += "<div class='leaderboard-title'>Leaderboard</div> " +s + "</div>"
+			// document.getElementById("leaderboard").innerHTML += "<div class='leaderboard-title'>Leaderboard</div> " +s + "</div>"
 			update = false;
 		}
 	}
 	else{
+		// requestAnimationFrame(animate);
 
 		if(raceOver){
 			return;
