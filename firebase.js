@@ -84,4 +84,23 @@ const checkDocumentExists = async (documentId) => {
     }
 };
 
-export {app, database, addData, checkDocumentExists}
+const getBestLapTimes = async ()=>{
+    let ref = collection(database, "TopTimes")
+    const q = query(ref, orderBy("time"), limit(3));
+
+    let delDocu = false;
+    let nameSaved = "";
+
+    let list = [];
+
+    const querySnapshot = await getDocs(q);
+    let i = 0;
+    querySnapshot.forEach((doc) => {
+        list.push(doc)
+    });
+
+    return list;
+    
+}
+
+export {app, database, addData, checkDocumentExists, getBestLapTimes}
