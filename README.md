@@ -30,7 +30,7 @@ npm install three
 npm install three/examples/jsm
 npm install firebase
 ```
-Run the Game: Launch your local server and open the game in a web browser:
+3. Run the Game: Launch your local server and open the game in a web browser:
 
 bash
 Copy code
