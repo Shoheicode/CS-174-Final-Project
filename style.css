@@ -79,3 +79,13 @@
 	font-size: 20px;
     background-color: blue;
 }
+
+#leaderboards{
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	width: 20%;
+	height: 20%;
+	background: rgba(76, 175, 80, 0.5);
+	color: black;
+}

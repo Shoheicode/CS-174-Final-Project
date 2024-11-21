@@ -149,6 +149,8 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
+window.addEventListener('resize', onWindowResize, true);
+
 const sphereGeo = new THREE.SphereGeometry(1, 32, 32);
 sphereGeo.computeBoundingBox()
 
@@ -202,31 +204,6 @@ player.userData.obb = new OBB()
 
 const floorGeo = new THREE.PlaneGeometry(20, 20, 10, 10);
 floorGeo.computeBoundingBox();
-
-// const floor = new THREE.Mesh(
-//     floorGeo,
-//     new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
-// )
-// floor.geometry.userData.obb = new OBB().fromBox3(
-//     floor.geometry.boundingBox
-// )
-// floor.userData.obb = new OBB();
-// floor.position.y = 1
-// floor.rotateX(-Math.PI / 2)
-// scene.add(floor)
-
-// const floor2 = new THREE.Mesh(
-//     floorGeo,
-//     new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
-// )
-// floor2.geometry.userData.obb = new OBB().fromBox3(
-//     floor2.geometry.boundingBox
-// )
-// floor2.userData.obb = new OBB();
-// floor2.position.y = -4.99
-// floor2.position.x += 10
-// floor2.rotateX(-Math.PI / 2)
-// scene.add(floor2)
 
 // -> -x 
 // z+
@@ -753,7 +730,7 @@ document.getElementById("SUBMIT").onclick = function() {{
 				document.getElementById("text").style.display = "none";
 				document.getElementById("SUBMIT").style.display = "none";
 				currentState = "Map1"
-				addData(name, elapsedTime)
+				// addData(name, elapsedTime)
 				// addData(name, 0);
 			}
 		})
