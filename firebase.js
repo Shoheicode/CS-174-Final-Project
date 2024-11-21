@@ -102,8 +102,8 @@ const getBestLapTimes = async ()=>{
         })
     });
 
-    console.log("HELLO")
-    console.log(list)
+    // console.log("HELLO")
+    // console.log(list)
 
     return list;
     

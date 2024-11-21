@@ -67,6 +67,8 @@ let elapsedTime = 0;
 let prevTime = 0;
 let offset = 0; // for powerup
 
+let update = true;
+
 let powerupActivate = false;
 let timePowerupDuration = 0;
 
@@ -121,10 +123,10 @@ loadGLTF();
 
 let bestTimes = []
 getBestLapTimes().then((value) =>{
-	console.log("HEYO")
-	console.log(value)
+	// console.log("HEYO")
+	// console.log(value)
 	bestTimes = value;
-	console.log(bestTimes)
+	// console.log(bestTimes)
 })
 
 // console.log(bestTimes)
@@ -829,7 +831,15 @@ function formatTime(seconds) {
 function animate() {
 	// Put in animate()
 	if(currentState == "Start"){
+		if(bestTimes.length > 0 && update){
+			let s = ""
+			bestTimes.forEach((value, index)=>{
+				s += "<li>" + value["name"] + "  Time: " + formatTime(elapsedTime) + "</li>"
+			})
 
+			document.getElementById("leaderboard").innerHTML += "<ol>"+s + "</ol>"
+			update = false;
+		}
 	}
 	else{
 

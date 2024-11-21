@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 #deaths {
 	position: absolute;
     bottom: 24%;
@@ -80,7 +82,8 @@
     background-color: blue;
 }
 
-#leaderboards{
+#leaderboard{
+	font-family: 'Oxanium';
 	position: absolute;
 	top: 5%;
 	left: 5%;
