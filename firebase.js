@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, doc, setDoc,getDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc,getDocs, getDoc, limit, collection, query,orderBy, deleteDoc } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -29,14 +29,53 @@ const addData = async (Name, time) => {
         key: Name,
         time: time
     });
-    addToTopTime()
+    addToTopTime(Name, time)
 };
 
 const addToTopTime = async (name, time) => {
-    const docRef = doc(database, "TopTimes", documentId);
-    const docSnap = await getDoc(docRef);
+    let ref = collection(database, "TopTimes")
+    const q = query(ref, orderBy("time"), limit(3));
 
-    console.log(docSnap.data)
+    let delDocu = false;
+    let nameSaved = ""
+
+    const querySnapshot = await getDocs(q);
+    let i = 0;
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(index)
+        console.log(doc.id, " => ", doc.data());
+        if(doc.data()["time"] > time){
+            delDocu = true;
+        }
+        if (i == 2 && delDocu){
+            nameSaved = doc.id;
+        }
+        i++;
+    });
+
+    // console.log(i)
+
+    // console.log(nameSaved)
+
+    if(delDocu && i == 3){
+        console.log("HELlnkljdljakfldjslLO")
+        console.log(nameSaved)
+        deleteDoc(doc(database, "TopTimes", nameSaved));
+        await setDoc(doc(database, "TopTimes", name), {
+            name: name,
+            time: time
+        });
+        // addToTopTime(name, time)
+    } else if (deleteDoc) {
+        console.log("HELLO")
+        await setDoc(doc(database, "TopTimes", name), {
+            name: name,
+            time: time
+        });
+    }
+    
+
 
 }
 

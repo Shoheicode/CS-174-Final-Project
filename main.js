@@ -754,6 +754,8 @@ document.getElementById("SUBMIT").onclick = function() {{
 				document.getElementById("text").style.display = "none";
 				document.getElementById("SUBMIT").style.display = "none";
 				currentState = "Map1"
+				addData(name, elapsedTime)
+				// addData(name, 0);
 			}
 		})
 	}
@@ -1021,7 +1023,7 @@ function animate() {
 		if(lapCount == 3){
 			// console.log("FINISH RACE")
 			raceOver = true;
-			document.getElementById("Finished").innerHTML = "FINISHED" + " <br> " + name + ": " + lapTimes[2];
+			document.getElementById("Finished").innerHTML = "FINISHED" + " <br> " + name + ": " + formatTime(elapsedTime);
 			addData(name, elapsedTime);
 		}
 
