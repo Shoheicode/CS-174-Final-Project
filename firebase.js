@@ -55,15 +55,12 @@ const addToTopTime = async (name, time) => {
     });
 
     if(delDocu && i == 3){
-        console.log("HELlnkljdljakfldjslLO")
-        console.log(nameSaved)
         deleteDoc(doc(database, "TopTimes", nameSaved));
         await setDoc(doc(database, "TopTimes", name), {
             name: name,
             time: time
         });
     } else if (deleteDoc) {
-        console.log("HELLO")
         await setDoc(doc(database, "TopTimes", name), {
             name: name,
             time: time
