@@ -24,13 +24,12 @@ cd CS-174-Final-Project
 2. Install Dependencies:
 
  - Ensure you have a local web server running (e.g., http-server or live-server).
-
-3. Install required Node modules:
-bash
-Copy code
+ - Install required Node modules:
+```bash
 npm install three
 npm install three/examples/jsm
 npm install firebase
+```
 Run the Game: Launch your local server and open the game in a web browser:
 
 bash
