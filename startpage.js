@@ -1,3 +1,5 @@
+import { formatTime } from "./main";
+
 const updateleaderboard = (bestTimes) => {
     let s = ""
 	bestTimes.forEach((value, index)=>{
@@ -16,8 +18,7 @@ const updateleaderboard = (bestTimes) => {
 		s += "</div>"
 	})
 
-	document.getElementById("leaderboard").innerHTML += "<div class='leaderboard-title'>Leaderboard</div> " +s + "</div>"
-	update = false;
+	document.getElementById("leaderboard").innerHTML += "<div class='leaderboard-title'>Leaderboard</div> " +s + "</div>";
 }
 
 export {updateleaderboard}

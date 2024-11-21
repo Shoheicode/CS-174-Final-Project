@@ -856,10 +856,10 @@ function formatTime(seconds) {
     return `${hoursStr}:${minutesStr}:${secondsStr}`;
 }
 
+export {formatTime}
+
 function animate() {
 	// Put in animate()
-
-	// requestAnimationFrame(animate);
 
 	if(currentState == "Start"){
 		if(bestTimes.length > 0 && update){
