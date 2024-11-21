@@ -53,3 +53,24 @@ input {
 .btn:hover {
     background-color: #3ae83a;
 }
+
+.error-message {
+    color: #ff4444;
+    margin-top: 5px;
+    font-size: 14px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.error-message.show {
+    visibility: visible;
+    opacity: 1;
+}
+.error-shake {
+    animation: shake 0.5s;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}

@@ -1,9 +1,5 @@
 import * as THREE from 'three'; // Imports the library that we will be using which is the Three.js
 import { OBB } from 'three/examples/jsm/Addons.js';
-import { directionToColor } from 'three/webgpu';
-import { FontLoader } from 'three/addons/loaders/FontLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { mx_bilerp_0 } from 'three/src/nodes/materialx/lib/mx_noise.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { myFunction } from './Start/introduction';
 import { addData, checkDocumentExists, getBestLapTimes } from './firebase';
@@ -115,7 +111,14 @@ function loadGLTF() {
         carMesh.scale.set(1, 1, 1);
         // carMesh.rotateZ(3.14);
         scene.add(carMesh)
-    });
+    },
+	undefined, // Optional onProgress callback
+	(error) => {
+		console.error('An error occurred:', error);
+	}
+	);
+
+	console.log("HIHI")
 }
 
 // Call in create map
@@ -137,7 +140,7 @@ const minimapCamera = new THREE.OrthographicCamera(
 );
 
 minimapCamera.position.set(0, 800, 0); // Position above the track
-const trackMaterial = new THREE.MeshBasicMaterial({ acolor: 0x404040 });
+const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x404040 });
 const planeForTrack = new THREE.PlaneGeometry(20, 20)
 const plane = new THREE.Mesh(planeForTrack, trackMaterial)
 
@@ -679,6 +682,7 @@ function checkCollision(obj1, obj2) {
 
 function reset(){
 	// console.log("RUNNINg")
+	loadGLTF();
 	speed = 0;
 	speedY = 0;
 	player.position.set(startX, 5, startZ);
@@ -704,35 +708,37 @@ document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
 	// console.log(keyCode)
-	switch(keyCode){
-		case 16: //Acceleration (Shift Key)
-			run = true;
-			break;
-		case 32: // Space bar
-			run = false;
-			// scene.children = []
-			break;
-		case 65: //LEFT (A key)
-			rSpeed = 0.03;
-			// console.log(player)
-			break;
-		case 68: //RIGHT (D KEY)
-			rSpeed = -0.03;
-			break;
-		case 83:
-			goBackwards = true;
-			break;
-		case 82:
-			// console.log("RESET")
-			reset();
-			break;
+	if(currentState != "Start"){
+		switch(keyCode){
+			case 16: //Acceleration (Shift Key)
+				run = true;
+				break;
+			case 32: // Space bar
+				run = false;
+				// scene.children = []
+				break;
+			case 65: //LEFT (A key)
+				rSpeed = 0.03;
+				// console.log(player)
+				break;
+			case 68: //RIGHT (D KEY)
+				rSpeed = -0.03;
+				break;
+			case 83:
+				goBackwards = true;
+				break;
+			case 82:
+				// console.log("RESET")
+				reset();
+				break;
+		}
 	}
 }
 
 document.getElementById('text').addEventListener('input', function() {
 	// console.log('Input value changed to:', this.value);
 	name = this.value;
-	console.log(name)
+	// console.log(name)
 });
 
 document.getElementById("SUBMIT").onclick = function() {{
@@ -742,6 +748,20 @@ document.getElementById("SUBMIT").onclick = function() {{
 		checkDocumentExists(name).then((value) =>{
 			if(value){
 				console.log("RUNNING")
+				const errorMessage = document.getElementById('errorMessage');
+        		const container = document.querySelector('.check-in-container');
+
+				errorMessage.classList.add('show');
+                // Add shake animation
+                container.classList.add('error-shake');
+                // Change input border color
+                // input.style.borderColor = '#ff4444';
+                
+                // Remove shake animation after it completes
+                setTimeout(() => {
+                    container.classList.remove('error-shake');
+                }, 500);
+
 			}else{
 				console.log("FALSE")
 				// addData(name, "");
@@ -842,7 +862,7 @@ function animate() {
 					s += `<span class='rank'>${index+1}rd</span>`
 				}
 				s += "<span>" + value["name"] + "</span>"
-				s += "<span>" + formatTime(elapsedTime) + "</span>"
+				s += "<span>" + formatTime(value["time"]) + "</span>"
 				s += "</div>"
 			})
 
