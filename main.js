@@ -154,6 +154,7 @@ plane.rotateX(-Math.PI/2)
 const minimapScene = new THREE.Scene();
 minimapScene.add(plane.clone());
 
+//Create marker for the car
 const carMarkerGeometry = new THREE.SphereGeometry(5, 16, 16);
 const carMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 const carMarker = new THREE.Mesh(carMarkerGeometry, carMarkerMaterial);
