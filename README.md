@@ -55,7 +55,7 @@ npx vite
 ### Main Components
 - Scene and Camera: Sets up the 3D scene and camera perspective.
 - Player: Represents the player-controlled car with custom physics.
-- floors and track: Manages terrain and checkpoints.
+- Floors and Track: Manages terrain and checkpoints.
 - loadGLTF: Loads 3D car models using the GLTFLoader.
 
 ### Key Functions
