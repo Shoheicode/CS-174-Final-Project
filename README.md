@@ -30,11 +30,17 @@ npm install three
 npm install three/examples/jsm
 npm install firebase
 ```
+
+or 
+```bash
+npm install
+```
+
 3. Run the Game: Launch your local server and open the game in a web browser:
 
 bash
 Copy code
-npx live-server
+npx vite
 Controls
 Key	Action
 Shift	Accelerate
