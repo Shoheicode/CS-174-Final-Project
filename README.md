@@ -93,10 +93,10 @@ lapTimes.push(elapsedTime - prevTime);
 - Background: Space-themed background (39608.jpg).
 
 ## Dependencies
-Three.js: For rendering and managing 3D objects.
-Firebase: For storing and retrieving leaderboard data.
-GLTFLoader: For loading 3D models.
-TextureLoader: For applying textures to objects.
+- Three.js: For rendering and managing 3D objects.
+- Firebase: For storing and retrieving leaderboard data.
+- GLTFLoader: For loading 3D models.
+- TextureLoader: For applying textures to objects.
 How to Contribute
 Fork the repository.
 Create a feature branch.
