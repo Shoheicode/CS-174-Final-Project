@@ -42,20 +42,23 @@ npm install
 npx vite
 ```
 ## Controls
-Key	Action
-Shift	Accelerate
-Space	Brake/Stop
-A (Left)	Turn left
-D (Right)	Turn right
-S (Backward)	Reverse
-R	Reset game
-Code Structure
-Main Components
-scene and camera: Sets up the 3D scene and camera perspective.
-player: Represents the player-controlled car with custom physics.
-floors and track: Manages terrain and checkpoints.
-loadGLTF: Loads 3D car models using the GLTFLoader.
-Key Functions
+- Key	Action
+- Shift	Accelerate
+- Space	Brake/Stop
+- A (Left)	Turn left
+- D (Right)	Turn right
+- S (Backward)	Reverse
+- R	Reset game
+
+
+## Code Structure
+### Main Components
+- scene and camera: Sets up the 3D scene and camera perspective.
+- player: Represents the player-controlled car with custom physics.
+- floors and track: Manages terrain and checkpoints.
+- loadGLTF: Loads 3D car models using the GLTFLoader.
+
+### Key Functions
 createMap: Generates the racing map dynamically.
 checkCollision: Detects collisions between the car and other objects.
 touchingGround: Ensures the car is grounded.
