@@ -107,7 +107,17 @@ lapTimes.push(elapsedTime - prevTime);
 ## License
 This project is licensed under the UCLA License.
 
-## Acknowledgments
-- Three.js
-- Firebase
-- OpenGL Textures
+## Contributors
+[![IanWearsHat](https://github.com/user-attachments/assets/644b3997-385c-4274-8b45-799c8d213e18)](https://github.com/iharsh234)  | [![ayoola135790](https://github.com/user-attachments/assets/f0efd49a-2ca1-4905-a2bc-e7b82d805419)](https://www.quandl.com/) | [![ShoheiCode](https://github.com/user-attachments/assets/9201f055-0e10-4723-93c7-9818a769f111)](https://portfoliowebsite-36391.web.app/)
+---|---|---
+[IanWearsHat](https://github.com/IanWearsHat) | [ayoola135790](https://github.com/ayoola135790) | [ShoheiCode](https://github.com/Shoheicode)
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
