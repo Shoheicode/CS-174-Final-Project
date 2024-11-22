@@ -6,4 +6,15 @@ class TrackObject{
         this.trackMat = trackMat;
         this.plane = new THREE.Mesh(this.planeGeo, this.trackMat)
     }
+
+    get plane(){
+        return this.plane
+    }
+
+    /**
+     * @param {Float32Array} x
+     */
+    set planeX(x){
+        this.plane.position.x = x;
+    }
 }
