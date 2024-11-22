@@ -87,11 +87,12 @@ lapTimes.push(elapsedTime - prevTime);
 ### 3D Models: 
 - Car model loaded via GLTF.
 ### Textures:
-Road texture (road-texture-4k-02.jpg)
-Power-up texture (powerUp1Texture.png)
-Finish line texture (finishline.jpg)
-Background: Space-themed background (39608.jpg).
-Dependencies
+- Road texture (road-texture-4k-02.jpg)
+- Power-up texture (powerUp1Texture.png)
+- Finish line texture (finishline.jpg)
+- Background: Space-themed background (39608.jpg).
+
+## Dependencies
 Three.js: For rendering and managing 3D objects.
 Firebase: For storing and retrieving leaderboard data.
 GLTFLoader: For loading 3D models.
