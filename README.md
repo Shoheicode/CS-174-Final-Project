@@ -97,19 +97,17 @@ lapTimes.push(elapsedTime - prevTime);
 - Firebase: For storing and retrieving leaderboard data.
 - GLTFLoader: For loading 3D models.
 - TextureLoader: For applying textures to objects.
-How to Contribute
-Fork the repository.
-Create a feature branch.
-Submit a pull request describing your changes.
-Future Improvements
-Add multiplayer mode for competitive racing.
-Enhance physics for more realistic car dynamics.
-Introduce additional maps and levels.
-Add sound effects and music for an immersive experience.
-License
-This project is licensed under the MIT License.
 
-Acknowledgments
-Three.js
-Firebase
-OpenGL Textures
+## Future Improvements
+- Add multiplayer mode for competitive racing.
+- Enhance physics for more realistic car dynamics.
+- Introduce additional maps and levels.
+- Add sound effects and music for an immersive experience.
+
+## License
+This project is licensed under the UCLA License.
+
+## Acknowledgments
+- Three.js
+- Firebase
+- OpenGL Textures
