@@ -38,9 +38,9 @@ npm install
 
 3. Run the Game: Launch your local server and open the game in a web browser:
 
-bash
-Copy code
+```bash
 npx vite
+```
 Controls
 Key	Action
 Shift	Accelerate
