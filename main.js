@@ -129,8 +129,6 @@ const trackMaterial = new THREE.MeshBasicMaterial({ acolor: 0x404040 });
 const planeForTrack = new THREE.PlaneGeometry(20, 20)
 const plane = new THREE.Mesh(planeForTrack, trackMaterial)
 
-// const track = new THREE.Mesh(trackGeometry, trackMaterial);
-
 plane.position.y = 500
 plane.rotateX(-Math.PI/2)
 
