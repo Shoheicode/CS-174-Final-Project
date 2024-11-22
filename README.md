@@ -112,7 +112,7 @@ This project is licensed under the UCLA License.
 
 [![image](https://github.com/user-attachments/assets/6937f963-a10e-4aee-a677-b96987088252)  | ![image](https://github.com/user-attachments/assets/e1bb1c4b-3102-4269-93db-6f144d3ca4ef) | [![ShoheiCode](https://github.com/user-attachments/assets/9201f055-0e10-4723-93c7-9818a769f111)](https://portfoliowebsite-36391.web.app/)
 ---|---|---
-[IanWearsHat](https://github.com/IanWearsHat) | [ayoola135790](https://github.com/ayoola135790) | [ShoheiCode](https://github.com/Shoheicode)
+[megganluu](https://github.com/IanWearsHat) | [valeriethekitty](https://github.com/ayoola135790) | [ShoheiCode](https://github.com/Shoheicode)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
