@@ -59,29 +59,34 @@ npx vite
 - loadGLTF: Loads 3D car models using the GLTFLoader.
 
 ### Key Functions
-createMap: Generates the racing map dynamically.
-checkCollision: Detects collisions between the car and other objects.
-touchingGround: Ensures the car is grounded.
-reset: Resets the game state for a new session.
-animate: Main rendering loop for dynamic scene updates.
-Physics and Mechanics
-Speed and acceleration mechanics implemented with:
-javascript
-Copy code
+- createMap: Generates the racing map dynamically.
+- checkCollision: Detects collisions between the car and other objects.
+- touchingGround: Ensures the car is grounded.
+- reset: Resets the game state for a new session.
+- animate: Main rendering loop for dynamic scene updates.
+- Physics and Mechanics
+
+- Speed and acceleration mechanics implemented with:
+``` javascript
 speed += acceleration;
-Collision handling:
-javascript
-Copy code
+```
+
+### Collision handling:
+``` javascript
 if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
     // Handle collision
 }
-Lap tracking:
-javascript
-Copy code
+```
+
+### Lap tracking:
+``` javascript
 lapTimes.push(elapsedTime - prevTime);
-Assets
-3D Models: Car model loaded via GLTF.
-Textures:
+```
+
+## Assets
+### 3D Models: 
+- Car model loaded via GLTF.
+### Textures:
 Road texture (road-texture-4k-02.jpg)
 Power-up texture (powerUp1Texture.png)
 Finish line texture (finishline.jpg)
