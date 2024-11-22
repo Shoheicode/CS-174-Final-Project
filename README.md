@@ -108,7 +108,9 @@ lapTimes.push(elapsedTime - prevTime);
 This project is licensed under the UCLA License.
 
 ## Contributors
-[![IanWearsHat](https://github.com/user-attachments/assets/644b3997-385c-4274-8b45-799c8d213e18)]()  | [![ayoola135790](https://github.com/user-attachments/assets/f0efd49a-2ca1-4905-a2bc-e7b82d805419)]() | [![ShoheiCode](https://github.com/user-attachments/assets/9201f055-0e10-4723-93c7-9818a769f111)](https://portfoliowebsite-36391.web.app/)
+
+
+[![image](https://github.com/user-attachments/assets/6937f963-a10e-4aee-a677-b96987088252)  | ![image](https://github.com/user-attachments/assets/e1bb1c4b-3102-4269-93db-6f144d3ca4ef) | [![ShoheiCode](https://github.com/user-attachments/assets/9201f055-0e10-4723-93c7-9818a769f111)](https://portfoliowebsite-36391.web.app/)
 ---|---|---
 [IanWearsHat](https://github.com/IanWearsHat) | [ayoola135790](https://github.com/ayoola135790) | [ShoheiCode](https://github.com/Shoheicode)
 
