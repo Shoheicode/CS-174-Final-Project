@@ -41,7 +41,7 @@ npm install
 ```bash
 npx vite
 ```
-Controls
+## Controls
 Key	Action
 Shift	Accelerate
 Space	Brake/Stop
