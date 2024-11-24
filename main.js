@@ -72,7 +72,7 @@ let timePowerupDuration = 0;
 let speed = 0;
 let acceleration = 0.005; // 5 m/s^2
 let maxSpeed = 0.7; // 7 m/s
-let dirRotation = -Math.PI/2; // Start turn angle
+let dirRotation = -3*Math.PI/2; // Start turn angle
 let goBackwards = false;
 let collide = false;
 let speedY = 0;
@@ -154,6 +154,7 @@ plane.rotateX(-Math.PI/2)
 const minimapScene = new THREE.Scene();
 minimapScene.add(plane.clone());
 
+//Create marker for the car
 const carMarkerGeometry = new THREE.SphereGeometry(5, 16, 16);
 const carMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 const carMarker = new THREE.Mesh(carMarkerGeometry, carMarkerMaterial);
@@ -235,26 +236,26 @@ floorGeo.computeBoundingBox();
 
 //17 + 20 + 17 + 20 = 
 let map = [
-	[1,2,2,2,2,2,2,2,2,5,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[3,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,1,2,2,1,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0],
-	[1,2,2,2,1,0,0,1,2,8,1,0,0,0,0,0,0,0,0,0],
+	["FF","FR","FR","FR","FR","FR","FR","FR","FR","C1","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C2","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","FR","FR","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let currentTile = null;
@@ -291,6 +292,7 @@ const texture = new THREE.TextureLoader().load('Assets/Images/road-texture-4k-02
 let matSphere = new THREE.MeshPhongMaterial();
 
 function createMap(){
+	player.rotation.y = Math.PI/2;
 	scene.add(player)
 	const light = new THREE.PointLight(0xffffff, 2, 0, 0.0001)
 	light.name = "light";
@@ -300,7 +302,7 @@ function createMap(){
 	console.log("LENGTH AFTER" +  scene.children.length)
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
-			if(map[i+10][j+10] != 0){
+			if(map[i+10][j+10] != "ES"){
 				xVal = 20 * i
 				zVal = 20 * j
 
@@ -367,13 +369,13 @@ function createMap(){
 				cube2.position.x = ((Math.random()-0.5)*2)*5
 
 				// cube1.rotateZ(10)
-				if(map[i+10][j+10] <10 && map[i+10][j+10] > 4){
+				if(map[i+10][j+10] =="C1" || map[i+10][j+10] == "C2" || map[i+10][j+10] =="C3" || map[i+10][j+10] == "C4"){
 					// floorCopy.material.color.setRGB(1,0.5,1);
 					// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmap.jpg')
 					floorCopy.material.color.setRGB(0.5,0.5,0.5);
 					trackCopy.material.color.setRGB(1,0.5,1);
 					// floorCopy.material.wireframe = true
-					floorCopy.name = "CHECKPOINT" + map[i+10][j+10];
+					floorCopy.name = map[i+10][j+10];
 					// console.log(map[i+10][j+10])
 					completedCheckPoints.push(floorCopy.name)
 					allCheckPoints.push(floorCopy.name)
@@ -413,7 +415,7 @@ function createMap(){
 					}
 					floorCopy.add(cube2)
 					// cube2.material.color.setRGB(1, 0.5, 0.5)
-				}else if(map[i+10][j+10] == 3){
+				}else if(map[i+10][j+10] == "SP"){
 					// floorCopy.material.color.setRGB(1,0.5,0.5);
 					trackCopy.material.color.setRGB(1,0.5,0.5);
 					// floorCopy.material.wireframe = true
@@ -431,7 +433,7 @@ function createMap(){
 					floorCopy.material.color.setRGB(0.5,0.5,0.5);
 					floorCopy.material.map = texture
 					floorCopy.name = "floor";
-					if(map[i+10][j+10] == 2){
+					if(map[i+10][j+10] == "FR"){
 						floorCopy.rotateZ(-Math.PI / 2)
 					}
 					if(Math.random() <= 0.2){
@@ -474,7 +476,8 @@ function createMap(){
 		}
 	}
 	// console.log("LENGTH AFTER PT 2:" +  scene.children.length)
-	completedCheckPoints.reverse()
+	completedCheckPoints.sort()
+	allCheckPoints.sort()
 }
 createMap()
 
@@ -655,6 +658,7 @@ function checkCollision(obj1, obj2) {
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+		console.log(obj2.name);
 		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
 		if (indexToRemove == 0) {
 			// console.log("hi ho")
