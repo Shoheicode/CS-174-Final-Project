@@ -105,19 +105,33 @@ const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
 // https://www.istockphoto.com/bot-wall?returnUrl=%2Fphotos%2Ffinish-line
 
 let carMesh;
-function loadGLTF() {
-    let carLoader = new GLTFLoader();
+let carChoice = 'Assets/Models/car.glb'
 
-    carLoader.load('Assets/Models/car.glb', (gltf) => {
-        carMesh = gltf.scene;
+function loadGLTF() {
+	let carLoader = new GLTFLoader();
+	
+	carLoader.load(carChoice, (gltf) => {
+		carMesh = gltf.scene;
         carMesh.scale.set(1, 1, 1);
         // carMesh.rotateZ(3.14);
         scene.add(carMesh)
-    });
-}
+	});
 
-// Call in create map
-loadGLTF();
+	if (carMesh) {
+		scene.remove(carMesh);
+		carMesh.traverse((child) => {
+			if (child.geometry) child.geometry.dispose(); // Delete old car
+			if (child.material) {
+				if (Array.isArray(child.material)) {
+					child.material.forEach((mat) => mat.dispose());
+				} else {
+					child.material.dispose(); // delete material
+				}
+			}
+		});
+	}
+	
+}
 
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
@@ -151,10 +165,11 @@ const sphereGeo = new THREE.SphereGeometry(1, 32, 32);
 sphereGeo.computeBoundingBox()
 
 const playerGeo = new THREE.BoxGeometry(1,1,1);
-const playerMat = new THREE.MeshPhongMaterial({color: "red"});
+const playerMat = new THREE.MeshPhongMaterial();
 const player = new THREE.Mesh(playerGeo, playerMat);
+player.visible = false; // Transparent player
 
-//WHEELS THE BLUE
+// WHEELS THE BLUE
 let wheels = [];
 
 const wheel = new THREE.CylinderGeometry(0.5, 0.5, 0.5, 32);
@@ -290,6 +305,7 @@ let matSphere = new THREE.MeshPhongMaterial();
 
 function createMap(){
 	scene.add(player)
+	loadGLTF();
 	console.log("LENGTH AFTER" +  scene.children.length)
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
@@ -714,6 +730,18 @@ function onDocumentKeyDown(event){
 		case 32: // Space bar
 			run = false;
 			// scene.children = []
+			break;
+		case 49: // Purple Car
+			carChoice = 'Assets/Models/car.glb';
+			loadGLTF();
+			break;
+		case 50: // Cyan Car
+			carChoice = 'Assets/Models/carTeal.glb';
+			loadGLTF();
+			break;
+		case 51: // Magenta Car
+			carChoice = 'Assets/Models/carMag.glb';
+			loadGLTF();
 			break;
 		case 65: //LEFT (A key)
 			rSpeed = 0.03;
