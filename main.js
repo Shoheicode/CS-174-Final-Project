@@ -689,21 +689,19 @@ function checkCollision(obj1, obj2) {
 
 		if(obj2.name == "ENDING" && completedCheckPoints.length == 0){
 			document.getElementById("lapTimes").innerHTML = ""
-			completedCheckPoints = [... allCheckPoints]
+			completedCheckPoints = [... allCheckPoints];
 			if(prevTime < 0){
 				lapTimes.push(elapsedTime+prevTime);
 			}else{
 				lapTimes.push(elapsedTime-prevTime);
 			}
-			prevTime = elapsedTime
+			prevTime = elapsedTime;
 			// console.log("LAP COMPLETE")
 			lapCount++;
 			lapTimes.forEach(function(time, index){
 				// console.log(index)
-				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n'
+				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n';
 			})
-
-			completedCheckPoints.reverse()
 
 			// reset currentDeaths
 			currentDeaths = 0;
@@ -886,7 +884,7 @@ export {formatTime}
 
 function animate() {
 	// Put in animate()
-
+	console.log(completedCheckPoints);
 	if(currentState == "Start"){
 		if(bestTimes.length > 0 && update){
 			console.log(bestTimes)
@@ -993,6 +991,7 @@ function animate() {
 							offset += 10;
 						}
 						else if (obj2.name == "POWERUPSHIELD") {
+							// activate shield
 							shieldActivate = true;
 							shield.visible = true;
 							timeShieldDuration = elapsedTime + 5;
@@ -1097,6 +1096,7 @@ function animate() {
 			powerupActivate = false;
 		}
 
+		// turn off shield if time reached
 		if(shieldActivate && timeShieldDuration <= elapsedTime){
 			shieldActivate = false;
 			shield.visible = false;
