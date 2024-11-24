@@ -401,7 +401,7 @@ function createMap(){
 
 					if(Math.random() <= 0.2){
 						let num = Math.random();
-						if (num <= 0.2) {
+						if (num <= 0.25) {
 							// cube2.material.colorftm.setRGB(1.0, 0.0, 0.0);
 							cube2.material = new THREE.MeshPhongMaterial()
 							cube2.material.map = powerupTexture
@@ -411,22 +411,18 @@ function createMap(){
 							// cube2.rotateX(Math.PI/4)
 							cube2.name = "POWERUPINCREASE";
 						}
-						else if (num <= 0.4) {
+						else if (num <= 0.5) {
 							cube2.material.color.setRGB(0.5, 0.5, 0.5);
 							cube2.name = "POWERUPSPEED";
 						}
-						else if (num <= 0.6) {
+						else if (num <= 0.75) {
 							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 							cube2.material.color.setRGB(0.0, 1.0, 0.0);
 							cube2.name = "POWERUPDECREASE";
 						}
-						else if (num <= 0.8) {
+						else {
 							cube2.material.color.setRGB(0.0, 0.5, 0.5);
 							cube2.name = "POWERUPSHIELD";
-						}
-						else {
-							cube2.material.color.setRGB(0.5, 0.0, 1.0);
-							cube2.name = "POWERUPSHRINK";
 						}
 						// console.log("HIHIHI")
 					}
@@ -458,7 +454,7 @@ function createMap(){
 					}
 					if(Math.random() <= 0.2){
 						let num = Math.random();
-						if (num <= 0.2) {
+						if (num <= 0.25) {
 							// cube2.material.colorftm.setRGB(1.0, 0.0, 0.0);
 							cube2.material = new THREE.MeshPhongMaterial()
 							cube2.material.map = powerupTexture
@@ -468,22 +464,18 @@ function createMap(){
 							// cube2.rotateX(Math.PI/4)
 							cube2.name = "POWERUPINCREASE";
 						}
-						else if (num <= 0.4) {
+						else if (num <= 0.5) {
 							cube2.material.color.setRGB(0.5, 0.5, 0.5);
 							cube2.name = "POWERUPSPEED";
 						}
-						else if (num <= 0.6) {
+						else if (num <= 0.75) {
 							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 							cube2.material.color.setRGB(0.0, 1.0, 0.0);
 							cube2.name = "POWERUPDECREASE";
 						}
-						else if (num <= 0.8) {
+						else {
 							cube2.material.color.setRGB(0.0, 0.5, 0.5);
 							cube2.name = "POWERUPSHIELD";
-						}
-						else {
-							cube2.material.color.setRGB(0.5, 0.0, 1.0);
-							cube2.name = "POWERUPSHRINK";
 						}
 						// console.log("HIHIHI")
 					}
