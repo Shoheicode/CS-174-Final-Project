@@ -97,8 +97,26 @@ const bgTexture = textureLoader.load('Assets/Images/39608.jpg');
 scene.background = bgTexture;
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
+// Power-Up Geometry
+let cube2; // Change name to powerUps after successful testing
+const cubes = [];
+
 // Power-Up Texture
-const powerupTexture = textureLoader.load('Assets/Images/powerUp1Texture.png');
+const speedTexture = textureLoader.load('Assets/Images/powerUp1Texture.png');
+const shieldTexture = textureLoader.load('Assets/Images/powerUp2TextureGold.png');
+
+// Power Up Materials
+const speedMat = new THREE.MeshBasicMaterial({ 
+	map: speedTexture,
+	transparent: true,
+	opacity: 0.8
+});
+
+const shieldMat = new THREE.MeshBasicMaterial({ 
+	map: shieldTexture,
+	transparent: true,
+	opacity: 0.8
+});
 
 // Finish Line Texture
 const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
@@ -346,7 +364,7 @@ function createMap(){
 				let mat2 = matSphere.clone()
 
 				let cube1 = new THREE.Mesh( sphereGeo, mat2 );
-				let cube2 = cube1.clone()
+				cube2 = cube1.clone()
 
 				cube2.geometry.userData.obb = new OBB().fromBox3(
 					cube1.geometry.boundingBox
@@ -380,17 +398,16 @@ function createMap(){
 						let num = Math.random();
 						if (num <= 0.3) {
 							// cube2.material.colorftm.setRGB(1.0, 0.0, 0.0);
-							cube2.material = new THREE.MeshPhongMaterial()
-							cube2.material.map = powerupTexture
-							cube2.material.bumpMap = powerupTexture
-							// cube2.material.bumpScale = 0.1
-							cube2.rotation.x = Math.PI/4
-							// cube2.rotateX(Math.PI/4)
-							cube2.name = "POWERUPINCREASE";
+							cube2.material = speedMat;
+							cube2.rotateX(Math.PI)
+							cube2.rotateY(Math.PI / 2)
+							cube2.name = "POWERUPSPEED";
 						}
 						else if (num <= 0.7) {
-							cube2.material.color.setRGB(0.5, 0.5, 0.5);
-							cube2.name = "POWERUPSPEED";
+							cube2.material = shieldMat;
+							cube2.rotateX(Math.PI)
+							cube2.rotateY(Math.PI / 2)
+							cube2.name = "POWERUPSHIELD";
 						}
 						else {
 							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
@@ -452,6 +469,7 @@ function createMap(){
 						cube2.material.color.setRGB(1, 1, 0.5)
 					}
 					floorCopy.add(cube2)
+					cubes.push(cube2) // Add power up to list
 				}
 
 				scene.add(trackCopy)
@@ -843,6 +861,7 @@ function animate() {
 
 		// if (elapsedTime > delay){
 		elapsedTime = Math.floor(clock.getElapsedTime()) + offset;
+		const time = clock.getElapsedTime();
 		document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
 		
 		// track # of deaths
@@ -968,6 +987,12 @@ function animate() {
 			console.log(carMesh)
 			// carMesh.rotaateY(rotation)
 		}
+
+		cubes.forEach((cube2) => {
+        		if (cube2 && (cube2.name == "POWERUPSPEED" || cube2.name == "POWERUPSHIELD")) {
+            			cube2.position.z = Math.sin(time * (2 * Math.PI * 1.0 / 2.0)) * 0.5 + 1.5; // Power-ups float up and down
+        		}
+    		});
 
 		if(outOfBounds()){
 			// console.log(currentTile)
