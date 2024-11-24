@@ -69,6 +69,10 @@ let update = true;
 let powerupActivate = false;
 let timePowerupDuration = 0;
 
+// init shield powerup
+let shieldActivate = false;
+let timeShieldDuration = 0;
+
 let speed = 0;
 let acceleration = 0.005; // 5 m/s^2
 let maxSpeed = 0.7; // 7 m/s
@@ -213,6 +217,14 @@ blueWheel4.rotateZ(-Math.PI/2)
 wheels = [blueWheel,blueWheel2,blueWheel3,blueWheel4]
 
 // player.rotateY(-Math.PI/4)
+
+// add shield
+const shield_geometry = new THREE.PlaneGeometry(4, 4);
+const shield_material = new THREE.MeshBasicMaterial({ color: 0x08f7ff });
+const shield = new THREE.Mesh(shield_geometry, shield_material);
+player.add(shield);
+shield.position.set(0.0, 2.0, -3.0);
+shield.visible = false;
 
 playerGeo.computeBoundingBox()
 
@@ -389,7 +401,7 @@ function createMap(){
 
 					if(Math.random() <= 0.2){
 						let num = Math.random();
-						if (num <= 0.3) {
+						if (num <= 0.2) {
 							// cube2.material.colorftm.setRGB(1.0, 0.0, 0.0);
 							cube2.material = new THREE.MeshPhongMaterial()
 							cube2.material.map = powerupTexture
@@ -399,14 +411,22 @@ function createMap(){
 							// cube2.rotateX(Math.PI/4)
 							cube2.name = "POWERUPINCREASE";
 						}
-						else if (num <= 0.7) {
+						else if (num <= 0.4) {
 							cube2.material.color.setRGB(0.5, 0.5, 0.5);
 							cube2.name = "POWERUPSPEED";
 						}
-						else {
+						else if (num <= 0.6) {
 							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 							cube2.material.color.setRGB(0.0, 1.0, 0.0);
 							cube2.name = "POWERUPDECREASE";
+						}
+						else if (num <= 0.8) {
+							cube2.material.color.setRGB(0.0, 0.5, 0.5);
+							cube2.name = "POWERUPSHIELD";
+						}
+						else {
+							cube2.material.color.setRGB(0.5, 0.0, 1.0);
+							cube2.name = "POWERUPSHRINK";
 						}
 						// console.log("HIHIHI")
 					}
@@ -438,7 +458,7 @@ function createMap(){
 					}
 					if(Math.random() <= 0.2){
 						let num = Math.random();
-						if (num <= 0.3) {
+						if (num <= 0.2) {
 							// cube2.material.colorftm.setRGB(1.0, 0.0, 0.0);
 							cube2.material = new THREE.MeshPhongMaterial()
 							cube2.material.map = powerupTexture
@@ -448,14 +468,22 @@ function createMap(){
 							// cube2.rotateX(Math.PI/4)
 							cube2.name = "POWERUPINCREASE";
 						}
-						else if (num <= 0.7) {
+						else if (num <= 0.4) {
 							cube2.material.color.setRGB(0.5, 0.5, 0.5);
 							cube2.name = "POWERUPSPEED";
 						}
-						else {
+						else if (num <= 0.6) {
 							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 							cube2.material.color.setRGB(0.0, 1.0, 0.0);
 							cube2.name = "POWERUPDECREASE";
+						}
+						else if (num <= 0.8) {
+							cube2.material.color.setRGB(0.0, 0.5, 0.5);
+							cube2.name = "POWERUPSHIELD";
+						}
+						else {
+							cube2.material.color.setRGB(0.5, 0.0, 1.0);
+							cube2.name = "POWERUPSHRINK";
 						}
 						// console.log("HIHIHI")
 					}
@@ -643,7 +671,9 @@ function checkCollision(obj1, obj2) {
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
         // obj2.material.color.set(0x6F7567)
 		// touchingGround = true;
-		collide = true;
+		if (!shieldActivate) {
+			collide = true;
+		}
 		return true;
     } else {
         // obj2.material.color.set(0x00ff00)
@@ -959,10 +989,10 @@ function animate() {
 			obj["children"].forEach(function(obj2, index){
 				obj2.rotateZ(Math.PI/124)
 				if(!collide){
-					if(checkCollision(player, obj2) && (obj2.name == "POWERUPDECREASE" || obj2.name == "POWERUPSPEED" || obj2.name == "POWERUPINCREASE")){
+					if(checkCollision(player, obj2) && (obj2.name.startsWith("POWERUP"))) {
 						if (obj2.name == "POWERUPSPEED") {
 							powerupActivate = true
-							timePowerupDuration = elapsedTime + 3;
+							timePowerupDuration = elapsedTime + 30;
 						}
 						else if (obj2.name == "POWERUPDECREASE") {
 							offset -= 10;
@@ -970,24 +1000,30 @@ function animate() {
 						else if (obj2.name == "POWERUPINCREASE") {
 							offset += 10;
 						}
+						else if (obj2.name == "POWERUPSHIELD") {
+							shieldActivate = true;
+							shield.visible = true;
+							timeShieldDuration = elapsedTime + 5;
+						}
 						obj.remove(obj2)
 					}
 					else if(checkCollision(player, obj2)){
-						let speedX2 = Math.sin(rotation) * (speed-0.3);
-						let speedZ2 = Math.cos(rotation) * (speed-0.3);
-						if(speedX2 < 0){
-							player.position.x -= (speedX2);
+						if (!shieldActivate) {
+							let speedX2 = Math.sin(rotation) * (speed-0.3);
+							let speedZ2 = Math.cos(rotation) * (speed-0.3);
+							if(speedX2 < 0){
+								player.position.x -= (speedX2);
+							}
+							else if (speedX2 > 0) {
+								player.position.x -= (speedX2);
+							}
+							if(speedZ2 < 0){
+								player.position.z -= (speedZ2);
+							}else if (speedZ2 > 0) {
+								player.position.z -= (speedZ2);
+							}
+							speed = 0
 						}
-						else if (speedX2 > 0) {
-							player.position.x -= (speedX2);
-						}
-						if(speedZ2 < 0){
-							player.position.z -= (speedZ2);
-						}else if (speedZ2 > 0) {
-							player.position.z -= (speedZ2);
-						}
-						speed = 0
-
 					}
 				}
 			})
@@ -1014,7 +1050,10 @@ function animate() {
 			player.position.z = currentTile.position.z;
 			player.position.y = 15;
 			speed = 0;
+			// deactivate powerups
 			powerupActivate = false;
+			shieldActivate = false;
+			shield.visible = false;
 			
 			// increment death counters
 			deaths++;
@@ -1064,6 +1103,11 @@ function animate() {
 
 		if(powerupActivate && timePowerupDuration <= elapsedTime){
 			powerupActivate = false;
+		}
+
+		if(shieldActivate && timeShieldDuration <= elapsedTime){
+			shieldActivate = false;
+			shield.visible = false;
 		}
 
 		touchGround = false;
