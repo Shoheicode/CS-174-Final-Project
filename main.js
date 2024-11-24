@@ -132,13 +132,8 @@ loadGLTF();
 
 let bestTimes = []
 getBestLapTimes().then((value) =>{
-	// console.log("HEYO")
-	// console.log(value)
 	bestTimes = value;
-	// console.log(bestTimes)
 })
-
-// console.log(bestTimes)
 
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
