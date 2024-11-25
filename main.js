@@ -52,6 +52,13 @@ let gameState = ["Start", "Map1", "Map2", "Map 3", "Reset"]
 let currentState = "Start";
 
 //Sign in Page:
+let signInEmail = "";
+let signInPassword = "";
+
+let signUpEmail = "";
+let signUpUsername = "";
+let signUpPassword = "";
+let signUpConfirmPassword ="";
 
 
 let clock = new THREE.Clock();
@@ -509,11 +516,13 @@ function toggleForm(type) {
     const signupToggle = document.getElementById('signup-toggle');
 
     if (type === 'signin') {
+		// signin = true;
         signinForm.style.display = 'block';
         signupForm.style.display = 'none';
         signinToggle.classList.add('active');
         signupToggle.classList.remove('active');
     } else {
+		// signin = false;
         signinForm.style.display = 'none';
         signupForm.style.display = 'block';
         signinToggle.classList.remove('active');
@@ -528,6 +537,38 @@ document.getElementById("signup-toggle").onclick = function() {{
 	toggleForm('signup')
 	}
 }
+
+document.getElementById('signin-email').addEventListener('input', function() {
+	// console.log('Input value changed to:', this.value);
+	console.log(this.value)
+});
+
+document.getElementById('signin-password').addEventListener('input', function() {
+	// console.log('Input value changed to:', this.value);
+	console.log(this.value)
+});
+
+document.getElementById('signup-username').addEventListener('input', function() {
+	// console.log('Input value changed to:', this.value);
+	name = this.value;
+	console.log(this.value)
+});
+
+document.getElementById('signup-email').addEventListener('input', function() {
+	// console.log('Input value changed to:', this.value);
+	console.log(this.value)
+});
+
+document.getElementById('signup-password').addEventListener('input', function() {
+	// console.log('Input value changed to:', this.value);
+	console.log(this.value)
+});
+
+document.getElementById('signup-confirm-password').addEventListener('input', function() {
+	// console.log('Input value changed to:', this.value);
+	console.log(this.value)
+});
+
 
 function createMap2(){
 	scene.add(player)
