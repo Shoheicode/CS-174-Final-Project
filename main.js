@@ -51,6 +51,9 @@ function rotationMatrixZ(theta) {
 let gameState = ["Start", "Map1", "Map2", "Map 3", "Reset"]
 let currentState = "Start";
 
+//Sign in Page:
+
+
 let clock = new THREE.Clock();
 
 let name = ""
@@ -499,6 +502,32 @@ function deleteMap(){
 	floors = []
 }
 
+function toggleForm(type) {
+    const signinForm = document.getElementById('signin-form');
+    const signupForm = document.getElementById('signup-form');
+    const signinToggle = document.getElementById('signin-toggle');
+    const signupToggle = document.getElementById('signup-toggle');
+
+    if (type === 'signin') {
+        signinForm.style.display = 'block';
+        signupForm.style.display = 'none';
+        signinToggle.classList.add('active');
+        signupToggle.classList.remove('active');
+    } else {
+        signinForm.style.display = 'none';
+        signupForm.style.display = 'block';
+        signinToggle.classList.remove('active');
+        signupToggle.classList.add('active');
+    }
+}
+
+document.getElementById("signin-toggle").onclick = function() {
+	toggleForm("signin")
+}
+document.getElementById("signup-toggle").onclick = function() {{
+	toggleForm('signup')
+	}
+}
 
 function createMap2(){
 	scene.add(player)
@@ -732,32 +761,32 @@ function onDocumentKeyDown(event){
 	}
 }
 
-document.getElementById('text').addEventListener('input', function() {
-	// console.log('Input value changed to:', this.value);
-	name = this.value;
-	console.log(name)
-});
+// document.getElementById('text').addEventListener('input', function() {
+// 	// console.log('Input value changed to:', this.value);
+// 	name = this.value;
+// 	console.log(name)
+// });
 
-document.getElementById("SUBMIT").onclick = function() {{
-	console.log("AM RUNNING")
-	if(name == ""){
+// document.getElementById("SUBMIT").onclick = function() {{
+// 	console.log("AM RUNNING")
+// 	if(name == ""){
 
-	}else{
-		checkDocumentExists(name).then((value) =>{
-			if(value){
-				console.log("RUNNING")
-			}else{
-				console.log("FALSE")
-				// addData(name, "");
-				document.getElementById("text").style.display = "none";
-				document.getElementById("SUBMIT").style.display = "none";
-				currentState = "Map1"
-			}
-		})
-	}
+// 	}else{
+// 		checkDocumentExists(name).then((value) =>{
+// 			if(value){
+// 				console.log("RUNNING")
+// 			}else{
+// 				console.log("FALSE")
+// 				// addData(name, "");
+// 				document.getElementById("text").style.display = "none";
+// 				document.getElementById("SUBMIT").style.display = "none";
+// 				currentState = "Map1"
+// 			}
+// 		})
+// 	}
 	
-}
-};
+// }
+// };
 
 document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {

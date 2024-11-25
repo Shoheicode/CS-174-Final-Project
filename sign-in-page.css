@@ -131,3 +131,7 @@ body::before {
         margin: 20px;
     }
 }
+
+.sign-in-block{
+    position:absolute;
+}
