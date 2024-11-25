@@ -13,6 +13,48 @@
 		<div id="time"></div>
 		<div id="lapTimes"></div>
 		<div id="Finished"></div>
+		<div>
+			<div class="signup-container">
+				<div class="toggle-buttons">
+					<button id="signin-toggle" class="active" onclick="toggleForm('signin')">Sign In</button>
+					<button id="signup-toggle" onclick="toggleForm('signup')">Sign Up</button>
+				</div>
+		
+				<div class="form-container">
+					<form id="signin-form">
+						<div class="form-group">
+							<label for="signin-email">Email</label>
+							<input type="email" id="signin-email" placeholder="cosmic_traveler@universe.com" required>
+						</div>
+						<div class="form-group">
+							<label for="signin-password">Password</label>
+							<input type="password" id="signin-password" placeholder="●●●●●●●●" required>
+						</div>
+						<button type="submit" class="submit-btn">Launch Session</button>
+					</form>
+		
+					<form id="signup-form">
+						<div class="form-group">
+							<label for="signup-username">Username</label>
+							<input type="text" id="signup-username" placeholder="cosmic_explorer" required>
+						</div>
+						<div class="form-group">
+							<label for="signup-email">Email</label>
+							<input type="email" id="signup-email" placeholder="astronaut@galaxy.com" required>
+						</div>
+						<div class="form-group">
+							<label for="signup-password">Password</label>
+							<input type="password" id="signup-password" placeholder="●●●●●●●●" required>
+						</div>
+						<div class="form-group">
+							<label for="signup-confirm-password">Confirm Password</label>
+							<input type="password" id="signup-confirm-password" placeholder="●●●●●●●●" required>
+						</div>
+						<button type="submit" class="submit-btn">Create Cosmic Account</button>
+					</form>
+				</div>
+			</div>
+		</div>
 		<!-- <div id></div> -->
 		<input id="text" type="text" placeholder="Name?">
 		<button id = "SUBMIT">SUBMIT</button>
