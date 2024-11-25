@@ -522,7 +522,7 @@ function createMap(mapGiven){
 currentMap = map;
 createMap(currentMap)
 
-console.log(allCheckPoints)
+// console.log(allCheckPoints)
 
 // completedCheckPoints.reverse()
 
@@ -715,6 +715,10 @@ document.getElementById("SUBMIT").onclick = function() {{
 }
 };
 
+document.getElementById("level1").onclick = function() {
+	console.log('hello')
+}
+
 document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {
 	switch(e.keyCode) {
@@ -790,10 +794,10 @@ export {formatTime}
 
 function animate() {
 	// Put in animate()
-	console.log(completedCheckPoints);
+	// console.log(completedCheckPoints);
 	if(currentState == "Start"){
 		if(bestTimes.length > 0 && update){
-			console.log(bestTimes)
+			// console.log(bestTimes)
 			updateleaderboard(bestTimes)
 
 			update = false;
