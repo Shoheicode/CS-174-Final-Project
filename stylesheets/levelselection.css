@@ -22,6 +22,7 @@
 
 #level-content{
     display: flex;
+    flex-direction: column;
     justify-content:space-around;
     align-items: center;
     
@@ -32,12 +33,10 @@
 
 .level-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 30px;
     max-width: 800px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    
 }
 
 .level {
@@ -117,7 +116,7 @@
 }
 
 h1 {
-    position: absolute;
+    position: relative;
     top: 30px;
     color: white;
     font-size: 2.5em;
