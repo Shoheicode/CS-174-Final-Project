@@ -290,6 +290,29 @@ let map2 = [
 	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
+let map3 = [
+	["FF","FR","FR","FR","FR","ES","FR","FR","FR","C1","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","FR","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C2","FR","FR","FR","FR","FR","FR","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","FR","FR","FR","FR","FF","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","FF","FR","FR","FF","ES","ES","FF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","FF","FR","FR","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+]
+
 let currentTile = null;
 
 let floors = []
@@ -717,14 +740,21 @@ document.getElementById("SUBMIT").onclick = function() {{
 }
 };
 
-let clicked = false;
-
 document.getElementById("level1").onclick = function() {{
-	console.log("HEYO")
-	setGameState("Map 1");
-	clicked = true;
-	console.log(currentState)
+	currentState="Map 1";
 	currentMap = map;
+	reset();
+	document.getElementById("level-container").style.display = "none";
+}}
+document.getElementById("level2").onclick = function() {{
+	currentState="Map 2";
+	currentMap = map2;
+	reset();
+	document.getElementById("level-container").style.display = "none";
+}}
+document.getElementById("level3").onclick = function() {{
+	currentState="Map 3";
+	currentMap = map3;
 	reset();
 	document.getElementById("level-container").style.display = "none";
 }}
