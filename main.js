@@ -592,10 +592,53 @@ function checkCollision(obj1, obj2) {
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
         // obj2.material.color.set(0x6F7567)
-		// touchingGround = true;
+		// playerTouchingGround = true;
 		if (!shieldActivate) {
 			collide = true;
 		}
+		return true;
+    } else {
+        // obj2.material.color.set(0x00ff00)
+		return false;
+    }
+ }
+
+ function playerTouchingGround(obj1, obj2) {
+	// console.log("RUNNINg")
+	obj1.userData.obb.copy(obj1.geometry.userData.obb)
+    obj2.userData.obb.copy(obj2.geometry.userData.obb)
+    obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
+    obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
+    if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+		console.log(obj2.name);
+		console.log(completedCheckPoints)
+		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
+		if (indexToRemove == 0) {
+			// console.log("hi ho")
+			completedCheckPoints.splice(indexToRemove, 1);
+		}
+
+		if(obj2.name == "ENDING" && completedCheckPoints.length == 0){
+			document.getElementById("lapTimes").innerHTML = ""
+			completedCheckPoints = [... allCheckPoints];
+			if(prevTime < 0){
+				lapTimes.push(elapsedTime+prevTime);
+			}else{
+				lapTimes.push(elapsedTime-prevTime);
+			}
+			prevTime = elapsedTime;
+			// console.log("LAP COMPLETE")
+			lapCount++;
+			lapTimes.forEach(function(time, index){
+				// console.log(index)
+				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n';
+			})
+
+			// reset currentDeaths
+			currentDeaths = 0;
+		}
+        // obj2.material.color.set(0x6F7567)
+		touchGround = true;
 		return true;
     } else {
         // obj2.material.color.set(0x00ff00)
@@ -869,12 +912,12 @@ function animate() {
 
 		floors.forEach(function (obj, index) {
 			if(!touchGround){
-				if(touchingGround(player, obj)){
+				if(playerTouchingGround(player, obj)){
 					player.position.y = obj.position.y + 0.74;
 					// fallen = false;
 					currentTile = obj;
 					// console.log("TOUCHING GROUND")
-					// touchingGround = true;
+					// playerTouchingGround = true;
 					speedY = 0;
 				}
 			}
