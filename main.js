@@ -539,8 +539,10 @@ function createMap(mapGiven){
 		}
 	}
 	// console.log("LENGTH AFTER PT 2:" +  scene.children.length)
-	completedCheckPoints.sort()
-	allCheckPoints.sort()
+	completedCheckPoints.sort().reverse()
+	allCheckPoints.sort().reverse()
+
+	console.log(completedCheckPoints)
 }
 // currentMap = map;
 // createMap(currentMap)
@@ -609,6 +611,7 @@ function checkCollision(obj1, obj2) {
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
 		console.log(obj2.name);
+		console.log(completedCheckPoints)
 		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
 		if (indexToRemove == 0) {
 			// console.log("hi ho")
@@ -833,7 +836,7 @@ function formatTime(seconds) {
 export {formatTime}
 
 function animate() {
-	console.log(currentState)
+	// console.log(currentState)
 	// Put in animate()
 	// console.log(completedCheckPoints);
 	if(currentState == "Start"){
@@ -844,8 +847,8 @@ function animate() {
 			update = false;
 		}
 	} else if(currentState == "Level Select"){
-		console.log("HELLo")
-		console.log(currentState)
+		// console.log("HELLo")
+		// console.log(currentState)
 		// if(clicked){
 		// 	currentState="Map 1"
 		// }
