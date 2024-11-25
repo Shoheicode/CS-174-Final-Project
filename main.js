@@ -362,29 +362,17 @@ function createMap(mapGiven){
 				zVal = 20 * j
 
 				const mat = new THREE.MeshPhongMaterial();
-				// const bumpTexture = new THREE.TextureLoader().load('road-texture-4k-02.jpg')
-				// mat.bumpmapGiven = bumpTexture
-				// mat.bumpScale = 0.015
 
 				let floorCopy = new THREE.Mesh(
 					floorGeo,
 					mat
 				)
-				// let floorCopy = new THREE.Mesh(
-				// 	floorGeo,
-				// 	new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
-				// )
 
 				let trackMatCopy = trackMaterial.clone()
 
 				let trackCopy = new THREE.Mesh(planeForTrack, trackMatCopy)
 
 				trackCopy.name = "track"
-
-				// trackCopy.position.y = 500;
-				// trackCopy.position.x = xVal
-				// trackCopy.position.z = zVal
-				// trackCopy.rotateX(-Math.PI/2)
 
 				let M = new THREE.Matrix4();
 				M = rotationMatrixX(-Math.PI/2).multiply(M);
