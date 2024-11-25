@@ -265,6 +265,29 @@ let map = [
 	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
+let map2 = [
+	["FF","FR","FR","FR","FR","ES","FR","FR","FR","C1","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","FR","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C2","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","FR","FR","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+]
+
 let currentTile = null;
 
 let floors = []
@@ -298,7 +321,7 @@ const texture = new THREE.TextureLoader().load('Assets/Images/road-texture-4k-02
 
 let matSphere = new THREE.MeshPhongMaterial();
 
-function createMap(){
+function createMap(mapGiven){
 	player.rotation.y = Math.PI/2;
 	scene.add(player)
 	const light = new THREE.PointLight(0xffffff, 2, 0, 0.0001)
@@ -309,13 +332,13 @@ function createMap(){
 	console.log("LENGTH AFTER" +  scene.children.length)
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
-			if(map[i+10][j+10] != "ES"){
+			if(mapGiven[i+10][j+10] != "ES"){
 				xVal = 20 * i
 				zVal = 20 * j
 
 				const mat = new THREE.MeshPhongMaterial();
 				// const bumpTexture = new THREE.TextureLoader().load('road-texture-4k-02.jpg')
-				// mat.bumpMap = bumpTexture
+				// mat.bumpmapGiven = bumpTexture
 				// mat.bumpScale = 0.015
 
 				let floorCopy = new THREE.Mesh(
@@ -376,20 +399,20 @@ function createMap(){
 				cube2.position.x = ((Math.random()-0.5)*2)*5
 
 				// cube1.rotateZ(10)
-				if(map[i+10][j+10] =="C1" || map[i+10][j+10] == "C2" || map[i+10][j+10] =="C3" || map[i+10][j+10] == "C4"){
+				if(mapGiven[i+10][j+10] =="C1" || mapGiven[i+10][j+10] == "C2" || mapGiven[i+10][j+10] =="C3" || mapGiven[i+10][j+10] == "C4"){
 					// floorCopy.material.color.setRGB(1,0.5,1);
-					// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmap.jpg')
+					// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmapGiven.jpg')
 					floorCopy.material.color.setRGB(0.5,0.5,0.5);
 					trackCopy.material.color.setRGB(1,0.5,1);
 					// floorCopy.material.wireframe = true
-					floorCopy.name = map[i+10][j+10];
-					// console.log(map[i+10][j+10])
+					floorCopy.name = mapGiven[i+10][j+10];
+					// console.log(mapGiven[i+10][j+10])
 					completedCheckPoints.push(floorCopy.name)
 					allCheckPoints.push(floorCopy.name)
 					checkpointNum++;
 					floorCopy.material.map = texture
 
-					if(map[i+10][j+10] == 5 || map[i+10][j+10] == 8){
+					if(mapGiven[i+10][j+10] == 5 || mapGiven[i+10][j+10] == 8){
 						// console.log("ROTATE Z S")
 						floorCopy.rotateZ(-Math.PI / 2)
 					}
@@ -426,7 +449,7 @@ function createMap(){
 					}
 					floorCopy.add(cube2)
 					// cube2.material.color.setRGB(1, 0.5, 0.5)
-				}else if(map[i+10][j+10] == "SP"){
+				}else if(mapGiven[i+10][j+10] == "SP"){
 					// floorCopy.material.color.setRGB(1,0.5,0.5);
 					trackCopy.material.color.setRGB(1,0.5,0.5);
 					// floorCopy.material.wireframe = true
@@ -444,7 +467,7 @@ function createMap(){
 					floorCopy.material.color.setRGB(0.5,0.5,0.5);
 					floorCopy.material.map = texture
 					floorCopy.name = "floor";
-					if(map[i+10][j+10] == "FR"){
+					if(mapGiven[i+10][j+10] == "FR"){
 						floorCopy.rotateZ(-Math.PI / 2)
 					}
 					if(Math.random() <= 0.2){
@@ -525,122 +548,6 @@ function deleteMap(){
 	// console.log(floors)
 	floors = []
 }
-
-
-function createMap2(){
-	scene.add(player)
-	for (var i = -10; i < 10; i++){
-		for(var j = -10; j < 10; j++){
-			if(map[i+10][j+10] != 0){
-				xVal = 20 * i
-				zVal = 20 * j
-
-				const mat = new THREE.MeshPhongMaterial();
-	
-				let floorCopy2 = new THREE.Mesh(
-					floorGeo,
-					mat
-				)
-
-				//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
-				let mat2 = material.clone()
-
-				let cube1 = new THREE.Mesh( geometry, mat2 );
-				let cube2 = cube1.clone()
-
-				cube2.geometry.userData.obb = new OBB().fromBox3(
-					cube1.geometry.boundingBox
-				)
-
-				cube2.userData.obb = new OBB()
-				cube2.position.z = floorCopy.position.y+5.5
-				cube2.position.y = ((Math.random()-0.5)*2)*5
-				cube2.position.x = ((Math.random()-0.5)*2)*5
-
-				let trackMatCopy = trackMaterial.clone()
-
-				let trackCopy = new THREE.Mesh(planeForTrack, trackMatCopy)
-
-				trackCopy.name = "track"
-
-				trackCopy.position.y = 500;
-				trackCopy.position.x = xVal
-				trackCopy.position.z = zVal
-				trackCopy.rotateX(-Math.PI/2)
-	
-				floorCopy2.geometry.userData.obb = new OBB().fromBox3(
-					floorCopy2.geometry.boundingBox
-				);
-				floorCopy2.userData.obb = new OBB();
-				let M = new THREE.Matrix4();
-				M = rotationMatrixX(-Math.PI/2).multiply(M);
-				M = translationMatrix(xVal, -5, zVal).multiply(M);
-				floorCopy2.matrix.copy(M)
-				floorCopy2.matrixAutoUpdate = false;
-
-				if(j % 5 == 0){
-					const light = new THREE.PointLight(0xffffff, 1000)
-					light.name = "light";
-					light.position.set(xVal, 100, zVal)
-					scene.add(light)
-				}
-
-				if(map[i+10][j+10] <10 && map[i+10][j+10] > 4){
-					floorCopy2.material.color.setRGB(1,0.5,1);
-					// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmap.jpg')
-
-					trackCopy.material.color.setRGB(1,0.5,1);
-					floorCopy2.material.wireframe = true
-					floorCopy2.name = "CHECKPOINT" + map[i+10][j+10];
-					// console.log(map[i+10][j+10])
-					completedCheckPoints.push(floorCopy2.name)
-					allCheckPoints.push(floorCopy2.name)
-					checkpointNum++;
-					// cube2.material.color.setRGB(1, 0.5, 0.5)
-				}else if(map[i+10][j+10] == 3){
-					player.position.set(xVal,5,zVal);
-					floorCopy2.material.color.setRGB(1,0.5,0.5);
-					trackCopy.material.color.setRGB(1,0.5,0.5);
-					floorCopy2.material.wireframe = true
-					currentTile = floorCopy;
-					floorCopy2.name = "ENDING"
-					player.position.set(xVal,5,zVal);
-					// player.matrix.set(xVal, 5, zVal);
-					startX = xVal;
-					startZ = zVal;
-				}else{
-					floorCopy.material.color.setRGB(0.5,0.5,0.5);
-					floorCopy.material.map = texture
-					floorCopy.name = "floor";
-					if(Math.random() <= 0.2){
-						cube2.material.color.setRGB(0.5, 0.5, 0.5)
-						cube2.name = "POWERUP"
-						// console.log("HIHIHI")
-					}
-					else{
-						cube2.material.color.setRGB(1, 1, 0.5)
-					}
-					floorCopy.add(cube2)
-				}
-
-				// if(floorCopy.name != "ENDING"){
-				// 	floorCopy.add(cube2)
-				// }
-				
-				scene.add(trackCopy)
-				minimapScene.add(trackCopy.clone());
-				scene.add(floorCopy2)
-				floors.push(floorCopy2)
-			}
-		}
-	}
-}
-
-// console.log(floors[5].children[0].material.color.setRGB(1, 0.5, 0.5))
-
-// Adding bounding box to our black box
-// const blackCubeBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
-// blackCubeBB.setFromObject(cube);
 
 // Adding bounding box to our red box
 const playerBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
