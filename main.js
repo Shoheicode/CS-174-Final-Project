@@ -389,13 +389,6 @@ function createMap(mapGiven){
 				floorCopy.position.z = zVal
 				floorCopy.rotateX(-Math.PI / 2)
 
-				// if(j % 3 == 0){
-				// 	const light = new THREE.PointLight(0xffffff, 1000)
-				// 	light.name = "light";
-				// 	light.position.set(xVal, 100, zVal)
-				// 	scene.add(light)
-				// }
-
 				//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
 				let mat2 = matSphere.clone()
 
