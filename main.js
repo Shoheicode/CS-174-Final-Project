@@ -48,6 +48,8 @@ function rotationMatrixZ(theta) {
 let gameState = ["Start", "Map1", "Map2", "Map 3", "Reset"]
 let currentState = "Start";
 
+let currentMap = null;
+
 let clock = new THREE.Clock();
 
 let name = ""
@@ -517,7 +519,8 @@ function createMap(mapGiven){
 	completedCheckPoints.sort()
 	allCheckPoints.sort()
 }
-createMap()
+currentMap = map;
+createMap(map)
 
 console.log(allCheckPoints)
 
@@ -632,7 +635,7 @@ function reset(){
 	prevTime = 0;
 	document.getElementById("lapTimes").innerText=""
 	deleteMap()
-	createMap()
+	createMap(currentMap)
 	raceOver = false;
 	document.getElementById("Finished").innerHTML = ""
 	deaths = 0;
