@@ -45,8 +45,8 @@ function rotationMatrixZ(theta) {
 
 //CONSTANTS:
 
-let gameState = ["Start", "Level Select", "Map1", "Map2", "Map 3", "Reset"]
-let currentState = "Start";
+let gameState = ["Start", "Level Select", "Map1", "Map2", "Map 3", "Reset", "Testing"]
+let currentState = "Testing";
 
 let currentMap = null;
 
@@ -544,12 +544,6 @@ function createMap(mapGiven){
 
 	console.log(completedCheckPoints)
 }
-// currentMap = map;
-// createMap(currentMap)
-
-// console.log(allCheckPoints)
-
-// completedCheckPoints.reverse()
 
 function deleteMap(){
 	let deleteObj = []
@@ -575,6 +569,12 @@ function deleteMap(){
 	
 	// console.log(floors)
 	floors = []
+}
+
+if(currentState == "Testing"){
+	document.getElementById("checkin").style.display = "none";
+	currentMap = map;
+	reset();
 }
 
 // Adding bounding box to our red box
@@ -879,24 +879,6 @@ function animate() {
 				}
 			}
 		})
-
-		// floors2.forEach(function (obj, index) {
-		// 	if(!touchGround){
-		// 		if(touchingGround(player, obj)){
-		// 			console.log("TOUCHING")
-		// 			let M = new THREE.Matrix4();
-		// 			M = translationMatrix(0, 0, 0).multiply(M);
-		// 			player.matrix.multiply(M);
-		// 			player.matrixAutoUpdate = false;
-		// 			// player.position.y = obj.position.y + 0.75;
-		// 			// fallen = false;
-		// 			currentTile = obj;
-		// 			// console.log("TOUCHING GROUND")
-		// 			// touchingGround = true;
-		// 			speedY = 0;
-		// 		}
-		// 	}
-		// })
 
 		if(!touchGround){
 			console.log("FALLING")
