@@ -519,8 +519,8 @@ function createMap(mapGiven){
 	completedCheckPoints.sort()
 	allCheckPoints.sort()
 }
-currentMap = map;
-createMap(currentMap)
+// currentMap = map;
+// createMap(currentMap)
 
 // console.log(allCheckPoints)
 
@@ -621,6 +621,7 @@ function checkCollision(obj1, obj2) {
  }
 
 function reset(){
+	console.log("RESET")
 	// console.log("RUNNINg")
 	loadGLTF();
 	speed = 0;
@@ -682,6 +683,7 @@ document.getElementById('text').addEventListener('input', function() {
 });
 
 document.getElementById("SUBMIT").onclick = function() {{
+	console.log("LKJLJLJ")
 	if(name == ""){
 
 	}else{
@@ -715,9 +717,17 @@ document.getElementById("SUBMIT").onclick = function() {{
 }
 };
 
-document.getElementById("level1").onclick = function() {
-	console.log('hello')
-}
+let clicked = false;
+
+document.getElementById("level1").onclick = function() {{
+	console.log("HEYO")
+	setGameState("Map 1");
+	clicked = true;
+	console.log(currentState)
+	currentMap = map;
+	reset();
+	document.getElementById("level-container").style.display = "none";
+}}
 
 document.body.addEventListener('keyup', onKeyUp, false);
 function onKeyUp(e) {
@@ -793,6 +803,7 @@ function formatTime(seconds) {
 export {formatTime}
 
 function animate() {
+	console.log(currentState)
 	// Put in animate()
 	// console.log(completedCheckPoints);
 	if(currentState == "Start"){
@@ -802,8 +813,12 @@ function animate() {
 
 			update = false;
 		}
-	} else if(currentState = "Level Select"){
-		
+	} else if(currentState == "Level Select"){
+		console.log("HELLo")
+		console.log(currentState)
+		// if(clicked){
+		// 	currentState="Map 1"
+		// }
 	}
 	else{
 		// requestAnimationFrame(animate);
