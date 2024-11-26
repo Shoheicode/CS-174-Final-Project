@@ -245,17 +245,17 @@ floorGeo.computeBoundingBox();
 
 //17 + 20 + 17 + 20 = 
 let map = [
-	["FF","FR","FR","FR","FR","FR","FR","FR","FR","C1","FR","FR","FR","FR","FR","FR","FR","FR","FR","ES"],
+	["FF","FR","FR","FR","FR","FR","FR","FR","FR","C1R","FR","FR","FR","FR","FR","FR","FR","FR","FR","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FR","FR","FR","C2","FR","FR","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FR","FR","FR","C2R","FR","FR","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3","ES","ES","ES","ES","ES","ES"],
+	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
@@ -264,16 +264,16 @@ let map = [
 	["FF","ES","ES","ES","FF","FR","FR","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4R","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let map2 = [
-	["FF","FR","FR","FR","FR","ES","FR","FR","FR","C1","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","FR","FR","FR","FR","ES","FR","FR","C1R","FR","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","FR","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C2","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C2F","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
@@ -282,21 +282,21 @@ let map2 = [
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","FR","FR","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","FR","C4R","FR","FF","ES","ES","FF","FR","FR","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let map3 = [
-	["FF","FR","FR","FR","FR","ES","FR","FR","FR","C1","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","FR","FR","FR","FR","ES","FR","FR","C1R","FR","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","C2","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","FR","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C2","FR","FR","FR","FR","FR","FR","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FR","FR","FR","FR","FR","FR","FR","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
@@ -305,12 +305,12 @@ let map3 = [
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","FR","FR","FR","FR","FF","ES","FF","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","FF","FR","FR","FF","ES","ES","FF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","FF","FR","FR","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","FR","C4R","FR","FF","ES","ES","FF","FR","FR","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let currentTile = null;
@@ -405,7 +405,9 @@ function createMap(mapGiven){
 				cube2.position.x = ((Math.random()-0.5)*2)*5
 
 				// cube1.rotateZ(10)
-				if(mapGiven[i+10][j+10] =="C1" || mapGiven[i+10][j+10] == "C2" || mapGiven[i+10][j+10] =="C3" || mapGiven[i+10][j+10] == "C4"){
+				if(mapGiven[i+10][j+10] =="C1R" || mapGiven[i+10][j+10] =="C1F" || mapGiven[i+10][j+10] =="C2R" || 
+					mapGiven[i+10][j+10] == "C2F" || mapGiven[i+10][j+10] =="C3R" || mapGiven[i+10][j+10] =="C3F" || 
+					mapGiven[i+10][j+10] == "C4R" || mapGiven[i+10][j+10] =="C4F"){
 					// floorCopy.material.color.setRGB(1,0.5,1);
 					// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmapGiven.jpg')
 					floorCopy.material.color.setRGB(0.5,0.5,0.5);
@@ -418,7 +420,11 @@ function createMap(mapGiven){
 					checkpointNum++;
 					floorCopy.material.map = texture
 
-					if(mapGiven[i+10][j+10] == 5 || mapGiven[i+10][j+10] == 8){
+					console.log("HIHIHIHIHIH")
+					console.log(mapGiven[i+10][j+10].at(2))
+
+					if(mapGiven[i+10][j+10].at(2) == "R"){
+						console.log("ROtate")
 						// console.log("ROTATE Z S")
 						floorCopy.rotateZ(-Math.PI / 2)
 					}
@@ -591,8 +597,8 @@ function checkCollision(obj1, obj2) {
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
-		console.log(obj2.name);
-		console.log(completedCheckPoints)
+		// console.log(obj2.name);
+		// console.log(completedCheckPoints)
 		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
 		if (indexToRemove == 0) {
 			// console.log("hi ho")
