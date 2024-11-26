@@ -6,7 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { mx_bilerp_0 } from 'three/src/nodes/materialx/lib/mx_noise.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { myFunction } from './Start/introduction';
-import { addData, checkDocumentExists, createUserWithEmailAndPass } from './firebase';
+import { addData, checkDocumentExists, createUserWithEmailAndPass, signInUserWithEmailAndPass } from './firebase';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -581,6 +581,13 @@ function isValidEmail(email) {
 }
 
 document.getElementById('signin-form').addEventListener('submit', function(event) {
+	if(isValidEmail(signInEmail)){
+		signInUserWithEmailAndPass(signInEmail, signInPassword);
+	}else{
+		if(!isValidEmail(signInEmail)){
+			console.log("FALSE")
+		}
+	}
 	
 })
 

@@ -66,17 +66,20 @@ const createUserWithEmailAndPass = async (email, password) => {
 
 const signInUserWithEmailAndPass = async (email, password) => {
     console.log("HELHIHOIJHL")
+    alert("HIHIHIHI")
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
+        alert("AHIHIHIF")
         // ...
     })
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        alert(errorMessage)
         // ..
     });
 }
 
-export {app, database, addData, checkDocumentExists, createUserWithEmailAndPass}
+export {app, database, addData, checkDocumentExists, createUserWithEmailAndPass,signInUserWithEmailAndPass}
