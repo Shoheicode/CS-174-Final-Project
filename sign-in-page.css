@@ -41,7 +41,7 @@ body::before {
     width: 400px;
     box-shadow: 0 15px 35px rgba(0, 50, 100, 0.4);
     transform-style: preserve-3d;
-    transform: rotateX(60deg);
+    transform: rotateX(5deg);
     transition: all 0.3s ease;
 }
 
@@ -132,6 +132,6 @@ body::before {
     }
 }
 
-/* .sign-in-block{
+.sign-in-block{
     position:absolute;
-} */
+} 

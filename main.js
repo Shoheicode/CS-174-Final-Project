@@ -575,6 +575,13 @@ document.getElementById('signup-confirm-password').addEventListener('input', fun
 	signUpConfirmPassword = this.value;
 });
 
+document.getElementById('signin-form').addEventListener('submit', function(event) {
+
+})
+
+document.getElementById('signin-form').addEventListener('submit', function(event) {
+
+})
 
 function createMap2(){
 	scene.add(player)
