@@ -541,32 +541,38 @@ document.getElementById("signup-toggle").onclick = function() {{
 document.getElementById('signin-email').addEventListener('input', function() {
 	// console.log('Input value changed to:', this.value);
 	console.log(this.value)
+	signInEmail = this.value;
 });
 
 document.getElementById('signin-password').addEventListener('input', function() {
 	// console.log('Input value changed to:', this.value);
 	console.log(this.value)
+	signInPassword = this.value;
 });
 
 document.getElementById('signup-username').addEventListener('input', function() {
 	// console.log('Input value changed to:', this.value);
 	name = this.value;
 	console.log(this.value)
+	signUpUsername = this.value;
 });
 
 document.getElementById('signup-email').addEventListener('input', function() {
 	// console.log('Input value changed to:', this.value);
 	console.log(this.value)
+	signUpEmail = this.value;
 });
 
 document.getElementById('signup-password').addEventListener('input', function() {
 	// console.log('Input value changed to:', this.value);
 	console.log(this.value)
+	signUpPassword = this.value;
 });
 
 document.getElementById('signup-confirm-password').addEventListener('input', function() {
 	// console.log('Input value changed to:', this.value);
 	console.log(this.value)
+	signUpConfirmPassword = this.value;
 });
 
 

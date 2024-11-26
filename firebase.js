@@ -26,6 +26,8 @@ const auth = getAuth(app);
 
 const database = getFirestore(app);
 
+
+
 const addData = async (Name, time) => {
     console.log("HELLo")
     await setDoc(doc(database, "NAME", Name), {
