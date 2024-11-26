@@ -1,12 +1,12 @@
 import * as THREE from 'three'; // Imports the library that we will be using which is the Three.js
 import { OBB } from 'three/examples/jsm/Addons.js';
-import { directionToColor } from 'three/webgpu';
+import { directionToColor, sign } from 'three/webgpu';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { mx_bilerp_0 } from 'three/src/nodes/materialx/lib/mx_noise.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { myFunction } from './Start/introduction';
-import { addData, checkDocumentExists } from './firebase';
+import { addData, checkDocumentExists, createUserWithEmailAndPass } from './firebase';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -575,12 +575,26 @@ document.getElementById('signup-confirm-password').addEventListener('input', fun
 	signUpConfirmPassword = this.value;
 });
 
-document.getElementById('signin-form').addEventListener('submit', function(event) {
+function isValidEmail(email) {
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return emailRegex.test(email);
+}
 
+document.getElementById('signin-form').addEventListener('submit', function(event) {
+	
 })
 
 document.getElementById('signup-form').addEventListener('submit', function(event) {
-	
+	if(isValidEmail(signUpEmail) && signUpConfirmPassword == signUpPassword){
+		createUserWithEmailAndPass(signUpEmail, signUpPassword);
+	}else{
+		if(!isValidEmail(signUpEmail)){
+			console.log("FALSE")
+		}
+		if(signUpConfirmPassword != signUpPassword){
+			alert("PASSWORDS DO NOT MATCH")
+		}
+	}
 })
 
 function createMap2(){

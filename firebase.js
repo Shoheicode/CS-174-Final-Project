@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, setDoc,getDoc } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -49,7 +49,8 @@ const checkDocumentExists = async (documentId) => {
     }
 };
 
-const createUserWithEmailAndPassword = async (email, password) => {
+const createUserWithEmailAndPass = async (email, password) => {
+    console.log("HELHIHOIJHL")
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed up 
@@ -63,4 +64,19 @@ const createUserWithEmailAndPassword = async (email, password) => {
     });
 }
 
-export {app, database, addData, checkDocumentExists}
+const signInUserWithEmailAndPass = async (email, password) => {
+    console.log("HELHIHOIJHL")
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed up 
+        const user = userCredential.user;
+        // ...
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+    });
+}
+
+export {app, database, addData, checkDocumentExists, createUserWithEmailAndPass}
