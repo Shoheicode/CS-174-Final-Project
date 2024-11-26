@@ -579,8 +579,8 @@ document.getElementById('signin-form').addEventListener('submit', function(event
 
 })
 
-document.getElementById('signin-form').addEventListener('submit', function(event) {
-
+document.getElementById('signup-form').addEventListener('submit', function(event) {
+	
 })
 
 function createMap2(){
