@@ -46,7 +46,7 @@ function rotationMatrixZ(theta) {
 //CONSTANTS:
 
 let gameState = ["Start", "Level Select", "Map1", "Map2", "Map 3", "Reset", "Testing"]
-let currentState = "Testing";
+let currentState = "Start";
 
 let currentMap = null;
 
@@ -235,7 +235,7 @@ player.userData.obb = new OBB()
 
 // scene.add(player)
 
-const floorGeo = new THREE.PlaneGeometry(20, 20, 10, 10);
+const floorGeo = new THREE.BoxGeometry(20, 20, 5);
 floorGeo.computeBoundingBox();
 
 // -> -x 
@@ -337,7 +337,7 @@ let trackMatCopy1 = trackMaterial.clone()
 
 let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
 
-const texture = new THREE.TextureLoader().load('Assets/Images/road-texture-4k-02.jpg')
+const floorTexture = new THREE.TextureLoader().load('Assets/Images/bump_map.png')
 
 // trackCopy.position.y = 500;
 // trackCopy.position.x = xVal
@@ -400,7 +400,7 @@ function createMap(mapGiven){
 				)
 
 				cube2.userData.obb = new OBB()
-				cube2.position.z = floorCopy.position.y+6
+				cube2.position.z = floorCopy.position.y+6+2.5
 				cube2.position.y = ((Math.random()-0.5)*2)*5
 				cube2.position.x = ((Math.random()-0.5)*2)*5
 
@@ -418,7 +418,9 @@ function createMap(mapGiven){
 					completedCheckPoints.push(floorCopy.name)
 					allCheckPoints.push(floorCopy.name)
 					checkpointNum++;
-					floorCopy.material.map = texture
+					floorCopy.material.map = floorTexture;
+					floorCopy.material.color.setRGB(1, 1, 1);
+					// floorCopy.material.normalMap = texture;
 
 					console.log("HIHIHIHIHIH")
 					console.log(mapGiven[i+10][j+10].at(2))
@@ -466,6 +468,7 @@ function createMap(mapGiven){
 					trackCopy.material.color.setRGB(1,0.5,0.5);
 					// floorCopy.material.wireframe = true
 					floorCopy.material.map = finishTexture;
+					floorCopy.material.bumpMap = finishTexture;
 					currentTile = floorCopy;
 					floorCopy.name = "ENDING"
 					player.position.set(xVal,5,zVal);
@@ -477,7 +480,12 @@ function createMap(mapGiven){
 				}
 				else{
 					floorCopy.material.color.setRGB(0.5,0.5,0.5);
-					floorCopy.material.map = texture
+					// floorCopy.material.color.setRGB(0., 1, 1);
+					// floorCopy.material.normalMap = texture;
+					// floorCopy.material.map = texture
+					// floorCopy.material.bumpMap = texture;
+					// floorCopy.material.bumpScale = 0.015
+					floorCopy.material.map = floorTexture;
 					floorCopy.name = "floor";
 					if(mapGiven[i+10][j+10] == "FR"){
 						floorCopy.rotateZ(-Math.PI / 2)
@@ -900,12 +908,23 @@ function animate() {
 		floors.forEach(function (obj, index) {
 			if(!touchGround){
 				if(playerTouchingGround(player, obj)){
-					player.position.y = obj.position.y + 0.74;
+					if(player.position.y < obj.position.y + 2.5){
+						collide = true;
+						touchGround = false;
+						console.log("HELLO")
+						speedX = 0;
+						speedZ = 0;
+						speed = 0;
+						console.log("COLIDED WITH WALLLL")
+					}
+					else{
+						player.position.y = obj.position.y + 0.74+2.5;
 					// fallen = false;
-					currentTile = obj;
+						currentTile = obj;
+						speedY = 0;
+					}
 					// console.log("TOUCHING GROUND")
 					// playerTouchingGround = true;
-					speedY = 0;
 				}
 			}
 		})
@@ -993,6 +1012,7 @@ function animate() {
 		})
 
 		if(!collide){
+			console.log("HEYYYO")
 			player.rotation.y = rotation;
 			player.position.z += speedZ;
 			player.position.x += speedX;
