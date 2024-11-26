@@ -289,7 +289,7 @@ let trackMatCopy1 = trackMaterial.clone()
 
 let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
 
-const texture = new THREE.TextureLoader().load('Assets/Images/road-texture-4k-02.jpg')
+const texture = new THREE.TextureLoader().load('Assets/Images/bump_map.png')
 
 // trackCopy.position.y = 500;
 // trackCopy.position.x = xVal
@@ -582,6 +582,7 @@ function isValidEmail(email) {
 
 document.getElementById('signin-form').addEventListener('submit', function(event) {
 	if(isValidEmail(signInEmail)){
+		alert(signInPassword)
 		signInUserWithEmailAndPass(signInEmail, signInPassword);
 	}else{
 		if(!isValidEmail(signInEmail)){
