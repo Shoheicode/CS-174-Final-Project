@@ -712,7 +712,15 @@ function reset(){
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
-	// console.log(keyCode)
+	console.log(keyCode)
+
+	// switch(keyCode){
+	// 	case 84: // Test mode
+	// 		console.log("HERRO")
+	// 		addData("Megan", "Map1", 130)
+	// 		break;
+	// }
+
 	if(currentState != "Start"){
 		switch(keyCode){
 			case 16: //Acceleration (Shift Key)
@@ -732,6 +740,10 @@ function onDocumentKeyDown(event){
 			case 83:
 				goBackwards = true;
 				break;
+			// case 84: // Test mode
+			// 	console.log("HERRO")
+			// 	addData("Jason", "Map1", 150)
+			// 	break;
 			case 82:
 				// console.log("RESET")
 				reset();
@@ -786,6 +798,7 @@ document.getElementById("level1").onclick = function() {{
 	currentMap = map;
 	reset();
 	document.getElementById("level-container").style.display = "none";
+	document.getElementById("leaderboard").style.display="block";
 }}
 document.getElementById("level2").onclick = function() {{
 	currentState="Map2";
