@@ -23,17 +23,17 @@ const app = initializeApp(firebaseConfig);
 
 const database = getFirestore(app);
 
-const addData = async (Name, time) => {
+const addData = async (Name, mapNum, time) => {
     console.log("HELLo")
-    await setDoc(doc(database, "NAME", Name), {
+    await setDoc(doc(database, mapNum, Name), {
         key: Name,
         time: time
     });
-    addToTopTime(Name, time)
+    addToTopTime(Name, mapNum, time)
 };
 
-const addToTopTime = async (name, time) => {
-    let ref = collection(database, "TopTimes")
+const addToTopTime = async (name, mapNum, time) => {
+    let ref = collection(database, "TopTimes" + mapNum)
     const q = query(ref, orderBy("time"), limit(3));
 
     let delDocu = false;
@@ -55,13 +55,13 @@ const addToTopTime = async (name, time) => {
     });
 
     if(delDocu && i == 3){
-        deleteDoc(doc(database, "TopTimes", nameSaved));
-        await setDoc(doc(database, "TopTimes", name), {
+        deleteDoc(doc(database, "TopTimes" + mapNum, nameSaved));
+        await setDoc(doc(database, "TopTimes" + mapNum, name), {
             name: name,
             time: time
         });
     } else if (delDocu) {
-        await setDoc(doc(database, "TopTimes", name), {
+        await setDoc(doc(database, "TopTimes" + mapNum, name), {
             name: name,
             time: time
         });

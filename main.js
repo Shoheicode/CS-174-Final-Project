@@ -773,7 +773,7 @@ document.getElementById("SUBMIT").onclick = function() {{
 				// addData(name, "");
 				document.getElementById("checkin").style.display = "none";
 				currentState = "Level Select";
-				document.getElementById("level-container").style.display = "block";
+				document.getElementById("bodyContainer").style.display = "flex";
 			}
 		})
 	}
@@ -782,19 +782,19 @@ document.getElementById("SUBMIT").onclick = function() {{
 };
 
 document.getElementById("level1").onclick = function() {{
-	currentState="Map 1";
+	currentState="Map1";
 	currentMap = map;
 	reset();
 	document.getElementById("level-container").style.display = "none";
 }}
 document.getElementById("level2").onclick = function() {{
-	currentState="Map 2";
+	currentState="Map2";
 	currentMap = map2;
 	reset();
 	document.getElementById("level-container").style.display = "none";
 }}
 document.getElementById("level3").onclick = function() {{
-	currentState="Map 3";
+	currentState="Map3";
 	currentMap = map3;
 	reset();
 	document.getElementById("level-container").style.display = "none";
@@ -1081,7 +1081,11 @@ function animate() {
 			// console.log("FINISH RACE")
 			raceOver = true;
 			document.getElementById("Finished").innerHTML = "FINISHED" + " <br> " + name + ": " + formatTime(elapsedTime);
-			addData(name, elapsedTime);
+			// let data = {
+			// 	map: currentState,
+			// 	time: elapsedTime
+			// }
+			addData(name, currentState, time);
 		}
 
 		if(powerupActivate && timePowerupDuration <= elapsedTime){
