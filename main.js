@@ -66,7 +66,12 @@ let elapsedTime = 0;
 let prevTime = 0;
 let offset = 0; // for powerup
 
+// For best times
 let update = true;
+let bestTimes = []
+
+// Pausing:
+let pause = false;
 
 let powerupActivate = false;
 let timePowerupDuration = 0;
@@ -131,11 +136,6 @@ function loadGLTF() {
 
 // Call in create map
 loadGLTF();
-
-let bestTimes = []
-getBestLapTimes().then((value) =>{
-	bestTimes = value;
-})
 
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
@@ -726,6 +726,9 @@ function onDocumentKeyDown(event){
 			case 16: //Acceleration (Shift Key)
 				run = true;
 				break;
+			case 27:
+				pause = !pause;
+				break;
 			case 32: // Space bar
 				run = false;
 				// scene.children = []
@@ -799,18 +802,33 @@ document.getElementById("level1").onclick = function() {{
 	reset();
 	document.getElementById("level-container").style.display = "none";
 	document.getElementById("leaderboard").style.display="block";
+
+	getBestLapTimes(currentState).then((value) =>{
+		bestTimes = value;
+	})
+
 }}
 document.getElementById("level2").onclick = function() {{
 	currentState="Map2";
 	currentMap = map2;
 	reset();
 	document.getElementById("level-container").style.display = "none";
+	document.getElementById("leaderboard").style.display="block";
+
+	getBestLapTimes(currentState).then((value) =>{
+		bestTimes = value;
+	})
 }}
 document.getElementById("level3").onclick = function() {{
 	currentState="Map3";
 	currentMap = map3;
 	reset();
 	document.getElementById("level-container").style.display = "none";
+	document.getElementById("leaderboard").style.display="block";
+
+	getBestLapTimes(currentState).then((value) =>{
+		bestTimes = value;
+	})
 }}
 
 document.body.addEventListener('keyup', onKeyUp, false);
@@ -891,12 +909,7 @@ function animate() {
 	// Put in animate()
 	// console.log(completedCheckPoints);
 	if(currentState == "Start"){
-		if(bestTimes.length > 0 && update){
-			// console.log(bestTimes)
-			updateleaderboard(bestTimes)
 
-			update = false;
-		}
 	} else if(currentState == "Level Select"){
 		// console.log("HELLo")
 		// console.log(currentState)
@@ -905,6 +918,12 @@ function animate() {
 		// }
 	}
 	else{
+		if(bestTimes.length > 0 && update){
+			// console.log(bestTimes)
+			console.log(bestTimes);
+			updateleaderboard(bestTimes);
+			update = false;
+		}
 		// requestAnimationFrame(animate);
 
 		if(raceOver){
@@ -924,11 +943,11 @@ function animate() {
 					if(player.position.y < obj.position.y + 2.5){
 						collide = true;
 						touchGround = false;
-						console.log("HELLO")
+						// console.log("HELLO")
 						speedX = 0;
 						speedZ = 0;
 						speed = 0;
-						console.log("COLIDED WITH WALLLL")
+						// console.log("COLIDED WITH WALLLL")
 					}
 					else{
 						player.position.y = obj.position.y + 0.74+2.5;
@@ -943,7 +962,7 @@ function animate() {
 		})
 
 		if(!touchGround){
-			console.log("FALLING")
+			// console.log("FALLING")
 			speedY -= 0.0098 // 9.8 m/s
 			player.position.y += speedY
 		}
@@ -1025,7 +1044,7 @@ function animate() {
 		})
 
 		if(!collide){
-			console.log("HEYYYO")
+			// console.log("HEYYYO")
 			player.rotation.y = rotation;
 			player.position.z += speedZ;
 			player.position.x += speedX;

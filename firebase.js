@@ -84,8 +84,9 @@ const checkDocumentExists = async (documentId) => {
     }
 };
 
-const getBestLapTimes = async ()=>{
-    let ref = collection(database, "TopTimes")
+const getBestLapTimes = async (map)=>{
+    console.log("TopTimes"+map)
+    let ref = collection(database, "TopTimes"+map)
     const q = query(ref, orderBy("time"), limit(3));
 
     let delDocu = false;
@@ -102,8 +103,7 @@ const getBestLapTimes = async ()=>{
         })
     });
 
-    // console.log("HELLO")
-    // console.log(list)
+    console.log("Data list", list)
 
     return list;
     
