@@ -727,6 +727,16 @@ function onDocumentKeyDown(event){
 				run = true;
 				break;
 			case 27:
+				if(pause){
+					clock.start()
+					console.log(elapsedTime)
+					clock.elapsedTime = elapsedTime;
+				}
+				else{
+					clock.stop();
+					console.log(elapsedTime)
+					// clock.elapsedTime = elapsedTime;
+				}
 				pause = !pause;
 				break;
 			case 32: // Space bar
@@ -920,9 +930,10 @@ function animate() {
 	else{
 		if(pause){
 			console.log("PAUSEd")
-			
+			document.getElementById("pauseScreen").style.display = "flex";
 		}
 		else{
+			document.getElementById("pauseScreen").style.display = "none";
 			if(bestTimes.length > 0 && update){
 				// console.log(bestTimes)
 				console.log(bestTimes);

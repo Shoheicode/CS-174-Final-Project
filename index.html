@@ -10,6 +10,8 @@
 		<link rel="stylesheet" href="stylesheets/leaderboard.css">
 		<link rel="stylesheet" href="stylesheets/startscreen.css">
 		<link rel="stylesheet" href="stylesheets/levelselection.css">
+		<link rel="stylesheet" href="stylesheets/pause.css">
+
 	</head>
 	<body>
 		<div id="leaderboard" style="display: none;"></div>
@@ -60,6 +62,16 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="pause-overlay" id="pauseScreen" style="display: none;">
+			<div class="pause-icon">⏸️</div>
+			<div class="pause-text">Game Paused</div>
+			<div class="pause-subtitle">Press ESC to continue</div>
+			<div class="pause-buttons">
+				<button class="pause-button" id = "HOMEBTN">Home Screen</button>
+				<button class="pause-button" id = "LEVELSELECT">Level Select</button>
+				<button class="pause-button" id = "RESETBTN">Reset</button>
 			</div>
 		</div>
 		<script type="module" src="/main.js"></script>
