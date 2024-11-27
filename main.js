@@ -576,9 +576,6 @@ if(currentState == "Testing"){
 const playerBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
 playerBB.setFromObject(player);
 
-// camera.position.z = 5;
-// camera.position.y = 5;
-
 function checkCollision(obj1, obj2) {
 	// console.log("RUNNINg")
 	obj1.userData.obb.copy(obj1.geometry.userData.obb)
@@ -810,7 +807,7 @@ document.getElementById("level1").onclick = function() {{
 	currentState="Map1";
 	currentMap = map;
 	reset();
-	document.getElementById("level-container").style.display = "none";
+	document.getElementById("bodyContainer").style.display = "none";
 	document.getElementById("leaderboard").style.display="block";
 
 	getBestLapTimes(currentState).then((value) =>{
@@ -822,7 +819,7 @@ document.getElementById("level2").onclick = function() {{
 	currentState="Map2";
 	currentMap = map2;
 	reset();
-	document.getElementById("level-container").style.display = "none";
+	document.getElementById("bodyContainer").style.display = "none";
 	document.getElementById("leaderboard").style.display="block";
 
 	getBestLapTimes(currentState).then((value) =>{
@@ -833,12 +830,29 @@ document.getElementById("level3").onclick = function() {{
 	currentState="Map3";
 	currentMap = map3;
 	reset();
-	document.getElementById("level-container").style.display = "none";
+	document.getElementById("bodyContainer").style.display = "none";
 	document.getElementById("leaderboard").style.display="block";
 
 	getBestLapTimes(currentState).then((value) =>{
 		bestTimes = value;
 	})
+}}
+
+document.getElementById("HOMEBTN").onclick = function(){{
+
+}}
+
+document.getElementById("LEVELSELECT").onclick = function(){{
+	currentState = "Level Select";
+	document.getElementById("bodyContainer").style.display = "flex";
+	document.getElementById("pauseScreen").style.display = "none";
+	console.log("HEWWO")
+	document.getElementById("lapTimes").innerHTML = ""
+	document.getElementById("deaths").innerHTML = ""
+	document.getElementById("Finished").innerHTML = "";
+	document.getElementById("leaderboard").style.display = "none";
+	document.getElementById("time").innerText = "";
+	pause = false;
 }}
 
 document.body.addEventListener('keyup', onKeyUp, false);
