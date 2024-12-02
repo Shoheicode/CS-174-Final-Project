@@ -269,7 +269,7 @@ let map = [
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["PF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
@@ -504,13 +504,18 @@ function createMap(mapGiven){
 
 					// player.matrixAutoUpdate = false;
 				}
+				else if(mapGiven[i+10][j+10] == "PF" || mapGiven[i+10][j+10] == "PR"){
+					floorCopy.material.map = floorTexture;
+					floorCopy.name = "powerupFloor";
+					if(mapGiven[i+10][j+10] == "PR"){
+						floorCopy.rotateZ(-Math.PI / 2)
+					}
+					if(carPlayer == "nova"){
+
+					}
+					floorCopy.add(cube2)
+				}
 				else{
-					floorCopy.material.color.setRGB(0.5,0.5,0.5);
-					// floorCopy.material.color.setRGB(0., 1, 1);
-					// floorCopy.material.normalMap = texture;
-					// floorCopy.material.map = texture
-					// floorCopy.material.bumpMap = texture;
-					// floorCopy.material.bumpScale = 0.015
 					floorCopy.material.map = floorTexture;
 					floorCopy.name = "floor";
 					if(mapGiven[i+10][j+10] == "FR"){
@@ -529,7 +534,10 @@ function createMap(mapGiven){
 							cube2.name = "POWERUPINCREASE";
 						}
 						else if (num <= 0.5) {
-							cube2.material.color.setRGB(0.5, 0.5, 0.5);
+							// cube2.material.color.setRGB(0.5, 0.5, 0.5);
+							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material.map = speedTexture
+							cube2.material.bumpMap = speedTexture
 							cube2.name = "POWERUPSPEED";
 						}
 						else if (num <= 0.75) {
@@ -538,7 +546,10 @@ function createMap(mapGiven){
 							cube2.name = "POWERUPDECREASE";
 						}
 						else {
-							cube2.material.color.setRGB(0.0, 0.5, 0.5);
+							// cube2.material.color.setRGB(0.0, 0.5, 0.5);
+							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material.map = shieldTexture
+							cube2.material.bumpMap = shieldTexture
 							cube2.name = "POWERUPSHIELD";
 						}
 						// console.log("HIHIHI")
@@ -834,7 +845,8 @@ document.getElementById("novaButton").onclick = function() {{
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
 	carChoice = 'Assets/Models/car.glb';
-	console.log("HEWOOW")
+	// console.log("HEWOOW")
+	carPlayer = "nova"
 }}
 
 document.getElementById("zenithButton").onclick = function() {{
@@ -842,7 +854,7 @@ document.getElementById("zenithButton").onclick = function() {{
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
 	carChoice = 'Assets/Models/carMag.glb';
-
+	carPlayer = "zenith"
 }}
 
 document.getElementById("fluxButton").onclick = function() {{
@@ -850,7 +862,7 @@ document.getElementById("fluxButton").onclick = function() {{
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
 	carChoice = 'Assets/Models/carTeal.glb';
-
+	carPlayer = "flux"
 }}
 
 document.getElementById("level1").onclick = function() {{
