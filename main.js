@@ -828,9 +828,26 @@ document.getElementById("SUBMIT").onclick = function() {{
 }
 };
 
+document.getElementById("novaButton").onclick = function() {{
+	document.getElementById("bodyContainer2").style.display = "none";
+	currentState = "Level Select";
+	document.getElementById("bodyContainer").style.display = "flex";
 
+}}
 
+document.getElementById("zenithButton").onclick = function() {{
+	document.getElementById("bodyContainer2").style.display = "none";
+	currentState = "Level Select";
+	document.getElementById("bodyContainer").style.display = "flex";
 
+}}
+
+document.getElementById("fluxButton").onclick = function() {{
+	document.getElementById("bodyContainer2").style.display = "none";
+	currentState = "Level Select";
+	document.getElementById("bodyContainer").style.display = "flex";
+
+}}
 
 document.getElementById("level1").onclick = function() {{
 	currentState="Map1";
