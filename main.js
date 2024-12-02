@@ -890,10 +890,32 @@ document.getElementById("level3").onclick = function() {{
 }}
 
 document.getElementById("HOMEBTN").onclick = function(){{
-
+	currentState = "Level Select";
+	document.getElementById("bodyContainer").style.display = "flex";
+	document.getElementById("pauseScreen").style.display = "none";
+	console.log("HEWWO")
+	document.getElementById("lapTimes").innerHTML = ""
+	document.getElementById("deaths").innerHTML = ""
+	document.getElementById("Finished").innerHTML = "";
+	document.getElementById("leaderboard").style.display = "none";
+	document.getElementById("time").innerText = "";
+	pause = false;
 }}
 
 document.getElementById("LEVELSELECT").onclick = function(){{
+	currentState = "Level Select";
+	document.getElementById("bodyContainer").style.display = "flex";
+	document.getElementById("pauseScreen").style.display = "none";
+	console.log("HEWWO")
+	document.getElementById("lapTimes").innerHTML = ""
+	document.getElementById("deaths").innerHTML = ""
+	document.getElementById("Finished").innerHTML = "";
+	document.getElementById("leaderboard").style.display = "none";
+	document.getElementById("time").innerText = "";
+	pause = false;
+}}
+
+document.getElementById("CHARACTER").onclick = function(){{
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
 	document.getElementById("pauseScreen").style.display = "none";
