@@ -120,22 +120,33 @@ const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
 // https://www.istockphoto.com/bot-wall?returnUrl=%2Fphotos%2Ffinish-line
 
 let carMesh;
-function loadGLTF() {
-    let carLoader = new GLTFLoader();
+let carChoice = 'Assets/Models/car.glb'
+let carPlayer = ""
 
-    carLoader.load('Assets/Models/car.glb', (gltf) => {
-        carMesh = gltf.scene;
+function loadGLTF() {
+	let carLoader = new GLTFLoader();
+	
+	carLoader.load(carChoice, (gltf) => {
+		carMesh = gltf.scene;
         carMesh.scale.set(1, 1, 1);
         // carMesh.rotateZ(3.14);
         scene.add(carMesh)
-    },
-	undefined, // Optional onProgress callback
-	(error) => {
-		console.error('An error occurred:', error);
-	}
-	);
+	});
 
-	console.log("HIHI")
+	if (carMesh) {
+		scene.remove(carMesh);
+		carMesh.traverse((child) => {
+			if (child.geometry) child.geometry.dispose(); // Delete old car
+			if (child.material) {
+				if (Array.isArray(child.material)) {
+					child.material.forEach((mat) => mat.dispose());
+				} else {
+					child.material.dispose(); // delete material
+				}
+			}
+		});
+	}
+	
 }
 
 // Call in create map
@@ -557,9 +568,6 @@ function createMap(mapGiven){
 function deleteMap(){
 	let deleteObj = []
 	let i = 0;
-	// console.log("scene.children after: ");
-	// console.log(scene.children);
-	// console.log("Length BEOFRE" + scene.children.length)
 	scene.children.forEach((obj)=>{
 		deleteObj.push(obj)
 	})
@@ -725,13 +733,6 @@ function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
 	console.log(keyCode)
 
-	// switch(keyCode){
-	// 	case 84: // Test mode
-	// 		console.log("HERRO")
-	// 		addData("Megan", "Map1", 130)
-	// 		break;
-	// }
-
 	if(currentState != "Start"){
 		switch(keyCode){
 			case 16: //Acceleration (Shift Key)
@@ -753,6 +754,18 @@ function onDocumentKeyDown(event){
 			case 32: // Space bar
 				run = false;
 				// scene.children = []
+				break;
+			case 49: // Purple Car
+				carChoice = 'Assets/Models/car.glb';
+				loadGLTF();
+				break;
+			case 50: // Cyan Car
+				carChoice = 'Assets/Models/carTeal.glb';
+				loadGLTF();
+				break;
+			case 51: // Magenta Car
+				carChoice = 'Assets/Models/carMag.glb';
+				loadGLTF();
 				break;
 			case 65: //LEFT (A key)
 				rSpeed = 0.03;
