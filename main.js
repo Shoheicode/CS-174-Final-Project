@@ -832,13 +832,13 @@ document.getElementById("novaButton").onclick = function() {{
 	document.getElementById("bodyContainer2").style.display = "none";
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
-
 }}
 
 document.getElementById("zenithButton").onclick = function() {{
 	document.getElementById("bodyContainer2").style.display = "none";
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
+	carChoice = 'Assets/Models/carMag.glb';
 
 }}
 
@@ -846,6 +846,7 @@ document.getElementById("fluxButton").onclick = function() {{
 	document.getElementById("bodyContainer2").style.display = "none";
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
+	carChoice = 'Assets/Models/carTeal.glb';
 
 }}
 
