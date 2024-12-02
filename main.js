@@ -828,6 +828,8 @@ document.getElementById("SUBMIT").onclick = function() {{
 }
 };
 
+
+
 document.getElementById("level1").onclick = function() {{
 	currentState="Map1";
 	currentMap = map;
