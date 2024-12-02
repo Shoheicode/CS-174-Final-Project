@@ -790,9 +790,7 @@ function onDocumentKeyDown(event){
 }
 
 document.getElementById('text').addEventListener('input', function() {
-	// console.log('Input value changed to:', this.value);
 	name = this.value;
-	// console.log(name)
 });
 
 document.getElementById("SUBMIT").onclick = function() {{
