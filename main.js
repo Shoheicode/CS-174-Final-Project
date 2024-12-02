@@ -891,7 +891,6 @@ document.getElementById("level3").onclick = function() {{
 	})
 	clock.start()
 }}
-
 document.getElementById("HOMEBTN").onclick = function(){{
 	currentState = "Start";
 	document.getElementById("checkin").style.display = "block";
@@ -968,16 +967,6 @@ function updateMinimap() {
 	carMarker.rotation.y = player.rotation.y;
 	carMarker.position.y = 500
 }
-
-const timeScale = 0.00005;
-
-// let clock = new THREE.Clock();
-let delay = 0.00000001; // Delay in seconds
-let actionPerformed = false;
-
-// const controls = new OrbitControls(camera, renderer.domElement);
-// camera.position.set(0, 5, 10); // Where the camera is.
-// controls.target.set(0, 0, 0); // Where the camera is looking towards.
 
 function formatTime(seconds) {
     const hours = Math.floor(seconds / 3600);
