@@ -861,6 +861,8 @@ document.getElementById("level1").onclick = function() {{
 		bestTimes = value;
 	})
 
+	clock.start()
+
 }}
 document.getElementById("level2").onclick = function() {{
 	currentState="Map2";
@@ -872,6 +874,7 @@ document.getElementById("level2").onclick = function() {{
 	getBestLapTimes(currentState).then((value) =>{
 		bestTimes = value;
 	})
+	clock.start()
 }}
 document.getElementById("level3").onclick = function() {{
 	currentState="Map3";
@@ -883,6 +886,7 @@ document.getElementById("level3").onclick = function() {{
 	getBestLapTimes(currentState).then((value) =>{
 		bestTimes = value;
 	})
+	clock.start()
 }}
 
 document.getElementById("HOMEBTN").onclick = function(){{
