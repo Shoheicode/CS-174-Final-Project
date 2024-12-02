@@ -109,7 +109,11 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 camera.frustumCulled = true
 
 // Power-Up Texture
-const powerupTexture = textureLoader.load('Assets/Images/powerUp1Texture.png');
+const shieldTexture = textureLoader.load('Assets/Images/powerUp1Texture.png');
+
+const speedTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
+
+const powerupTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
 
 // Finish Line Texture
 const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
@@ -444,7 +448,10 @@ function createMap(mapGiven){
 							cube2.name = "POWERUPINCREASE";
 						}
 						else if (num <= 0.5) {
-							cube2.material.color.setRGB(0.5, 0.5, 0.5);
+							// cube2.material.color.setRGB(0.5, 0.5, 0.5);
+							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material.map = speedTexture
+							cube2.material.bumpMap = speedTexture
 							cube2.name = "POWERUPSPEED";
 						}
 						else if (num <= 0.75) {
@@ -453,7 +460,10 @@ function createMap(mapGiven){
 							cube2.name = "POWERUPDECREASE";
 						}
 						else {
-							cube2.material.color.setRGB(0.0, 0.5, 0.5);
+							// cube2.material.color.setRGB(0.0, 0.5, 0.5);
+							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material.map = shieldTexture
+							cube2.material.bumpMap = shieldTexture
 							cube2.name = "POWERUPSHIELD";
 						}
 						// console.log("HIHIHI")
