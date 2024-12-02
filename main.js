@@ -820,13 +820,15 @@ document.getElementById("SUBMIT").onclick = function() {{
 				// addData(name, "");
 				document.getElementById("checkin").style.display = "none";
 				currentState = "Level Select";
-				document.getElementById("bodyContainer").style.display = "flex";
+				document.getElementById("bodyContainer2").style.display = "block";
 			}
 		})
 	}
 	
 }
 };
+
+
 
 
 
