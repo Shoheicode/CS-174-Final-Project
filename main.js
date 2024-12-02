@@ -82,7 +82,7 @@ let timeShieldDuration = 0;
 
 let speed = 0;
 let acceleration = 0.005; // 5 m/s^2
-let maxSpeed = 0.7; // 7 m/s
+let maxSpeed = 0.75; // 7.5 m/s
 let dirRotation = -3*Math.PI/2; // Start turn angle
 let goBackwards = false;
 let collide = false;
@@ -269,9 +269,9 @@ let map = [
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["PF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES"],
+	["PF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
@@ -428,9 +428,7 @@ function createMap(mapGiven){
 				if(mapGiven[i+10][j+10] =="C1R" || mapGiven[i+10][j+10] =="C1F" || mapGiven[i+10][j+10] =="C2R" || 
 					mapGiven[i+10][j+10] == "C2F" || mapGiven[i+10][j+10] =="C3R" || mapGiven[i+10][j+10] =="C3F" || 
 					mapGiven[i+10][j+10] == "C4R" || mapGiven[i+10][j+10] =="C4F"){
-					// floorCopy.material.color.setRGB(1,0.5,1);
-					// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmapGiven.jpg')
-					// floorCopy.material.color.setRGB(0.5,0.5,0.5);
+
 					trackCopy.material.color.setRGB(1,0.5,1);
 					// floorCopy.material.wireframe = true
 					floorCopy.name = mapGiven[i+10][j+10];
@@ -477,7 +475,7 @@ function createMap(mapGiven){
 						}
 						else {
 							// cube2.material.color.setRGB(0.0, 0.5, 0.5);
-							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material = new THREE.MeshBasicMaterial()
 							cube2.material.map = shieldTexture
 							cube2.material.bumpMap = shieldTexture
 							cube2.name = "POWERUPSHIELD";
@@ -505,17 +503,36 @@ function createMap(mapGiven){
 					// player.matrixAutoUpdate = false;
 				}
 				else if(mapGiven[i+10][j+10] == "PF" || mapGiven[i+10][j+10] == "PR"){
+					console.log("HEYO THY NAME IS " + carPlayer)
 					floorCopy.material.map = floorTexture;
 					floorCopy.name = "powerupFloor";
 					if(mapGiven[i+10][j+10] == "PR"){
 						floorCopy.rotateZ(-Math.PI / 2)
 					}
 					if(carPlayer == "nova"){
-
+						console.log("NOVA?")
+						cube2.material = new THREE.MeshBasicMaterial()
+						cube2.material.map = speedTexture
+						// cube2.material.bumpMap = speedTexture
+						cube2.name = "POWERUPSPEED";
+					}
+					else if(carPlayer=="zenith"){
+						console.log("ZENNITH")
+						cube2.material = new THREE.MeshBasicMaterial()
+						cube2.material.map = shieldTexture
+						cube2.name = "POWERUPSHIELD";
+					}
+					else if(carPlayer=="flux"){
+						console.log("FLUZ")
+						// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+						cube2.material.color.setRGB(0.0, 1.0, 0.0);
+						cube2.name = "POWERUPDECREASE";
 					}
 					floorCopy.add(cube2)
+					console.log("HEYO CUBE BUDDIES")
 				}
 				else{
+					console.log("EHJKJKj")
 					floorCopy.material.map = floorTexture;
 					floorCopy.name = "floor";
 					if(mapGiven[i+10][j+10] == "FR"){
@@ -565,6 +582,7 @@ function createMap(mapGiven){
 				// console.log(floorCopy)
 				floors.push(floorCopy)
 				scene.add(floorCopy)
+				console.log("MADE EVERYTHIngf")
 
 				// scene.add(floorCopy2)
 			}
@@ -831,7 +849,7 @@ document.getElementById("SUBMIT").onclick = function() {{
 				console.log("FALSE")
 				// addData(name, "");
 				document.getElementById("checkin").style.display = "none";
-				currentState = "Level Select";
+				currentState = "Character Select";
 				document.getElementById("bodyContainer2").style.display = "block";
 			}
 		})
@@ -1006,17 +1024,13 @@ function formatTime(seconds) {
 export {formatTime}
 
 function animate() {
-	// console.log(currentState)
-	// Put in animate()
-	// console.log(completedCheckPoints);
 	if(currentState == "Start"){
 
 	} else if(currentState == "Level Select"){
-		// console.log("HELLo")
-		// console.log(currentState)
-		// if(clicked){
-		// 	currentState="Map 1"
-		// }
+
+	}
+	else if(currentState == "Character Select"){
+
 	}
 	else{
 		if(pause){
@@ -1080,7 +1094,7 @@ function animate() {
 						obj.rotateY(-Math.PI/4)
 					})
 					if(powerupActivate){
-						speed = 1;
+						speed = 1.5;
 					}
 						else{
 						speed += acceleration;
