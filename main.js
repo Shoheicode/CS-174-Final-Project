@@ -368,6 +368,7 @@ let matSphere = new THREE.MeshPhongMaterial();
 function createMap(mapGiven){
 	player.rotation.y = Math.PI/2;
 	scene.add(player)
+	loadGLTF();
 	const light = new THREE.PointLight(0xffffff, 2, 0, 0.0001)
 	light.name = "light";
 	light.position.set(0, 10000000, 0)
@@ -832,6 +833,8 @@ document.getElementById("novaButton").onclick = function() {{
 	document.getElementById("bodyContainer2").style.display = "none";
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
+	carChoice = 'Assets/Models/car.glb';
+	console.log("HEWOOW")
 }}
 
 document.getElementById("zenithButton").onclick = function() {{
@@ -890,8 +893,8 @@ document.getElementById("level3").onclick = function() {{
 }}
 
 document.getElementById("HOMEBTN").onclick = function(){{
-	currentState = "Level Select";
-	document.getElementById("bodyContainer").style.display = "flex";
+	currentState = "Start";
+	document.getElementById("checkin").style.display = "block";
 	document.getElementById("pauseScreen").style.display = "none";
 	console.log("HEWWO")
 	document.getElementById("lapTimes").innerHTML = ""
