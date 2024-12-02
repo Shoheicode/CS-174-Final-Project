@@ -343,6 +343,10 @@ let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
 
 const floorTexture = new THREE.TextureLoader().load('Assets/Images/bump_map.png')
 
+floorTexture.wrapS = THREE.RepeatWrapping;
+floorTexture.wrapT = THREE.RepeatWrapping;
+floorTexture.repeat.set(1, 1);
+
 // trackCopy.position.y = 500;
 // trackCopy.position.x = xVal
 // trackCopy.position.z = zVal
@@ -365,7 +369,7 @@ function createMap(mapGiven){
 				xVal = 20 * i
 				zVal = 20 * j
 
-				const mat = new THREE.MeshPhongMaterial();
+				const mat = new THREE.MeshBasicMaterial();
 
 				let floorCopy = new THREE.Mesh(
 					floorGeo,
@@ -414,7 +418,7 @@ function createMap(mapGiven){
 					mapGiven[i+10][j+10] == "C4R" || mapGiven[i+10][j+10] =="C4F"){
 					// floorCopy.material.color.setRGB(1,0.5,1);
 					// const bumpTexture = new THREE.TextureLoader().load('img/earth_bumpmapGiven.jpg')
-					floorCopy.material.color.setRGB(0.5,0.5,0.5);
+					// floorCopy.material.color.setRGB(0.5,0.5,0.5);
 					trackCopy.material.color.setRGB(1,0.5,1);
 					// floorCopy.material.wireframe = true
 					floorCopy.name = mapGiven[i+10][j+10];
@@ -478,7 +482,7 @@ function createMap(mapGiven){
 					trackCopy.material.color.setRGB(1,0.5,0.5);
 					// floorCopy.material.wireframe = true
 					floorCopy.material.map = finishTexture;
-					floorCopy.material.bumpMap = finishTexture;
+					// floorCopy.material.bumpMap = finishTexture;
 					currentTile = floorCopy;
 					floorCopy.name = "ENDING"
 					player.position.set(xVal,5,zVal);
