@@ -644,7 +644,6 @@ function createMap(mapGiven){
 				// console.log(floorCopy)
 				floors.push(floorCopy)
 				scene.add(floorCopy)
-				console.log("MADE EVERYTHIngf")
 
 				// scene.add(floorCopy2)
 			}
