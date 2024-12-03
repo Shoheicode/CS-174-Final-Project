@@ -395,7 +395,7 @@ let trackMatCopy1 = trackMaterial.clone()
 
 let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
 
-const floorTexture = new THREE.TextureLoader().load('Assets/Images/road/road_normal.png');
+const floorTexture = new THREE.TextureLoader().load('Assets/Images/road/road.png');
 
 const rockTexture = new THREE.TextureLoader().load('Assets/Images/road/rockmap.png')
 
