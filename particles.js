@@ -47,7 +47,7 @@ function animateParticles() {
 	  if (Math.abs(positions[i * 3 + 2]) > 2) positions[i * 3 + 2] = 0.1;
 	}
   
-	particlesGeometry.attributes.position.needsUpdate = true; // Notify Three.js to update
+	particlesGeometry.attributes.position.needsUpdate = true;
   }
   // Add in animate function:
   // 	particles.position.copy(asteroid.position);
