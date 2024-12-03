@@ -252,6 +252,10 @@ player.userData.obb = new OBB()
 
 const floorGeo = new THREE.BoxGeometry(20, 20, 5);
 floorGeo.computeBoundingBox();
+floorGeo.setAttribute(
+    'uv2',
+    new THREE.Float32BufferAttribute(floorGeo.attributes.uv.array, 2)
+);
 
 // -> -x 
 // z+
@@ -352,7 +356,7 @@ let trackMatCopy1 = trackMaterial.clone()
 
 let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
 
-const floorTexture = new THREE.TextureLoader().load('Assets/Images/bump_map.png')
+const floorTexture = new THREE.TextureLoader().load('Assets/Images/road/road_normal.png');
 
 floorTexture.wrapS = THREE.RepeatWrapping;
 floorTexture.wrapT = THREE.RepeatWrapping;
@@ -381,13 +385,13 @@ function createMap(mapGiven){
 				xVal = 20 * i
 				zVal = 20 * j
 
-				const mat = new THREE.MeshBasicMaterial();
+				const mat = new THREE.MeshStandardMaterial();
 
 				let floorCopy = new THREE.Mesh(
 					floorGeo,
 					mat
 				)
-
+				
 				let trackMatCopy = trackMaterial.clone()
 
 				let trackCopy = new THREE.Mesh(planeForTrack, trackMatCopy)
@@ -436,8 +440,8 @@ function createMap(mapGiven){
 					completedCheckPoints.push(floorCopy.name)
 					allCheckPoints.push(floorCopy.name)
 					checkpointNum++;
-					floorCopy.material.map = floorTexture;
-					floorCopy.material.color.setRGB(1, 1, 1);
+					floorCopy.material.normalMap = floorTexture;
+					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					// floorCopy.material.normalMap = texture;
 
 					console.log("HIHIHIHIHIH")
@@ -504,7 +508,8 @@ function createMap(mapGiven){
 				}
 				else if(mapGiven[i+10][j+10] == "PF" || mapGiven[i+10][j+10] == "PR"){
 					console.log("HEYO THY NAME IS " + carPlayer)
-					floorCopy.material.map = floorTexture;
+					floorCopy.material.normalMap = floorTexture;
+					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					floorCopy.name = "powerupFloor";
 					if(mapGiven[i+10][j+10] == "PR"){
 						floorCopy.rotateZ(-Math.PI / 2)
@@ -533,7 +538,8 @@ function createMap(mapGiven){
 				}
 				else{
 					console.log("EHJKJKj")
-					floorCopy.material.map = floorTexture;
+					floorCopy.material.normalMap = floorTexture;
+					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					floorCopy.name = "floor";
 					if(mapGiven[i+10][j+10] == "FR"){
 						floorCopy.rotateZ(-Math.PI / 2)
