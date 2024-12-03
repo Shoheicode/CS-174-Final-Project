@@ -112,7 +112,7 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 camera.frustumCulled = true
 
 // Power-Up Texture
-const shieldTexture = textureLoader.load('Assets/Images/powerUp1Texture.png');
+const shieldTexture = textureLoader.load('Assets/Images/powerup/powerUp1Texture.png');
 
 const speedTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
 
@@ -459,21 +459,26 @@ function createMap(mapGiven){
 				floorCopy.position.x = xVal
 				floorCopy.position.z = zVal
 				floorCopy.rotateX(-Math.PI / 2)
+				let mat2;
+				let cube1;
+				let cube2;
 
 				//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
-				let mat2 = matSphere.clone()
+				if(mapGiven[i+10][j+10] != "SP"){
+					mat2 = matSphere.clone()
 
-				let cube1 = new THREE.Mesh( sphereGeo, mat2 );
-				let cube2 = cube1.clone()
+					cube1 = new THREE.Mesh( sphereGeo, mat2 );
+					cube2 = cube1.clone()
 
-				cube2.geometry.userData.obb = new OBB().fromBox3(
-					cube1.geometry.boundingBox
-				)
+					cube2.geometry.userData.obb = new OBB().fromBox3(
+						cube1.geometry.boundingBox
+					)
 
-				cube2.userData.obb = new OBB()
-				cube2.position.z = floorCopy.position.y+6+2.5
-				cube2.position.y = ((Math.random()-0.5)*2)*5
-				cube2.position.x = ((Math.random()-0.5)*2)*5
+					cube2.userData.obb = new OBB()
+					cube2.position.z = floorCopy.position.y+6+2.5
+					cube2.position.y = ((Math.random()-0.5)*2)*5
+					cube2.position.x = ((Math.random()-0.5)*2)*5
+				}
 
 				// cube1.rotateZ(10)
 				if(mapGiven[i+10][j+10] =="C1R" || mapGiven[i+10][j+10] =="C1F" || mapGiven[i+10][j+10] =="C2R" || 
@@ -488,6 +493,7 @@ function createMap(mapGiven){
 					allCheckPoints.push(floorCopy.name)
 					checkpointNum++;
 					floorCopy.material.normalMap = floorTexture;
+					// floorCopy.material.normalScale = 0.1
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					// floorCopy.material.normalMap = texture;
 
@@ -504,9 +510,9 @@ function createMap(mapGiven){
 						let num = Math.random();
 						if (num <= 0.25) {
 							// cube2.material.colorftm.setRGB(1.0, 0.0, 0.0);
-							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material = new THREE.MeshBasicMaterial()
 							cube2.material.map = powerupTexture
-							cube2.material.bumpMap = powerupTexture
+							// cube2.material.bumpMap = powerupTexture
 							// cube2.material.bumpScale = 0.1
 							cube2.rotation.x = Math.PI/4
 							// cube2.rotateX(Math.PI/4)
@@ -514,9 +520,9 @@ function createMap(mapGiven){
 						}
 						else if (num <= 0.5) {
 							// cube2.material.color.setRGB(0.5, 0.5, 0.5);
-							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material = new THREE.MeshBasicMaterial()
 							cube2.material.map = speedTexture
-							cube2.material.bumpMap = speedTexture
+							// cube2.material.bumpMap = speedTexture
 							cube2.name = "POWERUPSPEED";
 						}
 						else if (num <= 0.75) {
@@ -525,10 +531,8 @@ function createMap(mapGiven){
 							cube2.name = "POWERUPDECREASE";
 						}
 						else {
-							// cube2.material.color.setRGB(0.0, 0.5, 0.5);
 							cube2.material = new THREE.MeshBasicMaterial()
 							cube2.material.map = shieldTexture
-							cube2.material.bumpMap = shieldTexture
 							cube2.name = "POWERUPSHIELD";
 						}
 						// console.log("HIHIHI")
@@ -547,12 +551,8 @@ function createMap(mapGiven){
 					// floorCopy.material.bumpMap = finishTexture;
 					currentTile = floorCopy;
 					floorCopy.name = "ENDING"
-					player.position.set(xVal,5,zVal);
+					player.position.set(xVal,-1.5,zVal);
 					console.log("PLAYERS POSITION")
-					// console.log(leftHeadlight.position)
-					console.log(player.position)
-					// console.log(blueWheel.position)
-					// player.matrix.set(xVal, 5, zVal);
 					startX = xVal;
 					startZ = zVal;
 
@@ -591,6 +591,7 @@ function createMap(mapGiven){
 				else{
 					console.log("EHJKJKj")
 					floorCopy.material.normalMap = floorTexture;
+					// floorCopy.material.normalScale = 0.1
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					floorCopy.name = "floor";
 					if(mapGiven[i+10][j+10] == "FR"){
@@ -602,20 +603,14 @@ function createMap(mapGiven){
 					if(Math.random() <= 0.2){
 						let num = Math.random();
 						if (num <= 0.25) {
-							// cube2.material.colorftm.setRGB(1.0, 0.0, 0.0);
-							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material = new THREE.MeshBasicMaterial()
 							cube2.material.map = powerupTexture
-							cube2.material.bumpMap = powerupTexture
-							// cube2.material.bumpScale = 0.1
 							cube2.rotation.x = Math.PI/4
-							// cube2.rotateX(Math.PI/4)
 							cube2.name = "POWERUPINCREASE";
 						}
 						else if (num <= 0.5) {
-							// cube2.material.color.setRGB(0.5, 0.5, 0.5);
-							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material = new THREE.MeshBasicMaterial()
 							cube2.material.map = speedTexture
-							cube2.material.bumpMap = speedTexture
 							cube2.name = "POWERUPSPEED";
 						}
 						else if (num <= 0.75) {
@@ -625,14 +620,23 @@ function createMap(mapGiven){
 						}
 						else {
 							// cube2.material.color.setRGB(0.0, 0.5, 0.5);
-							cube2.material = new THREE.MeshPhongMaterial()
+							cube2.material = new THREE.MeshBasicMaterial()
 							cube2.material.map = shieldTexture
-							cube2.material.bumpMap = shieldTexture
 							cube2.name = "POWERUPSHIELD";
 						}
 						// console.log("HIHIHI")
 					}
 					else{
+						cube2.position.z += 10
+						let num = Math.random()
+						if(num >=0.66){
+							cube2.name = "fast";
+						}else if (num >=0.33){
+							cube2.name = "slow"
+						}else{
+							cube2.name = "stationary";
+							cube2.position.z -=10;
+						}
 						cube2.material.normalMap = rockTexture;
 						cube2.material.color.setRGB(1, 1, 0.5)
 					}
@@ -765,35 +769,6 @@ function checkCollision(obj1, obj2) {
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
-		console.log(obj2.name);
-		console.log(completedCheckPoints)
-		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
-		if (indexToRemove == 0) {
-			// console.log("hi ho")
-			completedCheckPoints.splice(indexToRemove, 1);
-		}
-
-		if(obj2.name == "ENDING" && completedCheckPoints.length == 0){
-			document.getElementById("lapTimes").innerHTML = ""
-			completedCheckPoints = [... allCheckPoints];
-			if(prevTime < 0){
-				lapTimes.push(elapsedTime+prevTime);
-			}else{
-				lapTimes.push(elapsedTime-prevTime);
-			}
-			prevTime = elapsedTime;
-			// console.log("LAP COMPLETE")
-			lapCount++;
-			lapTimes.forEach(function(time, index){
-				// console.log(index)
-				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n';
-			})
-
-			// reset currentDeaths
-			currentDeaths = 0;
-		}
-        // obj2.material.color.set(0x6F7567)
-		touchGround = true;
 		return true;
     } else {
         // obj2.material.color.set(0x00ff00)
@@ -807,7 +782,7 @@ function reset(){
 	loadGLTF();
 	speed = 0;
 	speedY = 0;
-	player.position.set(startX, 5, startZ);
+	player.position.set(startX, -1.5, startZ);
 	dirRotation = -Math.PI/2;
 	clock.elapsedTime = 0;
 	completedCheckPoints = []
@@ -831,7 +806,7 @@ function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
 	console.log(keyCode)
 
-	if(currentState != "Start"){
+	if(currentState == "Map1" || currentState == "Map2" || currentState == "Map3"){
 
 		switch(keyCode){
 			case 16: //Acceleration (Shift Key)
@@ -1182,6 +1157,18 @@ function animate() {
 
 			floors.forEach(function (obj, index) {
 				obj["children"].forEach(function(obj2, index){
+					if(!obj2.name.startsWith("POWERUP") && !touchingGround(obj2, obj)){
+						if(obj2.name =="fast"){
+							obj2.position.z -= 0.06
+						}else{
+							obj2.position.z -= 0.03
+						}
+					}
+					else if(!obj2.name.startsWith("POWERUP") && touchingGround(obj2, obj)){
+						if(obj2.name =="fast" || obj2.name == "slow"){
+							obj2.position.z += 10
+						}
+					}
 					obj2.rotateZ(Math.PI/124)
 					if(!collide){
 						if(checkCollision(player, obj2) && (obj2.name.startsWith("POWERUP"))) {
@@ -1205,20 +1192,51 @@ function animate() {
 						}
 						else if(checkCollision(player, obj2)){
 							if (!shieldActivate) {
-								let speedX2 = Math.sin(rotation) * (speed-0.3);
-								let speedZ2 = Math.cos(rotation) * (speed-0.3);
-								if(speedX2 < 0){
-									player.position.x -= (speedX2);
+								if(obj2.name =="fast" || obj2.name =="slow"){
+									player.position.x = currentTile.position.x;
+									player.position.z = currentTile.position.z;
+									player.position.y = -1.5;
+									speed = 0;
+									// deactivate powerups
+									powerupActivate = false;
+									shieldActivate = false;
+									shield.visible = false;
+									
+									// increment death counters
+									deaths++;
+									currentDeaths++;
+									obj2.position.z += 10
+								} else{
+									let speedX2 = Math.sin(rotation) * (speed-0.3);
+									let speedZ2 = Math.cos(rotation) * (speed-0.3);
+									if(speedX2 < 0){
+										player.position.x -= (speedX2);
+									}
+									else if (speedX2 > 0) {
+										player.position.x -= (speedX2);
+									}
+									if(speedZ2 < 0){
+										player.position.z -= (speedZ2);
+									}else if (speedZ2 > 0) {
+										player.position.z -= (speedZ2);
+									}
+									speed = 0
 								}
-								else if (speedX2 > 0) {
-									player.position.x -= (speedX2);
-								}
-								if(speedZ2 < 0){
-									player.position.z -= (speedZ2);
-								}else if (speedZ2 > 0) {
-									player.position.z -= (speedZ2);
-								}
-								speed = 0
+								// let speedX2 = Math.sin(rotation) * (speed-0.3);
+								// let speedZ2 = Math.cos(rotation) * (speed-0.3);
+								// if(speedX2 < 0){
+								// 	player.position.x -= (speedX2);
+								// }
+								// else if (speedX2 > 0) {
+								// 	player.position.x -= (speedX2);
+								// }
+								// if(speedZ2 < 0){
+								// 	player.position.z -= (speedZ2);
+								// }else if (speedZ2 > 0) {
+								// 	player.position.z -= (speedZ2);
+								// }
+								// speed = 0
+								// console.log(currentTile)
 							}
 						}
 					}
@@ -1245,7 +1263,7 @@ function animate() {
 				// console.log(currentTile)
 				player.position.x = currentTile.position.x;
 				player.position.z = currentTile.position.z;
-				player.position.y = 15;
+				player.position.y = -1.5;
 				speed = 0;
 				// deactivate powerups
 				powerupActivate = false;
