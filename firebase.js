@@ -25,6 +25,9 @@ const database = getFirestore(app);
 
 const addData = async (Name, mapNum, time) => {
     console.log("HELLo")
+    await setDoc(doc(database, "NAME", Name),{
+        key:Name
+    })
     await setDoc(doc(database, mapNum, Name), {
         key: Name,
         time: time
