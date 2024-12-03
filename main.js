@@ -120,6 +120,12 @@ const powerupTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture
 
 // Finish Line Texture
 const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
+
+finishTexture.wrapS = THREE.RepeatWrapping;
+finishTexture.wrapT = THREE.RepeatWrapping;
+finishTexture.repeat.set(1, 1);
+
+
 // https://www.istockphoto.com/bot-wall?returnUrl=%2Fphotos%2Ffinish-line
 
 let carMesh;
@@ -277,7 +283,7 @@ shield.visible = false;
 //Updated the boundary box in order to ensure that it includes the wheels
 player.geometry.userData.obb = new OBB().fromBox3(
     // player.geometry.boundingBox
-	new THREE.Box3(new THREE.Vector3(-0.75, -0.75, -1.55),new THREE.Vector3(0.75, 0.75, 1.55))
+	new THREE.Box3(new THREE.Vector3(-0.75, -0.75, -1.75),new THREE.Vector3(0.75, 0.75, 1.75))
 )
 player.userData.obb = new OBB()
 
@@ -413,6 +419,8 @@ function createMap(mapGiven){
 	scene.add(player)
 	loadGLTF();
 	const light = new THREE.PointLight(0xffffff, 2, 0, 0.0001)
+	const light2 = new THREE.PointLight(0xffffff, 2, 0)
+	light2.position.set(0, 10000000, 0)
 	light.name = "light";
 	light.position.set(0, 10000000, 0)
 	// pointylight.position.copy(camera.position);
@@ -420,6 +428,7 @@ function createMap(mapGiven){
 	// camera.add(pointylight);
 	// light.rotation.z = -Math.PI;
 	scene.add(light);
+	scene.add(light2)
 	console.log("LENGTH AFTER" +  scene.children.length)
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
@@ -427,7 +436,7 @@ function createMap(mapGiven){
 				xVal = 20 * i
 				zVal = 20 * j
 
-				const mat = new THREE.MeshStandardMaterial();
+				const mat = new THREE.MeshPhongMaterial();
 
 				let floorCopy = new THREE.Mesh(
 					floorGeo,
@@ -588,9 +597,12 @@ function createMap(mapGiven){
 					floorCopy.material.normalMap = floorTexture;
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					floorCopy.name = "floor";
-					if(mapGiven[i+10][j+10] == "FR"){
-						floorCopy.rotateZ(-Math.PI / 2)
-					}
+					// if(mapGiven[i+10][j+10] == "FR"){
+					// 	floorCopy.rotateZ(-Math.PI / 2)
+					// }
+					let randDum = Math.floor((Math.random()*3)+1)
+					console.log(randDum)
+					floorCopy.rotateZ((-Math.PI / 2)*randDum)
 					if(Math.random() <= 0.2){
 						let num = Math.random();
 						if (num <= 0.25) {
