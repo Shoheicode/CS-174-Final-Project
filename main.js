@@ -233,6 +233,36 @@ wheels = [blueWheel,blueWheel2,blueWheel3,blueWheel4]
 
 // player.rotateY(-Math.PI/4)
 
+const leftHeadlight = new THREE.SpotLight(0xffffff, 1000, 0)
+
+leftHeadlight.angle = Math.PI / 6; // Adjust the beam spread
+leftHeadlight.penumbra = 0.5; // Soft edges
+leftHeadlight.distance = 20; // Maximum distance of light
+leftHeadlight.castShadow = true;
+player.add(leftHeadlight)
+leftHeadlight.position.set(-0.75, 0.75, -1.6);
+
+const rightHeadlight = new THREE.SpotLight(0xffffff, 1000, 0)
+
+rightHeadlight.angle = Math.PI / 6; // Adjust the beam spread
+rightHeadlight.penumbra = 0.5; // Soft edges
+rightHeadlight.distance = 20; // Maximum distance of light
+rightHeadlight.castShadow = true;
+player.add(rightHeadlight)
+rightHeadlight.position.set(0.75, 0.75, -1.6);
+// console.log(leftHeadlight.position)
+
+const leftTarget = new THREE.Object3D();
+const rightTarget = new THREE.Object3D();
+
+player.add(leftTarget, rightTarget);
+
+leftTarget.position.set(-0.75, 0.75, -3); // Extend target forward
+rightTarget.position.set(0.75, 0.75, -3);
+
+leftHeadlight.target = leftTarget
+rightHeadlight.target = rightTarget;
+
 // add shield
 const shield_geometry = new THREE.PlaneGeometry(4, 4);
 const shield_material = new THREE.MeshBasicMaterial({ color: 0x08f7ff });
@@ -241,7 +271,7 @@ player.add(shield);
 shield.position.set(0.0, 2.0, -3.0);
 shield.visible = false;
 
-playerGeo.computeBoundingBox()
+// playerGeo.computeBoundingBox()
 
 
 //Updated the boundary box in order to ensure that it includes the wheels
@@ -379,6 +409,9 @@ function createMap(mapGiven){
 	const light = new THREE.PointLight(0xffffff, 2, 0, 0.0001)
 	light.name = "light";
 	light.position.set(0, 10000000, 0)
+	// pointylight.position.copy(camera.position);
+	// scene.add(pointylight);
+	// camera.add(pointylight);
 	// light.rotation.z = -Math.PI;
 	scene.add(light);
 	console.log("LENGTH AFTER" +  scene.children.length)
@@ -503,6 +536,10 @@ function createMap(mapGiven){
 					currentTile = floorCopy;
 					floorCopy.name = "ENDING"
 					player.position.set(xVal,5,zVal);
+					console.log("PLAYERS POSITION")
+					// console.log(leftHeadlight.position)
+					console.log(player.position)
+					// console.log(blueWheel.position)
 					// player.matrix.set(xVal, 5, zVal);
 					startX = xVal;
 					startZ = zVal;
@@ -773,6 +810,7 @@ function onDocumentKeyDown(event){
 	console.log(keyCode)
 
 	if(currentState != "Start"){
+
 		switch(keyCode){
 			case 16: //Acceleration (Shift Key)
 				run = true;
@@ -794,8 +832,9 @@ function onDocumentKeyDown(event){
 				run = false;
 				// scene.children = []
 				break;
-			case 49: // Purple Car
-				cameraShift != cameraShift;
+			case 49: // One Press
+				cameraShift = !cameraShift;
+				console.log("HEWWO I PRESSED")
 				break;
 			case 65: //LEFT (A key)
 				rSpeed = 0.03;
@@ -1173,7 +1212,7 @@ function animate() {
 
 			if(carMesh){
 				carMesh.position.x = player.position.x;
-				carMesh.position.y = player.position.y;
+				carMesh.position.y = player.position.y-0.25;
 				carMesh.position.z = player.position.z;
 				carMesh.rotation.y = rotation + Math.PI
 				// console.log(carMesh)
@@ -1199,9 +1238,9 @@ function animate() {
 			speed = -speed;
 
 			// Update camera to follow the block
-			let MCAM = new THREE.Matrix4()
 			// MCAM = rotationMatrixY(rotation)
 			// MCAM = translationMatrix(player.position.x + Math.sin(rotation) * 10, 0, player.position.y + 10 , player.position.z + Math.cos(rotation) * 10)
+			// console.log("CAMERA SHIFT" + cameraShift)
 			if(cameraShift){
 				camera.rotation.y = -rotation;
 				camera.position.x = player.position.x + Math.sin(rotation) * 10;
@@ -1209,11 +1248,18 @@ function animate() {
 				camera.position.y = player.position.y + 10
 				camera.lookAt(player.position)
 			} else{
+				camera.rotation.y = -rotation;
+				camera.position.x = player.position.x;
+				camera.position.z = player.position.z;
+				camera.position.y = player.position.y+3;
+				let lookPos = new THREE.Vector3(Math.sin(rotation) * -4, 0, Math.cos(rotation) * -4);
+				let copyPos = player.position.clone();
+				let newPos = lookPos.add(copyPos);
 
+				// console.log(player.position + lookPos)
+				camera.lookAt(newPos)
 			}
-			// controls.update();
-			// delay += elapsedTime
-			// }
+
 			renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
 			renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
 			renderer.setScissorTest(true);
