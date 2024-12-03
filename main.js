@@ -397,6 +397,10 @@ floorTexture.wrapS = THREE.RepeatWrapping;
 floorTexture.wrapT = THREE.RepeatWrapping;
 floorTexture.repeat.set(1, 1);
 
+rockTexture.wrapS = THREE.RepeatWrapping;
+rockTexture.wrapT = THREE.RepeatWrapping;
+rockTexture.repeat.set(1, 1);
+
 // trackCopy.position.y = 500;
 // trackCopy.position.x = xVal
 // trackCopy.position.z = zVal
