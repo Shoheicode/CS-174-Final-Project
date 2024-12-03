@@ -73,6 +73,9 @@ let bestTimes = []
 // Pausing:
 let pause = false;
 
+// Camera Shift
+let cameraShift = false;
+
 let powerupActivate = false;
 let timePowerupDuration = 0;
 
@@ -1208,11 +1211,15 @@ function animate() {
 			let MCAM = new THREE.Matrix4()
 			// MCAM = rotationMatrixY(rotation)
 			// MCAM = translationMatrix(player.position.x + Math.sin(rotation) * 10, 0, player.position.y + 10 , player.position.z + Math.cos(rotation) * 10)
-			camera.rotation.y = -rotation;
-			camera.position.x = player.position.x + Math.sin(rotation) * 10;
-			camera.position.z = player.position.z + Math.cos(rotation) * 10;
-			camera.position.y = player.position.y + 10
-			camera.lookAt(player.position)
+			if(cameraShift){
+				camera.rotation.y = -rotation;
+				camera.position.x = player.position.x + Math.sin(rotation) * 10;
+				camera.position.z = player.position.z + Math.cos(rotation) * 10;
+				camera.position.y = player.position.y + 10
+				camera.lookAt(player.position)
+			} else{
+				
+			}
 			// controls.update();
 			// delay += elapsedTime
 			// }
