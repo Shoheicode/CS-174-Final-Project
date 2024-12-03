@@ -233,23 +233,23 @@ wheels = [blueWheel,blueWheel2,blueWheel3,blueWheel4]
 
 // player.rotateY(-Math.PI/4)
 
-const leftHeadlight = new THREE.SpotLight(0xffffff, 1000, 0)
+const leftHeadlight = new THREE.SpotLight(0xffffff, 20, 0)
 
 leftHeadlight.angle = Math.PI / 6; // Adjust the beam spread
 leftHeadlight.penumbra = 0.5; // Soft edges
-leftHeadlight.distance = 20; // Maximum distance of light
+leftHeadlight.distance = 40; // Maximum distance of light
 leftHeadlight.castShadow = true;
 player.add(leftHeadlight)
-leftHeadlight.position.set(-0.75, 0.75, -1.6);
+leftHeadlight.position.set(-0.75, 0.65, -1.7);
 
-const rightHeadlight = new THREE.SpotLight(0xffffff, 1000, 0)
+const rightHeadlight = new THREE.SpotLight(0xffffff, 20, 0)
 
 rightHeadlight.angle = Math.PI / 6; // Adjust the beam spread
 rightHeadlight.penumbra = 0.5; // Soft edges
-rightHeadlight.distance = 20; // Maximum distance of light
+rightHeadlight.distance = 40; // Maximum distance of light
 rightHeadlight.castShadow = true;
 player.add(rightHeadlight)
-rightHeadlight.position.set(0.75, 0.75, -1.6);
+rightHeadlight.position.set(0.75, 0.65, -1.7);
 // console.log(leftHeadlight.position)
 
 const leftTarget = new THREE.Object3D();
