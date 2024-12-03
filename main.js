@@ -97,6 +97,41 @@ const bgTexture = textureLoader.load('Assets/Images/39608.jpg');
 scene.background = bgTexture;
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
+// Sound Effects
+const audListener = new THREE.AudioListener();
+camera.add(audListener);
+
+const engineSound = new THREE.Audio(audListener);
+const powerUpSound = new THREE.Audio(audListener);
+const music = new THREE.Audio(audListener);
+
+const audLoader = new THREE.AudioLoader();
+
+// Load sounds
+audLoader.load('Assets/Sounds/carStart.mp3', function (buffer) {
+    engineSound.setBuffer(buffer);
+    engineSound.setLoop(false);
+    engineSound.setVolume(0.5);
+});
+
+audLoader.load('Assets/Sounds/powerUp.mp3', function (buffer) {
+    powerUpSound.setBuffer(buffer);
+    powerUpSound.setLoop(false);
+    powerUpSound.setVolume(0.5);
+});
+
+let isSoundLoaded = false;
+
+audLoader.load('Assets/Sounds/spaceMusic.mp3', function (buffer) {
+    music.setBuffer(buffer);
+    music.setLoop(true);
+    music.setVolume(0.5);
+
+	isSoundLoaded = true;
+}, undefined, function (error) {
+    console.error("Error loading sound file:", error);
+});
+
 // Power-Up Geometry
 let cube2; // Change name to powerUps after successful testing
 const cubes = [];
@@ -320,6 +355,14 @@ const texture = new THREE.TextureLoader().load('Assets/Images/road-texture-4k-02
 // trackCopy.rotateX(-Math.PI/2)
 
 let matSphere = new THREE.MeshPhongMaterial();
+
+function playMusic() {
+	if (isSoundLoaded && !music.isPlaying) {
+        	music.play();
+    	} else if (!isSoundLoaded) {
+        	console.log("Sound file is not yet loaded.");
+    	}
+}
 
 function createMap(){
 	scene.add(player)
@@ -744,6 +787,7 @@ function onDocumentKeyDown(event){
 	switch(keyCode){
 		case 16: //Acceleration (Shift Key)
 			run = true;
+			engineSound.play(); // Plays engine sound effect when user accelerates
 			break;
 		case 32: // Space bar
 			run = false;
@@ -767,6 +811,9 @@ function onDocumentKeyDown(event){
 			break;
 		case 68: //RIGHT (D KEY)
 			rSpeed = -0.03;
+			break;
+		case 77: // ENABLE MUSIC WHEN 'M' PRESSED -- May change to when click start
+			playMusic();
 			break;
 		case 83:
 			goBackwards = true;
@@ -970,6 +1017,7 @@ function animate() {
 					if(checkCollision(player, obj2) && (obj2.name == "POWERUPDECREASE" || obj2.name == "POWERUPSPEED" || obj2.name == "POWERUPINCREASE")){
 						if (obj2.name == "POWERUPSPEED") {
 							powerupActivate = true
+							powerUpSound.play(); // Play power up sound effect
 							timePowerupDuration = elapsedTime + 3;
 						}
 						else if (obj2.name == "POWERUPDECREASE") {
