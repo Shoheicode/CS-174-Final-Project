@@ -310,7 +310,7 @@ let map = [
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FR","FR","FR","C2R","FR","FR","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES"],
@@ -335,7 +335,7 @@ let map2 = [
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","LL","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
@@ -358,7 +358,7 @@ let map3 = [
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
@@ -419,20 +419,16 @@ function createMap(mapGiven){
 	scene.add(player)
 	loadGLTF();
 	const light = new THREE.PointLight(0xffffff, 2, 0, 0.0001)
-	const light2 = new THREE.PointLight(0xffffff, 2, 0)
-	light2.position.set(0, 10000000, 0)
+	// const light2 = new THREE.PointLight(0xffffff, 100000, 0)
+	// light2.position.set(0, 0, 0)
 	light.name = "light";
 	light.position.set(0, 10000000, 0)
-	// pointylight.position.copy(camera.position);
-	// scene.add(pointylight);
-	// camera.add(pointylight);
-	// light.rotation.z = -Math.PI;
 	scene.add(light);
-	scene.add(light2)
+	// scene.add(light2);
 	console.log("LENGTH AFTER" +  scene.children.length)
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
-			if(mapGiven[i+10][j+10] != "ES"){
+			if(mapGiven[i+10][j+10] != "ES" && mapGiven[i+10][j+10] != "LL"){
 				xVal = 20 * i
 				zVal = 20 * j
 
@@ -597,12 +593,12 @@ function createMap(mapGiven){
 					floorCopy.material.normalMap = floorTexture;
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					floorCopy.name = "floor";
-					// if(mapGiven[i+10][j+10] == "FR"){
-					// 	floorCopy.rotateZ(-Math.PI / 2)
-					// }
-					let randDum = Math.floor((Math.random()*3)+1)
-					console.log(randDum)
-					floorCopy.rotateZ((-Math.PI / 2)*randDum)
+					if(mapGiven[i+10][j+10] == "FR"){
+						floorCopy.rotateZ(-Math.PI / 2)
+					}
+					// let randDum = Math.floor((Math.random()*3)+1)
+					// console.log(randDum)
+					// floorCopy.rotateZ((-Math.PI / 2)*randDum)
 					if(Math.random() <= 0.2){
 						let num = Math.random();
 						if (num <= 0.25) {
@@ -651,6 +647,13 @@ function createMap(mapGiven){
 				console.log("MADE EVERYTHIngf")
 
 				// scene.add(floorCopy2)
+			}
+			else if(mapGiven[i+10][j+10] == "LL"){
+				let xLight = 20 * i
+				let zLight = 20 * j
+				const light2 = new THREE.PointLight(0xffffff, 10000, 0)
+				light2.position.set(xLight, 0, zLight)
+				scene.add(light2);
 			}
 		}
 	}
