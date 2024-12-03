@@ -949,7 +949,7 @@ document.getElementById("LEVELSELECT").onclick = function(){{
 
 document.getElementById("CHARACTER").onclick = function(){{
 	currentState = "Level Select";
-	document.getElementById("bodyContainer").style.display = "flex";
+	document.getElementById("bodyContainer2").style.display = "block";
 	document.getElementById("pauseScreen").style.display = "none";
 	console.log("HEWWO")
 	document.getElementById("lapTimes").innerHTML = ""
