@@ -100,6 +100,7 @@ let rSpeed = 0;
 let run = false;
 
 let touchGround = true;
+let waitTime = 0;
 
 //Scene Code
 const scene = new THREE.Scene();
@@ -1084,6 +1085,22 @@ function animate() {
 			// requestAnimationFrame(animate);
 
 			if(raceOver){
+				
+				elapsedTime = Math.floor(clock.getElapsedTime()) + offset;
+				// console.log("ELAPSED TIME: " + elapsedTime)
+				// console.log("wait time:" + waitTime)
+				if(elapsedTime > waitTime){
+					document.getElementById("bodyContainer").style.display = "flex";
+					document.getElementById("Finished").innerHTML = "";
+					document.getElementById("pauseScreen").style.display = "none";
+					document.getElementById("lapTimes").innerHTML = ""
+					document.getElementById("deaths").innerHTML = ""
+					document.getElementById("leaderboard").style.display = "none";
+					document.getElementById("time").innerText = "";
+					lapCount = 0;
+					currentState = "Level Select"
+					raceOver = false;
+				}
 				return;
 			}
 
@@ -1323,12 +1340,10 @@ function animate() {
 			if(lapCount == 3){
 				// console.log("FINISH RACE")
 				raceOver = true;
+				waitTime = elapsedTime+3;
+				
 				document.getElementById("Finished").innerHTML = "FINISHED" + " <br> " + name + ": " + formatTime(elapsedTime);
-				// let data = {
-				// 	map: currentState,
-				// 	time: elapsedTime
-				// }
-				addData(name, currentState, time);
+				addData(name, currentState, elapsedTime);
 			}
 
 			if(powerupActivate && timePowerupDuration <= elapsedTime){
