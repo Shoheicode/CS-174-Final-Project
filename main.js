@@ -391,6 +391,8 @@ let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
 
 const floorTexture = new THREE.TextureLoader().load('Assets/Images/road/road_normal.png');
 
+const rockTexture = new THREE.TextureLoader().load('Assets/Images/road/rockmap.png')
+
 floorTexture.wrapS = THREE.RepeatWrapping;
 floorTexture.wrapT = THREE.RepeatWrapping;
 floorTexture.repeat.set(1, 1);
@@ -523,6 +525,7 @@ function createMap(mapGiven){
 						// console.log("HIHIHI")
 					}
 					else{
+						cube2.material.normalMap = rockTexture;
 						cube2.material.color.setRGB(1, 1, 0.5)
 					}
 					floorCopy.add(cube2)
@@ -618,6 +621,7 @@ function createMap(mapGiven){
 						// console.log("HIHIHI")
 					}
 					else{
+						cube2.material.normalMap = rockTexture;
 						cube2.material.color.setRGB(1, 1, 0.5)
 					}
 					floorCopy.add(cube2)
