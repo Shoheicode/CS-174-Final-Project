@@ -74,7 +74,7 @@ let bestTimes = []
 let pause = false;
 
 // Camera Shift
-let cameraShift = false;
+let cameraShift = true;
 
 let powerupActivate = false;
 let timePowerupDuration = 0;
@@ -795,16 +795,7 @@ function onDocumentKeyDown(event){
 				// scene.children = []
 				break;
 			case 49: // Purple Car
-				carChoice = 'Assets/Models/car.glb';
-				loadGLTF();
-				break;
-			case 50: // Cyan Car
-				carChoice = 'Assets/Models/carTeal.glb';
-				loadGLTF();
-				break;
-			case 51: // Magenta Car
-				carChoice = 'Assets/Models/carMag.glb';
-				loadGLTF();
+				cameraShift != cameraShift;
 				break;
 			case 65: //LEFT (A key)
 				rSpeed = 0.03;
@@ -1218,7 +1209,7 @@ function animate() {
 				camera.position.y = player.position.y + 10
 				camera.lookAt(player.position)
 			} else{
-				
+
 			}
 			// controls.update();
 			// delay += elapsedTime
