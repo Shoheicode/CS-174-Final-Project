@@ -391,24 +391,24 @@ floorGeo.setAttribute(
 
 //17 + 20 + 17 + 20 = 
 let map = [
-	["FF","FR","FR","FR","FR","FR","FR","FR","FR","C1R","FR","FR","FR","FR","FR","FR","FR","FR","FR","ES"],
+	["FF","FR","FR","FR","FR","FR","FR","FR","FR","C1R","FR","FR","PR","FR","FR","FR","FR","FR","FR","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FR","FR","FR","C2R","FR","FR","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FR","FR","PR","C2R","FR","FR","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["PF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","FR","FR","FR","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","FR","FR","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","PF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4R","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
@@ -462,7 +462,7 @@ let map3 = [
 let currentTile = null;
 
 let floors = []
-let floors2 = []
+let powerUpsFloors = []
 
 // floors.push(floor);
 
@@ -594,6 +594,7 @@ function createMap(mapGiven){
 						floorCopy.rotateZ(-Math.PI / 2)
 					}
 
+					/*
 					if(Math.random() <= 0.2){
 						let num = Math.random();
 						if (num <= 0.25) {
@@ -625,10 +626,10 @@ function createMap(mapGiven){
 						}
 						// console.log("HIHIHI")
 					}
-					else{
-						cube2.material.normalMap = rockTexture;
-						cube2.material.color.setRGB(1, 1, 0.5)
-					}
+					else{*/
+					cube2.material.normalMap = rockTexture;
+					cube2.material.color.setRGB(1, 1, 0.5)
+					//}
 					floorCopy.add(cube2)
 					// cube2.material.color.setRGB(1, 0.5, 0.5)
 				}else if(mapGiven[i+10][j+10] == "SP"){
@@ -674,6 +675,7 @@ function createMap(mapGiven){
 						cube2.name = "POWERUPDECREASE";
 					}
 					floorCopy.add(cube2)
+					powerUpsFloors.push(floorCopy);
 					console.log("HEYO CUBE BUDDIES")
 				}
 				else{
@@ -688,6 +690,7 @@ function createMap(mapGiven){
 					// let randDum = Math.floor((Math.random()*3)+1)
 					// console.log(randDum)
 					// floorCopy.rotateZ((-Math.PI / 2)*randDum)
+					/*
 					if(Math.random() <= 0.2){
 						let num = Math.random();
 						if (num <= 0.25) {
@@ -715,6 +718,7 @@ function createMap(mapGiven){
 						// console.log("HIHIHI")
 					}
 					else{
+					*/
 						cube2.position.z += 10
 						let num = Math.random()
 						if(num >=0.66){
@@ -739,7 +743,7 @@ function createMap(mapGiven){
 						}
 						cube2.material.normalMap = rockTexture;
 						cube2.material.color.setRGB(1, 1, 0.5)
-					}
+					//}
 					floorCopy.add(cube2)
 				}
 
@@ -819,6 +823,8 @@ function checkCollision(obj1, obj2) {
     }
  }
 
+ let completedLap = false;
+
  function playerTouchingGround(obj1, obj2) {
 	// console.log("RUNNINg")
 	obj1.userData.obb.copy(obj1.geometry.userData.obb)
@@ -830,7 +836,6 @@ function checkCollision(obj1, obj2) {
 		// console.log(completedCheckPoints)
 		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
 		if (indexToRemove == 0) {
-			// console.log("hi ho")
 			completedCheckPoints.splice(indexToRemove, 1);
 		}
 
@@ -849,6 +854,7 @@ function checkCollision(obj1, obj2) {
 				// console.log(index)
 				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n';
 			})
+			completedLap = true;
 
 			// reset currentDeaths
 			currentDeaths = 0;
@@ -1238,11 +1244,59 @@ function animate() {
 							currentTile = obj;
 							speedY = 0;
 						}
-						// console.log("TOUCHING GROUND")
-						// playerTouchingGround = true;
 					}
 				}
 			})
+
+			// powerUpsFloors.forEach(function (obj, index) {
+			// 	if (obj["children"].length == 1){
+			// 		console.log("Object: " + index)
+			// 		console.log("TRUE I HAVE POWER UP")
+			// 	}
+			// })
+
+			if(completedLap){
+				powerUpsFloors.forEach(function (obj, index) {
+					if (obj["children"].length == 0){
+						console.log("HKHKH")
+						let mat2 = matSphere.clone()
+
+						let cube1 = new THREE.Mesh( sphereGeo, mat2 );
+						let cube2 = cube1.clone()
+
+						cube2.geometry.userData.obb = new OBB().fromBox3(
+							cube1.geometry.boundingBox
+						)
+
+						cube2.userData.obb = new OBB()
+						cube2.position.z = obj.position.y+6+2.5
+						cube2.position.y = ((Math.random()-0.5)*2)*5
+						cube2.position.x = ((Math.random()-0.5)*2)*5
+
+						if(carPlayer == "nova"){
+							console.log("NOVA?")
+							cube2.material = new THREE.MeshBasicMaterial()
+							cube2.material.map = speedTexture
+							// cube2.material.bumpMap = speedTexture
+							cube2.name = "POWERUPSPEED";
+						}
+						else if(carPlayer=="zenith"){
+							console.log("ZENNITH")
+							cube2.material = new THREE.MeshBasicMaterial()
+							cube2.material.map = shieldTexture
+							cube2.name = "POWERUPSHIELD";
+						}
+						else if(carPlayer=="flux"){
+							console.log("FLUZ")
+							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+							cube2.material.color.setRGB(0.0, 1.0, 0.0);
+							cube2.name = "POWERUPDECREASE";
+						}
+						obj.add(cube2)
+					}
+				})
+				completedLap = false;
+			}
 
 			if(!touchGround){
 				// console.log("FALLING")
