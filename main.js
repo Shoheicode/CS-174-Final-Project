@@ -170,7 +170,6 @@ finishTexture.wrapS = THREE.RepeatWrapping;
 finishTexture.wrapT = THREE.RepeatWrapping;
 finishTexture.repeat.set(1, 1);
 
-
 // https://www.istockphoto.com/bot-wall?returnUrl=%2Fphotos%2Ffinish-line
 
 let carMesh;
@@ -203,8 +202,8 @@ function loadGLTF() {
 	
 }
 
-// Call in create map
-loadGLTF();
+// // Call in create map
+// loadGLTF();
 
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
@@ -322,9 +321,6 @@ player.add(shield);
 shield.position.set(0.0, 2.0, -3.0);
 shield.visible = false;
 
-// playerGeo.computeBoundingBox()
-
-
 //Updated the boundary box in order to ensure that it includes the wheels
 player.geometry.userData.obb = new OBB().fromBox3(
     // player.geometry.boundingBox
@@ -332,7 +328,54 @@ player.geometry.userData.obb = new OBB().fromBox3(
 )
 player.userData.obb = new OBB()
 
-// scene.add(player)
+// Particle Worker
+const particlesGeometry = new THREE.BufferGeometry();
+const particlesMaterial = new THREE.PointsMaterial({
+	color: 0xffff00, // Yellow
+	size: 0.15, // *TO DO* Test different particle sizes (options: 0.025, 0.05, 0.075-- 0.1 is quite large)
+	transparent: true,
+	opacity: 0.75,
+});
+
+const numParticles = 50;
+const position = new Float32Array(numParticles * 3); // x = i, y = i + 1, z = i + 2
+const particleSpeed = [];
+
+for (let i = 0; i < numParticles; i++) { // add random positions to each particle
+	position[i * 3] = (Math.random() * 2) - 1; // Random position adjustment [-1, 1]
+	position[i * 3 + 1] = (Math.random()); // *TO DO* Change based on game coordinates
+	position[i * 3 + 2] = (-Math.random());
+
+	let speed = {
+		x: (Math.random() - 0.5) * 0.01,
+		y: (Math.random() - 0.5) * 0.01,
+		z: (Math.random() - 0.5) * 0.01,
+	}
+	particleSpeed.push(speed);
+}
+
+particlesGeometry.setAttribute('position', new THREE.BufferAttribute(position, 3));
+
+// const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+// scene.add(particles);
+
+function animateParticles() {
+	const positions = particlesGeometry.attributes.position.array;
+  
+	for (let i = 0; i < numParticles; i++) {
+	  position[i * 3] += particleSpeed[i].x;
+	  position[i * 3 + 1] += particleSpeed[i].y;
+	  position[i * 3 + 2] += particleSpeed[i].z;
+
+	  // Restricts the range of the particles (changes the shape)
+	  if (Math.abs(positions[i * 3]) > 0.5) position[i * 3] = 0.1;
+	  if (positions[i * 3 + 1] > 2) position[i * 3 + 1] = 0.1;
+	  if (Math.abs(positions[i * 3 + 2]) > 1) positions[i * 3 + 2] = 0.1;
+	}
+  
+	particlesGeometry.attributes.position.needsUpdate = true;
+  }
+  // Add in animate function:
 
 const floorGeo = new THREE.BoxGeometry(20, 20, 5);
 floorGeo.computeBoundingBox();
@@ -387,10 +430,10 @@ let map2 = [
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","FR","FR","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","FR","C4R","FR","FF","ES","ES","FF","FR","FR","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","FR","FR","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","FR","C4R","FR","FR","FR","FR","FR","FR","FR","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let map3 = [
@@ -676,11 +719,23 @@ function createMap(mapGiven){
 						let num = Math.random()
 						if(num >=0.66){
 							cube2.name = "fast";
+							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
+							cube2.add(particles);
+							particles.position.z +=2
+							particles.rotation.x = -Math.PI/2
 						}else if (num >=0.33){
-							cube2.name = "slow"
+							cube2.name = "slow";
+							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
+							cube2.add(particles);
+							particles.position.z +=2
+							particles.rotation.x = -Math.PI/2
 						}else{
 							cube2.name = "stationary";
 							cube2.position.z -=10;
+							// let particles = new THREE.Points(particlesGeometry, particlesMaterial);
+							// cube2.add(particles);
+							// particles.position.z -=1
+							// particles.rotation.x = -Math.PI/2
 						}
 						cube2.material.normalMap = rockTexture;
 						cube2.material.color.setRGB(1, 1, 0.5)
@@ -824,7 +879,7 @@ function checkCollision(obj1, obj2) {
 function reset(){
 	console.log("RESET")
 	// console.log("RUNNINg")
-	loadGLTF();
+	// loadGLTF();
 	speed = 0;
 	speedY = 0;
 	player.position.set(startX, -1.5, startZ);
@@ -1125,6 +1180,7 @@ function animate() {
 			document.getElementById("pauseScreen").style.display = "flex";
 		}
 		else{
+			animateParticles()
 			document.getElementById("pauseScreen").style.display = "none";
 			if(bestTimes.length > 0 && update){
 				// console.log(bestTimes)
@@ -1150,6 +1206,8 @@ function animate() {
 					currentState = "Level Select"
 					raceOver = false;
 					bestTimes = []
+					document.getElementById("leaderboard").innerHTML = "";
+					update = true
 					music.stop()
 				}
 				return;
