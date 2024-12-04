@@ -119,6 +119,7 @@ camera.add(audListener);
 const engineSound = new THREE.Audio(audListener);
 const powerUpSound = new THREE.Audio(audListener);
 const music = new THREE.Audio(audListener);
+const finishSound = new THREE.Audio(audListener);
 const audLoader = new THREE.AudioLoader();
 // Load sounds
 audLoader.load('Assets/Sounds/carStart.mp3', function (buffer) {
@@ -130,6 +131,11 @@ audLoader.load('Assets/Sounds/powerUp.mp3', function (buffer) {
     powerUpSound.setBuffer(buffer);
     powerUpSound.setLoop(false);
     powerUpSound.setVolume(0.5);
+});
+audLoader.load('Assets/Sounds/ta-da-brass-band-soundroll-1-00-04.mp3', function (buffer) {
+    finishSound.setBuffer(buffer);
+    finishSound.setLoop(false);
+    finishSound.setVolume(0.5);
 });
 let isSoundLoaded = false;
 audLoader.load('Assets/Sounds/spaceMusic.mp3', function (buffer) {
@@ -850,6 +856,9 @@ function onDocumentKeyDown(event){
 		switch(keyCode){
 			case 16: //Acceleration (Shift Key)
 				run = true;
+				if(speed <= 0.1){
+					engineSound.play();
+				}
 				break;
 			case 27:
 				if(pause){
@@ -970,6 +979,7 @@ document.getElementById("level1").onclick = function() {{
 	})
 
 	clock.start()
+	playMusic();
 
 }}
 document.getElementById("level2").onclick = function() {{
@@ -983,6 +993,7 @@ document.getElementById("level2").onclick = function() {{
 		bestTimes = value;
 	})
 	clock.start()
+	playMusic();
 }}
 document.getElementById("level3").onclick = function() {{
 	currentState="Map3";
@@ -995,6 +1006,7 @@ document.getElementById("level3").onclick = function() {{
 		bestTimes = value;
 	})
 	clock.start()
+	playMusic();
 }}
 document.getElementById("HOMEBTN").onclick = function(){{
 	currentState = "Start";
@@ -1138,6 +1150,7 @@ function animate() {
 					lapCount = 0;
 					currentState = "Level Select"
 					raceOver = false;
+					music.stop()
 				}
 				return;
 			}
@@ -1244,6 +1257,7 @@ function animate() {
 								timeShieldDuration = elapsedTime + 5;
 							}
 							obj.remove(obj2)
+							powerUpSound.play();
 						}
 						else if(checkCollision(player, obj2)){
 							if (!shieldActivate) {
@@ -1277,21 +1291,6 @@ function animate() {
 									}
 									speed = 0
 								}
-								// let speedX2 = Math.sin(rotation) * (speed-0.3);
-								// let speedZ2 = Math.cos(rotation) * (speed-0.3);
-								// if(speedX2 < 0){
-								// 	player.position.x -= (speedX2);
-								// }
-								// else if (speedX2 > 0) {
-								// 	player.position.x -= (speedX2);
-								// }
-								// if(speedZ2 < 0){
-								// 	player.position.z -= (speedZ2);
-								// }else if (speedZ2 > 0) {
-								// 	player.position.z -= (speedZ2);
-								// }
-								// speed = 0
-								// console.log(currentTile)
 							}
 						}
 					}
