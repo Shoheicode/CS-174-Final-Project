@@ -92,9 +92,6 @@ const getBestLapTimes = async (map)=>{
     let ref = collection(database, "TopTimes"+map)
     const q = query(ref, orderBy("time"), limit(3));
 
-    let delDocu = false;
-    let nameSaved = "";
-
     let list = [];
 
     const querySnapshot = await getDocs(q);

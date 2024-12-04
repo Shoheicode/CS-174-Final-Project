@@ -1135,7 +1135,6 @@ function animate() {
 			// requestAnimationFrame(animate);
 
 			if(raceOver){
-				
 				elapsedTime = Math.floor(clock.getElapsedTime()) + offset;
 				// console.log("ELAPSED TIME: " + elapsedTime)
 				// console.log("wait time:" + waitTime)
@@ -1381,6 +1380,7 @@ function animate() {
 				
 				document.getElementById("Finished").innerHTML = "FINISHED" + " <br> " + name + ": " + formatTime(elapsedTime);
 				addData(name, currentState, elapsedTime);
+				finishSound.play()
 			}
 
 			if(powerupActivate && timePowerupDuration <= elapsedTime){
