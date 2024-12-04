@@ -1149,6 +1149,7 @@ function animate() {
 					lapCount = 0;
 					currentState = "Level Select"
 					raceOver = false;
+					bestTimes = []
 					music.stop()
 				}
 				return;
