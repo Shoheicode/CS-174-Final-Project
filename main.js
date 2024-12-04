@@ -112,6 +112,37 @@ scene.background = bgTexture;
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.frustumCulled = true
 
+
+// Sound Effects
+const audListener = new THREE.AudioListener();
+camera.add(audListener);
+const engineSound = new THREE.Audio(audListener);
+const powerUpSound = new THREE.Audio(audListener);
+const music = new THREE.Audio(audListener);
+const audLoader = new THREE.AudioLoader();
+// Load sounds
+audLoader.load('Assets/Sounds/carStart.mp3', function (buffer) {
+    engineSound.setBuffer(buffer);
+    engineSound.setLoop(false);
+    engineSound.setVolume(0.5);
+});
+audLoader.load('Assets/Sounds/powerUp.mp3', function (buffer) {
+    powerUpSound.setBuffer(buffer);
+    powerUpSound.setLoop(false);
+    powerUpSound.setVolume(0.5);
+});
+let isSoundLoaded = false;
+audLoader.load('Assets/Sounds/spaceMusic.mp3', function (buffer) {
+    music.setBuffer(buffer);
+    music.setLoop(true);
+    music.setVolume(0.5);
+	isSoundLoaded = true;
+}, undefined, function (error) {
+    console.error("Error loading sound file:", error);
+});
+
+
+
 // Power-Up Texture
 const shieldTexture = textureLoader.load('Assets/Images/powerup/powerUp1Texture.png');
 
