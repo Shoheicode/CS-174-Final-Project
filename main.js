@@ -141,6 +141,13 @@ audLoader.load('Assets/Sounds/spaceMusic.mp3', function (buffer) {
     console.error("Error loading sound file:", error);
 });
 
+function playMusic() {
+	if (isSoundLoaded && !music.isPlaying) {
+        	music.play();
+    	} else if (!isSoundLoaded) {
+        	console.log("Sound file is not yet loaded.");
+    	}
+}
 
 
 // Power-Up Texture
