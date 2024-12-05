@@ -401,72 +401,72 @@ floorGeo.setAttribute(
 
 //17 + 20 + 17 + 20 = 
 let map = [
-	["FCLU","FR","FR","FR","FR","FR","FR","FR","FR","C1R","FR","FR","PR","FR","FR","FR","FR","FR","FCUR","ES"],
+	["FCLU","FR","FR","DR","FR","FR","FR","FR","IR","C1R","FR","FR","PR","FR","DR","FR","FR","FR","FCUR","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","IF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","FR","PR","C2R","FR","FCRD","ES"],
+	["DF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","DR","PR","C2R","FR","FCRD","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["IF","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","IF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["PF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","FR","FR","FCRD","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","DR","FR","FCRD","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FCLU","FR","FR","FCUR","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","PF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FCDL","FR","FR","FR","FCRD","ES","ES","FCDL","FR","C4R","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","DF","ES","ES","FF","ES","ES","PF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["IF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FCDL","FR","FR","FR","FCRD","ES","ES","FCDL","IR","C4R","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let map2 = [
-	["FCLU","FR","FR","FR","FCUR","ES","FCLU","FR","C1R","FR","FCUR","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FCLU","FR","IR","FR","FCUR","ES","FCLU","FR","C1R","FR","FCUR","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","IF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FCDL","FR","FCRD","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","DF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FCDL","DR","FCRD","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C2F","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["DF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","LL","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","IF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["PF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","FR","FR","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","PF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FCDL","FR","C4R","FR","FR","FR","FR","FR","FR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["IF","ES","ES","ES","ES","ES","ES","ES","ES","ES","PF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FCDL","FR","C4R","FR","FR","FR","FR","DR","FR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let map3 = [
-	["FCLU","FR","FR","FR","FCUR","ES","FCLU","FR","C1R","FR","FCUR","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FCLU","FR","FR","IR","FCUR","ES","FCLU","FR","C1R","DR","FCUR","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","PF","ES","FF","ES","ES","ES","C2F","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FCDL","FR","FCRD","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCDL","PR","FR","FR","FR","FR","FR","FCUR","ES","ES"],
+	["DF","ES","ES","ES","FCDL","FR","FCRD","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCDL","PR","IR","FR","FR","FR","FR","FCUR","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
-	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","DF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","PF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","FR","FR","FR","FR","FCUR","ES","FF","ES","ES"],
+	["IF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","FR","DR","FR","FR","FCUR","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
-	["PF","ES","ES","ES","FCLU","FR","FR","FCUR","ES","ES","PF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
+	["PF","ES","ES","ES","FCLU","FR","FR","FCUR","ES","ES","PF","ES","ES","ES","ES","FF","ES","IF","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","FCDL","FR","FCRD","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FCDL","FR","C4R","FR","FCRD","ES","ES","FCDL","FR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FCDL","FR","C4R","DR","FCRD","ES","ES","FCDL","IR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let currentTile = null;
@@ -811,6 +811,81 @@ function createMap(mapGiven){
 					floorCopy.add(cube2)
 					powerUpsFloors.push(floorCopy);
 					console.log("HEYO CUBE BUDDIES")
+				}
+				else if(mapGiven[i+10][j+10][0] == 'D' || mapGiven[i+10][j+10][0] == 'I'){ 
+					floorCopy.material.normalMap = floorTexture;
+					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
+					if(mapGiven[i+10][j+10][1] == 'R'){
+						floorCopy.rotateZ(-Math.PI / 2)
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						// set left wall
+						wall.rotation.y = Math.PI/2;
+						wall.position.set(xVal-10.0,-0.5,zVal);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set right wall
+						wall2.rotation.y = Math.PI/2;
+						wall2.position.set(xVal+10.0,-0.5,zVal);
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// change name
+						wall.name = "U";
+						wall2.name = "D";
+						// set to invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set up OBB
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();
+					}
+					else {
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						// set left wall
+						wall.position.set(xVal,-0.5,zVal-10.0);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set right wall
+						wall2.position.set(xVal,-0.5,zVal+10.0);
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// change name
+						wall.name = "L";
+						wall2.name = "R";
+						// set to invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set up OBB	
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();	
+					}
+					if (mapGiven[i+10][j+10][0] == 'D') {
+						cube2.material = new THREE.MeshBasicMaterial()
+						// cube2.material.map = speedTexture
+						// cube2.material.bumpMap = speedTexture
+						cube2.name = "POWERUPDECREASE";
+						cube2.material.color.setRGB(0.0, 0.0, 1.0);
+						floorCopy.name = "timeDecFloor";
+					}
+					else if (mapGiven[i+10][j+10][0] == 'I') {
+						cube2.material = new THREE.MeshBasicMaterial()
+						// cube2.material.map = speedTexture
+						// cube2.material.bumpMap = speedTexture
+						cube2.name = "POWERUPINCREASE";
+						cube2.material.color.setRGB(1.0, 0.0, 0.0);
+						floorCopy.name = "timeIncFloor";
+					}
+					floorCopy.add(cube2)
+					powerUpsFloors.push(floorCopy);
 				}
 				else{
 					console.log("EHJKJKj")
@@ -1516,27 +1591,46 @@ function animate() {
 						cube2.position.z = obj.position.y+6+2.5
 						cube2.position.y = ((Math.random()-0.5)*2)*5
 						cube2.position.x = ((Math.random()-0.5)*2)*5
-
-						if(carPlayer == "nova"){
-							console.log("NOVA?")
-							cube2.material = new THREE.MeshBasicMaterial()
-							cube2.material.map = speedTexture
-							// cube2.material.bumpMap = speedTexture
-							cube2.name = "POWERUPSPEED";
+						if(obj.name.startsWith("powerup")) {
+							if(carPlayer == "nova"){
+								console.log("NOVA?")
+								cube2.material = new THREE.MeshBasicMaterial()
+								cube2.material.map = speedTexture
+								// cube2.material.bumpMap = speedTexture
+								cube2.name = "POWERUPSPEED";
+							}
+							else if(carPlayer=="zenith"){
+								console.log("ZENNITH")
+								cube2.material = new THREE.MeshBasicMaterial()
+								cube2.material.map = shieldTexture
+								cube2.name = "POWERUPSHIELD";
+							}
+							else if(carPlayer=="flux"){
+								console.log("FLUZ")
+								// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+								cube2.material.color.setRGB(0.0, 1.0, 0.0);
+								cube2.name = "POWERUPWALL";
+							}
 						}
-						else if(carPlayer=="zenith"){
-							console.log("ZENNITH")
-							cube2.material = new THREE.MeshBasicMaterial()
-							cube2.material.map = shieldTexture
-							cube2.name = "POWERUPSHIELD";
+						else if (obj.name.startsWith("time")) {
+							if (obj.name[4] == 'D') {
+								cube2.material = new THREE.MeshBasicMaterial()
+								// cube2.material.map = speedTexture
+								// cube2.material.bumpMap = speedTexture
+								cube2.name = "POWERUPDECREASE";
+								cube2.material.color.setRGB(0.0, 0.0, 1.0);
+								floorCopy.name = "timeDecFloor";
+							}
+							else if (obj.name[4] == 'I') {
+								cube2.material = new THREE.MeshBasicMaterial();
+								// cube2.material.map = speedTexture
+								// cube2.material.bumpMap = speedTexture
+								cube2.name = "POWERUPINCREASE";
+								cube2.material.color.setRGB(1.0, 0.0, 0.0);
+								floorCopy.name = "timeIncFloor";
+							}
 						}
-						else if(carPlayer=="flux"){
-							console.log("FLUZ")
-							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-							cube2.material.color.setRGB(0.0, 1.0, 0.0);
-							cube2.name = "POWERUPWALL";
-						}
-						obj.add(cube2)
+						obj.add(cube2);
 					}
 				})
 				completedLap = false;
