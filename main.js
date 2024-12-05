@@ -332,7 +332,7 @@ const wall_material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 let walls = [];
 
 // create wall texture
-const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall5.png');
+const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall7.png');
 
 wallTexture.wrapS = THREE.RepeatWrapping;
 wallTexture.wrapT = THREE.RepeatWrapping;
@@ -1821,9 +1821,17 @@ function animate() {
 							player.position.x -= (speedX2);
 							player.position.z -= (speedZ2);
 						}
+						else if (walls[i].name == "U" || walls[i].name == "D") {
+							player.position.x += (speedX2);
+							player.position.z -= (speedZ2);
+						}
 						if ((walls[i].name == "L" && player.position.z - speedZ2 > walls[i].position.z) || (walls[i].name == "R" && player.position.z - speedZ2 < walls[i].position.z)) {
 							player.position.x -= (speedX2);
 							player.position.z -= (speedZ2);
+						}
+						else if (walls[i].name == "L" || walls[i].name == "R") {
+							player.position.x -= (speedX2);
+							player.position.z += (speedZ2);
 						}
 						speed = 0;
 					}
