@@ -326,10 +326,17 @@ shield.position.set(0.0, 2.0, -3.0);
 shield.visible = false;
 
 // create wall geometry/material
-const wall_geometry = new THREE.BoxGeometry(20, 4, 0.25);
+const wall_geometry = new THREE.BoxGeometry(20, 4, 0.75);
 wall_geometry.computeBoundingBox();
-const wall_material = new THREE.MeshBasicMaterial({ color: 0x08f7ff });
+const wall_material = new THREE.MeshBasicMaterial({ color: 0x6ff991c });
 let walls = [];
+
+// create wall texture
+const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall2.png');
+
+wallTexture.wrapS = THREE.RepeatWrapping;
+wallTexture.wrapT = THREE.RepeatWrapping;
+wallTexture.repeat.set(1, 1);
 
 //Updated the boundary box in order to ensure that it includes the wheels
 player.geometry.userData.obb = new OBB().fromBox3(
@@ -407,9 +414,9 @@ let map = [
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["DF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","DR","PR","C2R","FR","FCRD","ES"],
+	["IF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["IF","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","IF","ES","ES","ES","ES","ES","ES"],
@@ -460,9 +467,9 @@ let map3 = [
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","DF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","PF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
-	["IF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","FR","DR","FR","FR","FCUR","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","FR","DR","FR","FR","FCUR","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
+	["IF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
 	["PF","ES","ES","ES","FCLU","FR","FR","FCUR","ES","ES","PF","ES","ES","ES","ES","FF","ES","IF","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","FCDL","FR","FCRD","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
@@ -622,6 +629,9 @@ function createMap(mapGiven){
 						// set to invisible
 						wall.visible = false;
 						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
 						// set up OBB
 						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall.userData.obb = new OBB();
@@ -647,6 +657,9 @@ function createMap(mapGiven){
 						// set to invisible
 						wall.visible = false;
 						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
 						// set up OBB	
 						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall.userData.obb = new OBB();
@@ -723,6 +736,9 @@ function createMap(mapGiven){
 					// set to invisible
 					wall.visible = false;
 					wall2.visible = false;
+					// set wall texture
+					wall.material.map = wallTexture;
+					wall2.material.map = wallTexture;
 					// set up OBB
 					wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 					wall.userData.obb = new OBB();
@@ -757,6 +773,9 @@ function createMap(mapGiven){
 						// set to invisible
 						wall.visible = false;
 						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
 						// set up OBB
 						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall.userData.obb = new OBB();
@@ -782,6 +801,9 @@ function createMap(mapGiven){
 						// set to invisible
 						wall.visible = false;
 						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
 						// set up OBB	
 						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall.userData.obb = new OBB();
@@ -805,7 +827,9 @@ function createMap(mapGiven){
 					else if(carPlayer=="flux"){
 						console.log("FLUZ")
 						// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-						cube2.material.color.setRGB(0.0, 1.0, 0.0);
+						// cube2.material.color.setRGB(0.0, 1.0, 0.0);
+						cube2.material = new THREE.MeshBasicMaterial()
+						cube2.material.map = powerupTexture
 						cube2.name = "POWERUPWALL";
 					}
 					floorCopy.add(cube2)
@@ -837,6 +861,9 @@ function createMap(mapGiven){
 						// set to invisible
 						wall.visible = false;
 						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
 						// set up OBB
 						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall.userData.obb = new OBB();
@@ -862,6 +889,9 @@ function createMap(mapGiven){
 						// set to invisible
 						wall.visible = false;
 						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
 						// set up OBB	
 						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall.userData.obb = new OBB();
@@ -915,6 +945,9 @@ function createMap(mapGiven){
 						// set to invisible
 						wall.visible = false;
 						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
 						// set up OBB
 						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall.userData.obb = new OBB();
@@ -940,6 +973,9 @@ function createMap(mapGiven){
 						// set to invisible
 						wall.visible = false;
 						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
 						// set up OBB	
 						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall.userData.obb = new OBB();
@@ -1000,6 +1036,9 @@ function createMap(mapGiven){
 						// set invisible
 						wall.visible = false;
 						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
 						// set up OBB
 						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall.userData.obb = new OBB();
@@ -1608,7 +1647,9 @@ function animate() {
 							else if(carPlayer=="flux"){
 								console.log("FLUZ")
 								// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-								cube2.material.color.setRGB(0.0, 1.0, 0.0);
+								// cube2.material.color.setRGB(0.0, 1.0, 0.0);
+								cube2.material = new THREE.MeshBasicMaterial()
+								cube2.material.map = powerupTexture
 								cube2.name = "POWERUPWALL";
 							}
 						}
