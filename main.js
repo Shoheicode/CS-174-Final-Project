@@ -328,11 +328,11 @@ shield.visible = false;
 // create wall geometry/material
 const wall_geometry = new THREE.BoxGeometry(20, 4, 0.75);
 wall_geometry.computeBoundingBox();
-const wall_material = new THREE.MeshBasicMaterial({ color: 0x6ff991c });
+const wall_material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 let walls = [];
 
 // create wall texture
-const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall2.png');
+const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall5.png');
 
 wallTexture.wrapS = THREE.RepeatWrapping;
 wallTexture.wrapT = THREE.RepeatWrapping;
@@ -940,8 +940,8 @@ function createMap(mapGiven){
 						walls.push(wall);
 						walls.push(wall2);
 						// change name
-						wall.name = "WALL";
-						wall2.name = "WALL";
+						wall.name = "U";
+						wall2.name = "D";
 						// set to invisible
 						wall.visible = false;
 						wall2.visible = false;
@@ -968,8 +968,8 @@ function createMap(mapGiven){
 						walls.push(wall);
 						walls.push(wall2);
 						// change name
-						wall.name = "WALL";
-						wall2.name = "WALL";
+						wall.name = "L";
+						wall2.name = "R";
 						// set to invisible
 						wall.visible = false;
 						wall2.visible = false;
@@ -1816,15 +1816,13 @@ function animate() {
 					if (checkCollision(player, walls[i])) {
 						let speedX2 = Math.sin(rotation) * (speed-0.3);
 						let speedZ2 = Math.cos(rotation) * (speed-0.3);
-						if(speedX2 < 0){
+						console.log(walls[i].name);
+						if ((walls[i].name == "U" && player.position.x - speedX2 > walls[i].position.x) || (walls[i].name == "D" && player.position.x - speedX2 < walls[i].position.x)) {
 							player.position.x -= (speedX2);
-						}
-						else if (speedX2 > 0) {
-							player.position.x -= (speedX2);
-						}
-						if(speedZ2 < 0){
 							player.position.z -= (speedZ2);
-						} else if (speedZ2 > 0) {
+						}
+						if ((walls[i].name == "L" && player.position.z - speedZ2 > walls[i].position.z) || (walls[i].name == "R" && player.position.z - speedZ2 < walls[i].position.z)) {
+							player.position.x -= (speedX2);
 							player.position.z -= (speedZ2);
 						}
 						speed = 0;
