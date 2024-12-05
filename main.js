@@ -332,7 +332,7 @@ const wall_material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 let walls = [];
 
 // create wall texture
-const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall7.png');
+const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall.png');
 
 wallTexture.wrapS = THREE.RepeatWrapping;
 wallTexture.wrapT = THREE.RepeatWrapping;
