@@ -109,7 +109,7 @@ let waitTime = 0;
 //Scene Code
 const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
-const bgTexture = textureLoader.load('Assets/Images/Assets/stars.jpg');
+const bgTexture = textureLoader.load('Assets/Images/stars.jpg');
 // https://wallpaperaccess.com/universe-landscape
 
 scene.background = bgTexture;
@@ -174,9 +174,9 @@ const timeDecTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture
 // Finish Line Texture
 const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
 
-finishTexture.wrapS = THREE.RepeatWrapping;
-finishTexture.wrapT = THREE.RepeatWrapping;
-finishTexture.repeat.set(1, 1);
+// finishTexture.wrapS = THREE.RepeatWrapping;
+// finishTexture.wrapT = THREE.RepeatWrapping;
+// finishTexture.repeat.set(1, 1);
 
 // https://www.istockphoto.com/bot-wall?returnUrl=%2Fphotos%2Ffinish-line
 
@@ -337,11 +337,11 @@ const wall_material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 let walls = [];
 
 // create wall texture
-const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall.png');
+// const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall.png');
 
-wallTexture.wrapS = THREE.RepeatWrapping;
-wallTexture.wrapT = THREE.RepeatWrapping;
-wallTexture.repeat.set(1, 1);
+// wallTexture.wrapS = THREE.RepeatWrapping;
+// wallTexture.wrapT = THREE.RepeatWrapping;
+// wallTexture.repeat.set(1, 1);
 
 //Updated the boundary box in order to ensure that it includes the wheels
 player.geometry.userData.obb = new OBB().fromBox3(
@@ -481,6 +481,29 @@ let map3 = [
 	["FCDL","FR","C4R","DR","FCRD","ES","ES","FCDL","IR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
+let map4 = [
+	["ES","ES","ES","DR","ES","ES","ES","ES","IR","C1R","ES","ES","PR","ES","DR","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["DF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["IF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["PF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+]
+
 let currentTile = null;
 
 let floors = []
@@ -509,18 +532,19 @@ const floorTexture = new THREE.TextureLoader().load('Assets/Images/road/road.png
 
 const rockTexture = new THREE.TextureLoader().load('Assets/Images/road/rockmap.png')
 
-floorTexture.wrapS = THREE.RepeatWrapping;
-floorTexture.wrapT = THREE.RepeatWrapping;
-floorTexture.repeat.set(1, 1);
+// floorTexture.wrapS = THREE.RepeatWrapping;
+// floorTexture.wrapT = THREE.RepeatWrapping;
+// floorTexture.repeat.set(1, 1);
 
-rockTexture.wrapS = THREE.RepeatWrapping;
-rockTexture.wrapT = THREE.RepeatWrapping;
-rockTexture.repeat.set(1, 1);
+// rockTexture.wrapS = THREE.RepeatWrapping;
+// rockTexture.wrapT = THREE.RepeatWrapping;
+// rockTexture.repeat.set(1, 1);
 
 // trackCopy.position.y = 500;
 // trackCopy.position.x = xVal
 // trackCopy.position.z = zVal
 // trackCopy.rotateX(-Math.PI/2)
+const mat = new THREE.MeshPhongMaterial();
 
 let matSphere = new THREE.MeshPhongMaterial();
 
@@ -541,8 +565,6 @@ function createMap(mapGiven){
 			if(mapGiven[i+10][j+10] != "ES" && mapGiven[i+10][j+10] != "LL"){
 				xVal = 20 * i
 				zVal = 20 * j
-
-				const mat = new THREE.MeshPhongMaterial();
 
 				let floorCopy = new THREE.Mesh(
 					floorGeo,
@@ -608,7 +630,7 @@ function createMap(mapGiven){
 					// floorCopy.material.normalMap = texture;
 
 					// console.log(mapGiven[i+10][j+10].at(2))
-					/*
+					
 					if(mapGiven[i+10][j+10].at(2) == "R"){
 						// console.log("ROTATE Z S")
 						floorCopy.rotateZ(-Math.PI / 2)
@@ -669,50 +691,17 @@ function createMap(mapGiven){
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();
 					}
-					*/
-
-					/*
-					if(Math.random() <= 0.2){
-						let num = Math.random();
-						if (num <= 0.25) {
-							// cube2.material.colorftm.setRGB(1.0, 0.0, 0.0);
-							cube2.material = new THREE.MeshBasicMaterial()
-							cube2.material.map = powerupTexture
-							// cube2.material.bumpMap = powerupTexture
-							// cube2.material.bumpScale = 0.1
-							cube2.rotation.x = Math.PI/4
-							// cube2.rotateX(Math.PI/4)
-							cube2.name = "POWERUPINCREASE";
-						}
-						else if (num <= 0.5) {
-							// cube2.material.color.setRGB(0.5, 0.5, 0.5);
-							cube2.material = new THREE.MeshBasicMaterial()
-							cube2.material.map = speedTexture
-							// cube2.material.bumpMap = speedTexture
-							cube2.name = "POWERUPSPEED";
-						}
-						else if (num <= 0.75) {
-							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-							cube2.material.color.setRGB(0.0, 1.0, 0.0);
-							cube2.name = "POWERUPDECREASE";
-						}
-						else {
-							cube2.material = new THREE.MeshBasicMaterial()
-							cube2.material.map = shieldTexture
-							cube2.name = "POWERUPSHIELD";
-						}
-						// console.log("HIHIHI")
-					}
-					else{*/
+					
 					cube2.material.normalMap = rockTexture;
 					cube2.material.color.setRGB(1, 1, 0.5)
-					//}
+				
 					floorCopy.add(cube2)
 					// cube2.material.color.setRGB(1, 0.5, 0.5)
 				}else if(mapGiven[i+10][j+10] == "SP"){
 					// floorCopy.material.color.setRGB(1,0.5,0.5);
 					trackCopy.material.color.setRGB(1,0.5,0.5);
 					// floorCopy.material.wireframe = true
+					floorCopy.material = new 
 					floorCopy.material.map = finishTexture;
 					// floorCopy.material.bumpMap = finishTexture;
 					currentTile = floorCopy;
@@ -1103,28 +1092,29 @@ function createMap(mapGiven){
 							cube2.add(particles);
 							particles.position.z +=2
 							particles.rotation.x = -Math.PI/2
+							floorCopy.add(cube2)
+							cube2.material.normalMap = rockTexture;
+							cube2.material.color.setRGB(1, 1, 0.5)
 						}else if (num >=0.33){
 							cube2.name = "slow";
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
 							cube2.add(particles);
 							particles.position.z +=2
 							particles.rotation.x = -Math.PI/2
+							floorCopy.add(cube2)
+							cube2.material.normalMap = rockTexture;
+							cube2.material.color.setRGB(1, 1, 0.5)
 						}else{
 							cube2.name = "stationary";
 							cube2.position.z -=10;
-							// let particles = new THREE.Points(particlesGeometry, particlesMaterial);
-							// cube2.add(particles);
-							// particles.position.z -=1
-							// particles.rotation.x = -Math.PI/2
 						}
 						// cube2.material.normalMap = rockTexture;
-						cube2.material.color.setRGB(1, 1, 0.5)
+						// cube2.material.color.setRGB(1, 1, 0.5)
 					//}
-					floorCopy.add(cube2)
+					// floorCopy.add(cube2)
 				}
 
-				scene.add(trackCopy)
-				minimapScene.add(trackCopy.clone());
+				minimapScene.add(trackCopy);
 				// console.log(floorCopy)
 				floors.push(floorCopy)
 				scene.add(floorCopy)
@@ -1399,7 +1389,7 @@ document.getElementById("fluxButton").onclick = function() {{
 
 document.getElementById("level1").onclick = function() {{
 	currentState="Map1";
-	currentMap = map;
+	currentMap = map4;
 	reset();
 	document.getElementById("bodyContainer").style.display = "none";
 	document.getElementById("leaderboard").style.display="block";
@@ -1745,7 +1735,7 @@ function animate() {
 						if(checkCollision(player, obj2) && (obj2.name.startsWith("POWERUP"))) {
 							if (obj2.name == "POWERUPSPEED") {
 								powerupActivate = true
-								timePowerupDuration = elapsedTime + 30;
+								timePowerupDuration = elapsedTime + 5;
 							}
 							else if (obj2.name == "POWERUPDECREASE") {
 								offset -= 10;
