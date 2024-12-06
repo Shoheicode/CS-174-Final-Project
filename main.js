@@ -1728,32 +1728,32 @@ function animate() {
 				// carMesh.rotaateY(rotation)
 			}
 
-			// if (wallActivate) {
-			// 	for (let i = 0; i < walls.length; i++) {
-			// 		if (checkCollision(player, walls[i])) {
-			// 			let speedX2 = Math.sin(rotation) * (speed-0.3);
-			// 			let speedZ2 = Math.cos(rotation) * (speed-0.3);
-			// 			// console.log(walls[i].name);
-			// 			if ((walls[i].name == "U" && player.position.x - speedX2 > walls[i].position.x) || (walls[i].name == "D" && player.position.x - speedX2 < walls[i].position.x)) {
-			// 				player.position.x -= (speedX2);
-			// 				player.position.z -= (speedZ2);
-			// 			}
-			// 			else if (walls[i].name == "U" || walls[i].name == "D") {
-			// 				player.position.x += (speedX2);
-			// 				player.position.z -= (speedZ2);
-			// 			}
-			// 			if ((walls[i].name == "L" && player.position.z - speedZ2 > walls[i].position.z) || (walls[i].name == "R" && player.position.z - speedZ2 < walls[i].position.z)) {
-			// 				player.position.x -= (speedX2);
-			// 				player.position.z -= (speedZ2);
-			// 			}
-			// 			else if (walls[i].name == "L" || walls[i].name == "R") {
-			// 				player.position.x -= (speedX2);
-			// 				player.position.z += (speedZ2);
-			// 			}
-			// 			speed = 0;
-			// 		}
-			// 	}
-			// }
+			if (wallActivate) {
+				for (let i = 0; i < walls.length; i++) {
+					if (checkCollision(player, walls[i])) {
+						let speedX2 = Math.sin(rotation) * (speed-0.3);
+						let speedZ2 = Math.cos(rotation) * (speed-0.3);
+						// console.log(walls[i].name);
+						if ((walls[i].name == "U" && player.position.x - speedX2 > walls[i].position.x) || (walls[i].name == "D" && player.position.x - speedX2 < walls[i].position.x)) {
+							player.position.x -= (speedX2);
+							player.position.z -= (speedZ2);
+						}
+						else if (walls[i].name == "U" || walls[i].name == "D") {
+							player.position.x += (speedX2);
+							player.position.z -= (speedZ2);
+						}
+						if ((walls[i].name == "L" && player.position.z - speedZ2 > walls[i].position.z) || (walls[i].name == "R" && player.position.z - speedZ2 < walls[i].position.z)) {
+							player.position.x -= (speedX2);
+							player.position.z -= (speedZ2);
+						}
+						else if (walls[i].name == "L" || walls[i].name == "R") {
+							player.position.x -= (speedX2);
+							player.position.z += (speedZ2);
+						}
+						speed = 0;
+					}
+				}
+			}
 
 			if(outOfBounds()){
 				// console.log(currentTile)
