@@ -771,7 +771,6 @@ function createMap(mapGiven){
 						cube2.name = "POWERUPSPEED";
 					}
 					else if(carPlayer=="zenith"){
-						// console.log("ZENNITH")
 						cube2.material = new THREE.MeshBasicMaterial()
 						cube2.material.map = shieldTexture
 						cube2.name = "POWERUPSHIELD";
@@ -1683,7 +1682,6 @@ function animate() {
 					if (checkCollision(player, walls[i])) {
 						let speedX2 = Math.sin(rotation) * (speed-0.3);
 						let speedZ2 = Math.cos(rotation) * (speed-0.3);
-						// console.log(walls[i].name);
 						if ((walls[i].name == "U" && player.position.x - speedX2 > walls[i].position.x) || (walls[i].name == "D" && player.position.x - speedX2 < walls[i].position.x)) {
 							player.position.x -= (speedX2);
 							player.position.z -= (speedZ2);
@@ -1706,7 +1704,6 @@ function animate() {
 			}
 
 			if(outOfBounds()){
-				// console.log(currentTile)
 				player.position.x = currentTile.position.x;
 				player.position.z = currentTile.position.z;
 				player.position.y = -1.5;
@@ -1738,7 +1735,6 @@ function animate() {
 				let copyPos = player.position.clone();
 				let newPos = lookPos.add(copyPos);
 
-				// console.log(player.position + lookPos)
 				camera.lookAt(newPos)
 			}
 
@@ -1763,8 +1759,8 @@ function animate() {
 			minimapCamera.lookAt(carMarker.position);
 			renderer.render(minimapScene, minimapCamera);
 
+			//Checks if the player completed all the laps
 			if(lapCount == 3){
-				// console.log("FINISH RACE")
 				raceOver = true;
 				waitTime = elapsedTime+3;
 				
