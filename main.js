@@ -1666,7 +1666,6 @@ function animate() {
 			})
 
 			if(!collide){
-				// console.log("HEYYYO")
 				player.rotation.y = rotation;
 				player.position.z += speedZ;
 				player.position.x += speedX;
@@ -1677,8 +1676,6 @@ function animate() {
 				carMesh.position.y = player.position.y-0.25;
 				carMesh.position.z = player.position.z;
 				carMesh.rotation.y = rotation + Math.PI
-				// console.log(carMesh)
-				// carMesh.rotaateY(rotation)
 			}
 
 			if (wallActivate) {
