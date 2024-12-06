@@ -1530,7 +1530,6 @@ function animate() {
 							if (obj.name[4] == 'D') {
 								cube2.material = new THREE.MeshBasicMaterial();
 								cube2.material.map = timeDecTexture;
-								// cube2.material.bumpMap = speedTexture
 								cube2.name = "POWERUPDECREASE";
 								cube2.material.color.setRGB(0.0, 0.0, 1.0);
 								floorCopy.name = "timeDecFloor";
@@ -1538,9 +1537,7 @@ function animate() {
 							else if (obj.name[4] == 'I') {
 								cube2.material = new THREE.MeshBasicMaterial();
 								cube2.material.map = timeIncTexture;
-								// cube2.material.bumpMap = speedTexture
 								cube2.name = "POWERUPINCREASE";
-								// cube2.material.color.setRGB(1.0, 0.0, 0.0);
 								floorCopy.name = "timeIncFloor";
 							}
 						}
