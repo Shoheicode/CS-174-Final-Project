@@ -1027,10 +1027,6 @@ function createMap(mapGiven){
 							}
 							
 						}
-						// cube2.material.normalMap = rockTexture;
-						// cube2.material.color.setRGB(1, 1, 0.5)
-					//}
-					// floorCopy.add(cube2)
 				}
 
 				minimapScene.add(trackCopy);
@@ -1041,11 +1037,8 @@ function createMap(mapGiven){
 			}
 		}
 	}
-	// console.log("LENGTH AFTER PT 2:" +  scene.children.length)
 	completedCheckPoints.sort().reverse()
 	allCheckPoints.sort().reverse()
-
-	// console.log(completedCheckPoints)
 }
 
 function deleteMap(){
