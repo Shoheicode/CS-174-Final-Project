@@ -1254,23 +1254,18 @@ document.getElementById('text').addEventListener('input', function() {
 });
 
 document.getElementById("SUBMIT").onclick = function() {{
-	// console.log("LKJLJLJ")
 	if(name == ""){
 
 	}else{
 		checkDocumentExists(name).then((value) =>{
 			if(value){
-				// console.log("RUNNING")
 				const errorMessage = document.getElementById('errorMessage');
         		const container = document.querySelector('.check-in-container');
 
 				errorMessage.classList.add('show');
                 // Add shake animation
                 container.classList.add('error-shake');
-                // Change input border color
-                // input.style.borderColor = '#ff4444';
-                
-                // Remove shake animation after it completes
+
                 setTimeout(() => {
                     container.classList.remove('error-shake');
                 }, 500);
