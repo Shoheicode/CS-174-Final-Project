@@ -1679,7 +1679,7 @@ function animate() {
 							powerUpSound.play();
 						}
 						else if(checkCollision(player, obj2) && createMapB){
-							console.log(obj2.name)
+							// console.log(obj2.name)
 							if (!shieldActivate) {
 								if(obj2.name =="fast" || obj2.name =="slow"){
 									player.position.x = currentTile.position.x;
@@ -1690,14 +1690,14 @@ function animate() {
 									powerupActivate = false;
 									shieldActivate = false;
 									shield.visible = false;
-									console.log("I AM DEAD")
-									console.log(player.position.x)
-									console.log(player.position.y)
-									console.log(player.position.z)
-									console.log(obj2.name)
-									console.log(obj2.position.x)
-									console.log(obj2.position.y)
-									console.log(obj2.position.z)
+
+									// increment death counters
+									deaths++;
+									currentDeaths++;
+									offset+=5
+
+									obj2.position.z += 10;
+									console.log('DEATHS')
 								} else{
 									let speedX2 = Math.sin(rotation) * (speed-0.3);
 									let speedZ2 = Math.cos(rotation) * (speed-0.3);
