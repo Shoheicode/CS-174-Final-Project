@@ -1056,6 +1056,31 @@ function disposeMesh(mesh) {
         mesh.material.dispose();
     }
 
+	// Removes children from their parents/akak actually deletes unecessary assets/meshs
+	mesh.traverse((child) => {
+        if (child.isMesh) {
+            // Dispose of geometry
+            if (child.geometry) {
+                child.geometry.dispose();
+            }
+
+            // Dispose of material(s)
+            if (Array.isArray(child.material)) {
+                child.material.forEach((material) => {
+                    if (material.map) material.map.dispose();
+                    if (material.normalMap) material.normalMap.dispose();
+                    // Dispose of other maps if needed
+                    material.dispose();
+                });
+            } else if (child.material) {
+                if (child.material.map) child.material.map.dispose();
+                if (child.material.normalMap) child.material.normalMap.dispose();
+                // Dispose of other maps if needed
+                child.material.dispose();
+            }
+        }
+	})
+
     mesh.parent?.remove(mesh); // Remove from parent if it exists
     mesh = null; // Nullify to help garbage collection
 }
