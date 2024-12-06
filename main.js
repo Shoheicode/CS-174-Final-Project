@@ -240,7 +240,7 @@ minimapScene.add(carMarker);
 minimapCamera.lookAt(carMarker.position);
 // minimapCamera.rotation.set(0,-Math.PI/2,Math.PI)
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({antialias: false});
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
