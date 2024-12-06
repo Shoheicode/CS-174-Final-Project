@@ -1521,9 +1521,6 @@ function animate() {
 								cube2.name = "POWERUPSHIELD";
 							}
 							else if(carPlayer=="flux"){
-								console.log("FLUZ")
-								// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-								// cube2.material.color.setRGB(0.0, 1.0, 0.0);
 								cube2.material = new THREE.MeshBasicMaterial()
 								cube2.material.map = powerupTexture
 								cube2.name = "POWERUPWALL";
