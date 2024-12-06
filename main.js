@@ -1547,8 +1547,8 @@ function animate() {
 				completedLap = false;
 			}
 
+			// if the player is not touching the ground, check if they are touching the ground. 
 			if(!touchGround){
-				// console.log("FALLING")
 				speedY -= 0.0098 // 9.8 m/s
 				player.position.y += speedY
 			}
