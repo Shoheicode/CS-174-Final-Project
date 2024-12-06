@@ -1638,11 +1638,9 @@ function animate() {
 									powerupActivate = false;
 									shieldActivate = false;
 									shield.visible = false;
-									// console.log("testttttt", obj2.name);
 									
 									// increment death counters
 									deaths++;
-									// console.log("NAME OF OBJECT" + obj.name)
 									currentDeaths++;
 									obj2.position.z += 10
 								} else{
