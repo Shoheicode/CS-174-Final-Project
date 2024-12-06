@@ -1286,7 +1286,6 @@ document.getElementById("novaButton").onclick = function() {{
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
 	carChoice = 'Assets/Models/car.glb';
-	// console.log("HEWOOW")
 	carPlayer = "nova"
 }}
 
@@ -1436,24 +1435,18 @@ function animate() {
 	}
 	else{
 		if(pause){
-			// console.log("PAUSEd")
 			document.getElementById("pauseScreen").style.display = "flex";
 		}
 		else{
 			animateParticles()
 			document.getElementById("pauseScreen").style.display = "none";
 			if(bestTimes.length > 0 && update){
-				// console.log(bestTimes)
-				console.log(bestTimes);
 				updateleaderboard(bestTimes);
 				update = false;
 			}
-			// requestAnimationFrame(animate);
 
 			if(raceOver){
 				elapsedTime = Math.floor(clock.getElapsedTime()) + offset;
-				// console.log("ELAPSED TIME: " + elapsedTime)
-				// console.log("wait time:" + waitTime)
 				if(elapsedTime > waitTime){
 					document.getElementById("bodyContainer").style.display = "flex";
 					document.getElementById("Finished").innerHTML = "";
@@ -1486,11 +1479,9 @@ function animate() {
 						if(player.position.y < obj.position.y + 2.5){
 							collide = true;
 							touchGround = false;
-							// console.log("HELLO")
 							speedX = 0;
 							speedZ = 0;
 							speed = 0;
-							// console.log("COLIDED WITH WALLLL")
 						}
 						else{
 							player.position.y = obj.position.y + 0.74+2.5;
@@ -1502,17 +1493,9 @@ function animate() {
 				}
 			})
 
-			// powerUpsFloors.forEach(function (obj, index) {
-			// 	if (obj["children"].length == 1){
-			// 		console.log("Object: " + index)
-			// 		console.log("TRUE I HAVE POWER UP")
-			// 	}
-			// })
-
 			if(completedLap){
 				powerUpsFloors.forEach(function (obj, index) {
 					if (obj["children"].length == 0){
-						console.log("HKHKH")
 						let mat2 = matSphere.clone()
 
 						let cube1 = new THREE.Mesh( sphereGeo, mat2 );
@@ -1528,14 +1511,11 @@ function animate() {
 						cube2.position.x = ((Math.random()-0.5)*2)*5
 						if(obj.name.startsWith("powerup")) {
 							if(carPlayer == "nova"){
-								console.log("NOVA?")
 								cube2.material = new THREE.MeshBasicMaterial()
 								cube2.material.map = speedTexture
-								// cube2.material.bumpMap = speedTexture
 								cube2.name = "POWERUPSPEED";
 							}
 							else if(carPlayer=="zenith"){
-								console.log("ZENNITH")
 								cube2.material = new THREE.MeshBasicMaterial()
 								cube2.material.map = shieldTexture
 								cube2.name = "POWERUPSHIELD";
