@@ -260,34 +260,6 @@ const playerMat = new THREE.MeshBasicMaterial({color: "red"});
 const player = new THREE.Mesh(playerGeo, playerMat);
 player.position.set(1000,1000,1000)
 
-//WHEELS THE BLUE
-let wheels = [];
-
-const wheel = new THREE.CylinderGeometry(0.5, 0.5, 0.5, 32);
-const blue = new THREE.MeshBasicMaterial();
-const blueWheel = new THREE.Mesh(wheel, blue);
-player.add(blueWheel);
-blueWheel.position.set(-0.5,-0.5,0.5)
-blueWheel.rotateZ(-Math.PI/2)
-// wheel.computeBoundingBox()
-
-const blueWheel2 = new THREE.Mesh(wheel, blue);
-player.add(blueWheel2);
-blueWheel2.position.set(-0.5,-0.5,-0.5)
-blueWheel2.rotateZ(-Math.PI/2)
-
-const blueWheel3 = new THREE.Mesh(wheel, blue);
-player.add(blueWheel3);
-blueWheel3.position.set(0.5,-0.5,0.5)
-blueWheel3.rotateZ(-Math.PI/2)
-
-const blueWheel4 = new THREE.Mesh(wheel, blue);
-player.add(blueWheel4);
-blueWheel4.position.set(0.5,-0.5,-0.5)
-blueWheel4.rotateZ(-Math.PI/2)
-
-wheels = [blueWheel,blueWheel2,blueWheel3,blueWheel4]
-
 // player.rotateY(-Math.PI/4)
 
 const leftHeadlight = new THREE.SpotLight(0xffffff, 20, 0)
@@ -340,7 +312,7 @@ wallTexture.wrapS = THREE.RepeatWrapping;
 wallTexture.wrapT = THREE.RepeatWrapping;
 wallTexture.repeat.set(1, 1);
 
-//Updated the boundary box in order to ensure that it includes the wheels
+//Updated the boundary box in order to ensure that it includes the entire car
 player.geometry.userData.obb = new OBB().fromBox3(
     // player.geometry.boundingBox
 	new THREE.Box3(new THREE.Vector3(-0.75, -0.75, -1.75),new THREE.Vector3(0.75, 0.75, 1.75))
@@ -1628,9 +1600,6 @@ function animate() {
 			if(touchGround){
 				// console.log(speed);
 				if(run){
-					wheels.forEach((obj)=>{
-						obj.rotateY(-Math.PI/4)
-					})
 					if(powerupActivate){
 						speed = powerUpSpeed;
 					}
