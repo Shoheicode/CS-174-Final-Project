@@ -1271,8 +1271,6 @@ document.getElementById("SUBMIT").onclick = function() {{
                 }, 500);
 
 			}else{
-				console.log("FALSE")
-				// addData(name, "");
 				document.getElementById("checkin").style.display = "none";
 				currentState = "Character Select";
 				document.getElementById("bodyContainer2").style.display = "block";
