@@ -45,8 +45,11 @@ body {
     margin-bottom: 15px;
 }
 input {
-    width: 100%;
-    padding: 10px;
+    width: 95%;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
     margin-top: 5px;
     border: 1px solid #4a4e69;
     border-radius: 5px;
