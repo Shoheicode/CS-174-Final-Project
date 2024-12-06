@@ -1188,8 +1188,6 @@ function reset(){
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
-	// console.log(keyCode)
-
 	if(currentState == "Map1" || currentState == "Map2" || currentState == "Map3"){
 
 		switch(keyCode){
@@ -1203,20 +1201,16 @@ function onDocumentKeyDown(event){
 			case 27:
 				if(pause){
 					clock.start()
-					// console.log(elapsedTime)
 					clock.elapsedTime = elapsedTime;
 				}
 				else{
 					clock.stop();
-					// console.log(elapsedTime)
-					// clock.elapsedTime = elapsedTime;
 				}
 				pause = !pause;
 				break;
 			case 32: // Space bar
 				run = false;
 				brake = true;
-				// scene.children = []
 				break;
 			case 49: // One Press
 				cameraShift = !cameraShift;
@@ -1233,6 +1227,27 @@ function onDocumentKeyDown(event){
 				reset();
 				break;
 		}
+	}
+}
+
+document.body.addEventListener('keyup', onKeyUp, false);
+function onKeyUp(e) {
+	switch(e.keyCode) {
+		case 16: // shift
+			run = false;
+			break;
+		case 65: // a
+			rSpeed = 0;
+			break;
+		case 68: // d
+			rSpeed = 0;
+			break;
+		case 32: // Space bar
+			brake = false;
+		case 83:
+			goBackwards = false;
+		case 32: // space
+			break;
 	}
 }
 
@@ -1376,27 +1391,6 @@ document.getElementById("CHARACTER").onclick = function(){{
 	document.getElementById("time").innerText = "";
 	pause = false;
 }}
-
-document.body.addEventListener('keyup', onKeyUp, false);
-function onKeyUp(e) {
-	switch(e.keyCode) {
-		case 16: // shift
-			// console.log("KEY UP")
-			run = false;
-			break;
-		case 65: // a
-			rSpeed = 0;
-			break;
-		case 68: // d
-			rSpeed = 0;
-			break;
-		case 83:
-			goBackwards = false;
-		case 32: // space
-			// car.cancelBrake();
-			break;
-	}
-}
 
 function outOfBounds(){
 	if(player.position.y < -50){
