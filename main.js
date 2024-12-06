@@ -1087,25 +1087,17 @@ if(currentState == "Testing"){
 	reset();
 }
 
-// Adding bounding box to our red box
-const playerBB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
-playerBB.setFromObject(player);
-
 function checkCollision(obj1, obj2) {
-	// console.log("RUNNINg")
 	obj1.userData.obb.copy(obj1.geometry.userData.obb)
     obj2.userData.obb.copy(obj2.geometry.userData.obb)
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
-        // obj2.material.color.set(0x6F7567)
-		// playerTouchingGround = true;
 		if (!shieldActivate) {
 			collide = true;
 		}
 		return true;
     } else {
-        // obj2.material.color.set(0x00ff00)
 		return false;
     }
  }
@@ -1134,7 +1126,6 @@ function checkCollision(obj1, obj2) {
 			prevTime = elapsedTime;
 			lapCount++;
 			lapTimes.forEach(function(time, index){
-				// console.log(index)
 				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n';
 			})
 			completedLap = true;
@@ -1162,7 +1153,6 @@ function checkCollision(obj1, obj2) {
  }
 
 function reset(){
-	console.log("RESET")
 	speed = 0;
 	speedY = 0;
 	player.position.set(startX, -1.5, startZ);
