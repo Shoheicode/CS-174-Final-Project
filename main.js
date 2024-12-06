@@ -1039,6 +1039,27 @@ function createMap(mapGiven){
 	allCheckPoints.sort().reverse()
 }
 
+function disposeMesh(mesh) {
+    if (mesh.geometry) {
+        mesh.geometry.dispose();
+    }
+
+    if (Array.isArray(mesh.material)) {
+        mesh.material.forEach((material) => {
+            if (material.map) material.map.dispose();
+            if (material.normalMap) material.normalMap.dispose();
+            material.dispose();
+        });
+    } else if (mesh.material) {
+        if (mesh.material.map) mesh.material.map.dispose();
+        if (mesh.material.normalMap) mesh.material.normalMap.dispose();
+        mesh.material.dispose();
+    }
+
+    mesh.parent?.remove(mesh); // Remove from parent if it exists
+    mesh = null; // Nullify to help garbage collection
+}
+
 function deleteMap(){
 	let deleteObj = []
 	let i = 0;
@@ -1048,17 +1069,15 @@ function deleteMap(){
 
 	deleteObj.forEach((obj)=>{
 		scene.remove(obj)
+		disposeMesh(obj)
 	})
 
 	minimapScene.children.forEach((obj)=>{
-		// console.log(obj.name)
 		if(obj.name == "track"){
-			// console.log(obj.name)
 			scene.remove(obj)
 		}
 	})
 	
-	// console.log(floors)
 	floors = []
 }
 
@@ -1152,8 +1171,6 @@ function checkCollision(obj1, obj2) {
 
 function reset(){
 	console.log("RESET")
-	// console.log("RUNNINg")
-	// loadGLTF();
 	speed = 0;
 	speedY = 0;
 	player.position.set(startX, -1.5, startZ);
@@ -1172,7 +1189,6 @@ function reset(){
 	deaths = 0;
 	currentDeaths = 0;
 	offset = 0
-	// console.log(completedCheckPoints)
 }
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
