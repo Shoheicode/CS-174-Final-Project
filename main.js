@@ -79,6 +79,10 @@ let cameraShift = true;
 let powerupActivate = false;
 let timePowerupDuration = 0;
 
+// Cube:
+let cube2; // Change name to powerUps after successful testing
+const cubes = [];
+
 // init shield powerup
 let shieldActivate = false;
 let timeShieldDuration = 0;
@@ -165,11 +169,30 @@ function playMusic() {
 
 
 // Power-Up Texture
-const shieldTexture = textureLoader.load('Assets/Images/powerup/powerUp1Texture.png');
-
-const speedTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
-
 const powerupTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
+
+const speedTexture = textureLoader.load('Assets/Images/powerup/powerUp1Texture.png');
+
+const shieldTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
+
+const wallPowTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
+// Power Up Materials
+const speedMat = new THREE.MeshBasicMaterial({ 
+	map: speedTexture,
+	transparent: true,
+	opacity: 0.8
+});
+const shieldMat = new THREE.MeshBasicMaterial({ 
+	map: shieldTexture,
+	transparent: true,
+	opacity: 0.8
+});
+
+const wallPowMat = new THREE.MeshBasicMaterial({ 
+	map: wallPowTexture,
+	transparent: true,
+	opacity: 0.8
+});
 
 const timeIncTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
 
@@ -561,7 +584,7 @@ function createMap(mapGiven){
 				floorCopy.rotateX(-Math.PI / 2)
 				let mat2;
 				let cube1;
-				let cube2;
+				// let cube2;
 
 				//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
 				if(mapGiven[i+10][j+10] != "SP"){
@@ -769,21 +792,24 @@ function createMap(mapGiven){
 
 					if(carPlayer == "nova"){
 
-						cube2.material = new THREE.MeshBasicMaterial()
-						cube2.material.map = speedTexture
+						// cube2.material = new THREE.MeshBasicMaterial()
+						cube2.material = speedMat.clone();
 						cube2.name = "POWERUPSPEED";
 					}
 					else if(carPlayer=="zenith"){
-						cube2.material = new THREE.MeshBasicMaterial()
-						cube2.material.map = shieldTexture
+						// cube2.material = new THREE.MeshBasicMaterial()
+						// cube2.material.map = shieldTexture
+						cube2.material = shieldMat.clone();
 						cube2.name = "POWERUPSHIELD";
 					}
 					else if(carPlayer=="flux"){
-						cube2.material = new THREE.MeshBasicMaterial()
-						cube2.material.map = powerupTexture
+						// cube2.material = new THREE.MeshBasicMaterial()
+						// cube2.material.map = powerupTexture
+						cube2.material = wallPowMat;//shieldMat.clone();
 						cube2.name = "POWERUPWALL";
 					}
 					floorCopy.add(cube2)
+					cubes.push(cube2);
 					powerUpsFloors.push(floorCopy);
 				}
 				else if(mapGiven[i+10][j+10][0] == 'D' || mapGiven[i+10][j+10][0] == 'I'){ 
@@ -1467,7 +1493,7 @@ function animate() {
 			}
 
 			if(raceOver){
-				elapsedTime = Math.floor(clock.getElapsedTime()) + offset;
+				elapsedTime = Math.floor(time) + offset;
 				if(elapsedTime > waitTime){
 					document.getElementById("bodyContainer").style.display = "flex";
 					document.getElementById("Finished").innerHTML = "";
@@ -1488,7 +1514,8 @@ function animate() {
 			}
 
 			// if (elapsedTime > delay){
-			elapsedTime = Math.floor(clock.getElapsedTime()) + offset;
+			let time = clock.getElapsedTime();
+			elapsedTime = Math.floor(time) + offset;
 			document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
 			
 			// track # of deaths
@@ -1532,13 +1559,15 @@ function animate() {
 						cube2.position.x = ((Math.random()-0.5)*2)*5
 						if(obj.name.startsWith("powerup")) {
 							if(carPlayer == "nova"){
-								cube2.material = new THREE.MeshBasicMaterial()
-								cube2.material.map = speedTexture
+								// cube2.material = new THREE.MeshBasicMaterial()
+								// cube2.material.map = speedTexture
+								cube2.material = speedMat;
 								cube2.name = "POWERUPSPEED";
 							}
 							else if(carPlayer=="zenith"){
-								cube2.material = new THREE.MeshBasicMaterial()
-								cube2.material.map = shieldTexture
+								// cube2.material = new THREE.MeshBasicMaterial()
+								// cube2.material.map = shieldTexture
+								cube2.material = shieldMat;
 								cube2.name = "POWERUPSHIELD";
 							}
 							else if(carPlayer=="flux"){
@@ -1562,6 +1591,7 @@ function animate() {
 								floorCopy.name = "timeIncFloor";
 							}
 						}
+						
 						obj.add(cube2);
 					}
 				})
@@ -1730,6 +1760,13 @@ function animate() {
 					}
 				}
 			}
+
+			cubes.forEach((cube2) => {
+				// console.log(cube2.name)
+        		if (cube2 && (cube2.name == "POWERUPSPEED" || cube2.name == "POWERUPSHIELD")) {
+            			cube2.position.z = Math.sin(time * (2 * Math.PI * 1.0 / 2.0)) * 0.5 + 4.5; // Power-ups float up and down
+        		}
+    		});
 
 			if(outOfBounds()){
 				player.position.x = currentTile.position.x;
