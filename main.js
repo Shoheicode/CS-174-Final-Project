@@ -1553,8 +1553,8 @@ function animate() {
 				player.position.y += speedY
 			}
 
+			// If touching the ground, allow the player to move and do all the things
 			if(touchGround){
-				// console.log(speed);
 				if(run){
 					if(powerupActivate){
 						speed = powerUpSpeed;
@@ -1563,7 +1563,6 @@ function animate() {
 						speed += acceleration;
 						if(speed > maxSpeed){
 							speed = maxSpeed;
-							// console.log("ACHIEVED MAX SPEED")
 						}
 					}
 				} else{
@@ -1572,7 +1571,7 @@ function animate() {
 					if(brake){
 						speed -= deacceleration;
 					}
-					speed -= acceleration//deacceleration//acceleration;
+					speed -= acceleration;
 					if(speed < 0){
 						speed = 0;
 					}
