@@ -1597,7 +1597,8 @@ function animate() {
 							obj2.position.z += 10
 						}
 					}
-					// obj2.rotateZ(Math.PI/124)
+
+					// If they had not collided with something, check if they collided so that it does stack
 					if(!collide){
 						if(checkCollision(player, obj2) && (obj2.name.startsWith("POWERUP"))) {
 							if (obj2.name == "POWERUPSPEED") {
