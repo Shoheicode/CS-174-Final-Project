@@ -89,7 +89,9 @@ let timeWallDuration = 0;
 
 let speed = 0;
 let acceleration = 0.005; // 5 m/s^2
+let deacceleration = 0.01;
 let maxSpeed = 0.75; // 7.5 m/s
+let powerUpSpeed = 1.2;
 let dirRotation = -3*Math.PI/2; // Start turn angle
 let goBackwards = false;
 let collide = false;
@@ -102,6 +104,7 @@ let currentDeaths = 0;
 
 let rSpeed = 0;
 let run = false;
+let brake = false;
 
 let touchGround = true;
 let waitTime = 0;
@@ -109,7 +112,7 @@ let waitTime = 0;
 //Scene Code
 const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
-const bgTexture = textureLoader.load('Assets/Images/stars.jpg');
+const bgTexture = textureLoader.load('Assets/Images/39608.jpg');
 // https://wallpaperaccess.com/universe-landscape
 
 scene.background = bgTexture;
@@ -210,9 +213,6 @@ function loadGLTF() {
 	
 }
 
-// // Call in create map
-// loadGLTF();
-
 // Orthongraphic Camera
 const minimapCamera = new THREE.OrthographicCamera(
 	-50, 50, 50, -50, 1, 1000 // Adjust these values based on your track size
@@ -256,7 +256,7 @@ const sphereGeo = new THREE.SphereGeometry(1, 32, 32);
 sphereGeo.computeBoundingBox()
 
 const playerGeo = new THREE.BoxGeometry(1,1,1);
-const playerMat = new THREE.MeshPhongMaterial({color: "red"});
+const playerMat = new THREE.MeshBasicMaterial({color: "red"});
 const player = new THREE.Mesh(playerGeo, playerMat);
 player.position.set(1000,1000,1000)
 
@@ -264,9 +264,7 @@ player.position.set(1000,1000,1000)
 let wheels = [];
 
 const wheel = new THREE.CylinderGeometry(0.5, 0.5, 0.5, 32);
-const blue = new THREE.MeshPhongMaterial();
-blue.map = textureLoader.load('Assets/Images/RainbowWheelTexture.jpg')
-// const green = new THREE.MeshBasicMaterial({color: "green"});
+const blue = new THREE.MeshBasicMaterial();
 const blueWheel = new THREE.Mesh(wheel, blue);
 player.add(blueWheel);
 blueWheel.position.set(-0.5,-0.5,0.5)
@@ -309,7 +307,6 @@ rightHeadlight.distance = 40; // Maximum distance of light
 rightHeadlight.castShadow = true;
 player.add(rightHeadlight)
 rightHeadlight.position.set(0.75, 0.65, -1.7);
-// console.log(leftHeadlight.position)
 
 const leftTarget = new THREE.Object3D();
 const rightTarget = new THREE.Object3D();
@@ -337,11 +334,11 @@ const wall_material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 let walls = [];
 
 // create wall texture
-// const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall.png');
+const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall.png');
 
-// wallTexture.wrapS = THREE.RepeatWrapping;
-// wallTexture.wrapT = THREE.RepeatWrapping;
-// wallTexture.repeat.set(1, 1);
+wallTexture.wrapS = THREE.RepeatWrapping;
+wallTexture.wrapT = THREE.RepeatWrapping;
+wallTexture.repeat.set(1, 1);
 
 //Updated the boundary box in order to ensure that it includes the wheels
 player.geometry.userData.obb = new OBB().fromBox3(
@@ -391,7 +388,7 @@ function animateParticles() {
 
 	  // Restricts the range of the particles (changes the shape)
 	  if (Math.abs(positions[i * 3]) > 0.5) position[i * 3] = 0.1;
-	  if (positions[i * 3 + 1] > 2) position[i * 3 + 1] = 0.1;
+	  if (positions[i * 3 + 1] > 1) position[i * 3 + 1] = 0.1;
 	  if (Math.abs(positions[i * 3 + 2]) > 1) positions[i * 3 + 2] = 0.1;
 	}
   
@@ -553,13 +550,9 @@ function createMap(mapGiven){
 	scene.add(player)
 	loadGLTF();
 	const light = new THREE.PointLight(0xffffff, 2, 0, 0.0001)
-	// const light2 = new THREE.PointLight(0xffffff, 100000, 0)
-	// light2.position.set(0, 0, 0)
 	light.name = "light";
 	light.position.set(0, 10000000, 0)
 	scene.add(light);
-	// scene.add(light2);
-	// console.log("LENGTH AFTER" +  scene.children.length)
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
 			if(mapGiven[i+10][j+10] != "ES" && mapGiven[i+10][j+10] != "LL"){
@@ -612,27 +605,20 @@ function createMap(mapGiven){
 					cube2.position.x = ((Math.random()-0.5)*2)*5
 				}
 
-				// cube1.rotateZ(10)
 				if(mapGiven[i+10][j+10] =="C1R" || mapGiven[i+10][j+10] =="C1F" || mapGiven[i+10][j+10] =="C2R" || 
 					mapGiven[i+10][j+10] == "C2F" || mapGiven[i+10][j+10] =="C3R" || mapGiven[i+10][j+10] =="C3F" || 
 					mapGiven[i+10][j+10] == "C4R" || mapGiven[i+10][j+10] =="C4F"){
 
 					trackCopy.material.color.setRGB(1,0.5,1);
-					// floorCopy.material.wireframe = true
 					floorCopy.name = mapGiven[i+10][j+10];
-					// console.log(mapGiven[i+10][j+10])
 					completedCheckPoints.push(floorCopy.name)
 					allCheckPoints.push(floorCopy.name)
 					checkpointNum++;
 					floorCopy.material.normalMap = floorTexture;
-					// floorCopy.material.normalScale = 0.1
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
-					// floorCopy.material.normalMap = texture;
-
-					// console.log(mapGiven[i+10][j+10].at(2))
 					
 					if(mapGiven[i+10][j+10].at(2) == "R"){
-						// console.log("ROTATE Z S")
+						//Rotates the floor
 						floorCopy.rotateZ(-Math.PI / 2)
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
@@ -696,22 +682,18 @@ function createMap(mapGiven){
 					cube2.material.color.setRGB(1, 1, 0.5)
 				
 					floorCopy.add(cube2)
-					// cube2.material.color.setRGB(1, 0.5, 0.5)
+
 				}else if(mapGiven[i+10][j+10] == "SP"){
-					// floorCopy.material.color.setRGB(1,0.5,0.5);
 					trackCopy.material.color.setRGB(1,0.5,0.5);
-					// floorCopy.material.wireframe = true
-					floorCopy.material = new 
+					floorCopy.material = new THREE.MeshPhongMaterial();
 					floorCopy.material.map = finishTexture;
-					// floorCopy.material.bumpMap = finishTexture;
 					currentTile = floorCopy;
 					floorCopy.name = "ENDING"
 					player.position.set(xVal,-1.5,zVal);
-					// console.log("PLAYERS POSITION")
 					startX = xVal;
 					startZ = zVal;
 
-					/*
+					
 					// create walls
 					let wall = new THREE.Mesh(wall_geometry, wall_material);
 					scene.add(wall);
@@ -738,17 +720,16 @@ function createMap(mapGiven){
 					wall.userData.obb = new OBB();
 					wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 					wall2.userData.obb = new OBB();
-					*/
+					
 					// player.matrixAutoUpdate = false;
 				}
 				else if(mapGiven[i+10][j+10] == "PF" || mapGiven[i+10][j+10] == "PR"){
-					// console.log("HEYO THY NAME IS " + carPlayer)
 					floorCopy.material.normalMap = floorTexture;
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					floorCopy.name = "powerupFloor";
 					if(mapGiven[i+10][j+10] == "PR"){
 						floorCopy.rotateZ(-Math.PI / 2)
-						/*
+						
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -777,10 +758,10 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();
-						*/
+						
 					}
 					else {
-						/*
+						
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -807,14 +788,13 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();	
-						*/
+						
 					}
 
 					if(carPlayer == "nova"){
-						// console.log("NOVA?")
+
 						cube2.material = new THREE.MeshBasicMaterial()
 						cube2.material.map = speedTexture
-						// cube2.material.bumpMap = speedTexture
 						cube2.name = "POWERUPSPEED";
 					}
 					else if(carPlayer=="zenith"){
@@ -824,16 +804,12 @@ function createMap(mapGiven){
 						cube2.name = "POWERUPSHIELD";
 					}
 					else if(carPlayer=="flux"){
-						// console.log("FLUZ")
-						// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-						// cube2.material.color.setRGB(0.0, 1.0, 0.0);
 						cube2.material = new THREE.MeshBasicMaterial()
 						cube2.material.map = powerupTexture
 						cube2.name = "POWERUPWALL";
 					}
 					floorCopy.add(cube2)
 					powerUpsFloors.push(floorCopy);
-					// console.log("HEYO CUBE BUDDIES")
 				}
 				else if(mapGiven[i+10][j+10][0] == 'D' || mapGiven[i+10][j+10][0] == 'I'){ 
 					floorCopy.material.normalMap = floorTexture;
@@ -841,7 +817,7 @@ function createMap(mapGiven){
 					if(mapGiven[i+10][j+10][1] == 'R'){
 						floorCopy.rotateZ(-Math.PI / 2)
 						// create walls
-						/*
+						
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
 						// set left wall
@@ -869,10 +845,10 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();
-						*/
+						
 					}
 					else {
-						/*
+						
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -899,7 +875,7 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();	
-						*/
+						
 					}
 					if (mapGiven[i+10][j+10][0] == 'D') {
 						cube2.material = new THREE.MeshBasicMaterial();
@@ -919,14 +895,13 @@ function createMap(mapGiven){
 					powerUpsFloors.push(floorCopy);
 				}
 				else{
-					console.log("EHJKJKj")
 					floorCopy.material.normalMap = floorTexture;
 					// floorCopy.material.normalScale = 0.1
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					floorCopy.name = "floor" + (i+10) + "," + (j+10);
 					if(mapGiven[i+10][j+10] == "FR"){
 						floorCopy.rotateZ(-Math.PI / 2)
-						/*
+						
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -955,10 +930,10 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();
-						*/
+						
 					}
 					else if (mapGiven[i+10][j+10] == "FF") {
-						/*
+						
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -985,10 +960,10 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();	
-						*/
+						
 					}
 					else if (mapGiven[i+10][j+10].startsWith("FC")) {
-						/*
+						
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -1050,40 +1025,8 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();
-						*/
+						
 					}
-					// let randDum = Math.floor((Math.random()*3)+1)
-					// console.log(randDum)
-					// floorCopy.rotateZ((-Math.PI / 2)*randDum)
-					/*
-					if(Math.random() <= 0.2){
-						let num = Math.random();
-						if (num <= 0.25) {
-							cube2.material = new THREE.MeshBasicMaterial()
-							cube2.material.map = powerupTexture
-							cube2.rotation.x = Math.PI/4
-							cube2.name = "POWERUPINCREASE";
-						}
-						else if (num <= 0.5) {
-							cube2.material = new THREE.MeshBasicMaterial()
-							cube2.material.map = speedTexture
-							cube2.name = "POWERUPSPEED";
-						}
-						else if (num <= 0.75) {
-							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-							cube2.material.color.setRGB(0.0, 1.0, 0.0);
-							cube2.name = "POWERUPDECREASE";
-						}
-						else {
-							// cube2.material.color.setRGB(0.0, 0.5, 0.5);
-							cube2.material = new THREE.MeshBasicMaterial()
-							cube2.material.map = shieldTexture
-							cube2.name = "POWERUPSHIELD";
-						}
-						// console.log("HIHIHI")
-					}
-					else{
-					*/
 						cube2.position.z += 10
 						let num = Math.random()
 						if(num >=0.66){
@@ -1107,6 +1050,10 @@ function createMap(mapGiven){
 						}else{
 							cube2.name = "stationary";
 							cube2.position.z -=10;
+							if (cube2.geometry) {
+								cube2.geometry.dispose();
+							}
+							
 						}
 						// cube2.material.normalMap = rockTexture;
 						// cube2.material.color.setRGB(1, 1, 0.5)
@@ -1115,7 +1062,6 @@ function createMap(mapGiven){
 				}
 
 				minimapScene.add(trackCopy);
-				// console.log(floorCopy)
 				floors.push(floorCopy)
 				scene.add(floorCopy)
 
@@ -1276,6 +1222,7 @@ function onDocumentKeyDown(event){
 		switch(keyCode){
 			case 16: //Acceleration (Shift Key)
 				run = true;
+				brake = false;
 				if(speed <= 0.1){
 					engineSound.play();
 				}
@@ -1295,6 +1242,7 @@ function onDocumentKeyDown(event){
 				break;
 			case 32: // Space bar
 				run = false;
+				brake = true;
 				// scene.children = []
 				break;
 			case 49: // One Press
@@ -1307,14 +1255,7 @@ function onDocumentKeyDown(event){
 				break;
 			case 68: //RIGHT (D KEY)
 				rSpeed = -0.03;
-				break;
-			case 83:
-				goBackwards = true;
-				break;
-			// case 84: // Test mode
-			// 	console.log("HERRO")
-			// 	addData("Jason", "Map1", 150)
-			// 	break;
+				break
 			case 82:
 				// console.log("RESET")
 				reset();
@@ -1389,7 +1330,7 @@ document.getElementById("fluxButton").onclick = function() {{
 
 document.getElementById("level1").onclick = function() {{
 	currentState="Map1";
-	currentMap = map4;
+	currentMap = map;
 	reset();
 	document.getElementById("bodyContainer").style.display = "none";
 	document.getElementById("leaderboard").style.display="block";
@@ -1691,7 +1632,7 @@ function animate() {
 						obj.rotateY(-Math.PI/4)
 					})
 					if(powerupActivate){
-						speed = 1.5;
+						speed = powerUpSpeed;
 					}
 					else{
 						speed += acceleration;
@@ -1702,8 +1643,11 @@ function animate() {
 					}
 				} else{
 					powerupActivate = false;
-					// console.log("NOT RUNNING")
-					speed -= acceleration;
+					
+					if(brake){
+						speed -= deacceleration;
+					}
+					speed -= acceleration//deacceleration//acceleration;
 					if(speed < 0){
 						speed = 0;
 					}
@@ -1929,6 +1873,8 @@ function animate() {
 
 			touchGround = false;
 			collide = false;
+			renderer.info.autoReset = true; // Automatically handle out-of-view rendering
+
 		}
 	}
 }
