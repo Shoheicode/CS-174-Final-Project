@@ -148,7 +148,7 @@ let isSoundLoaded = false;
 audLoader.load('Assets/Sounds/spaceMusic.mp3', function (buffer) {
     music.setBuffer(buffer);
     music.setLoop(true);
-    music.setVolume(0.5);
+    music.setVolume(0.3);
 	isSoundLoaded = true;
 }, undefined, function (error) {
     console.error("Error loading sound file:", error);
