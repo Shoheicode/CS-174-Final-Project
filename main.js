@@ -1146,17 +1146,14 @@ function checkCollision(obj1, obj2) {
 			// reset currentDeaths
 			currentDeaths = 0;
 		}
-        // obj2.material.color.set(0x6F7567)
 		touchGround = true;
 		return true;
     } else {
-        // obj2.material.color.set(0x00ff00)
 		return false;
     }
  }
 
  function touchingGround(obj1, obj2) {
-	// console.log("RUNNINg")
 	obj1.userData.obb.copy(obj1.geometry.userData.obb)
     obj2.userData.obb.copy(obj2.geometry.userData.obb)
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
@@ -1164,7 +1161,6 @@ function checkCollision(obj1, obj2) {
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
 		return true;
     } else {
-        // obj2.material.color.set(0x00ff00)
 		return false;
     }
  }
