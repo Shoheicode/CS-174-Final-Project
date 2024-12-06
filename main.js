@@ -167,6 +167,10 @@ const speedTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.p
 
 const powerupTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
 
+const timeIncTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
+
+const timeDecTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
+
 // Finish Line Texture
 const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
 
@@ -899,19 +903,17 @@ function createMap(mapGiven){
 						wall2.userData.obb = new OBB();	
 					}
 					if (mapGiven[i+10][j+10][0] == 'D') {
-						cube2.material = new THREE.MeshBasicMaterial()
-						// cube2.material.map = speedTexture
-						// cube2.material.bumpMap = speedTexture
+						cube2.material = new THREE.MeshBasicMaterial();
+						cube2.material.map = timeDecTexture;
 						cube2.name = "POWERUPDECREASE";
 						cube2.material.color.setRGB(0.0, 0.0, 1.0);
 						floorCopy.name = "timeDecFloor";
 					}
 					else if (mapGiven[i+10][j+10][0] == 'I') {
-						cube2.material = new THREE.MeshBasicMaterial()
-						// cube2.material.map = speedTexture
-						// cube2.material.bumpMap = speedTexture
+						cube2.material = new THREE.MeshBasicMaterial();
 						cube2.name = "POWERUPINCREASE";
 						cube2.material.color.setRGB(1.0, 0.0, 0.0);
+						cube2.material.map = timeIncTexture;
 						floorCopy.name = "timeIncFloor";
 					}
 					floorCopy.add(cube2)
@@ -1655,8 +1657,8 @@ function animate() {
 						}
 						else if (obj.name.startsWith("time")) {
 							if (obj.name[4] == 'D') {
-								cube2.material = new THREE.MeshBasicMaterial()
-								// cube2.material.map = speedTexture
+								cube2.material = new THREE.MeshBasicMaterial();
+								cube2.material.map = timeDecTexture;
 								// cube2.material.bumpMap = speedTexture
 								cube2.name = "POWERUPDECREASE";
 								cube2.material.color.setRGB(0.0, 0.0, 1.0);
@@ -1664,10 +1666,10 @@ function animate() {
 							}
 							else if (obj.name[4] == 'I') {
 								cube2.material = new THREE.MeshBasicMaterial();
-								// cube2.material.map = speedTexture
+								cube2.material.map = timeIncTexture;
 								// cube2.material.bumpMap = speedTexture
 								cube2.name = "POWERUPINCREASE";
-								cube2.material.color.setRGB(1.0, 0.0, 0.0);
+								// cube2.material.color.setRGB(1.0, 0.0, 0.0);
 								floorCopy.name = "timeIncFloor";
 							}
 						}
@@ -1684,6 +1686,7 @@ function animate() {
 			}
 
 			if(touchGround){
+				console.log(speed);
 				if(run){
 					wheels.forEach((obj)=>{
 						obj.rotateY(-Math.PI/4)
@@ -1691,7 +1694,7 @@ function animate() {
 					if(powerupActivate){
 						speed = 1.5;
 					}
-						else{
+					else{
 						speed += acceleration;
 						if(speed > maxSpeed){
 							speed = maxSpeed;
@@ -1768,6 +1771,7 @@ function animate() {
 									powerupActivate = false;
 									shieldActivate = false;
 									shield.visible = false;
+									console.log("testttttt", obj2.name);
 									
 									// increment death counters
 									deaths++;
