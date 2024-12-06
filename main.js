@@ -154,6 +154,7 @@ audLoader.load('Assets/Sounds/spaceMusic.mp3', function (buffer) {
     console.error("Error loading sound file:", error);
 });
 
+// Plays the music
 function playMusic() {
 	if (isSoundLoaded && !music.isPlaying) {
         	music.play();
@@ -1311,7 +1312,7 @@ document.getElementById("level1").onclick = function() {{
 	})
 
 	clock.start()
-	// playMusic();
+	playMusic();
 
 }}
 document.getElementById("level2").onclick = function() {{
@@ -1325,7 +1326,7 @@ document.getElementById("level2").onclick = function() {{
 		bestTimes = value;
 	})
 	clock.start()
-	// playMusic();
+	playMusic();
 }}
 document.getElementById("level3").onclick = function() {{
 	currentState="Map3";
@@ -1338,13 +1339,12 @@ document.getElementById("level3").onclick = function() {{
 		bestTimes = value;
 	})
 	clock.start()
-	// playMusic();
+	playMusic();
 }}
 document.getElementById("HOMEBTN").onclick = function(){{
 	currentState = "Start";
 	document.getElementById("checkin").style.display = "block";
 	document.getElementById("pauseScreen").style.display = "none";
-	// console.log("HEWWO")
 	document.getElementById("lapTimes").innerHTML = ""
 	document.getElementById("deaths").innerHTML = ""
 	document.getElementById("Finished").innerHTML = "";
@@ -1357,7 +1357,6 @@ document.getElementById("LEVELSELECT").onclick = function(){{
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
 	document.getElementById("pauseScreen").style.display = "none";
-	console.log("HEWWO")
 	document.getElementById("lapTimes").innerHTML = ""
 	document.getElementById("deaths").innerHTML = ""
 	document.getElementById("Finished").innerHTML = "";
@@ -1370,7 +1369,6 @@ document.getElementById("CHARACTER").onclick = function(){{
 	currentState = "Level Select";
 	document.getElementById("bodyContainer2").style.display = "block";
 	document.getElementById("pauseScreen").style.display = "none";
-	console.log("HEWWO")
 	document.getElementById("lapTimes").innerHTML = ""
 	document.getElementById("deaths").innerHTML = ""
 	document.getElementById("Finished").innerHTML = "";
