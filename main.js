@@ -1582,7 +1582,6 @@ function animate() {
 			var rotation = dirRotation;
 			var speedX = Math.sin(rotation) * speed;
 			var speedZ = Math.cos(rotation) * speed;
-			// console.log("SPEED:" + speed)
 
 			floors.forEach(function (obj, index) {
 				obj["children"].forEach(function(obj2, index){
