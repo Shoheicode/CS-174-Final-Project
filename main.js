@@ -1198,7 +1198,7 @@ function onDocumentKeyDown(event){
 					engineSound.play();
 				}
 				break;
-			case 27:
+			case 27: // Esc key
 				if(pause){
 					clock.start()
 					clock.elapsedTime = elapsedTime;
