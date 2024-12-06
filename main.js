@@ -109,7 +109,7 @@ let waitTime = 0;
 //Scene Code
 const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
-const bgTexture = textureLoader.load('Assets/Images/39608.jpg');
+const bgTexture = textureLoader.load('Assets/Images/Assets/stars.jpg');
 // https://wallpaperaccess.com/universe-landscape
 
 scene.background = bgTexture;
@@ -421,7 +421,7 @@ let map = [
 	["DF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","DR","PR","C2R","FR","FCRD","ES"],
 	["IF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","IF","ES","ES","ES","ES","ES","ES"],
@@ -445,7 +445,7 @@ let map2 = [
 	["DF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","LL","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
@@ -468,7 +468,7 @@ let map3 = [
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","DF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","PF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
@@ -535,7 +535,7 @@ function createMap(mapGiven){
 	light.position.set(0, 10000000, 0)
 	scene.add(light);
 	// scene.add(light2);
-	console.log("LENGTH AFTER" +  scene.children.length)
+	// console.log("LENGTH AFTER" +  scene.children.length)
 	for (var i = -10; i < 10; i++){
 		for(var j = -10; j < 10; j++){
 			if(mapGiven[i+10][j+10] != "ES" && mapGiven[i+10][j+10] != "LL"){
@@ -607,11 +607,9 @@ function createMap(mapGiven){
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					// floorCopy.material.normalMap = texture;
 
-					console.log("HIHIHIHIHIH")
-					console.log(mapGiven[i+10][j+10].at(2))
-
+					// console.log(mapGiven[i+10][j+10].at(2))
+					/*
 					if(mapGiven[i+10][j+10].at(2) == "R"){
-						console.log("ROtate")
 						// console.log("ROTATE Z S")
 						floorCopy.rotateZ(-Math.PI / 2)
 						// create walls
@@ -671,6 +669,7 @@ function createMap(mapGiven){
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();
 					}
+					*/
 
 					/*
 					if(Math.random() <= 0.2){
@@ -719,10 +718,11 @@ function createMap(mapGiven){
 					currentTile = floorCopy;
 					floorCopy.name = "ENDING"
 					player.position.set(xVal,-1.5,zVal);
-					console.log("PLAYERS POSITION")
+					// console.log("PLAYERS POSITION")
 					startX = xVal;
 					startZ = zVal;
 
+					/*
 					// create walls
 					let wall = new THREE.Mesh(wall_geometry, wall_material);
 					scene.add(wall);
@@ -749,15 +749,17 @@ function createMap(mapGiven){
 					wall.userData.obb = new OBB();
 					wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 					wall2.userData.obb = new OBB();
+					*/
 					// player.matrixAutoUpdate = false;
 				}
 				else if(mapGiven[i+10][j+10] == "PF" || mapGiven[i+10][j+10] == "PR"){
-					console.log("HEYO THY NAME IS " + carPlayer)
+					// console.log("HEYO THY NAME IS " + carPlayer)
 					floorCopy.material.normalMap = floorTexture;
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					floorCopy.name = "powerupFloor";
 					if(mapGiven[i+10][j+10] == "PR"){
 						floorCopy.rotateZ(-Math.PI / 2)
+						/*
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -786,8 +788,10 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();
+						*/
 					}
 					else {
+						/*
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -814,23 +818,24 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();	
+						*/
 					}
 
 					if(carPlayer == "nova"){
-						console.log("NOVA?")
+						// console.log("NOVA?")
 						cube2.material = new THREE.MeshBasicMaterial()
 						cube2.material.map = speedTexture
 						// cube2.material.bumpMap = speedTexture
 						cube2.name = "POWERUPSPEED";
 					}
 					else if(carPlayer=="zenith"){
-						console.log("ZENNITH")
+						// console.log("ZENNITH")
 						cube2.material = new THREE.MeshBasicMaterial()
 						cube2.material.map = shieldTexture
 						cube2.name = "POWERUPSHIELD";
 					}
 					else if(carPlayer=="flux"){
-						console.log("FLUZ")
+						// console.log("FLUZ")
 						// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 						// cube2.material.color.setRGB(0.0, 1.0, 0.0);
 						cube2.material = new THREE.MeshBasicMaterial()
@@ -839,7 +844,7 @@ function createMap(mapGiven){
 					}
 					floorCopy.add(cube2)
 					powerUpsFloors.push(floorCopy);
-					console.log("HEYO CUBE BUDDIES")
+					// console.log("HEYO CUBE BUDDIES")
 				}
 				else if(mapGiven[i+10][j+10][0] == 'D' || mapGiven[i+10][j+10][0] == 'I'){ 
 					floorCopy.material.normalMap = floorTexture;
@@ -847,6 +852,7 @@ function createMap(mapGiven){
 					if(mapGiven[i+10][j+10][1] == 'R'){
 						floorCopy.rotateZ(-Math.PI / 2)
 						// create walls
+						/*
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
 						// set left wall
@@ -874,8 +880,10 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();
+						*/
 					}
 					else {
+						/*
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -902,6 +910,7 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();	
+						*/
 					}
 					if (mapGiven[i+10][j+10][0] == 'D') {
 						cube2.material = new THREE.MeshBasicMaterial();
@@ -928,6 +937,7 @@ function createMap(mapGiven){
 					floorCopy.name = "floor" + (i+10) + "," + (j+10);
 					if(mapGiven[i+10][j+10] == "FR"){
 						floorCopy.rotateZ(-Math.PI / 2)
+						/*
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -956,8 +966,10 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();
+						*/
 					}
 					else if (mapGiven[i+10][j+10] == "FF") {
+						/*
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -984,8 +996,10 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();	
+						*/
 					}
 					else if (mapGiven[i+10][j+10].startsWith("FC")) {
+						/*
 						// create walls
 						let wall = new THREE.Mesh(wall_geometry, wall_material);
 						scene.add(wall);
@@ -1047,6 +1061,7 @@ function createMap(mapGiven){
 						wall.userData.obb = new OBB();
 						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
 						wall2.userData.obb = new OBB();
+						*/
 					}
 					// let randDum = Math.floor((Math.random()*3)+1)
 					// console.log(randDum)
@@ -1102,7 +1117,7 @@ function createMap(mapGiven){
 							// particles.position.z -=1
 							// particles.rotation.x = -Math.PI/2
 						}
-						cube2.material.normalMap = rockTexture;
+						// cube2.material.normalMap = rockTexture;
 						cube2.material.color.setRGB(1, 1, 0.5)
 					//}
 					floorCopy.add(cube2)
@@ -1116,20 +1131,13 @@ function createMap(mapGiven){
 
 				// scene.add(floorCopy2)
 			}
-			else if(mapGiven[i+10][j+10] == "LL"){
-				let xLight = 20 * i
-				let zLight = 20 * j
-				const light2 = new THREE.PointLight(0xffffff, 10000, 0)
-				light2.position.set(xLight, 0, zLight)
-				scene.add(light2);
-			}
 		}
 	}
 	// console.log("LENGTH AFTER PT 2:" +  scene.children.length)
 	completedCheckPoints.sort().reverse()
 	allCheckPoints.sort().reverse()
 
-	console.log(completedCheckPoints)
+	// console.log(completedCheckPoints)
 }
 
 function deleteMap(){
@@ -1265,13 +1273,13 @@ function reset(){
 	deaths = 0;
 	currentDeaths = 0;
 	offset = 0
-	console.log(completedCheckPoints)
+	// console.log(completedCheckPoints)
 }
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event){
 	var keyCode= event.keyCode;
-	console.log(keyCode)
+	// console.log(keyCode)
 
 	if(currentState == "Map1" || currentState == "Map2" || currentState == "Map3"){
 
@@ -1285,12 +1293,12 @@ function onDocumentKeyDown(event){
 			case 27:
 				if(pause){
 					clock.start()
-					console.log(elapsedTime)
+					// console.log(elapsedTime)
 					clock.elapsedTime = elapsedTime;
 				}
 				else{
 					clock.stop();
-					console.log(elapsedTime)
+					// console.log(elapsedTime)
 					// clock.elapsedTime = elapsedTime;
 				}
 				pause = !pause;
@@ -1301,7 +1309,7 @@ function onDocumentKeyDown(event){
 				break;
 			case 49: // One Press
 				cameraShift = !cameraShift;
-				console.log("HEWWO I PRESSED")
+				// console.log("HEWWO I PRESSED")
 				break;
 			case 65: //LEFT (A key)
 				rSpeed = 0.03;
@@ -1330,13 +1338,13 @@ document.getElementById('text').addEventListener('input', function() {
 });
 
 document.getElementById("SUBMIT").onclick = function() {{
-	console.log("LKJLJLJ")
+	// console.log("LKJLJLJ")
 	if(name == ""){
 
 	}else{
 		checkDocumentExists(name).then((value) =>{
 			if(value){
-				console.log("RUNNING")
+				// console.log("RUNNING")
 				const errorMessage = document.getElementById('errorMessage');
         		const container = document.querySelector('.check-in-container');
 
@@ -1401,7 +1409,7 @@ document.getElementById("level1").onclick = function() {{
 	})
 
 	clock.start()
-	playMusic();
+	// playMusic();
 
 }}
 document.getElementById("level2").onclick = function() {{
@@ -1415,7 +1423,7 @@ document.getElementById("level2").onclick = function() {{
 		bestTimes = value;
 	})
 	clock.start()
-	playMusic();
+	// playMusic();
 }}
 document.getElementById("level3").onclick = function() {{
 	currentState="Map3";
@@ -1428,13 +1436,13 @@ document.getElementById("level3").onclick = function() {{
 		bestTimes = value;
 	})
 	clock.start()
-	playMusic();
+	// playMusic();
 }}
 document.getElementById("HOMEBTN").onclick = function(){{
 	currentState = "Start";
 	document.getElementById("checkin").style.display = "block";
 	document.getElementById("pauseScreen").style.display = "none";
-	console.log("HEWWO")
+	// console.log("HEWWO")
 	document.getElementById("lapTimes").innerHTML = ""
 	document.getElementById("deaths").innerHTML = ""
 	document.getElementById("Finished").innerHTML = "";
@@ -1543,7 +1551,7 @@ function animate() {
 	}
 	else{
 		if(pause){
-			console.log("PAUSEd")
+			// console.log("PAUSEd")
 			document.getElementById("pauseScreen").style.display = "flex";
 		}
 		else{
@@ -1687,7 +1695,7 @@ function animate() {
 			}
 
 			if(touchGround){
-				console.log(speed);
+				// console.log(speed);
 				if(run){
 					wheels.forEach((obj)=>{
 						obj.rotateY(-Math.PI/4)
@@ -1732,7 +1740,7 @@ function animate() {
 							obj2.position.z += 10
 						}
 					}
-					obj2.rotateZ(Math.PI/124)
+					// obj2.rotateZ(Math.PI/124)
 					if(!collide){
 						if(checkCollision(player, obj2) && (obj2.name.startsWith("POWERUP"))) {
 							if (obj2.name == "POWERUPSPEED") {
@@ -1772,11 +1780,11 @@ function animate() {
 									powerupActivate = false;
 									shieldActivate = false;
 									shield.visible = false;
-									console.log("testttttt", obj2.name);
+									// console.log("testttttt", obj2.name);
 									
 									// increment death counters
 									deaths++;
-									console.log("NAME OF OBJECT" + obj.name)
+									// console.log("NAME OF OBJECT" + obj.name)
 									currentDeaths++;
 									obj2.position.z += 10
 								} else{
@@ -1817,32 +1825,32 @@ function animate() {
 				// carMesh.rotaateY(rotation)
 			}
 
-			if (wallActivate) {
-				for (let i = 0; i < walls.length; i++) {
-					if (checkCollision(player, walls[i])) {
-						let speedX2 = Math.sin(rotation) * (speed-0.3);
-						let speedZ2 = Math.cos(rotation) * (speed-0.3);
-						console.log(walls[i].name);
-						if ((walls[i].name == "U" && player.position.x - speedX2 > walls[i].position.x) || (walls[i].name == "D" && player.position.x - speedX2 < walls[i].position.x)) {
-							player.position.x -= (speedX2);
-							player.position.z -= (speedZ2);
-						}
-						else if (walls[i].name == "U" || walls[i].name == "D") {
-							player.position.x += (speedX2);
-							player.position.z -= (speedZ2);
-						}
-						if ((walls[i].name == "L" && player.position.z - speedZ2 > walls[i].position.z) || (walls[i].name == "R" && player.position.z - speedZ2 < walls[i].position.z)) {
-							player.position.x -= (speedX2);
-							player.position.z -= (speedZ2);
-						}
-						else if (walls[i].name == "L" || walls[i].name == "R") {
-							player.position.x -= (speedX2);
-							player.position.z += (speedZ2);
-						}
-						speed = 0;
-					}
-				}
-			}
+			// if (wallActivate) {
+			// 	for (let i = 0; i < walls.length; i++) {
+			// 		if (checkCollision(player, walls[i])) {
+			// 			let speedX2 = Math.sin(rotation) * (speed-0.3);
+			// 			let speedZ2 = Math.cos(rotation) * (speed-0.3);
+			// 			// console.log(walls[i].name);
+			// 			if ((walls[i].name == "U" && player.position.x - speedX2 > walls[i].position.x) || (walls[i].name == "D" && player.position.x - speedX2 < walls[i].position.x)) {
+			// 				player.position.x -= (speedX2);
+			// 				player.position.z -= (speedZ2);
+			// 			}
+			// 			else if (walls[i].name == "U" || walls[i].name == "D") {
+			// 				player.position.x += (speedX2);
+			// 				player.position.z -= (speedZ2);
+			// 			}
+			// 			if ((walls[i].name == "L" && player.position.z - speedZ2 > walls[i].position.z) || (walls[i].name == "R" && player.position.z - speedZ2 < walls[i].position.z)) {
+			// 				player.position.x -= (speedX2);
+			// 				player.position.z -= (speedZ2);
+			// 			}
+			// 			else if (walls[i].name == "L" || walls[i].name == "R") {
+			// 				player.position.x -= (speedX2);
+			// 				player.position.z += (speedZ2);
+			// 			}
+			// 			speed = 0;
+			// 		}
+			// 	}
+			// }
 
 			if(outOfBounds()){
 				// console.log(currentTile)
@@ -1862,10 +1870,6 @@ function animate() {
 
 			speed = -speed;
 
-			// Update camera to follow the block
-			// MCAM = rotationMatrixY(rotation)
-			// MCAM = translationMatrix(player.position.x + Math.sin(rotation) * 10, 0, player.position.y + 10 , player.position.z + Math.cos(rotation) * 10)
-			// console.log("CAMERA SHIFT" + cameraShift)
 			if(cameraShift){
 				camera.rotation.y = -rotation;
 				camera.position.x = player.position.x + Math.sin(rotation) * 10;
