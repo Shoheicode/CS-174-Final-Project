@@ -83,6 +83,10 @@ let timePowerupDuration = 0;
 let shieldActivate = false;
 let timeShieldDuration = 0;
 
+// init wall powerup
+let wallActivate = false;
+let timeWallDuration = 0;
+
 let speed = 0;
 let acceleration = 0.005; // 5 m/s^2
 let maxSpeed = 0.75; // 7.5 m/s
@@ -162,6 +166,10 @@ const shieldTexture = textureLoader.load('Assets/Images/powerup/powerUp1Texture.
 const speedTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
 
 const powerupTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
+
+const timeIncTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
+
+const timeDecTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
 
 // Finish Line Texture
 const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
@@ -322,6 +330,19 @@ player.add(shield);
 shield.position.set(0.0, 2.0, -3.0);
 shield.visible = false;
 
+// create wall geometry/material
+const wall_geometry = new THREE.BoxGeometry(20, 4, 0.75);
+wall_geometry.computeBoundingBox();
+const wall_material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+let walls = [];
+
+// create wall texture
+const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall.png');
+
+wallTexture.wrapS = THREE.RepeatWrapping;
+wallTexture.wrapT = THREE.RepeatWrapping;
+wallTexture.repeat.set(1, 1);
+
 //Updated the boundary box in order to ensure that it includes the wheels
 player.geometry.userData.obb = new OBB().fromBox3(
     // player.geometry.boundingBox
@@ -392,72 +413,72 @@ floorGeo.setAttribute(
 
 //17 + 20 + 17 + 20 = 
 let map = [
-	["FF","FR","FR","FR","FR","FR","FR","FR","FR","C1R","FR","FR","PR","FR","FR","FR","FR","FR","FR","ES"],
+	["FCLU","FR","FR","DR","FR","FR","FR","FR","IR","C1R","FR","FR","PR","FR","DR","FR","FR","FR","FCUR","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","IF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FR","FR","PR","C2R","FR","FR","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["DF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","DR","PR","C2R","FR","FCRD","ES"],
+	["IF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","IF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
 	["PF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","FR","FR","FR","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","FR","FR","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","PF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","FR","FR","FR","FF","ES","ES","FF","FR","C4R","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","DR","FR","FCRD","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FCLU","FR","FR","FCUR","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","DF","ES","ES","FF","ES","ES","PF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["IF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FCDL","FR","FR","FR","FCRD","ES","ES","FCDL","IR","C4R","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let map2 = [
-	["FF","FR","FR","FR","FR","ES","FR","FR","C1R","FR","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FCLU","FR","IR","FR","FCUR","ES","FCLU","FR","C1R","FR","FCUR","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","IF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","FR","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","DF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","FCDL","DR","FCRD","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C2F","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["DF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","LL","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","IF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["PF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","FR","FR","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","PF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","FR","C4R","FR","FR","FR","FR","FR","FR","FR","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["IF","ES","ES","ES","ES","ES","ES","ES","ES","ES","PF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FCDL","FR","C4R","FR","FR","FR","FR","DR","FR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let map3 = [
-	["FF","FR","FR","FR","FR","ES","FR","FR","C1R","FR","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FCLU","FR","FR","IR","FCUR","ES","FCLU","FR","C1R","DR","FCUR","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","PF","ES","FF","ES","ES","ES","C2","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","FF","FR","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FR","PR","FR","FR","FR","FR","FR","FF","ES","ES"],
+	["FF","ES","ES","ES","PF","ES","FF","ES","ES","ES","C2F","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["DF","ES","ES","ES","FCDL","FR","FCRD","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCDL","PR","IR","FR","FR","FR","FR","FCUR","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","LL","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
-	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
+	["SP","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","DF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","PF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","FR","FR","FR","FR","FF","ES","FF","ES","ES"],
+	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FCLU","FR","DR","FR","FR","FCUR","ES","FF","ES","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","C3F","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
-	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
-	["PF","ES","ES","ES","FF","FR","FR","FF","ES","ES","PF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
-	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","FF","FR","FR","ES","ES"],
+	["IF","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES","ES","ES","ES","FF","ES","FF","ES","ES"],
+	["PF","ES","ES","ES","FCLU","FR","FR","FCUR","ES","ES","PF","ES","ES","ES","ES","FF","ES","IF","ES","ES"],
+	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","FCDL","FR","FCRD","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","ES","FF","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
-	["FF","FR","C4R","FR","FF","ES","ES","FF","FR","FR","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
+	["FCDL","FR","C4R","DR","FCRD","ES","ES","FCDL","IR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
 let currentTile = null;
@@ -593,6 +614,62 @@ function createMap(mapGiven){
 						console.log("ROtate")
 						// console.log("ROTATE Z S")
 						floorCopy.rotateZ(-Math.PI / 2)
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						// set left wall
+						wall.rotation.y = Math.PI/2;
+						wall.position.set(xVal-10.0,-0.5,zVal);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set right wall
+						wall2.rotation.y = Math.PI/2;
+						wall2.position.set(xVal+10.0,-0.5,zVal);
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// change name
+						wall.name = "U";
+						wall2.name = "D";
+						// set to invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
+						// set up OBB
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();
+					}
+					else {
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						// set left wall
+						wall.position.set(xVal,-0.5,zVal-10.0);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set right wall
+						wall2.position.set(xVal,-0.5,zVal+10.0);
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// change name
+						wall.name = "L";
+						wall2.name = "R";
+						// set to invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
+						// set up OBB	
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();
 					}
 
 					/*
@@ -646,6 +723,32 @@ function createMap(mapGiven){
 					startX = xVal;
 					startZ = zVal;
 
+					// create walls
+					let wall = new THREE.Mesh(wall_geometry, wall_material);
+					scene.add(wall);
+					// set left wall
+					wall.position.set(xVal,-0.5,zVal-10.0);
+					let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+					scene.add(wall2);
+					// set right wall
+					wall2.position.set(xVal,-0.5,zVal+10.0);
+					// add walls to walls array
+					walls.push(wall);
+					walls.push(wall2);
+					// change name
+					wall.name = "L";
+					wall2.name = "R";
+					// set to invisible
+					wall.visible = false;
+					wall2.visible = false;
+					// set wall texture
+					wall.material.map = wallTexture;
+					wall2.material.map = wallTexture;
+					// set up OBB
+					wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+					wall.userData.obb = new OBB();
+					wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+					wall2.userData.obb = new OBB();
 					// player.matrixAutoUpdate = false;
 				}
 				else if(mapGiven[i+10][j+10] == "PF" || mapGiven[i+10][j+10] == "PR"){
@@ -655,7 +758,64 @@ function createMap(mapGiven){
 					floorCopy.name = "powerupFloor";
 					if(mapGiven[i+10][j+10] == "PR"){
 						floorCopy.rotateZ(-Math.PI / 2)
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						// set left wall
+						wall.rotation.y = Math.PI/2;
+						wall.position.set(xVal-10.0,-0.5,zVal);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set right wall
+						wall2.rotation.y = Math.PI/2;
+						wall2.position.set(xVal+10.0,-0.5,zVal);
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// change name
+						wall.name = "U";
+						wall2.name = "D";
+						// set to invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
+						// set up OBB
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();
 					}
+					else {
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						// set left wall
+						wall.position.set(xVal,-0.5,zVal-10.0);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set right wall
+						wall2.position.set(xVal,-0.5,zVal+10.0);
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// change name
+						wall.name = "L";
+						wall2.name = "R";
+						// set to invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
+						// set up OBB	
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();	
+					}
+
 					if(carPlayer == "nova"){
 						console.log("NOVA?")
 						cube2.material = new THREE.MeshBasicMaterial()
@@ -672,12 +832,93 @@ function createMap(mapGiven){
 					else if(carPlayer=="flux"){
 						console.log("FLUZ")
 						// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-						cube2.material.color.setRGB(0.0, 1.0, 0.0);
-						cube2.name = "POWERUPDECREASE";
+						// cube2.material.color.setRGB(0.0, 1.0, 0.0);
+						cube2.material = new THREE.MeshBasicMaterial()
+						cube2.material.map = powerupTexture
+						cube2.name = "POWERUPWALL";
 					}
 					floorCopy.add(cube2)
 					powerUpsFloors.push(floorCopy);
 					console.log("HEYO CUBE BUDDIES")
+				}
+				else if(mapGiven[i+10][j+10][0] == 'D' || mapGiven[i+10][j+10][0] == 'I'){ 
+					floorCopy.material.normalMap = floorTexture;
+					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
+					if(mapGiven[i+10][j+10][1] == 'R'){
+						floorCopy.rotateZ(-Math.PI / 2)
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						// set left wall
+						wall.rotation.y = Math.PI/2;
+						wall.position.set(xVal-10.0,-0.5,zVal);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set right wall
+						wall2.rotation.y = Math.PI/2;
+						wall2.position.set(xVal+10.0,-0.5,zVal);
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// change name
+						wall.name = "U";
+						wall2.name = "D";
+						// set to invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
+						// set up OBB
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();
+					}
+					else {
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						// set left wall
+						wall.position.set(xVal,-0.5,zVal-10.0);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set right wall
+						wall2.position.set(xVal,-0.5,zVal+10.0);
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// change name
+						wall.name = "L";
+						wall2.name = "R";
+						// set to invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
+						// set up OBB	
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();	
+					}
+					if (mapGiven[i+10][j+10][0] == 'D') {
+						cube2.material = new THREE.MeshBasicMaterial();
+						cube2.material.map = timeDecTexture;
+						cube2.name = "POWERUPDECREASE";
+						cube2.material.color.setRGB(0.0, 0.0, 1.0);
+						floorCopy.name = "timeDecFloor";
+					}
+					else if (mapGiven[i+10][j+10][0] == 'I') {
+						cube2.material = new THREE.MeshBasicMaterial();
+						cube2.name = "POWERUPINCREASE";
+						cube2.material.color.setRGB(1.0, 0.0, 0.0);
+						cube2.material.map = timeIncTexture;
+						floorCopy.name = "timeIncFloor";
+					}
+					floorCopy.add(cube2)
+					powerUpsFloors.push(floorCopy);
 				}
 				else{
 					console.log("EHJKJKj")
@@ -687,6 +928,125 @@ function createMap(mapGiven){
 					floorCopy.name = "floor" + (i+10) + "," + (j+10);
 					if(mapGiven[i+10][j+10] == "FR"){
 						floorCopy.rotateZ(-Math.PI / 2)
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						// set left wall
+						wall.rotation.y = Math.PI/2;
+						wall.position.set(xVal-10.0,-0.5,zVal);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set right wall
+						wall2.rotation.y = Math.PI/2;
+						wall2.position.set(xVal+10.0,-0.5,zVal);
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// change name
+						wall.name = "U";
+						wall2.name = "D";
+						// set to invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
+						// set up OBB
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();
+					}
+					else if (mapGiven[i+10][j+10] == "FF") {
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						// set left wall
+						wall.position.set(xVal,-0.5,zVal-10.0);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set right wall
+						wall2.position.set(xVal,-0.5,zVal+10.0);
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// change name
+						wall.name = "L";
+						wall2.name = "R";
+						// set to invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
+						// set up OBB	
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();	
+					}
+					else if (mapGiven[i+10][j+10].startsWith("FC")) {
+						// create walls
+						let wall = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall);
+						let wall2 = new THREE.Mesh(wall_geometry, wall_material);
+						scene.add(wall2);
+						// set first wall
+						switch(mapGiven[i+10][j+10][2]) {
+							case 'L':
+								wall.position.set(xVal,-0.5,zVal-10.0);
+								wall.name = "L";
+								break;
+							case 'R':
+								wall.position.set(xVal,-0.5,zVal+10.0);
+								wall.name = "R";
+								break;
+							case 'U':
+								wall.rotation.y = Math.PI/2;
+								wall.position.set(xVal-10.0,-0.5,zVal);
+								wall.name = "U";
+								break;
+							case 'D':
+								wall.rotation.y = Math.PI/2;
+								wall.position.set(xVal+10.0,-0.5,zVal);
+								wall.name = "D";
+								break;
+						}
+						// set second wall
+						switch(mapGiven[i+10][j+10][3]) {
+							case 'L':
+								wall2.position.set(xVal,-0.5,zVal-10.0);
+								wall2.name = "L";
+								break;
+							case 'R':
+								wall2.position.set(xVal,-0.5,zVal+10.0);
+								wall2.name = "R";
+								break;
+							case 'U':
+								wall2.rotation.y = Math.PI/2;
+								wall2.position.set(xVal-10.0,-0.5,zVal);
+								wall2.name = "U";
+								break;
+							case 'D':
+								wall2.rotation.y = Math.PI/2;
+								wall2.position.set(xVal+10.0,-0.5,zVal);
+								wall2.name = "D";
+								break;
+						}
+						// add walls to walls array
+						walls.push(wall);
+						walls.push(wall2);
+						// set invisible
+						wall.visible = false;
+						wall2.visible = false;
+						// set wall texture
+						wall.material.map = wallTexture;
+						wall2.material.map = wallTexture;
+						// set up OBB
+						wall.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall.userData.obb = new OBB();
+						wall2.geometry.userData.obb = new OBB().fromBox3(wall.geometry.boundingBox);
+						wall2.userData.obb = new OBB();
 					}
 					// let randDum = Math.floor((Math.random()*3)+1)
 					// console.log(randDum)
@@ -1273,27 +1633,48 @@ function animate() {
 						cube2.position.z = obj.position.y+6+2.5
 						cube2.position.y = ((Math.random()-0.5)*2)*5
 						cube2.position.x = ((Math.random()-0.5)*2)*5
-
-						if(carPlayer == "nova"){
-							console.log("NOVA?")
-							cube2.material = new THREE.MeshBasicMaterial()
-							cube2.material.map = speedTexture
-							// cube2.material.bumpMap = speedTexture
-							cube2.name = "POWERUPSPEED";
+						if(obj.name.startsWith("powerup")) {
+							if(carPlayer == "nova"){
+								console.log("NOVA?")
+								cube2.material = new THREE.MeshBasicMaterial()
+								cube2.material.map = speedTexture
+								// cube2.material.bumpMap = speedTexture
+								cube2.name = "POWERUPSPEED";
+							}
+							else if(carPlayer=="zenith"){
+								console.log("ZENNITH")
+								cube2.material = new THREE.MeshBasicMaterial()
+								cube2.material.map = shieldTexture
+								cube2.name = "POWERUPSHIELD";
+							}
+							else if(carPlayer=="flux"){
+								console.log("FLUZ")
+								// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+								// cube2.material.color.setRGB(0.0, 1.0, 0.0);
+								cube2.material = new THREE.MeshBasicMaterial()
+								cube2.material.map = powerupTexture
+								cube2.name = "POWERUPWALL";
+							}
 						}
-						else if(carPlayer=="zenith"){
-							console.log("ZENNITH")
-							cube2.material = new THREE.MeshBasicMaterial()
-							cube2.material.map = shieldTexture
-							cube2.name = "POWERUPSHIELD";
+						else if (obj.name.startsWith("time")) {
+							if (obj.name[4] == 'D') {
+								cube2.material = new THREE.MeshBasicMaterial();
+								cube2.material.map = timeDecTexture;
+								// cube2.material.bumpMap = speedTexture
+								cube2.name = "POWERUPDECREASE";
+								cube2.material.color.setRGB(0.0, 0.0, 1.0);
+								floorCopy.name = "timeDecFloor";
+							}
+							else if (obj.name[4] == 'I') {
+								cube2.material = new THREE.MeshBasicMaterial();
+								cube2.material.map = timeIncTexture;
+								// cube2.material.bumpMap = speedTexture
+								cube2.name = "POWERUPINCREASE";
+								// cube2.material.color.setRGB(1.0, 0.0, 0.0);
+								floorCopy.name = "timeIncFloor";
+							}
 						}
-						else if(carPlayer=="flux"){
-							console.log("FLUZ")
-							// const rock = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-							cube2.material.color.setRGB(0.0, 1.0, 0.0);
-							cube2.name = "POWERUPDECREASE";
-						}
-						obj.add(cube2)
+						obj.add(cube2);
 					}
 				})
 				completedLap = false;
@@ -1306,6 +1687,7 @@ function animate() {
 			}
 
 			if(touchGround){
+				console.log(speed);
 				if(run){
 					wheels.forEach((obj)=>{
 						obj.rotateY(-Math.PI/4)
@@ -1313,7 +1695,7 @@ function animate() {
 					if(powerupActivate){
 						speed = 1.5;
 					}
-						else{
+					else{
 						speed += acceleration;
 						if(speed > maxSpeed){
 							speed = maxSpeed;
@@ -1369,6 +1751,13 @@ function animate() {
 								shield.visible = true;
 								timeShieldDuration = elapsedTime + 5;
 							}
+							else if (obj2.name == "POWERUPWALL") {
+								wallActivate = true;
+								for (let i = 0; i < walls.length; i++) {
+									walls[i].visible = true;
+									timeWallDuration = elapsedTime + 10;
+								}
+							}
 							obj.remove(obj2)
 							powerUpSound.play();
 						}
@@ -1383,6 +1772,7 @@ function animate() {
 									powerupActivate = false;
 									shieldActivate = false;
 									shield.visible = false;
+									console.log("testttttt", obj2.name);
 									
 									// increment death counters
 									deaths++;
@@ -1425,6 +1815,33 @@ function animate() {
 				carMesh.rotation.y = rotation + Math.PI
 				// console.log(carMesh)
 				// carMesh.rotaateY(rotation)
+			}
+
+			if (wallActivate) {
+				for (let i = 0; i < walls.length; i++) {
+					if (checkCollision(player, walls[i])) {
+						let speedX2 = Math.sin(rotation) * (speed-0.3);
+						let speedZ2 = Math.cos(rotation) * (speed-0.3);
+						console.log(walls[i].name);
+						if ((walls[i].name == "U" && player.position.x - speedX2 > walls[i].position.x) || (walls[i].name == "D" && player.position.x - speedX2 < walls[i].position.x)) {
+							player.position.x -= (speedX2);
+							player.position.z -= (speedZ2);
+						}
+						else if (walls[i].name == "U" || walls[i].name == "D") {
+							player.position.x += (speedX2);
+							player.position.z -= (speedZ2);
+						}
+						if ((walls[i].name == "L" && player.position.z - speedZ2 > walls[i].position.z) || (walls[i].name == "R" && player.position.z - speedZ2 < walls[i].position.z)) {
+							player.position.x -= (speedX2);
+							player.position.z -= (speedZ2);
+						}
+						else if (walls[i].name == "L" || walls[i].name == "R") {
+							player.position.x -= (speedX2);
+							player.position.z += (speedZ2);
+						}
+						speed = 0;
+					}
+				}
 			}
 
 			if(outOfBounds()){
@@ -1506,6 +1923,14 @@ function animate() {
 			if(shieldActivate && timeShieldDuration <= elapsedTime){
 				shieldActivate = false;
 				shield.visible = false;
+			}
+
+			// turn off walls if time reached
+			if(wallActivate && timeWallDuration <= elapsedTime){
+				wallActivate = false;
+				for (let i = 0; i < walls.length; i++) {
+					walls[i].visible = false;
+				}
 			}
 
 			touchGround = false;
