@@ -312,6 +312,7 @@ const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall.png');
 wallTexture.wrapS = THREE.RepeatWrapping;
 wallTexture.wrapT = THREE.RepeatWrapping;
 wallTexture.repeat.set(1, 1);
+// wallTexture.minFilter = THREE.LinearFilter;
 
 //Updated the boundary box in order to ensure that it includes the entire car
 player.geometry.userData.obb = new OBB().fromBox3(
@@ -501,6 +502,8 @@ let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
 const floorTexture = new THREE.TextureLoader().load('Assets/Images/road/road.png');
 
 const rockTexture = new THREE.TextureLoader().load('Assets/Images/road/rockmap.png')
+// floorTexture.minFilter = THREE.LinearFilter;
+// rockTexture.minFilter = THREE.LinearFilter;
 
 // floorTexture.wrapS = THREE.RepeatWrapping;
 // floorTexture.wrapT = THREE.RepeatWrapping;
@@ -510,11 +513,9 @@ const rockTexture = new THREE.TextureLoader().load('Assets/Images/road/rockmap.p
 // rockTexture.wrapT = THREE.RepeatWrapping;
 // rockTexture.repeat.set(1, 1);
 
-// trackCopy.position.y = 500;
-// trackCopy.position.x = xVal
-// trackCopy.position.z = zVal
-// trackCopy.rotateX(-Math.PI/2)
 const mat = new THREE.MeshPhongMaterial();
+mat.castShadow = false;
+mat.receiveShadow = false;
 
 let matSphere = new THREE.MeshPhongMaterial();
 
@@ -659,6 +660,8 @@ function createMap(mapGiven){
 				}else if(mapGiven[i+10][j+10] == "SP"){
 					trackCopy.material.color.setRGB(1,0.5,0.5);
 					floorCopy.material = new THREE.MeshPhongMaterial();
+					floorCopy.castShadow = false;
+					floorCopy.receiveShadow = false;
 					floorCopy.material.map = finishTexture;
 					currentTile = floorCopy;
 					floorCopy.name = "ENDING"
@@ -1032,6 +1035,7 @@ function createMap(mapGiven){
 				minimapScene.add(trackCopy);
 				floors.push(floorCopy)
 				scene.add(floorCopy)
+				floorCopy.needsUpdate = false
 			}
 		}
 	}
