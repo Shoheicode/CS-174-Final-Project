@@ -250,6 +250,7 @@ sphereGeo.computeBoundingBox()
 const playerGeo = new THREE.BoxGeometry(1,1,1);
 const playerMat = new THREE.MeshPhongMaterial({color: "red"});
 const player = new THREE.Mesh(playerGeo, playerMat);
+player.position.set(1000,1000,1000)
 
 //WHEELS THE BLUE
 let wheels = [];
@@ -683,7 +684,7 @@ function createMap(mapGiven){
 					floorCopy.material.normalMap = floorTexture;
 					// floorCopy.material.normalScale = 0.1
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
-					floorCopy.name = "floor";
+					floorCopy.name = "floor" + (i+10) + "," + (j+10);
 					if(mapGiven[i+10][j+10] == "FR"){
 						floorCopy.rotateZ(-Math.PI / 2)
 					}
@@ -1385,6 +1386,7 @@ function animate() {
 									
 									// increment death counters
 									deaths++;
+									console.log("NAME OF OBJECT" + obj.name)
 									currentDeaths++;
 									obj2.position.z += 10
 								} else{
