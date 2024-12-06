@@ -1113,14 +1113,11 @@ function checkCollision(obj1, obj2) {
  let completedLap = false;
 
  function playerTouchingGround(obj1, obj2) {
-	// console.log("RUNNINg")
 	obj1.userData.obb.copy(obj1.geometry.userData.obb)
     obj2.userData.obb.copy(obj2.geometry.userData.obb)
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
-		// console.log(obj2.name);
-		// console.log(completedCheckPoints)
 		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
 		if (indexToRemove == 0) {
 			completedCheckPoints.splice(indexToRemove, 1);
@@ -1135,7 +1132,6 @@ function checkCollision(obj1, obj2) {
 				lapTimes.push(elapsedTime-prevTime);
 			}
 			prevTime = elapsedTime;
-			// console.log("LAP COMPLETE")
 			lapCount++;
 			lapTimes.forEach(function(time, index){
 				// console.log(index)
