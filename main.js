@@ -518,6 +518,7 @@ mat.castShadow = false;
 mat.receiveShadow = false;
 
 let matSphere = new THREE.MeshPhongMaterial();
+let createMapB = false;
 
 function createMap(mapGiven){
 	player.rotation.y = Math.PI/2;
@@ -1041,6 +1042,7 @@ function createMap(mapGiven){
 	}
 	completedCheckPoints.sort().reverse()
 	allCheckPoints.sort().reverse()
+	createMapB = true;
 }
 
 function disposeMesh(mesh) {
@@ -1185,7 +1187,7 @@ function checkCollision(obj1, obj2) {
 function reset(){
 	speed = 0;
 	speedY = 0;
-	player.position.set(startX, -1.5, startZ);
+	player.position.set(1000, 1000, 1000);
 	dirRotation = -Math.PI/2;
 	clock.elapsedTime = 0;
 	completedCheckPoints = []
@@ -1195,6 +1197,7 @@ function reset(){
 	prevTime = 0;
 	document.getElementById("lapTimes").innerText=""
 	deleteMap()
+	createMapB = false;
 	createMap(currentMap)
 	raceOver = false;
 	document.getElementById("Finished").innerHTML = ""
@@ -1645,7 +1648,7 @@ function animate() {
 							obj.remove(obj2)
 							powerUpSound.play();
 						}
-						else if(checkCollision(player, obj2)){
+						else if(checkCollision(player, obj2) && createMapB){
 							if (!shieldActivate) {
 								if(obj2.name =="fast" || obj2.name =="slow"){
 									player.position.x = currentTile.position.x;
@@ -1656,10 +1659,20 @@ function animate() {
 									powerupActivate = false;
 									shieldActivate = false;
 									shield.visible = false;
+									console.log("I AM DEAD")
+									console.log(player.position.x)
+									console.log(player.position.y)
+									console.log(player.position.z)
+									console.log(obj2.name)
+									console.log(obj2.position.x)
+									console.log(obj2.position.y)
+									console.log(obj2.position.z)
+									
 									
 									// increment death counters
 									deaths++;
 									currentDeaths++;
+									offset += 5
 									obj2.position.z += 10
 								} else{
 									let speedX2 = Math.sin(rotation) * (speed-0.3);
@@ -1735,6 +1748,7 @@ function animate() {
 				// increment death counters
 				deaths++;
 				currentDeaths++;
+				offset+=5
 			}
 
 			speed = -speed;
