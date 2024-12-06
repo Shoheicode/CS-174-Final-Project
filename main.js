@@ -1032,8 +1032,6 @@ function createMap(mapGiven){
 				minimapScene.add(trackCopy);
 				floors.push(floorCopy)
 				scene.add(floorCopy)
-
-				// scene.add(floorCopy2)
 			}
 		}
 	}
