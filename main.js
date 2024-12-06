@@ -1217,13 +1217,11 @@ function onDocumentKeyDown(event){
 				break;
 			case 65: //LEFT (A key)
 				rSpeed = 0.03;
-				// console.log(player)
 				break;
 			case 68: //RIGHT (D KEY)
 				rSpeed = -0.03;
 				break
-			case 82:
-				// console.log("RESET")
+			case 82: // R button
 				reset();
 				break;
 		}
