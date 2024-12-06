@@ -666,7 +666,6 @@ function createMap(mapGiven){
 					floorCopy.material.map = finishTexture;
 					currentTile = floorCopy;
 					floorCopy.name = "ENDING"
-					player.position.set(xVal,-1.5,zVal);
 					startX = xVal;
 					startZ = zVal;
 
@@ -1036,13 +1035,14 @@ function createMap(mapGiven){
 				minimapScene.add(trackCopy);
 				floors.push(floorCopy)
 				scene.add(floorCopy)
-				floorCopy.needsUpdate = false
+				// floorCopy.needsUpdate = false
 			}
 		}
 	}
 	completedCheckPoints.sort().reverse()
 	allCheckPoints.sort().reverse()
 	createMapB = true;
+	player.position.set(startX,-1.5,startZ);
 }
 
 function disposeMesh(mesh) {
@@ -1649,6 +1649,7 @@ function animate() {
 							powerUpSound.play();
 						}
 						else if(checkCollision(player, obj2) && createMapB){
+							console.log(obj2.name)
 							if (!shieldActivate) {
 								if(obj2.name =="fast" || obj2.name =="slow"){
 									player.position.x = currentTile.position.x;
@@ -1667,13 +1668,6 @@ function animate() {
 									console.log(obj2.position.x)
 									console.log(obj2.position.y)
 									console.log(obj2.position.z)
-									
-									
-									// increment death counters
-									deaths++;
-									currentDeaths++;
-									offset += 5
-									obj2.position.z += 10
 								} else{
 									let speedX2 = Math.sin(rotation) * (speed-0.3);
 									let speedZ2 = Math.cos(rotation) * (speed-0.3);
@@ -1708,6 +1702,8 @@ function animate() {
 				carMesh.position.z = player.position.z;
 				carMesh.rotation.y = rotation + Math.PI
 			}
+
+
 
 			if (wallActivate) {
 				for (let i = 0; i < walls.length; i++) {
