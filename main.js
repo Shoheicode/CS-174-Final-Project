@@ -1127,12 +1127,13 @@ function deleteMap(){
 		deleteObjs.push(obj)
 	})
 
-	// for each of the objects 
+	// for each of the delete objects 
 	deleteObjs.forEach((obj)=>{
 		scene.remove(obj)
 		disposeMesh(obj)
 	})
 
+	// delete all the obj in mesh
 	minimapScene.children.forEach((obj)=>{
 		if(obj.name == "track"){
 			scene.remove(obj)
