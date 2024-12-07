@@ -584,10 +584,14 @@ function createMap(mapGiven){
 					floorCopy.geometry.boundingBox
 				)
 				floorCopy.userData.obb = new OBB();
+
+				// sets the position to the floor
 				floorCopy.position.y = -5
 				floorCopy.position.x = xVal
 				floorCopy.position.z = zVal
 				floorCopy.rotateX(-Math.PI / 2)
+
+				// create the variables to store the materials and the powerup/asteroids
 				let mat2;
 				let cube1;
 
