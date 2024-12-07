@@ -1427,6 +1427,7 @@ document.getElementById("level3").onclick = function() {{
 
 // Runs when the home btn is presseds on pause screen
 document.getElementById("HOMEBTN").onclick = function(){{
+	// changes the current state and then activates and resets everything
 	currentState = "Start";
 	document.getElementById("checkin").style.display = "block";
 	document.getElementById("pauseScreen").style.display = "none";
@@ -1441,6 +1442,7 @@ document.getElementById("HOMEBTN").onclick = function(){{
 
 // Runs when the level select btn is presseds on pause screen
 document.getElementById("LEVELSELECT").onclick = function(){{
+	// changes the current state and then activates and resets everything
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
 	document.getElementById("pauseScreen").style.display = "none";
@@ -1455,6 +1457,7 @@ document.getElementById("LEVELSELECT").onclick = function(){{
 
 // Runs when the character select btn is presseds on pause screen
 document.getElementById("CHARACTER").onclick = function(){{
+	// changes the current state and then activates and resets everything
 	currentState = "Level Select";
 	document.getElementById("bodyContainer2").style.display = "block";
 	document.getElementById("pauseScreen").style.display = "none";
