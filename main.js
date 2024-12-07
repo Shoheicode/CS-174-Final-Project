@@ -1802,8 +1802,8 @@ function animate() {
 							else if (obj2.name == "POWERUPSHIELD") {
 								// activate shield
 								shieldActivate = true;
-								shield.visible = true;
-								timeShieldDuration = elapsedTime + 5;
+								shield.visible = true; // Make shield visible
+								timeShieldDuration = elapsedTime + 5; // Set shield duration
 							}
 							else if (obj2.name == "POWERUPWALL") {
 								wallActivate = true;
