@@ -6,6 +6,8 @@
     background: linear-gradient(45deg, #000220, #000410);
     color: #64ffdc;
     overflow: hidden;
+    position: absolute;
+    width: 100%;
 }
 
 .character-select-container {
