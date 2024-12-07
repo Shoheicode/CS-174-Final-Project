@@ -363,7 +363,6 @@ const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall.png');
 wallTexture.wrapS = THREE.RepeatWrapping;
 wallTexture.wrapT = THREE.RepeatWrapping;
 wallTexture.repeat.set(1, 1);
-// wallTexture.minFilter = THREE.LinearFilter;
 
 //Updated the boundary box in order to ensure that it includes the entire car
 player.geometry.userData.obb = new OBB().fromBox3(
