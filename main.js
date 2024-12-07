@@ -328,6 +328,7 @@ rightHeadlight.castShadow = true;
 player.add(rightHeadlight)
 rightHeadlight.position.set(0.75, 0.65, -1.7);
 
+// Create targets to follow the spotlights
 const leftTarget = new THREE.Object3D();
 const rightTarget = new THREE.Object3D();
 
