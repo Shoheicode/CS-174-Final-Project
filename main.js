@@ -1912,8 +1912,10 @@ function animate() {
 				offset+=5
 			}
 
+			// update the spped
 			speed = -speed;
 
+			// Update the camera shift and allow for the shift to happen if it does
 			if(cameraShift){
 				camera.rotation.y = -rotation;
 				camera.position.x = player.position.x + Math.sin(rotation) * 10;
