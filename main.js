@@ -1669,6 +1669,7 @@ function animate() {
 				}
 			})
 
+			// If a lap is completed, regenerates power-ups on the floors
 			if(completedLap){
 				powerUpsFloors.forEach(function (obj, index) {
 					if (obj["children"].length == 0){
