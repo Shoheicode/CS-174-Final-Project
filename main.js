@@ -1813,11 +1813,14 @@ function animate() {
 									timeWallDuration = elapsedTime + 10;
 								}
 							}
+
+							// Remove the POWERUP object and play sound
 							obj.remove(obj2)
 							powerUpSound.play();
 						}
+						// If the player collides with a non-POWERUP object
 						else if(checkCollision(player, obj2) && createMapB){
-							// console.log(obj2.name)
+							// If the shield is not active
 							if (!shieldActivate) {
 								if(obj2.name =="fast" || obj2.name =="slow"){
 									player.position.x = currentTile.position.x;
