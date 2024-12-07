@@ -1864,7 +1864,7 @@ function animate() {
 			// Check if the wall activate and if so, update player position if colliding with wall
 			if (wallActivate) {
 				for (let i = 0; i < walls.length; i++) {
-					if (checkCollision(player, walls[i])) {
+					if (checkCollision(player, walls[i])) { // Changes the directions based on which wall they collide with
 						let speedX2 = Math.sin(rotation) * (speed-1);
 						let speedZ2 = Math.cos(rotation) * (speed-1);
 						if ((walls[i].name == "U" && player.position.x - speedX2 > walls[i].position.x) || (walls[i].name == "D" && player.position.x - speedX2 < walls[i].position.x)) {
