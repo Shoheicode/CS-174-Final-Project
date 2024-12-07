@@ -1794,10 +1794,10 @@ function animate() {
                     			timePowerupDuration = elapsedTime + 5; // Set duration
 							}
 							else if (obj2.name == "POWERUPDECREASE") {
-								offset -= 10;
+								offset -= 10; // Decrease offset
 							}
 							else if (obj2.name == "POWERUPINCREASE") {
-								offset += 10;
+								offset += 10; // Increase offset
 							}
 							else if (obj2.name == "POWERUPSHIELD") {
 								// activate shield
