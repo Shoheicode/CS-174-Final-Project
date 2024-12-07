@@ -428,7 +428,7 @@ floorGeo.setAttribute(
 // ^
 // |
 
-//17 + 20 + 17 + 20 = 
+// Create our 3 maps
 let map = [
 	["FCLU","FR","FR","DR","FR","FR","FR","FR","IR","C1R","FR","FR","PR","FR","DR","FR","FR","FR","FCUR","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
