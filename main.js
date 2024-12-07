@@ -1398,6 +1398,8 @@ document.getElementById("level2").onclick = function() {{
 	astFast = -0.08
 	astSlow = 0.05
 }}
+
+// Checks when the level 3 button is clicked
 document.getElementById("level3").onclick = function() {{
 	currentState="Map3";
 	currentMap = map3;
