@@ -3,7 +3,7 @@ import { OBB } from 'three/examples/jsm/Addons.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { myFunction } from './Start/introduction';
 import { addData, checkDocumentExists, getBestLapTimes } from './JSHelperFiles/firebase';
-import { updateleaderboard } from './startpage';
+import { updateleaderboard } from './JSHelperFiles/startpage';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices

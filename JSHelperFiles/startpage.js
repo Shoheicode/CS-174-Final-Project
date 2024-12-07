@@ -1,4 +1,4 @@
-import { formatTime } from "./main";
+import { formatTime } from "../main";
 
 const updateleaderboard = (bestTimes) => {
     let s = ""
