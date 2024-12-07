@@ -1915,7 +1915,7 @@ function animate() {
 			// update the spped
 			speed = -speed;
 
-			// Update the camera shift and allow for the shift to happen if it does
+			// Update the camera shift and allow for the shift to happen if button 1 is pressed
 			if(cameraShift){
 				camera.rotation.y = -rotation;
 				camera.position.x = player.position.x + Math.sin(rotation) * 10;
