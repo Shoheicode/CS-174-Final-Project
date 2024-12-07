@@ -414,8 +414,8 @@ function animateParticles() {
   
 	particlesGeometry.attributes.position.needsUpdate = true;
   }
-  // Add in animate function:
 
+// Create the floor geo
 const floorGeo = new THREE.BoxGeometry(20, 20, 5);
 floorGeo.computeBoundingBox();
 floorGeo.setAttribute(
