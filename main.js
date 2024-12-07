@@ -1971,6 +1971,7 @@ function animate() {
 				finishSound.play()
 			}
 
+			// Check powerup activate and if the time powerup duration is less than the elapsed time and deactivate if it does
 			if(powerupActivate && timePowerupDuration <= elapsedTime){
 				powerupActivate = false;
 			}
