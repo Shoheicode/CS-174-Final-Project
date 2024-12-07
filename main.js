@@ -1684,6 +1684,7 @@ function animate() {
 						// Clone the sphere mesh to create a new instance
 						let cube2 = cube1.clone()
 
+						// Set up Oriented Bounding Box (OBB) for collision detection
 						cube2.geometry.userData.obb = new OBB().fromBox3(
 							cube1.geometry.boundingBox
 						)
