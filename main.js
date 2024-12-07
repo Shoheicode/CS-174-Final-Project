@@ -1360,7 +1360,7 @@ document.getElementById("fluxButton").onclick = function() {{
 	carPlayer = "flux"
 }}
 
-
+// Checks when the level 1 button is clicked
 document.getElementById("level1").onclick = function() {{
 	currentState="Map1";
 	currentMap = map;
@@ -1380,6 +1380,8 @@ document.getElementById("level1").onclick = function() {{
 	astSlow = 0.03
 
 }}
+
+// Checks when the level 2 button is clicked
 document.getElementById("level2").onclick = function() {{
 	currentState="Map2";
 	currentMap = map2;
