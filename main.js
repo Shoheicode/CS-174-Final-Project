@@ -1895,6 +1895,7 @@ function animate() {
         		}
     		});
 
+			// If goes out of bounds
 			if(outOfBounds()){
 				player.position.x = currentTile.position.x;
 				player.position.z = currentTile.position.z;
