@@ -1927,9 +1927,9 @@ function animate() {
 				camera.position.x = player.position.x;
 				camera.position.z = player.position.z;
 				camera.position.y = player.position.y+3;
-				let lookPos = new THREE.Vector3(Math.sin(rotation) * -4, 0, Math.cos(rotation) * -4);
-				let copyPos = player.position.clone();
-				let newPos = lookPos.add(copyPos);
+				let lookPos = new THREE.Vector3(Math.sin(rotation) * -4, 0, Math.cos(rotation) * -4); // creates the new position to look at
+				let copyPos = player.position.clone(); 
+				let newPos = lookPos.add(copyPos); // look at that position ahead
 
 				camera.lookAt(newPos)
 			}
