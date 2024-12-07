@@ -1080,7 +1080,7 @@ function createMap(mapGiven){
 		}
 	}
 
-	// Reverse the order for the map
+	// Reverse the order for the map (sort the map to keep track of the things)
 	completedCheckPoints.sort().reverse()
 	allCheckPoints.sort().reverse()
 	createMapB = true;
