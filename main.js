@@ -250,7 +250,10 @@ const minimapCamera = new THREE.OrthographicCamera(
 	-50, 50, 50, -50, 1, 1000 // Adjust these values based on your track size
 );
 
+// Sets the camera position above the texture
 minimapCamera.position.set(0, 800, 0); // Position above the track
+
+//Creates the plane for the track for the minimap
 const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x404040 });
 const planeForTrack = new THREE.PlaneGeometry(20, 20)
 const plane = new THREE.Mesh(planeForTrack, trackMaterial)
