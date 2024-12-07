@@ -1754,6 +1754,7 @@ function animate() {
 						speed -= deacceleration;
 					}
 					speed -= acceleration;
+					// Prevents speed from going into negative
 					if(speed < 0){
 						speed = 0;
 					}
