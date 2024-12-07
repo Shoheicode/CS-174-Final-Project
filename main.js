@@ -1039,6 +1039,8 @@ function createMap(mapGiven){
 						if(num >=0.50){
 							// Creates the fast asteroid
 							cube2.name = "fast";
+
+							// Creates the particles
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
 							cube2.add(particles);
 							particles.position.z +=2
@@ -1049,6 +1051,8 @@ function createMap(mapGiven){
 						}else if (num >=0.20){ // Around 30% of the time is spawns
 							// Creates the slow asteroid
 							cube2.name = "slow";
+
+							// Creates the particles
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
 							cube2.add(particles);
 							particles.position.z +=2
