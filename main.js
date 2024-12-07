@@ -1303,6 +1303,7 @@ document.getElementById('text').addEventListener('input', function() {
 	name = this.value;
 });
 
+// when the submit button is clicked
 document.getElementById("SUBMIT").onclick = function() {{
 	if(name == ""){
 
