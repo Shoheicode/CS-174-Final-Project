@@ -1712,6 +1712,7 @@ function animate() {
 							}
 						}
 						else if (obj.name.startsWith("time")) {
+							// Handle time-related power-ups based on floor name
 							if (obj.name[4] == 'D') {
 								cube2.material = new THREE.MeshBasicMaterial();
 								cube2.material.map = timeDecTexture;
