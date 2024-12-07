@@ -1839,15 +1839,15 @@ function animate() {
 									let speedX2 = Math.sin(rotation) * (speed-0.3);
 									let speedZ2 = Math.cos(rotation) * (speed-0.3);
 									if(speedX2 < 0){
-										player.position.x -= (speedX2);
+										player.position.x -= (speedX2); // Adjust player's X position
 									}
 									else if (speedX2 > 0) {
-										player.position.x -= (speedX2);
+										player.position.x -= (speedX2); // Adjust player's X position
 									}
 									if(speedZ2 < 0){
-										player.position.z -= (speedZ2);
+										player.position.z -= (speedZ2); // Adjust player's X position
 									}else if (speedZ2 > 0) {
-										player.position.z -= (speedZ2);
+										player.position.z -= (speedZ2); // Adjust player's X position
 									}
 									speed = 0; // Stop player movement
 								}
