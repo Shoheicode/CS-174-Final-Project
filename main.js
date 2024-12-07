@@ -1298,6 +1298,7 @@ function onKeyUp(e) {
 	}
 }
 
+// Changing the text based on user input
 document.getElementById('text').addEventListener('input', function() {
 	name = this.value;
 });
