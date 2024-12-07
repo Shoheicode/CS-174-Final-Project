@@ -572,6 +572,7 @@ function createMap(mapGiven){
 
 				trackCopy.name = "track"
 
+				// Doing the matrix multiplication for the track for the minimap
 				let M = new THREE.Matrix4();
 				M = rotationMatrixX(-Math.PI/2).multiply(M);
 				M = translationMatrix(xVal, 500, zVal).multiply(M);
