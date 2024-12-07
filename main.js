@@ -1509,20 +1509,26 @@ export {formatTime}
 function animate() {
 	// Checks if the code is currently in any of these states and to do nothing in those cases
 	if(currentState == "Start" || currentState == "Level Select" || currentState == "Character Select"){
-		
+
 	}
 	else{
-		if(pause){
+		if(pause){ // if pause, display pause screen
 			document.getElementById("pauseScreen").style.display = "flex";
 		}
-		else{
+		else{ // if not pause
+			// animate the particles
 			animateParticles()
+			// set the display of the pause screen to none
 			document.getElementById("pauseScreen").style.display = "none";
+
+			// Update the leaderboard with the best times
 			if(bestTimes.length > 0 && update){
+				// update the leaderboard and only update the leaderboard once at the start of the race
 				updateleaderboard(bestTimes);
 				update = false;
 			}
 
+			// Get time from clock.getElapsedTime to be used later on in code and to not take into account offset
 			let time = clock.getElapsedTime();
 			elapsedTime = Math.floor(time) + offset;
 			document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
