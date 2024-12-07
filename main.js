@@ -366,7 +366,6 @@ wallTexture.repeat.set(1, 1);
 
 //Updated the boundary box in order to ensure that it includes the entire car
 player.geometry.userData.obb = new OBB().fromBox3(
-    // player.geometry.boundingBox
 	new THREE.Box3(new THREE.Vector3(-0.75, -0.75, -1.75),new THREE.Vector3(0.75, 0.75, 1.75))
 )
 player.userData.obb = new OBB()
