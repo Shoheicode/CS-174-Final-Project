@@ -84,6 +84,7 @@ let pause = false;
 // Camera Shift
 let cameraShift = true;
 
+// Checks if any powerup has been activated
 let powerupActivate = false;
 let timePowerupDuration = 0;
 
