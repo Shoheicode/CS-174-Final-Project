@@ -1661,7 +1661,6 @@ function animate() {
 						}
 						else{
 							player.position.y = obj.position.y + 0.74+2.5;
-						// fallen = false;
 							currentTile = obj;
 							speedY = 0;
 						}
