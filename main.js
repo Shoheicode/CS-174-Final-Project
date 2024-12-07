@@ -308,8 +308,7 @@ const player = new THREE.Mesh(playerGeo, playerMat);
 player.visible = false; // Transparent player
 player.position.set(1000,1000,1000)
 
-// player.rotateY(-Math.PI/4)
-
+// Creating the headlights
 const leftHeadlight = new THREE.SpotLight(0xffffff, 20, 0)
 
 leftHeadlight.angle = Math.PI / 6; // Adjust the beam spread
