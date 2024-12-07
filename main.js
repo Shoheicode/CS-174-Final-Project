@@ -1627,7 +1627,7 @@ function animate() {
 			// Checks if we the race is over and if so, run the finish line screen
 			if(raceOver){
 				elapsedTime = Math.floor(time) + offset;
-				if(elapsedTime > waitTime){
+				if(elapsedTime > waitTime){ // waits 3 seconds before showing going back to the character select screen and reset all elements
 					document.getElementById("bodyContainer").style.display = "flex";
 					document.getElementById("Finished").innerHTML = "";
 					document.getElementById("pauseScreen").style.display = "none";
