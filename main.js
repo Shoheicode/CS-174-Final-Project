@@ -2,7 +2,7 @@ import * as THREE from 'three'; // Imports the library that we will be using whi
 import { OBB } from 'three/examples/jsm/Addons.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { myFunction } from './Start/introduction';
-import { addData, checkDocumentExists, getBestLapTimes } from './firebase';
+import { addData, checkDocumentExists, getBestLapTimes } from './JSHelperFiles/firebase';
 import { updateleaderboard } from './startpage';
 // import { GUI } from 'dat.gui'
 
