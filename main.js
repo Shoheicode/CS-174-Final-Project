@@ -1184,7 +1184,12 @@ function checkCollision(obj1, obj2) {
     // This adjusts the OBB to match the object's current position and orientation in the world.
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
+
+	// Check if the two OBBs intersect.
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+		// Checks if the player is touching the ground
+
+		// Only removes if the index matches the first in the list of completed checkpoints
 		const indexToRemove = completedCheckPoints.indexOf(obj2.name);
 		if (indexToRemove == 0) {
 			completedCheckPoints.splice(indexToRemove, 1);
