@@ -1505,14 +1505,11 @@ function formatTime(seconds) {
 // exports to be use in update start page
 export {formatTime}
 
+// Animate function
 function animate() {
-	if(currentState == "Start"){
-
-	} else if(currentState == "Level Select"){
-
-	}
-	else if(currentState == "Character Select"){
-
+	// Checks if the code is currently in any of these states and to do nothing in those cases
+	if(currentState == "Start" || currentState == "Level Select" || currentState == "Character Select"){
+		
 	}
 	else{
 		if(pause){
