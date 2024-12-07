@@ -1554,8 +1554,6 @@ function animate() {
 				}
 				return;
 			}
-
-			// if (elapsedTime > delay){
 			
 			// track # of deaths
 			document.getElementById("deaths").innerText = `Deaths: ${currentDeaths} (Total: ${deaths})`;
