@@ -26,4 +26,5 @@ const updateleaderboard = (bestTimes) => {
 	document.getElementById("leaderboard").innerHTML += "<div class='leaderboard-title'>Leaderboard</div> " +s + "</div>";
 }
 
+// Export this leaderboard update
 export {updateleaderboard}
