@@ -1734,6 +1734,7 @@ function animate() {
 
 			// If touching the ground, allow the player to move and do all the things
 			if(touchGround){
+				// If run, move
 				if(run){
 					if(powerupActivate){
 						speed = powerUpSpeed;
@@ -1744,7 +1745,7 @@ function animate() {
 							speed = maxSpeed;
 						}
 					}
-				} else{
+				} else{ // if not run, do not move
 					powerupActivate = false;
 					
 					if(brake){
