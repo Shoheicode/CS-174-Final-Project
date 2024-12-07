@@ -124,8 +124,9 @@ let currentDeaths = 0;
 const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
 const bgTexture = textureLoader.load('Assets/Images/39608.jpg');
-// https://wallpaperaccess.com/universe-landscape
+// https://wallpaperaccess.com/universe-landscape (where we found the background)
 
+// Sets the background
 scene.background = bgTexture;
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.frustumCulled = true
