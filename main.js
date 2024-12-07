@@ -91,27 +91,25 @@ let timeShieldDuration = 0;
 let wallActivate = false;
 let timeWallDuration = 0;
 
+// Properties of the car
 let speed = 0;
 let acceleration = 0.005; // 5 m/s^2
 let deacceleration = 0.01;
 let maxSpeed = 0.75; // 7.5 m/s
 let powerUpSpeed = 1.2;
 let dirRotation = -3*Math.PI/2; // Start turn angle
-let goBackwards = false;
 let collide = false;
 let speedY = 0;
 let raceOver = false;
+let rSpeed = 0;
+let run = false; // Controls the run time
+let brake = false;
+let touchGround = true;
+let waitTime = 0;
 
 // init death counters
 let deaths = 0;
 let currentDeaths = 0;
-
-let rSpeed = 0;
-let run = false;
-let brake = false;
-
-let touchGround = true;
-let waitTime = 0;
 
 //Scene Code
 const scene = new THREE.Scene();
@@ -1423,6 +1421,7 @@ document.getElementById("LEVELSELECT").onclick = function(){{
 	music.stop()
 }}
 
+// Activates when character button is clicked
 document.getElementById("CHARACTER").onclick = function(){{
 	currentState = "Level Select";
 	document.getElementById("bodyContainer2").style.display = "block";
