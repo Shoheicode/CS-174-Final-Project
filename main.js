@@ -1649,8 +1649,9 @@ function animate() {
 			// track # of deaths
 			document.getElementById("deaths").innerText = `Deaths: ${currentDeaths} (Total: ${deaths})`;
 
+			// Go through each of the floors
 			floors.forEach(function (obj, index) {
-				if(!touchGround){
+				if(!touchGround){ // If not touching the ground
 					if(playerTouchingGround(player, obj)){ // check if they are touching the floors/ground
 						if(player.position.y < obj.position.y + 2.5){ // if going at it from the side or below, don't allow character to go onto the platform
 							collide = true;
