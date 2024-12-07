@@ -1164,8 +1164,10 @@ function checkCollision(obj1, obj2) {
 		if (!shieldActivate) {
 			collide = true;
 		}
+		// Return true to indicate a collision occurred.
 		return true;
     } else {
+		// Return false to indicate no collision occurred.
 		return false;
     }
  }
