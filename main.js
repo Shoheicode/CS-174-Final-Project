@@ -1741,6 +1741,8 @@ function animate() {
 					}
 					else{
 						speed += acceleration;
+
+						// have a max speed
 						if(speed > maxSpeed){
 							speed = maxSpeed;
 						}
