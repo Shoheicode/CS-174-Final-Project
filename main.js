@@ -48,11 +48,14 @@ function rotationMatrixZ(theta) {
 
 //CONSTANTS:
 
+// List of the Game States
 let gameState = ["Start", "Level Select", "Map1", "Map2", "Map 3", "Reset", "Testing"]
 let currentState = "Start";
 
+// The current map being used in the code
 let currentMap = null;
 
+// The clock from THREE.js that helps us keep track of time.
 let clock = new THREE.Clock();
 
 let name = ""
@@ -60,6 +63,7 @@ let name = ""
 let zOffset = 5;
 let yOffset = 5;
 
+// The starting x and z values for the code
 let startX = 0;
 let startZ = 0;
 
@@ -169,54 +173,6 @@ function playMusic() {
 }
 
 
-// Sound Effects
-const audListener = new THREE.AudioListener();
-camera.add(audListener);
-
-const engineSound = new THREE.Audio(audListener);
-const powerUpSound = new THREE.Audio(audListener);
-const music = new THREE.Audio(audListener);
-
-const audLoader = new THREE.AudioLoader();
-
-// Load sounds
-audLoader.load('Assets/Sounds/carStart.mp3', function (buffer) {
-    engineSound.setBuffer(buffer);
-    engineSound.setLoop(false);
-    engineSound.setVolume(0.5);
-});
-
-audLoader.load('Assets/Sounds/powerUp.mp3', function (buffer) {
-    powerUpSound.setBuffer(buffer);
-    powerUpSound.setLoop(false);
-    powerUpSound.setVolume(0.5);
-});
-
-let isSoundLoaded = false;
-
-audLoader.load('Assets/Sounds/spaceMusic.mp3', function (buffer) {
-    music.setBuffer(buffer);
-    music.setLoop(true);
-    music.setVolume(0.5);
-
-	isSoundLoaded = true;
-}, undefined, function (error) {
-    console.error("Error loading sound file:", error);
-});
-
-function playMusic() {
-	if (isSoundLoaded && !music.isPlaying) {
-        	music.play();
-    	} else if (!isSoundLoaded) {
-        	console.log("Sound file is not yet loaded.");
-    	}
-}
-
-
-// Power-Up Geometry
-let cube2; // Change name to powerUps after successful testing
-const cubes = [];
-
 // Power-Up Texture
 const powerupTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
 
@@ -225,14 +181,12 @@ const speedTexture = textureLoader.load('Assets/Images/powerup/powerUp1Texture.p
 const shieldTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
 
 const wallPowTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
-
 // Power Up Materials
 const speedMat = new THREE.MeshBasicMaterial({ 
 	map: speedTexture,
 	transparent: true,
 	opacity: 0.8
 });
-
 const shieldMat = new THREE.MeshBasicMaterial({ 
 	map: shieldTexture,
 	transparent: true,
@@ -298,6 +252,8 @@ const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x404040 });
 const planeForTrack = new THREE.PlaneGeometry(20, 20)
 const plane = new THREE.Mesh(planeForTrack, trackMaterial)
 
+// const track = new THREE.Mesh(trackGeometry, trackMaterial);
+
 plane.position.y = 500
 plane.rotateX(-Math.PI/2)
 
@@ -333,6 +289,8 @@ const playerMat = new THREE.MeshBasicMaterial();
 const player = new THREE.Mesh(playerGeo, playerMat);
 player.visible = false; // Transparent player
 player.position.set(1000,1000,1000)
+
+// player.rotateY(-Math.PI/4)
 
 const leftHeadlight = new THREE.SpotLight(0xffffff, 20, 0)
 
@@ -637,6 +595,7 @@ function createMap(mapGiven){
 				//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
 				if(mapGiven[i+10][j+10] != "SP"){
 					mat2 = matSphere.clone()
+
 					cube1 = new THREE.Mesh( sphereGeo, mat2 );
 					cube2 = cube1.clone()
 
@@ -1856,25 +1815,6 @@ function animate() {
 
 				camera.lookAt(newPos)
 			}
-
-		cubes.forEach((cube2) => {
-        		if (cube2 && (cube2.name == "POWERUPSPEED" || cube2.name == "POWERUPSHIELD")) {
-            			cube2.position.z = Math.sin(time * (2 * Math.PI * 1.0 / 2.0)) * 0.5 + 1.5; // Power-ups float up and down
-        		}
-    		});
-
-		if(outOfBounds()){
-			// console.log(currentTile)
-			player.position.x = currentTile.position.x;
-			player.position.z = currentTile.position.z;
-			player.position.y = 15;
-			speed = 0;
-			powerupActivate = false;
-			
-			// increment death counters
-			deaths++;
-			currentDeaths++;
-		}
 
 			renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
 			renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
