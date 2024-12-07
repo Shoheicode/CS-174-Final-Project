@@ -1934,6 +1934,7 @@ function animate() {
 				camera.lookAt(newPos)
 			}
 
+			// update the renderer
 			renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
 			renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
 			renderer.setScissorTest(true);
@@ -1941,6 +1942,7 @@ function animate() {
 
 			updateMinimap()
 
+			// adding the mini map in the corner
 			const minimapSize = 200;
 			renderer.setViewport(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
 			renderer.setScissor(window.innerWidth - minimapSize - 10, 10, minimapSize, minimapSize);
