@@ -280,8 +280,9 @@ const sphereGeo = new THREE.SphereGeometry(1, 32, 32);
 sphereGeo.computeBoundingBox()
 
 const playerGeo = new THREE.BoxGeometry(1,1,1);
-const playerMat = new THREE.MeshBasicMaterial({color: "red"});
+const playerMat = new THREE.MeshBasicMaterial();
 const player = new THREE.Mesh(playerGeo, playerMat);
+player.visible = false; // Transparent player
 player.position.set(1000,1000,1000)
 
 // player.rotateY(-Math.PI/4)
