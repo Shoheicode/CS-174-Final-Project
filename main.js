@@ -1029,9 +1029,12 @@ function createMap(mapGiven){
 						wall2.userData.obb = new OBB();
 						
 					}
+						// set the cube position 
 						cube2.position.z += 10
+
+						// generates a random numbers
 						let num = Math.random()
-						if(num >=0.66){
+						if(num >=0.50){
 							cube2.name = "fast";
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
 							cube2.add(particles);
@@ -1040,7 +1043,7 @@ function createMap(mapGiven){
 							floorCopy.add(cube2)
 							cube2.material.normalMap = rockTexture;
 							cube2.material.color.setRGB(1, 1, 0.5)
-						}else if (num >=0.33){
+						}else if (num >=0.20){
 							cube2.name = "slow";
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
 							cube2.add(particles);
