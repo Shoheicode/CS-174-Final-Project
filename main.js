@@ -1849,7 +1849,7 @@ function animate() {
 									}else if (speedZ2 > 0) {
 										player.position.z -= (speedZ2);
 									}
-									speed = 0
+									speed = 0; // Stop player movement
 								}
 							}
 						}
