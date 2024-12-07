@@ -1146,6 +1146,13 @@ if(currentState == "Testing"){
 	reset();
 }
 
+/**
+ * Checks for collision between two objects in 3D space using Oriented Bounding Boxes (OBBs).
+ * @param {Object3D} obj1 - The first object to check for collision.
+ * @param {Object3D} obj2 - The second object to check for collision.
+ * @returns {boolean} - Returns true if a collision is detected; otherwise, false.
+ */
+
 function checkCollision(obj1, obj2) {
 	// Copy the geometry's OBB (Oriented Bounding Box) to the object's user data OBB.
     // This ensures the OBB data is up-to-date with the object's geometry.
