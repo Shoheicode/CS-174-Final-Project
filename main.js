@@ -1417,7 +1417,7 @@ document.getElementById("level3").onclick = function() {{
 	astSlow = 0.07
 }}
 
-// Runs when the home btn is presseds
+// Runs when the home btn is presseds on pause screen
 document.getElementById("HOMEBTN").onclick = function(){{
 	currentState = "Start";
 	document.getElementById("checkin").style.display = "block";
@@ -1431,6 +1431,7 @@ document.getElementById("HOMEBTN").onclick = function(){{
 	music.stop()
 }}
 
+// Runs when the level select btn is presseds on pause screen
 document.getElementById("LEVELSELECT").onclick = function(){{
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
@@ -1444,7 +1445,7 @@ document.getElementById("LEVELSELECT").onclick = function(){{
 	music.stop()
 }}
 
-// Activates when character button is clicked
+// Runs when the character select btn is presseds on pause screen
 document.getElementById("CHARACTER").onclick = function(){{
 	currentState = "Level Select";
 	document.getElementById("bodyContainer2").style.display = "block";
@@ -1458,6 +1459,7 @@ document.getElementById("CHARACTER").onclick = function(){{
 	music.stop()
 }}
 
+// Checks if the player's position is out of bounds
 function outOfBounds(){
 	if(player.position.y < -50){
 		return true;
