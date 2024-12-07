@@ -1806,7 +1806,8 @@ function animate() {
 								timeShieldDuration = elapsedTime + 5; // Set shield duration
 							}
 							else if (obj2.name == "POWERUPWALL") {
-								wallActivate = true;
+								wallActivate = true; // Activate wall powerup
+								// Make walls visible and set their duration
 								for (let i = 0; i < walls.length; i++) {
 									walls[i].visible = true;
 									timeWallDuration = elapsedTime + 10;
