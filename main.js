@@ -1833,7 +1833,7 @@ function animate() {
 									shieldActivate = false;
 									shield.visible = false;
 
-									obj2.position.z += 10;
+									obj2.position.z += 10; // reset the object position
 								} else{
 									let speedX2 = Math.sin(rotation) * (speed-0.3);
 									let speedZ2 = Math.cos(rotation) * (speed-0.3);
