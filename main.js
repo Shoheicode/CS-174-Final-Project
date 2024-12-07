@@ -1954,6 +1954,8 @@ function animate() {
 				800,
 				carMarker.position.z,
 			)
+
+			// have the minimap camera to look at the car marker position
 			minimapCamera.lookAt(carMarker.position);
 			renderer.render(minimapScene, minimapCamera);
 
