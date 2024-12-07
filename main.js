@@ -1195,19 +1195,33 @@ function checkCollision(obj1, obj2) {
 			completedCheckPoints.splice(indexToRemove, 1);
 		}
 
+		// If reaches the ending and completed check points are empty
 		if(obj2.name == "ENDING" && completedCheckPoints.length == 0){
+			// Set the laptimes to be empty
 			document.getElementById("lapTimes").innerHTML = ""
+
+			// Resest the completed checkpoints
 			completedCheckPoints = [... allCheckPoints];
+
+			// Used to keep track of lap times and figure out the lap times between
 			if(prevTime < 0){
 				lapTimes.push(elapsedTime+prevTime);
 			}else{
 				lapTimes.push(elapsedTime-prevTime);
 			}
+
+			// set the prevTime to elapsedTime
 			prevTime = elapsedTime;
+
+			// Has the lapcount increase
 			lapCount++;
+
+			// Updates the laptime code
 			lapTimes.forEach(function(time, index){
 				document.getElementById("lapTimes").innerText += `Lap ${index+1}` + `: ${formatTime(time)}s` + '\n';
 			})
+
+			// Completed lap is true
 			completedLap = true;
 
 			// reset currentDeaths
