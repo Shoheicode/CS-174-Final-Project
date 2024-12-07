@@ -1690,6 +1690,8 @@ function animate() {
 						)
 
 						cube2.userData.obb = new OBB();
+
+						// Position the power-up randomly around the floor
 						cube2.position.z = obj.position.y+6+2.5;
 						cube2.position.y = ((Math.random()-0.5)*2)*5;
 						cube2.position.x = ((Math.random()-0.5)*2)*5;
