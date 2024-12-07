@@ -1861,8 +1861,7 @@ function animate() {
 				carMesh.rotation.y = rotation + Math.PI
 			}
 
-
-
+			// Check if the wall activate and if so, update player position if colliding with wall
 			if (wallActivate) {
 				for (let i = 0; i < walls.length; i++) {
 					if (checkCollision(player, walls[i])) {
