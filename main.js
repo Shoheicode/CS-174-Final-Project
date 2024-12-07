@@ -339,6 +339,7 @@ player.add(leftTarget, rightTarget);
 leftTarget.position.set(-0.75, 0.75, -3); // Extend target forward
 rightTarget.position.set(0.75, 0.75, -3);
 
+// Set the left and right headlights to follow the target
 leftHeadlight.target = leftTarget
 rightHeadlight.target = rightTarget;
 
