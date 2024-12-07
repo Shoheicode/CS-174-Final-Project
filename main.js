@@ -1249,10 +1249,12 @@ function checkCollision(obj1, obj2) {
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
 
-	
+	// Check if the two OBBs intersect.
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+		// return true if touching ground
 		return true;
     } else {
+		// return false if touching ground
 		return false;
     }
  }
