@@ -1651,7 +1651,7 @@ function animate() {
 
 			floors.forEach(function (obj, index) {
 				if(!touchGround){
-					if(playerTouchingGround(player, obj)){
+					if(playerTouchingGround(player, obj)){ // check if they are touching the floors/ground
 						if(player.position.y < obj.position.y + 2.5){ // if going at it from the side or below, don't allow character to go onto the platform
 							collide = true;
 							touchGround = false;
@@ -1659,7 +1659,7 @@ function animate() {
 							speedZ = 0;
 							speed = 0;
 						}
-						else{
+						else{ // Otherwise
 							player.position.y = obj.position.y + 0.74+2.5; // puts the player up
 							currentTile = obj; //set the current tile as the current obj they are on
 							speedY = 0;
