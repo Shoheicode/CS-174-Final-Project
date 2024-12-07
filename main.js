@@ -1121,13 +1121,14 @@ function disposeMesh(mesh) {
 
 // Delete the map
 function deleteMap(){
-	let deleteObj = []
+	let deleteObjs = []
 
 	scene.children.forEach((obj)=>{
-		deleteObj.push(obj)
+		deleteObjs.push(obj)
 	})
 
-	deleteObj.forEach((obj)=>{
+	// for each of the objects 
+	deleteObjs.forEach((obj)=>{
 		scene.remove(obj)
 		disposeMesh(obj)
 	})
