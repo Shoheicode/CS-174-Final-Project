@@ -152,7 +152,7 @@ let isSoundLoaded = false;
 audLoader.load('Assets/Sounds/spaceMusic.mp3', function (buffer) {
     music.setBuffer(buffer);
     music.setLoop(true);
-    music.setVolume(0.3);
+    music.setVolume(0.4);
 	isSoundLoaded = true;
 }, undefined, function (error) {
     console.error("Error loading sound file:", error);
@@ -1230,6 +1230,9 @@ function reset(){
 	deaths = 0;
 	currentDeaths = 0;
 	offset = 0
+	powerupActivate = false;
+	shieldActivate = false;
+	shield.visible = false;
 }
 
 document.addEventListener("keydown", onDocumentKeyDown, false);
@@ -1403,6 +1406,7 @@ document.getElementById("HOMEBTN").onclick = function(){{
 	document.getElementById("leaderboard").style.display = "none";
 	document.getElementById("time").innerText = "";
 	pause = false;
+	music.stop()
 }}
 
 document.getElementById("LEVELSELECT").onclick = function(){{
@@ -1415,6 +1419,7 @@ document.getElementById("LEVELSELECT").onclick = function(){{
 	document.getElementById("leaderboard").style.display = "none";
 	document.getElementById("time").innerText = "";
 	pause = false;
+	music.stop()
 }}
 
 document.getElementById("CHARACTER").onclick = function(){{
@@ -1427,6 +1432,7 @@ document.getElementById("CHARACTER").onclick = function(){{
 	document.getElementById("leaderboard").style.display = "none";
 	document.getElementById("time").innerText = "";
 	pause = false;
+	music.stop()
 }}
 
 function outOfBounds(){
@@ -1692,12 +1698,11 @@ function animate() {
 									shield.visible = false;
 
 									// increment death counters
-									deaths++;
-									currentDeaths++;
-									offset+=5
+									// deaths++;
+									// currentDeaths++;
+									// offset+=5
 
 									obj2.position.z += 10;
-									console.log('DEATHS')
 								} else{
 									let speedX2 = Math.sin(rotation) * (speed-0.3);
 									let speedZ2 = Math.cos(rotation) * (speed-0.3);
@@ -1738,8 +1743,8 @@ function animate() {
 			if (wallActivate) {
 				for (let i = 0; i < walls.length; i++) {
 					if (checkCollision(player, walls[i])) {
-						let speedX2 = Math.sin(rotation) * (speed-0.3);
-						let speedZ2 = Math.cos(rotation) * (speed-0.3);
+						let speedX2 = Math.sin(rotation) * (speed-1);
+						let speedZ2 = Math.cos(rotation) * (speed-1);
 						if ((walls[i].name == "U" && player.position.x - speedX2 > walls[i].position.x) || (walls[i].name == "D" && player.position.x - speedX2 < walls[i].position.x)) {
 							player.position.x -= (speedX2);
 							player.position.z -= (speedZ2);
