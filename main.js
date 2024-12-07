@@ -565,6 +565,7 @@ function createMap(mapGiven){
 					mat
 				)
 				
+				// Update the track mat copy
 				let trackMatCopy = trackMaterial.clone()
 
 				let trackCopy = new THREE.Mesh(planeForTrack, trackMatCopy)
