@@ -1156,7 +1156,11 @@ function checkCollision(obj1, obj2) {
     // This adjusts the OBB to match the object's current position and orientation in the world.
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
-    if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+    
+	// Check if the two OBBs intersect.
+	if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+		// If a shield is not active, set a global variable `collide` to true.
+        // This may be used elsewhere in the code to handle collision events.
 		if (!shieldActivate) {
 			collide = true;
 		}
