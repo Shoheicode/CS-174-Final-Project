@@ -129,8 +129,7 @@ const bgTexture = textureLoader.load('Assets/Images/39608.jpg');
 // Sets the background
 scene.background = bgTexture;
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-camera.frustumCulled = true
-
+camera.frustumCulled = true // Does not render things not shown by the camera
 
 // Sound Effects
 const audListener = new THREE.AudioListener();
@@ -184,6 +183,7 @@ const speedTexture = textureLoader.load('Assets/Images/powerup/powerUp1Texture.p
 const shieldTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
 
 const wallPowTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
+
 // Power Up Materials
 const speedMat = new THREE.MeshBasicMaterial({ 
 	map: speedTexture,
@@ -209,12 +209,12 @@ const timeDecTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture
 // Finish Line Texture
 const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
 
-// finishTexture.wrapS = THREE.RepeatWrapping;
-// finishTexture.wrapT = THREE.RepeatWrapping;
-// finishTexture.repeat.set(1, 1);
+finishTexture.wrapS = THREE.RepeatWrapping;
+finishTexture.wrapT = THREE.RepeatWrapping;
+finishTexture.repeat.set(1, 1);
+// https://www.istockphoto.com/bot-wall?returnUrl=%2Fphotos%2Ffinish-line (Where we got finishline texture)
 
-// https://www.istockphoto.com/bot-wall?returnUrl=%2Fphotos%2Ffinish-line
-
+// Creates the car mesh
 let carMesh;
 let carChoice = 'Assets/Models/car.glb'
 let carPlayer = ""
@@ -245,7 +245,7 @@ function loadGLTF() {
 	
 }
 
-// Orthongraphic Camera
+// Orthongraphic Camera for minimap camera
 const minimapCamera = new THREE.OrthographicCamera(
 	-50, 50, 50, -50, 1, 1000 // Adjust these values based on your track size
 );
@@ -254,8 +254,6 @@ minimapCamera.position.set(0, 800, 0); // Position above the track
 const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x404040 });
 const planeForTrack = new THREE.PlaneGeometry(20, 20)
 const plane = new THREE.Mesh(planeForTrack, trackMaterial)
-
-// const track = new THREE.Mesh(trackGeometry, trackMaterial);
 
 plane.position.y = 500
 plane.rotateX(-Math.PI/2)
