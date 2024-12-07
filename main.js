@@ -1672,6 +1672,7 @@ function animate() {
 			// If a lap is completed, regenerates power-ups on the floors
 			if(completedLap){
 				powerUpsFloors.forEach(function (obj, index) {
+					 // Check if the current floor has no child objects (aka no existing power-ups)
 					if (obj["children"].length == 0){
 						let mat2 = matSphere.clone()
 
