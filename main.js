@@ -1362,6 +1362,7 @@ document.getElementById("fluxButton").onclick = function() {{
 
 // Checks when the level 1 button is clicked
 document.getElementById("level1").onclick = function() {{
+	// Sets up the level 
 	currentState="Map1";
 	currentMap = map;
 	reset();
@@ -1383,6 +1384,7 @@ document.getElementById("level1").onclick = function() {{
 
 // Checks when the level 2 button is clicked
 document.getElementById("level2").onclick = function() {{
+	// Sets up the level 
 	currentState="Map2";
 	currentMap = map2;
 	reset();
@@ -1401,6 +1403,7 @@ document.getElementById("level2").onclick = function() {{
 
 // Checks when the level 3 button is clicked
 document.getElementById("level3").onclick = function() {{
+	// Sets up the level 
 	currentState="Map3";
 	currentMap = map3;
 	reset();
