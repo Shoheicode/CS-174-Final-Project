@@ -1727,7 +1727,7 @@ function animate() {
 								floorCopy.name = "timeIncFloor";
 							}
 						}
-						
+						// Add the newly created power-up sphere to the current floor
 						obj.add(cube2);
 					}
 				})
