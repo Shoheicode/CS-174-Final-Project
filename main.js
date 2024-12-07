@@ -1227,6 +1227,8 @@ function checkCollision(obj1, obj2) {
 			// reset currentDeaths
 			currentDeaths = 0;
 		}
+
+		// set touching ground to true and return true
 		touchGround = true;
 		return true;
     } else {
