@@ -398,9 +398,6 @@ for (let i = 0; i < numParticles; i++) { // add random positions to each particl
 
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(position, 3));
 
-// const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-// scene.add(particles);
-
 function animateParticles() {
 	const positions = particlesGeometry.attributes.position.array;
   
