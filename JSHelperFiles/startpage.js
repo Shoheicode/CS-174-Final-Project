@@ -4,6 +4,8 @@ import { formatTime } from "../main";
 const updateleaderboard = (bestTimes) => {
 	// Updates the s string
     let s = ""
+
+	// Goes through the best times and update the string
 	bestTimes.forEach((value, index)=>{
 		s += "<div class='leaderboard-entry'>";
 		if(index+1 == 1){
@@ -20,6 +22,7 @@ const updateleaderboard = (bestTimes) => {
 		s += "</div>"
 	})
 
+	// updates the leaderboard inner.html with that data.
 	document.getElementById("leaderboard").innerHTML += "<div class='leaderboard-title'>Leaderboard</div> " +s + "</div>";
 }
 
