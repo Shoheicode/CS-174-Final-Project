@@ -1467,6 +1467,7 @@ function outOfBounds(){
 	return false;
 }
 
+// Updates the mini map position based on the player's position
 function updateMinimap() {
 	// Update carMarker position based on player's car position
 	carMarker.position.x = player.position.x;
