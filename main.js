@@ -116,6 +116,10 @@ let brake = false;
 let touchGround = true;
 let waitTime = 0;
 
+// Asteroid Speeds
+let astFast = 0;
+let astSlow = 0;
+
 // init death counters
 let deaths = 0;
 let currentDeaths = 0;
@@ -522,21 +526,19 @@ let floorCopy = new THREE.Mesh(
 
 let trackMatCopy1 = trackMaterial.clone()
 
-let trackCopy1 = new THREE.Mesh(planeForTrack, trackMatCopy1)
-
 const floorTexture = new THREE.TextureLoader().load('Assets/Images/road/road.png');
 
 const rockTexture = new THREE.TextureLoader().load('Assets/Images/road/rockmap.png')
 // floorTexture.minFilter = THREE.LinearFilter;
 // rockTexture.minFilter = THREE.LinearFilter;
 
-// floorTexture.wrapS = THREE.RepeatWrapping;
-// floorTexture.wrapT = THREE.RepeatWrapping;
-// floorTexture.repeat.set(1, 1);
+floorTexture.wrapS = THREE.RepeatWrapping;
+floorTexture.wrapT = THREE.RepeatWrapping;
+floorTexture.repeat.set(1, 1);
 
-// rockTexture.wrapS = THREE.RepeatWrapping;
-// rockTexture.wrapT = THREE.RepeatWrapping;
-// rockTexture.repeat.set(1, 1);
+rockTexture.wrapS = THREE.RepeatWrapping;
+rockTexture.wrapT = THREE.RepeatWrapping;
+rockTexture.repeat.set(1, 1);
 
 const mat = new THREE.MeshPhongMaterial();
 mat.castShadow = false;
@@ -1371,6 +1373,10 @@ document.getElementById("level1").onclick = function() {{
 	clock.start()
 	playMusic();
 
+	// Changing speed based on level (slowest speed)
+	astFast = -0.06
+	astSlow = 0.03
+
 }}
 document.getElementById("level2").onclick = function() {{
 	currentState="Map2";
@@ -1384,6 +1390,9 @@ document.getElementById("level2").onclick = function() {{
 	})
 	clock.start()
 	playMusic();
+	// Changing speed based on level (medium speed)
+	astFast = -0.08
+	astSlow = 0.05
 }}
 document.getElementById("level3").onclick = function() {{
 	currentState="Map3";
@@ -1397,6 +1406,9 @@ document.getElementById("level3").onclick = function() {{
 	})
 	clock.start()
 	playMusic();
+	// Changing speed based on level (fastest speed)
+	astFast = -0.1
+	astSlow = 0.07
 }}
 document.getElementById("HOMEBTN").onclick = function(){{
 	currentState = "Start";
@@ -1647,9 +1659,9 @@ function animate() {
 				obj["children"].forEach(function(obj2, index){
 					if(!obj2.name.startsWith("POWERUP") && !touchingGround(obj2, obj)){
 						if(obj2.name =="fast"){
-							obj2.position.z -= 0.06
+							obj2.position.z -= astFast
 						}else{
-							obj2.position.z -= 0.03
+							obj2.position.z -= astSlow
 						}
 					}
 					else if(!obj2.name.startsWith("POWERUP") && touchingGround(obj2, obj)){
