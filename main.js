@@ -271,7 +271,6 @@ const carMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 const carMarker = new THREE.Mesh(carMarkerGeometry, carMarkerMaterial);
 minimapScene.add(carMarker);
 minimapCamera.lookAt(carMarker.position);
-// minimapCamera.rotation.set(0,-Math.PI/2,Math.PI)
 
 const renderer = new THREE.WebGLRenderer({antialias: false});
 renderer.setSize( window.innerWidth, window.innerHeight );
