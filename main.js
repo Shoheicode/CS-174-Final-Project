@@ -516,21 +516,21 @@ let allCheckPoints = []
 
 let checkpointNum = 0;
 
+// Sets the xVal and zVal that will help set up our code later on
 let xVal = 0;
 let zVal = 0;
 
+// create the first floor that will be used for everything
 let floorCopy = new THREE.Mesh(
 	floorGeo,
 	new THREE.MeshBasicMaterial({ color: 0xaec6cf, wireframe: true })
 )
 
-let trackMatCopy1 = trackMaterial.clone()
-
+// Import the floor texture from the map
 const floorTexture = new THREE.TextureLoader().load('Assets/Images/road/road.png');
 
+// Import the rock texture from the assets
 const rockTexture = new THREE.TextureLoader().load('Assets/Images/road/rockmap.png')
-// floorTexture.minFilter = THREE.LinearFilter;
-// rockTexture.minFilter = THREE.LinearFilter;
 
 floorTexture.wrapS = THREE.RepeatWrapping;
 floorTexture.wrapT = THREE.RepeatWrapping;
