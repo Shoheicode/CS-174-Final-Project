@@ -1305,9 +1305,10 @@ document.getElementById('text').addEventListener('input', function() {
 
 // when the submit button is clicked
 document.getElementById("SUBMIT").onclick = function() {{
+	// Checks if the name is empty
 	if(name == ""){
 
-	}else{
+	}else{ // Otherwise, checks if the name is valid
 		checkDocumentExists(name).then((value) =>{
 			if(value){
 				const errorMessage = document.getElementById('errorMessage');
@@ -1332,6 +1333,7 @@ document.getElementById("SUBMIT").onclick = function() {{
 }
 };
 
+// Checks when the nova button is being pressed
 document.getElementById("novaButton").onclick = function() {{
 	document.getElementById("bodyContainer2").style.display = "none";
 	currentState = "Level Select";
@@ -1340,6 +1342,7 @@ document.getElementById("novaButton").onclick = function() {{
 	carPlayer = "nova"
 }}
 
+// Checks when the zenith button is clicked
 document.getElementById("zenithButton").onclick = function() {{
 	document.getElementById("bodyContainer2").style.display = "none";
 	currentState = "Level Select";
@@ -1348,6 +1351,7 @@ document.getElementById("zenithButton").onclick = function() {{
 	carPlayer = "zenith"
 }}
 
+// Checks when the flux button is clicked
 document.getElementById("fluxButton").onclick = function() {{
 	document.getElementById("bodyContainer2").style.display = "none";
 	currentState = "Level Select";
@@ -1355,6 +1359,7 @@ document.getElementById("fluxButton").onclick = function() {{
 	carChoice = 'Assets/Models/carTeal.glb';
 	carPlayer = "flux"
 }}
+
 
 document.getElementById("level1").onclick = function() {{
 	currentState="Map1";
