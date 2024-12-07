@@ -272,11 +272,22 @@ const carMarker = new THREE.Mesh(carMarkerGeometry, carMarkerMaterial);
 minimapScene.add(carMarker);
 minimapCamera.lookAt(carMarker.position);
 
-const renderer = new THREE.WebGLRenderer({antialias: false});
-renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setAnimationLoop( animate );
-document.body.appendChild( renderer.domElement );
+// Create a WebGL renderer for rendering 3D scenes using WebGL.
+const renderer = new THREE.WebGLRenderer({ antialias: false });
 
+// Set the size of the rendering area to match the full width and height of the browser window.
+// This determines the resolution of the rendering.
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+// Set the animation loop function for the renderer.
+// This function, `animate`, will be called repeatedly to update and render the scene.
+renderer.setAnimationLoop(animate);
+
+// Append the renderer's output (a canvas element) to the document's body.
+// This allows the rendered 3D content to be visible on the webpage.
+document.body.appendChild(renderer.domElement);
+
+// Helps with resize process
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
