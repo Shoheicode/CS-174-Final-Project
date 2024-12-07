@@ -1123,6 +1123,7 @@ function disposeMesh(mesh) {
 function deleteMap(){
 	let deleteObjs = []
 
+	// Adds from the scene to delete obj
 	scene.children.forEach((obj)=>{
 		deleteObjs.push(obj)
 	})
