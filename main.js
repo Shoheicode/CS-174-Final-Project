@@ -1661,7 +1661,7 @@ function animate() {
 						}
 						else{
 							player.position.y = obj.position.y + 0.74+2.5; // puts the player up
-							currentTile = obj;
+							currentTile = obj; //set the current tile as the current obj they are on
 							speedY = 0;
 						}
 					}
