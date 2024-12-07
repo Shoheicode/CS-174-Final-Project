@@ -1079,6 +1079,8 @@ function createMap(mapGiven){
 			}
 		}
 	}
+
+	// Reverse the order for the map
 	completedCheckPoints.sort().reverse()
 	allCheckPoints.sort().reverse()
 	createMapB = true;
