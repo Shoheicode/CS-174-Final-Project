@@ -1239,10 +1239,17 @@ function checkCollision(obj1, obj2) {
 
  // Used to check if asteroids are touching the ground
  function touchingGround(obj1, obj2) {
+	// Copy the geometry's OBB (Oriented Bounding Box) to the object's user data OBB.
+    // This ensures the OBB data is up-to-date with the object's geometry.
 	obj1.userData.obb.copy(obj1.geometry.userData.obb)
     obj2.userData.obb.copy(obj2.geometry.userData.obb)
+
+	// Apply the object's transformation matrix (position, rotation, scale) to its OBB.
+    // This adjusts the OBB to match the object's current position and orientation in the world.
     obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
+
+	
     if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
 		return true;
     } else {
