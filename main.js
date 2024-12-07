@@ -1678,7 +1678,10 @@ function animate() {
 						// Clone a base material for the new power-up sphere
 						let mat2 = matSphere.clone()
 
+						// Create a new sphere mesh for the power-up
 						let cube1 = new THREE.Mesh( sphereGeo, mat2 );
+
+						// Clone the sphere mesh to create a new instance
 						let cube2 = cube1.clone()
 
 						cube2.geometry.userData.obb = new OBB().fromBox3(
