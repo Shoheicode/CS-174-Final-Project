@@ -514,8 +514,6 @@ let powerUpsFloors = []
 let completedCheckPoints = []
 let allCheckPoints = []
 
-let checkpointNum = 0;
-
 // Sets the xVal and zVal that will help set up our code later on
 let xVal = 0;
 let zVal = 0;
@@ -615,7 +613,6 @@ function createMap(mapGiven){
 					floorCopy.name = mapGiven[i+10][j+10];
 					completedCheckPoints.push(floorCopy.name)
 					allCheckPoints.push(floorCopy.name)
-					checkpointNum++;
 					floorCopy.material.normalMap = floorTexture;
 					floorCopy.material.color.setRGB(64/255, 64/255, 64/255);
 					
@@ -1296,8 +1293,6 @@ function onKeyUp(e) {
 			break;
 		case 32: // Space bar
 			brake = false;
-		case 83:
-			goBackwards = false;
 		case 32: // space
 			break;
 	}
@@ -1513,6 +1508,10 @@ function animate() {
 				update = false;
 			}
 
+			let time = clock.getElapsedTime();
+			elapsedTime = Math.floor(time) + offset;
+			document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
+
 			if(raceOver){
 				elapsedTime = Math.floor(time) + offset;
 				if(elapsedTime > waitTime){
@@ -1535,9 +1534,6 @@ function animate() {
 			}
 
 			// if (elapsedTime > delay){
-			let time = clock.getElapsedTime();
-			elapsedTime = Math.floor(time) + offset;
-			document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
 			
 			// track # of deaths
 			document.getElementById("deaths").innerText = `Deaths: ${currentDeaths} (Total: ${deaths})`;
