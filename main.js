@@ -65,14 +65,16 @@ let name = ""
 let startX = 0;
 let startZ = 0;
 
-//
+// Important for keeping track of laps
 let lapCount = 0;
 let lapTimes = []
+
+// Elapsed Time and keeps track of the amount of time elapsed in game
 let elapsedTime = 0;
 let prevTime = 0;
 let offset = 0; // for powerup
 
-// For best times
+// For best times from Firebase
 let update = true;
 let bestTimes = []
 
