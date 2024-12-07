@@ -1478,6 +1478,7 @@ function updateMinimap() {
 	carMarker.position.y = 500
 }
 
+// Code to help format the time
 function formatTime(seconds) {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -1501,6 +1502,7 @@ function formatTime(seconds) {
     return `${hoursStr}:${minutesStr}:${secondsStr}`;
 }
 
+// exports to be use in firebase
 export {formatTime}
 
 function animate() {
