@@ -1846,14 +1846,14 @@ function animate() {
 				})
 			})
 
-			// Check if they collide
+			// Check if they collide and if not update the position with speed
 			if(!collide){
 				player.rotation.y = rotation;
 				player.position.z += speedZ;
 				player.position.x += speedX;
 			}
 
-			// Check is the car mesh exists
+			// Check is the car mesh exists and if so, update the position
 			if(carMesh){
 				carMesh.position.x = player.position.x;
 				carMesh.position.y = player.position.y-0.25;
