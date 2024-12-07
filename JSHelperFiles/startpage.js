@@ -1,6 +1,8 @@
 import { formatTime } from "../main";
 
+// Updates the leaderboard
 const updateleaderboard = (bestTimes) => {
+	// Updates the s string
     let s = ""
 	bestTimes.forEach((value, index)=>{
 		s += "<div class='leaderboard-entry'>";
