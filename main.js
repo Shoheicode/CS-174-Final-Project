@@ -1779,8 +1779,9 @@ function animate() {
 					}
 					// If the object is not a POWERUP and is touching the ground
 					else if(!obj2.name.startsWith("POWERUP") && touchingGround(obj2, obj)){
+						 // Adjust position for "fast" and "slow" objects
 						if(obj2.name =="fast" || obj2.name == "slow"){
-							obj2.position.z += 10
+							obj2.position.z += 10 // Push objects upwards (or reset position)
 						}
 					}
 
