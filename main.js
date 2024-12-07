@@ -1835,6 +1835,7 @@ function animate() {
 
 									obj2.position.z += 10; // reset the object position
 								} else{
+									// Handle collisions with other objects
 									let speedX2 = Math.sin(rotation) * (speed-0.3);
 									let speedZ2 = Math.cos(rotation) * (speed-0.3);
 									if(speedX2 < 0){
