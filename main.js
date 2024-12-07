@@ -58,15 +58,14 @@ let currentMap = null;
 // The clock from THREE.js that helps us keep track of time.
 let clock = new THREE.Clock();
 
+// Sets the name for the character that we send to backend
 let name = ""
-
-let zOffset = 5;
-let yOffset = 5;
 
 // The starting x and z values for the code
 let startX = 0;
 let startZ = 0;
 
+//
 let lapCount = 0;
 let lapTimes = []
 let elapsedTime = 0;
