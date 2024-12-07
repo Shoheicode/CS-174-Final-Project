@@ -1888,8 +1888,8 @@ function animate() {
 				}
 			}
 
+			// Make each of the cubes go up and down
 			cubes.forEach((cube2) => {
-				// console.log(cube2.name)
         		if (cube2 && (cube2.name == "POWERUPSPEED" || cube2.name == "POWERUPSHIELD")) {
             			cube2.position.z = Math.sin(time * (2 * Math.PI * 1.0 / 2.0)) * 0.5 + 4.5; // Power-ups float up and down
         		}
