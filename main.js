@@ -1823,6 +1823,7 @@ function animate() {
 							// If the shield is not active
 							if (!shieldActivate) {
 								if(obj2.name =="fast" || obj2.name =="slow"){
+									// Reset player's position and deactivate powerups conditions
 									player.position.x = currentTile.position.x;
 									player.position.z = currentTile.position.z;
 									player.position.y = -1.5;
