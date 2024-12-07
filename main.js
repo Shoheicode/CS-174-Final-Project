@@ -1416,6 +1416,8 @@ document.getElementById("level3").onclick = function() {{
 	astFast = -0.1
 	astSlow = 0.07
 }}
+
+// Runs when the home btn is presseds
 document.getElementById("HOMEBTN").onclick = function(){{
 	currentState = "Start";
 	document.getElementById("checkin").style.display = "block";
