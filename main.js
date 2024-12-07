@@ -1502,7 +1502,7 @@ function formatTime(seconds) {
     return `${hoursStr}:${minutesStr}:${secondsStr}`;
 }
 
-// exports to be use in firebase
+// exports to be use in update start page
 export {formatTime}
 
 function animate() {
