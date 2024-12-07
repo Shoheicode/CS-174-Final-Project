@@ -1072,6 +1072,7 @@ function createMap(mapGiven){
 	player.position.set(startX,-1.5,startZ);
 }
 
+// Helps remove unecessary meshes to allow prevent data
 function disposeMesh(mesh) {
     if (mesh.geometry) {
         mesh.geometry.dispose();
@@ -1259,6 +1260,7 @@ function checkCollision(obj1, obj2) {
     }
  }
 
+ // reset function
 function reset(){
 	speed = 0;
 	speedY = 0;
