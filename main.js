@@ -1675,6 +1675,7 @@ function animate() {
 				powerUpsFloors.forEach(function (obj, index) {
 					 // Check if the current floor has no child objects (aka no existing power-ups)
 					if (obj["children"].length == 0){
+						// Clone a base material for the new power-up sphere
 						let mat2 = matSphere.clone()
 
 						let cube1 = new THREE.Mesh( sphereGeo, mat2 );
