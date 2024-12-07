@@ -1142,6 +1142,7 @@ function deleteMap(){
 		}
 	})
 	
+	// Resets the the floors are empty
 	floors = []
 }
 
