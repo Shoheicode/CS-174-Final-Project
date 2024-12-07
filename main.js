@@ -588,7 +588,6 @@ function createMap(mapGiven){
 				floorCopy.rotateX(-Math.PI / 2)
 				let mat2;
 				let cube1;
-				// let cube2;
 
 				//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
 				if(mapGiven[i+10][j+10] != "SP"){
