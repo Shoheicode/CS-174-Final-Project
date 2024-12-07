@@ -1937,7 +1937,6 @@ function animate() {
 			renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
 			renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
 			renderer.setScissorTest(true);
-			// renderer.setPixelRatio(0.1); // Reduces rendering resolution to improve performance
 			renderer.render( scene, camera );
 
 			updateMinimap()
