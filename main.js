@@ -1373,6 +1373,7 @@ document.getElementById("level1").onclick = function() {{
 		bestTimes = value;
 	})
 
+	// Starts the clock and starts playing music
 	clock.start()
 	playMusic();
 
@@ -1394,6 +1395,8 @@ document.getElementById("level2").onclick = function() {{
 	getBestLapTimes(currentState).then((value) =>{
 		bestTimes = value;
 	})
+
+	// Starts the clock and starts playing music
 	clock.start()
 	playMusic();
 	// Changing speed based on level (medium speed)
@@ -1413,6 +1416,8 @@ document.getElementById("level3").onclick = function() {{
 	getBestLapTimes(currentState).then((value) =>{
 		bestTimes = value;
 	})
+	
+	// Starts the clock and starts playing music
 	clock.start()
 	playMusic();
 	// Changing speed based on level (fastest speed)
