@@ -498,9 +498,12 @@ let map3 = [
 	["FCDL","FR","C4R","DR","FCRD","ES","ES","FCDL","IR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
+// Sets the current tile for our game to keep track when player falls off
 let currentTile = null;
 
+// Helps keep track of all the floors when checking collisions on each floor
 let floors = []
+// Helps keep track of all powerup floors
 let powerUpsFloors = []
 
 // floors.push(floor);
