@@ -559,6 +559,7 @@ function createMap(mapGiven){
 				xVal = 20 * i
 				zVal = 20 * j
 
+				// Create the floor mesh
 				let floorCopy = new THREE.Mesh(
 					floorGeo,
 					mat
