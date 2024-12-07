@@ -1790,8 +1790,8 @@ function animate() {
 						// Check if the player collides with a POWERUP object
 						if(checkCollision(player, obj2) && (obj2.name.startsWith("POWERUP"))) {
 							if (obj2.name == "POWERUPSPEED") {
-								powerupActivate = true
-								timePowerupDuration = elapsedTime + 5;
+								powerupActivate = true; // Activate speed powerup
+                    			timePowerupDuration = elapsedTime + 5; // Set duration
 							}
 							else if (obj2.name == "POWERUPDECREASE") {
 								offset -= 10;
