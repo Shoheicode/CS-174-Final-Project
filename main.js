@@ -1957,6 +1957,8 @@ function animate() {
 
 			// have the minimap camera to look at the car marker position
 			minimapCamera.lookAt(carMarker.position);
+
+			// add the mini map scene and camera to the render
 			renderer.render(minimapScene, minimapCamera);
 
 			//Checks if the player completed all the laps
