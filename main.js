@@ -1034,6 +1034,8 @@ function createMap(mapGiven){
 
 						// generates a random numbers
 						let num = Math.random()
+
+						// Around 50% of the time it spawns
 						if(num >=0.50){
 							cube2.name = "fast";
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
@@ -1043,7 +1045,7 @@ function createMap(mapGiven){
 							floorCopy.add(cube2)
 							cube2.material.normalMap = rockTexture;
 							cube2.material.color.setRGB(1, 1, 0.5)
-						}else if (num >=0.20){
+						}else if (num >=0.20){ // Around 30% of the time is spawns
 							cube2.name = "slow";
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
 							cube2.add(particles);
@@ -1052,9 +1054,7 @@ function createMap(mapGiven){
 							floorCopy.add(cube2)
 							cube2.material.normalMap = rockTexture;
 							cube2.material.color.setRGB(1, 1, 0.5)
-						}else{
-							cube2.name = "stationary";
-							cube2.position.z -=10;
+						}else{ // Around of 20% of the time nothing happens
 							if (cube2.geometry) {
 								cube2.geometry.dispose();
 							}
