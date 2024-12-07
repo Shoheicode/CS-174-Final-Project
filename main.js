@@ -1787,6 +1787,7 @@ function animate() {
 
 					// If they had not collided with something, check if they collided so that it does stack
 					if(!collide){
+						// Check if the player collides with a POWERUP object
 						if(checkCollision(player, obj2) && (obj2.name.startsWith("POWERUP"))) {
 							if (obj2.name == "POWERUPSPEED") {
 								powerupActivate = true
