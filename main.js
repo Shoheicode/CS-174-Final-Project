@@ -1119,9 +1119,10 @@ function disposeMesh(mesh) {
     mesh = null; // Nullify to help garbage collection
 }
 
+// Delete the map
 function deleteMap(){
 	let deleteObj = []
-	let i = 0;
+
 	scene.children.forEach((obj)=>{
 		deleteObj.push(obj)
 	})
