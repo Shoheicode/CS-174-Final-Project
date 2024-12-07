@@ -1043,11 +1043,13 @@ function createMap(mapGiven){
 							// Creates the particles
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
 							cube2.add(particles);
-							particles.position.z +=2
-							particles.rotation.x = -Math.PI/2
-							floorCopy.add(cube2)
+							particles.position.z +=2;
+							particles.rotation.x = -Math.PI/2;
+
+							// add the cube to the floor
+							floorCopy.add(cube2);
 							cube2.material.normalMap = rockTexture;
-							cube2.material.color.setRGB(1, 1, 0.5)
+							cube2.material.color.setRGB(1, 1, 0.5);
 						}else if (num >=0.20){ // Around 30% of the time is spawns
 							// Creates the slow asteroid
 							cube2.name = "slow";
@@ -1055,11 +1057,13 @@ function createMap(mapGiven){
 							// Creates the particles
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
 							cube2.add(particles);
-							particles.position.z +=2
-							particles.rotation.x = -Math.PI/2
-							floorCopy.add(cube2)
+							particles.position.z +=2;
+							particles.rotation.x = -Math.PI/2;
+
+							// add the cube to the floor
+							floorCopy.add(cube2);
 							cube2.material.normalMap = rockTexture;
-							cube2.material.color.setRGB(1, 1, 0.5)
+							cube2.material.color.setRGB(1, 1, 0.5);
 						}else{ // Around of 20% of the time nothing happens
 							if (cube2.geometry) {
 								cube2.geometry.dispose();
