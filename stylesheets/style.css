@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 #deaths {
 	position: absolute;
     bottom: 24%;
@@ -49,33 +51,17 @@
     background-color: blue;
 }
 
-#text{
-	position: absolute;
-	/* top: 80%; */
-    bottom: 50%;
-	width: 100%;
-	text-align: center;
-	z-index: 100;
-	display:block;
-    color: white;
-	font-size: 100px;
-    background-color: blue;
-}
-
 #text::placeholder{
 	color: lightgrey;
 }
 
-#SUBMIT{
+/* #leaderboard{
+	font-family: 'Oxanium';
 	position: absolute;
-	/* top: 80%; */
-    bottom: 30%;
-	left: 40%;
+	top: 5%;
+	left: 5%;
 	width: 20%;
-	text-align: center;
-	z-index: 100;
-	display:block;
-    color: white;
-	font-size: 20px;
-    background-color: blue;
-}
+	height: 20%;
+	background: rgba(76, 175, 80, 0.5);
+	color: black;
+} */

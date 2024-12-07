@@ -6,16 +6,131 @@
 		<style>
 			body { margin: 0; }
 		</style>
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="stylesheets/style.css">
+		<link rel="stylesheet" href="stylesheets/leaderboard.css">
+		<link rel="stylesheet" href="stylesheets/startscreen.css">
+		<link rel="stylesheet" href="stylesheets/levelselection.css">
+		<link rel="stylesheet" href="stylesheets/pause.css">
+		<link rel="stylesheet" href="stylesheets/characterselect.css">
 	</head>
 	<body>
+		<div id="leaderboard" style="display: none;"></div>
 		<div id="deaths"></div>
 		<div id="time"></div>
 		<div id="lapTimes"></div>
 		<div id="Finished"></div>
 		<!-- <div id></div> -->
-		<input id="text" type="text" placeholder="Name?">
-		<button id = "SUBMIT">SUBMIT</button>
+		 <div id="checkin">
+		<div class="check-in-container">
+			<div class="title">RACE CHECK-IN</div>
+			<div class="input-group">
+                <label>Driver Name</label>
+                <input type="text" id="text" placeholder="Enter your name" required>
+				<div class="error-message" id="errorMessage">Driver name already exists!</div>
+				<button class="btn" id = "SUBMIT" type="submit">Check In</button>
+            </div>
+		</div>
+		</div>
+		<div id="bodyContainer" style="display: none">
+			<div id = "level-container">
+				<div id="level-content">
+					<h1>Select Level</h1>
+					<div class="level-container">
+						<div class="level" id="level1">
+							<span class="level-number">1</span>
+						</div>
+						<div class="level" id="level2">
+							<span class="level-number">2</span>
+						</div>
+						<div class="level" id="level3">
+							<span class="level-number">3</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pause-overlay" id="pauseScreen" style="display: none;">
+			<div class="pause-icon">⏸️</div>
+			<div class="pause-text">Game Paused</div>
+			<div class="pause-subtitle">Press ESC to continue</div>
+			<div class="pause-buttons">
+				<button class="pause-button" id = "HOMEBTN">Home Screen</button>
+				<button class="pause-button" id = "LEVELSELECT">Level Select</button>
+				<button class="pause-button" id = "CHARACTER">Character Select</button>
+			</div>
+		</div>
+		<div id="bodyContainer2" style="display: none;">
+			<div class="screen-title">Character Select</div>
+			<div class="character-select-container">
+				<div class="character-grid">
+					<div class="character-card" data-name="Nova">
+						<div class="character-background"></div>
+						<div class="character-image" style="background-image: url('Assets\Images\characterselect\bluecar.png');"></div>
+						<div class="character-name">Nova</div>
+						<div class="character-class">Speed Master</div>
+						<!-- <div class="character-stats">
+							<div class="stat-item">
+								<strong>Speed</strong>
+								<span>85%</span>
+							</div>
+							<div class="stat-item">
+								<strong>Power</strong>
+								<span>75%</span>
+							</div>
+							<div class="stat-item">
+								<strong>Defense</strong>
+								<span>60%</span>
+							</div>
+						</div> -->
+						<button class="select-button" id="novaButton">Select</button>
+					</div>
+
+					<div class="character-card" data-name="Zenith">
+						<div class="character-background"></div>
+						<div class="character-image" style="background-image: url('Assets\Images\characterselect\redcar.png');"></div>
+						<div class="character-name">Zenith</div>
+						<div class="character-class">Shield Specialist</div>
+						<!-- <div class="character-stats">
+							<div class="stat-item">
+								<strong>Speed</strong>
+								<span>65%</span>
+							</div>
+							<div class="stat-item">
+								<strong>Power</strong>
+								<span>50%</span>
+							</div>
+							<div class="stat-item">
+								<strong>Defense</strong>
+								<span>85%</span>
+							</div>
+						</div> -->
+						<button class="select-button" id="zenithButton">Select</button>
+					</div>
+
+					<div class="character-card" data-name="Flux">
+						<div class="character-background"></div>
+						<div class="character-image" style="background-image: url('Assets\Images\characterselect\tealcar.png');"></div>
+						<div class="character-name">Flux</div>
+						<div class="character-class">Barrier Operative</div>
+						<!-- <div class="character-stats">
+							<div class="stat-item">
+								<strong>Speed</strong>
+								<span>90%</span>
+							</div>
+							<div class="stat-item">
+								<strong>Power</strong>
+								<span>60%</span>
+							</div>
+							<div class="stat-item">
+								<strong>Defense</strong>
+								<span>50%</span>
+							</div>
+						</div> -->
+						<button class="select-button" id="fluxButton">Select</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<script type="module" src="/main.js"></script>
 	</body>
 </html>
