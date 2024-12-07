@@ -1990,8 +1990,8 @@ function animate() {
 				}
 			}
 
-			touchGround = false;
-			collide = false;
+			touchGround = false; // set touchGround to false
+			collide = false; // set collide to false
 			renderer.info.autoReset = true; // Automatically handle out-of-view rendering
 
 		}
