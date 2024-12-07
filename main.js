@@ -506,8 +506,6 @@ let floors = []
 // Helps keep track of all powerup floors
 let powerUpsFloors = []
 
-// floors.push(floor);
-
 let completedCheckPoints = []
 let allCheckPoints = []
 
