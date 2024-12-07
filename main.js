@@ -1533,6 +1533,7 @@ function animate() {
 			elapsedTime = Math.floor(time) + offset;
 			document.getElementById("time").innerText = `Time: ${formatTime(elapsedTime)}s`
 
+			// Checks if we the race is over and if so, run the finish line screen
 			if(raceOver){
 				elapsedTime = Math.floor(time) + offset;
 				if(elapsedTime > waitTime){
