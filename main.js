@@ -1765,6 +1765,7 @@ function animate() {
 			var speedX = Math.sin(rotation) * speed;
 			var speedZ = Math.cos(rotation) * speed;
 
+			// Go through each of the floor and update all the elements 
 			floors.forEach(function (obj, index) {
 				obj["children"].forEach(function(obj2, index){
 					if(!obj2.name.startsWith("POWERUP") && !touchingGround(obj2, obj)){
