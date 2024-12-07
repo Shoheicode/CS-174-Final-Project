@@ -1696,6 +1696,7 @@ function animate() {
 
 						// Assign properties and material based on the name of the powerup and the character
 						if(obj.name.startsWith("powerup")) {
+							// Handle different player cars and assign corresponding power-up
 							if(carPlayer == "nova"){
 								cube2.material = speedMat;
 								cube2.name = "POWERUPSPEED";
