@@ -1687,14 +1687,10 @@ function animate() {
 						cube2.position.x = ((Math.random()-0.5)*2)*5
 						if(obj.name.startsWith("powerup")) {
 							if(carPlayer == "nova"){
-								// cube2.material = new THREE.MeshBasicMaterial()
-								// cube2.material.map = speedTexture
 								cube2.material = speedMat;
 								cube2.name = "POWERUPSPEED";
 							}
 							else if(carPlayer=="zenith"){
-								// cube2.material = new THREE.MeshBasicMaterial()
-								// cube2.material.map = shieldTexture
 								cube2.material = shieldMat;
 								cube2.name = "POWERUPSHIELD";
 							}
