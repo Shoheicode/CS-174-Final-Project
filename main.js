@@ -590,6 +590,7 @@ function createMap(mapGiven){
 				let cube1;
 
 				//SO THAT THE MATERIALS DO NOT ALL LOOK THE SAME
+				// DO NOT SPAWN block at starting point
 				if(mapGiven[i+10][j+10] != "SP"){
 					mat2 = matSphere.clone()
 
