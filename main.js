@@ -332,8 +332,10 @@ rightHeadlight.position.set(0.75, 0.65, -1.7);
 const leftTarget = new THREE.Object3D();
 const rightTarget = new THREE.Object3D();
 
+// Add the targets to the player
 player.add(leftTarget, rightTarget);
 
+// Set the targets in front of the car
 leftTarget.position.set(-0.75, 0.75, -3); // Extend target forward
 rightTarget.position.set(0.75, 0.75, -3);
 
