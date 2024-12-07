@@ -1083,7 +1083,9 @@ function createMap(mapGiven){
 	// Reverse the order for the map (sort the map to keep track of the things)
 	completedCheckPoints.sort().reverse()
 	allCheckPoints.sort().reverse()
+	// Create the map
 	createMapB = true;
+	// set the player's position
 	player.position.set(startX,-1.5,startZ);
 }
 
