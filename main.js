@@ -16,6 +16,7 @@ function translationMatrix(tx, ty, tz) {
 	);
 }
 
+// Rotation Matirx around X-axis
 function rotationMatrixX(theta) {
     return new THREE.Matrix4().set(
         1, 0, 0, 0,
@@ -25,6 +26,7 @@ function rotationMatrixX(theta) {
     );
 }
 
+// Rotation Matrix  around Y axis
 function rotationMatrixY(theta) {
     return new THREE.Matrix4().set(
         Math.cos(theta), 0, Math.sin(theta), 0,
@@ -34,6 +36,7 @@ function rotationMatrixY(theta) {
     );
 }
 
+// Rotation Matrix around Z axis
 function rotationMatrixZ(theta) {
 	return new THREE.Matrix4().set(
 		Math.cos(theta), -Math.sin(theta), 0, 0,
