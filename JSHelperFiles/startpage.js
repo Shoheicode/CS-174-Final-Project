@@ -8,6 +8,7 @@ const updateleaderboard = (bestTimes) => {
 	// Goes through the best times and update the string
 	bestTimes.forEach((value, index)=>{
 		s += "<div class='leaderboard-entry'>";
+		// Changes the rank based on where it is (aka 1st, 2nd, 3rd)
 		if(index+1 == 1){
 			s += `<span class='rank'>${index+1}st</span>`
 		}
