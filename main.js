@@ -1823,11 +1823,6 @@ function animate() {
 									shieldActivate = false;
 									shield.visible = false;
 
-									// increment death counters
-									// deaths++;
-									// currentDeaths++;
-									// offset+=5
-
 									obj2.position.z += 10;
 								} else{
 									let speedX2 = Math.sin(rotation) * (speed-0.3);
