@@ -294,8 +294,10 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+// Adds listener to check for resize
 window.addEventListener('resize', onWindowResize, true);
 
+// Sphere Geometry
 const sphereGeo = new THREE.SphereGeometry(1, 32, 32);
 sphereGeo.computeBoundingBox()
 
