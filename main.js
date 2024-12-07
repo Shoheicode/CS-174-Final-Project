@@ -1767,14 +1767,17 @@ function animate() {
 
 			// Go through each of the floor and update all the elements within the floor like asteroids and powerups
 			floors.forEach(function (obj, index) {
+				// Loop through each floor object and the objects on the floor
 				obj["children"].forEach(function(obj2, index){
+					 // If the object is not a POWERUP and is not touching the ground
 					if(!obj2.name.startsWith("POWERUP") && !touchingGround(obj2, obj)){
 						if(obj2.name =="fast"){
-							obj2.position.z -= astFast
+							obj2.position.z -= astFast // Move fast objects faster
 						}else{
-							obj2.position.z -= astSlow
+							obj2.position.z -= astSlow // Move slow objects slower
 						}
 					}
+					// If the object is not a POWERUP and is touching the ground
 					else if(!obj2.name.startsWith("POWERUP") && touchingGround(obj2, obj)){
 						if(obj2.name =="fast" || obj2.name == "slow"){
 							obj2.position.z += 10
