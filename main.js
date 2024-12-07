@@ -1758,6 +1758,8 @@ function animate() {
 				}
 				dirRotation +=rSpeed;
 			}
+
+			// update the speed for the x and z direction
 			speed = -speed; 
 			var rotation = dirRotation;
 			var speedX = Math.sin(rotation) * speed;
