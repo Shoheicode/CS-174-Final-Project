@@ -579,6 +579,7 @@ function createMap(mapGiven){
 				trackCopy.matrix.copy(M)
 				trackCopy.matrixAutoUpdate = false;
 
+				// Create the OBB for the geometry
 				floorCopy.geometry.userData.obb = new OBB().fromBox3(
 					floorCopy.geometry.boundingBox
 				)
