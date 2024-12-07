@@ -1228,14 +1228,16 @@ function checkCollision(obj1, obj2) {
 			currentDeaths = 0;
 		}
 
-		// set touching ground to true and return true
+		// set touching ground to true and return true if player is touching ground
 		touchGround = true;
 		return true;
     } else {
+		// return false if the player is not touching the ground
 		return false;
     }
  }
 
+ // Used to check if asteroids are touching the ground
  function touchingGround(obj1, obj2) {
 	obj1.userData.obb.copy(obj1.geometry.userData.obb)
     obj2.userData.obb.copy(obj2.geometry.userData.obb)
