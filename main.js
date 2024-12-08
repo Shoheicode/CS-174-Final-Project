@@ -1269,7 +1269,7 @@ function checkCollision(player1, obj2) {
     asteroid.userData.obb.applyMatrix4(asteroid.matrixWorld)
 
 	// Check if the two OBBs intersect.
-    if (obj1.userData.obb.intersectsOBB(asteroid.userData.obb)) {
+    if (floorT.userData.obb.intersectsOBB(asteroid.userData.obb)) {
 		// return true if touching ground
 		return true;
     } else {
