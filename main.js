@@ -1177,19 +1177,19 @@ if(currentState == "Testing"){
 	reset();
 }
 
-function checkCollision(obj1, obj2) {
+function checkCollision(player1, obj2) {
 	// Copy the geometry's OBB (Oriented Bounding Box) to the object's user data OBB.
     // This ensures the OBB data is up-to-date with the object's geometry.
-	obj1.userData.obb.copy(obj1.geometry.userData.obb)
+	player1.userData.obb.copy(player1.geometry.userData.obb)
     obj2.userData.obb.copy(obj2.geometry.userData.obb)
 
 	// Apply the object's transformation matrix (position, rotation, scale) to its OBB.
     // This adjusts the OBB to match the object's current position and orientation in the world.
-    obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
+    player1.userData.obb.applyMatrix4(player1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
     
 	// Check if the two OBBs intersect.
-	if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+	if (player1.userData.obb.intersectsOBB(obj2.userData.obb)) {
 		// If a shield is not active, set a global variable `collide` to true.
         // This may be used elsewhere in the code to handle collision events.
 		if (!shieldActivate) {
@@ -1205,19 +1205,19 @@ function checkCollision(obj1, obj2) {
 
  let completedLap = false;
 
- function playerTouchingGround(obj1, obj2) {
+ function playerTouchingGround(player1, obj2) {
 	// Copy the geometry's OBB (Oriented Bounding Box) to the object's user data OBB.
     // This ensures the OBB data is up-to-date with the object's geometry.
-	obj1.userData.obb.copy(obj1.geometry.userData.obb)
+	player1.userData.obb.copy(player1.geometry.userData.obb)
     obj2.userData.obb.copy(obj2.geometry.userData.obb)
 
 	// Apply the object's transformation matrix (position, rotation, scale) to its OBB.
     // This adjusts the OBB to match the object's current position and orientation in the world.
-    obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
+    player1.userData.obb.applyMatrix4(player1.matrixWorld)
     obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
 
 	// Check if the two OBBs intersect.
-    if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+    if (player1.userData.obb.intersectsOBB(obj2.userData.obb)) {
 		// Checks if the player is touching the ground
 
 		// Only removes if the index matches the first in the list of completed checkpoints
@@ -1269,19 +1269,19 @@ function checkCollision(obj1, obj2) {
  }
 
  // Used to check if asteroids are touching the ground
- function touchingGround(obj1, obj2) {
+ function touchingGround(floorT, asteroid) {
 	// Copy the geometry's OBB (Oriented Bounding Box) to the object's user data OBB.
     // This ensures the OBB data is up-to-date with the object's geometry.
-	obj1.userData.obb.copy(obj1.geometry.userData.obb)
-    obj2.userData.obb.copy(obj2.geometry.userData.obb)
+	floorT.userData.obb.copy(floorT.geometry.userData.obb)
+    asteroid.userData.obb.copy(asteroid.geometry.userData.obb)
 
 	// Apply the object's transformation matrix (position, rotation, scale) to its OBB.
     // This adjusts the OBB to match the object's current position and orientation in the world.
-    obj1.userData.obb.applyMatrix4(obj1.matrixWorld)
-    obj2.userData.obb.applyMatrix4(obj2.matrixWorld)
+    floorT.userData.obb.applyMatrix4(floorT.matrixWorld)
+    asteroid.userData.obb.applyMatrix4(asteroid.matrixWorld)
 
 	// Check if the two OBBs intersect.
-    if (obj1.userData.obb.intersectsOBB(obj2.userData.obb)) {
+    if (obj1.userData.obb.intersectsOBB(asteroid.userData.obb)) {
 		// return true if touching ground
 		return true;
     } else {
