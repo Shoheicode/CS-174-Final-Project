@@ -88,9 +88,9 @@ let cameraShift = true;
 let powerupActivate = false;
 let timePowerupDuration = 0;
 
-// Cube:
-let cube2; // Change name to powerUps after successful testing
-const cubes = [];
+// interactive items (power-ups and obstacles):
+let item;
+const items = [];
 
 // init shield powerup
 let shieldActivate = false;
@@ -169,7 +169,7 @@ audLoader.load('Assets/Sounds/spaceMusic.mp3', function (buffer) {
     console.error("Error loading sound file:", error);
 });
 
-// Plays the music
+// Starts background music
 function playMusic() {
 	if (isSoundLoaded && !music.isPlaying) {
         	music.play();
@@ -179,13 +179,9 @@ function playMusic() {
 }
 
 
-// Power-Up Texture
-const powerupTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
-
+// Power-Up Textures
 const speedTexture = textureLoader.load('Assets/Images/powerup/powerUp1Texture.png');
-
 const shieldTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
-
 const wallPowTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
 
 // Power Up Materials
@@ -207,7 +203,6 @@ const wallPowMat = new THREE.MeshBasicMaterial({
 });
 
 const timeIncTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
-
 const timeDecTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
 
 // Finish Line Texture
@@ -229,7 +224,6 @@ function loadGLTF() {
 	carLoader.load(carChoice, (gltf) => {
 		carMesh = gltf.scene;
         carMesh.scale.set(1, 1, 1);
-        // carMesh.rotateZ(3.14);
         scene.add(carMesh)
 	});
 
@@ -287,11 +281,10 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 // This function, `animate`, will be called repeatedly to update and render the scene.
 renderer.setAnimationLoop(animate);
 
-// Append the renderer's output (a canvas element) to the document's body.
-// This allows the rendered 3D content to be visible on the webpage.
+// Append the renderer's output to the document's body.
 document.body.appendChild(renderer.domElement);
 
-// Helps with resize process
+// Resizes window
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -336,7 +329,7 @@ rightHeadlight.position.set(0.75, 0.65, -1.7);
 const leftTarget = new THREE.Object3D();
 const rightTarget = new THREE.Object3D();
 
-// Add the targets to the player
+// Add to the player
 player.add(leftTarget, rightTarget);
 
 // Set the targets in front of the car
@@ -368,7 +361,7 @@ wallTexture.wrapS = THREE.RepeatWrapping;
 wallTexture.wrapT = THREE.RepeatWrapping;
 wallTexture.repeat.set(1, 1);
 
-//Updated the boundary box in order to ensure that it includes the entire car
+// Updated the boundary box in order to ensure that it includes the entire car
 player.geometry.userData.obb = new OBB().fromBox3(
 	new THREE.Box3(new THREE.Vector3(-0.75, -0.75, -1.75),new THREE.Vector3(0.75, 0.75, 1.75))
 )
@@ -378,7 +371,7 @@ player.userData.obb = new OBB()
 const particlesGeometry = new THREE.BufferGeometry();
 const particlesMaterial = new THREE.PointsMaterial({
 	color: 0xffff00, // Yellow
-	size: 0.15, // *TO DO* Test different particle sizes (options: 0.025, 0.05, 0.075-- 0.1 is quite large)
+	size: 0.15,
 	transparent: true,
 	opacity: 0.75,
 });
@@ -389,7 +382,7 @@ const particleSpeed = [];
 
 for (let i = 0; i < numParticles; i++) { // add random positions to each particle
 	position[i * 3] = (Math.random() * 2) - 1; // Random position adjustment [-1, 1]
-	position[i * 3 + 1] = (Math.random()); // *TO DO* Change based on game coordinates
+	position[i * 3 + 1] = (Math.random());
 	position[i * 3 + 2] = (-Math.random());
 
 	let speed = {
@@ -397,6 +390,7 @@ for (let i = 0; i < numParticles; i++) { // add random positions to each particl
 		y: (Math.random() - 0.5) * 0.01,
 		z: (Math.random() - 0.5) * 0.01,
 	}
+	
 	particleSpeed.push(speed);
 }
 
@@ -406,14 +400,14 @@ function animateParticles() {
 	const positions = particlesGeometry.attributes.position.array;
   
 	for (let i = 0; i < numParticles; i++) {
-	  position[i * 3] += particleSpeed[i].x;
-	  position[i * 3 + 1] += particleSpeed[i].y;
-	  position[i * 3 + 2] += particleSpeed[i].z;
+		position[i * 3] += particleSpeed[i].x;
+		position[i * 3 + 1] += particleSpeed[i].y;
+		position[i * 3 + 2] += particleSpeed[i].z;
 
-	  // Restricts the range of the particles (changes the shape)
-	  if (Math.abs(positions[i * 3]) > 0.5) position[i * 3] = 0.1;
-	  if (positions[i * 3 + 1] > 1) position[i * 3 + 1] = 0.1;
-	  if (Math.abs(positions[i * 3 + 2]) > 1) positions[i * 3 + 2] = 0.1;
+	  	// Restricts the range of the particles (changes the shape)
+	  	if (Math.abs(positions[i * 3]) > 0.5) position[i * 3] = 0.1;
+	  	if (positions[i * 3 + 1] > 1) position[i * 3 + 1] = 0.1;
+	  	if (Math.abs(positions[i * 3 + 2]) > 1) positions[i * 3 + 2] = 0.1;
 	}
   
 	particlesGeometry.attributes.position.needsUpdate = true;
@@ -601,16 +595,16 @@ function createMap(mapGiven){
 					mat2 = matSphere.clone()
 
 					cube1 = new THREE.Mesh( sphereGeo, mat2 );
-					cube2 = cube1.clone()
+					item = cube1.clone()
 
-					cube2.geometry.userData.obb = new OBB().fromBox3(
+					item.geometry.userData.obb = new OBB().fromBox3(
 						cube1.geometry.boundingBox
 					)
 
-					cube2.userData.obb = new OBB()
-					cube2.position.z = floorCopy.position.y+6+2.5
-					cube2.position.y = ((Math.random()-0.5)*2)*5
-					cube2.position.x = ((Math.random()-0.5)*2)*5
+					item.userData.obb = new OBB()
+					item.position.z = floorCopy.position.y+6+2.5
+					item.position.y = ((Math.random()-0.5)*2)*5
+					item.position.x = ((Math.random()-0.5)*2)*5
 				}
 
 				if(mapGiven[i+10][j+10] =="C1R" || mapGiven[i+10][j+10] =="C1F" || mapGiven[i+10][j+10] =="C2R" || 
@@ -685,10 +679,10 @@ function createMap(mapGiven){
 						wall2.userData.obb = new OBB();
 					}
 					
-					cube2.material.normalMap = rockTexture;
-					cube2.material.color.setRGB(1, 1, 0.5)
+					item.material.normalMap = rockTexture;
+					item.material.color.setRGB(1, 1, 0.5)
 				
-					floorCopy.add(cube2)
+					floorCopy.add(item)
 
 				}else if(mapGiven[i+10][j+10] == "SP"){
 					trackCopy.material.color.setRGB(1,0.5,0.5);
@@ -800,25 +794,19 @@ function createMap(mapGiven){
 					}
 
 					if(carPlayer == "nova"){
-
-						// cube2.material = new THREE.MeshBasicMaterial()
-						cube2.material = speedMat.clone();
-						cube2.name = "POWERUPSPEED";
+						item.material = speedMat.clone();
+						item.name = "POWERUPSPEED";
 					}
-					else if(carPlayer=="zenith"){
-						// cube2.material = new THREE.MeshBasicMaterial()
-						// cube2.material.map = shieldTexture
-						cube2.material = shieldMat.clone();
-						cube2.name = "POWERUPSHIELD";
+					else if(carPlayer == "zenith"){
+						item.material = shieldMat.clone();
+						item.name = "POWERUPSHIELD";
 					}
-					else if(carPlayer=="flux"){
-						// cube2.material = new THREE.MeshBasicMaterial()
-						// cube2.material.map = powerupTexture
-						cube2.material = wallPowMat;//shieldMat.clone();
-						cube2.name = "POWERUPWALL";
+					else if(carPlayer == "flux"){
+						item.material = wallPowMat;
+						item.name = "POWERUPWALL";
 					}
-					floorCopy.add(cube2)
-					cubes.push(cube2);
+					floorCopy.add(item)
+					items.push(item);
 					powerUpsFloors.push(floorCopy);
 				}
 				else if(mapGiven[i+10][j+10][0] == 'D' || mapGiven[i+10][j+10][0] == 'I'){ 
@@ -888,20 +876,20 @@ function createMap(mapGiven){
 						
 					}
 					if (mapGiven[i+10][j+10][0] == 'D') {
-						cube2.material = new THREE.MeshBasicMaterial();
-						cube2.material.map = timeDecTexture;
-						cube2.name = "POWERUPDECREASE";
-						cube2.material.color.setRGB(0.0, 0.0, 1.0);
+						item.material = new THREE.MeshBasicMaterial();
+						item.material.map = timeDecTexture;
+						item.name = "POWERUPDECREASE";
+						item.material.color.setRGB(0.0, 0.0, 1.0);
 						floorCopy.name = "timeDecFloor";
 					}
 					else if (mapGiven[i+10][j+10][0] == 'I') {
-						cube2.material = new THREE.MeshBasicMaterial();
-						cube2.name = "POWERUPINCREASE";
-						cube2.material.color.setRGB(1.0, 0.0, 0.0);
-						cube2.material.map = timeIncTexture;
+						item.material = new THREE.MeshBasicMaterial();
+						item.name = "POWERUPINCREASE";
+						item.material.color.setRGB(1.0, 0.0, 0.0);
+						item.material.map = timeIncTexture;
 						floorCopy.name = "timeIncFloor";
 					}
-					floorCopy.add(cube2)
+					floorCopy.add(item)
 					powerUpsFloors.push(floorCopy);
 				}
 				else{
@@ -1038,7 +1026,7 @@ function createMap(mapGiven){
 						
 					}
 						// set the cube position 
-						cube2.position.z += 10
+						item.position.z += 10
 
 						// generates a random numbers
 						let num = Math.random()
@@ -1046,35 +1034,35 @@ function createMap(mapGiven){
 						// Around 50% of the time it spawns
 						if(num >=0.50){
 							// Creates the fast asteroid
-							cube2.name = "fast";
+							item.name = "fast";
 
 							// Creates the particles
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
-							cube2.add(particles);
+							item.add(particles);
 							particles.position.z +=2;
 							particles.rotation.x = -Math.PI/2;
 
 							// add the cube to the floor
-							floorCopy.add(cube2);
-							cube2.material.normalMap = rockTexture;
-							cube2.material.color.setRGB(1, 1, 0.5);
+							floorCopy.add(item);
+							item.material.normalMap = rockTexture;
+							item.material.color.setRGB(1, 1, 0.5);
 						}else if (num >=0.20){ // Around 30% of the time is spawns
 							// Creates the slow asteroid
-							cube2.name = "slow";
+							item.name = "slow";
 
 							// Creates the particles
 							let particles = new THREE.Points(particlesGeometry, particlesMaterial);
-							cube2.add(particles);
+							item.add(particles);
 							particles.position.z +=2;
 							particles.rotation.x = -Math.PI/2;
 
 							// add the cube to the floor
-							floorCopy.add(cube2);
-							cube2.material.normalMap = rockTexture;
-							cube2.material.color.setRGB(1, 1, 0.5);
+							floorCopy.add(item);
+							item.material.normalMap = rockTexture;
+							item.material.color.setRGB(1, 1, 0.5);
 						}else{ // Around of 20% of the time nothing happens
-							if (cube2.geometry) {
-								cube2.geometry.dispose();
+							if (item.geometry) {
+								item.geometry.dispose();
 							}
 							
 						}
@@ -1115,7 +1103,7 @@ function disposeMesh(mesh) {
         mesh.material.dispose();
     }
 
-	// Removes children from their parents/akak actually deletes unecessary assets/meshs
+	// Removes children from their parents/aka actually deletes unecessary assets/meshs
 	mesh.traverse((child) => {
         if (child.isMesh) {
             // Dispose of geometry
@@ -1140,8 +1128,8 @@ function disposeMesh(mesh) {
         }
 	})
 
-    mesh.parent?.remove(mesh); // Remove from parent if it exists
-    mesh = null; // Nullify to help garbage collection
+    mesh.parent?.remove(mesh);
+    mesh = null; 
 }
 
 // Delete the map
@@ -1178,8 +1166,8 @@ if(currentState == "Testing"){
 }
 
 function checkCollision(obj1, obj2) {
-	// Copy the geometry's OBB (Oriented Bounding Box) to the object's user data OBB.
-    // This ensures the OBB data is up-to-date with the object's geometry.
+	// Copy the geometry's OBB to the object's user data OBB.
+    // OBB data is up-to-date with the object's geometry.
 	obj1.userData.obb.copy(obj1.geometry.userData.obb)
     obj2.userData.obb.copy(obj2.geometry.userData.obb)
 
@@ -1682,55 +1670,54 @@ function animate() {
 						let cube1 = new THREE.Mesh( sphereGeo, mat2 );
 
 						// Clone the sphere mesh to create a new instance
-						let cube2 = cube1.clone()
+						let item = cube1.clone()
 
 						// Set up Oriented Bounding Box (OBB) for collision detection
-						cube2.geometry.userData.obb = new OBB().fromBox3(
+						item.geometry.userData.obb = new OBB().fromBox3(
 							cube1.geometry.boundingBox
 						)
 
-						cube2.userData.obb = new OBB();
+						item.userData.obb = new OBB();
 
 						// Position the power-up randomly around the floor
-						cube2.position.z = obj.position.y+6+2.5;
-						cube2.position.y = ((Math.random()-0.5)*2)*5;
-						cube2.position.x = ((Math.random()-0.5)*2)*5;
+						item.position.z = obj.position.y+6+2.5;
+						item.position.y = ((Math.random()-0.5)*2)*5;
+						item.position.x = ((Math.random()-0.5)*2)*5;
 
 						// Assign properties and material based on the name of the powerup and the character
 						if(obj.name.startsWith("powerup")) {
 							// Handle different player cars and assign corresponding power-up
 							if(carPlayer == "nova"){
-								cube2.material = speedMat;
-								cube2.name = "POWERUPSPEED";
+								item.material = speedMat;
+								item.name = "POWERUPSPEED";
 							}
-							else if(carPlayer=="zenith"){
-								cube2.material = shieldMat;
-								cube2.name = "POWERUPSHIELD";
+							else if(carPlayer == "zenith"){
+								item.material = shieldMat;
+								item.name = "POWERUPSHIELD";
 							}
-							else if(carPlayer=="flux"){
-								cube2.material = new THREE.MeshBasicMaterial()
-								cube2.material.map = powerupTexture
-								cube2.name = "POWERUPWALL";
+							else if(carPlayer == "flux"){
+								item.material = wallPowMat;
+								item.name = "POWERUPWALL";
 							}
 						}
 						else if (obj.name.startsWith("time")) {
 							// Handle time-related power-ups based on floor name
 							if (obj.name[4] == 'D') {
-								cube2.material = new THREE.MeshBasicMaterial();
-								cube2.material.map = timeDecTexture;
-								cube2.name = "POWERUPDECREASE";
-								cube2.material.color.setRGB(0.0, 0.0, 1.0);
+								item.material = new THREE.MeshBasicMaterial();
+								item.material.map = timeDecTexture;
+								item.name = "POWERUPDECREASE";
+								item.material.color.setRGB(0.0, 0.0, 1.0);
 								floorCopy.name = "timeDecFloor";
 							}
 							else if (obj.name[4] == 'I') {
-								cube2.material = new THREE.MeshBasicMaterial();
-								cube2.material.map = timeIncTexture;
-								cube2.name = "POWERUPINCREASE";
+								item.material = new THREE.MeshBasicMaterial();
+								item.material.map = timeIncTexture;
+								item.name = "POWERUPINCREASE";
 								floorCopy.name = "timeIncFloor";
 							}
 						}
 						// Add the newly created power-up sphere to the current floor
-						obj.add(cube2);
+						obj.add(item);
 					}
 				})
 				completedLap = false;
@@ -1912,10 +1899,10 @@ function animate() {
 				}
 			}
 
-			// Make each of the cubes go up and down
-			cubes.forEach((cube2) => {
-        		if (cube2 && (cube2.name == "POWERUPSPEED" || cube2.name == "POWERUPSHIELD")) {
-            			cube2.position.z = Math.sin(time * (2 * Math.PI * 1.0 / 2.0)) * 0.5 + 4.5; // Power-ups float up and down
+			// Make each of the powerups float up and down
+			items.forEach((item) => {
+        		if (item && (item.name == "POWERUPSPEED" || item.name == "POWERUPSHIELD" || item.name == "POWERUPWALL")) {
+            			item.position.z = Math.sin(time * (2 * Math.PI * 1.0 / 2.0)) * 0.5 + 4.5; // Power-ups float up and down
         		}
     		});
 
