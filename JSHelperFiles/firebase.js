@@ -76,7 +76,6 @@ const addToTopTime = async (name, mapNum, time) => {
 }
 
 const checkDocumentExists = async (documentId) => {
-    console.log(`${import.meta.env.VITE_FIREBASE_API_KEY}`)
     const docRef = doc(database, "NAME", documentId);
     const docSnap = await getDoc(docRef);
 
