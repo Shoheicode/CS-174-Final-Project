@@ -9,7 +9,7 @@ import process from 'process';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: `${process.env.FIREBASE_API_KEY}`,
+  apiKey: `${import.meta.env.VITE_FIREBASE_API_KEY}`,
   authDomain: "finalprojectcs174e.firebaseapp.com",
   projectId: "finalprojectcs174e",
   storageBucket: "finalprojectcs174e.firebasestorage.app",
@@ -76,7 +76,7 @@ const addToTopTime = async (name, mapNum, time) => {
 }
 
 const checkDocumentExists = async (documentId) => {
-    console.log(`${process.env.FIREBASE_API_KEY}`)
+    console.log(`${import.meta.env.VITE_FIREBASE_API_KEY}`)
     const docRef = doc(database, "NAME", documentId);
     const docSnap = await getDoc(docRef);
 
