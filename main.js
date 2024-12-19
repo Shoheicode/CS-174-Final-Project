@@ -302,7 +302,7 @@ sphereGeo.computeBoundingBox()
 const playerGeo = new THREE.BoxGeometry(1,1,1);
 const playerMat = new THREE.MeshBasicMaterial();
 const player = new THREE.Mesh(playerGeo, playerMat);
-player.visible = false; // Transparent player
+// player.visible = false; // Transparent player
 player.position.set(1000,1000,1000)
 
 // Creating the left headlight
