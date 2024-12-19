@@ -1,9 +1,14 @@
-import { formatTime } from "./main";
+import { formatTime } from "../main";
 
+// Updates the leaderboard
 const updateleaderboard = (bestTimes) => {
+	// Updates the s string
     let s = ""
+
+	// Goes through the best times and update the string
 	bestTimes.forEach((value, index)=>{
 		s += "<div class='leaderboard-entry'>";
+		// Changes the rank based on where it is (aka 1st, 2nd, 3rd)
 		if(index+1 == 1){
 			s += `<span class='rank'>${index+1}st</span>`
 		}
@@ -18,7 +23,9 @@ const updateleaderboard = (bestTimes) => {
 		s += "</div>"
 	})
 
+	// updates the leaderboard inner.html with that data.
 	document.getElementById("leaderboard").innerHTML += "<div class='leaderboard-title'>Leaderboard</div> " +s + "</div>";
 }
 
+// Export this leaderboard update
 export {updateleaderboard}
