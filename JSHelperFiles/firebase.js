@@ -2,13 +2,14 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, doc, setDoc,getDocs, getDoc, limit, collection, query,orderBy, deleteDoc } from 'firebase/firestore';
+import process from 'process';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCyfn1abPH8iuuAYBntEsfEkxfC3uYt3N4"`${process.env.FIREBASE_API_KEY}`,
+  apiKey: `${import.meta.env.VITE_FIREBASE_API_KEY}`,
   authDomain: "finalprojectcs174e.firebaseapp.com",
   projectId: "finalprojectcs174e",
   storageBucket: "finalprojectcs174e.firebasestorage.app",
