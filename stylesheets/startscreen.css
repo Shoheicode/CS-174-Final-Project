@@ -24,9 +24,6 @@ body {
 }
 
 .check-in-container {
-    position: absolute;
-    top: 35%;
-    left: 35%;
     background-color: rgba(26, 26, 46, 0.8);
     border-radius: 15px;
     padding: 30px;
