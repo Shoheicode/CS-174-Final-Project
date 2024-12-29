@@ -19,8 +19,6 @@ body {
     background-image: url('/Images/39608.jpg');
     background-size: cover;
     background-position: center;
-    /* z-index: -10; */
-    /* display: none; */
 }
 
 .check-in-container {
