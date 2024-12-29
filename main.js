@@ -180,9 +180,9 @@ function playMusic() {
 
 
 // Power-Up Textures
-const speedTexture = textureLoader.load('Assets/Images/powerup/powerUp1Texture.png');
-const shieldTexture = textureLoader.load('Assets/Images/powerup/powerUp2TextureGold.png');
-const wallPowTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
+const speedTexture = textureLoader.load('Images/powerup/powerUp1Texture.png');
+const shieldTexture = textureLoader.load('Images/powerup/powerUp2TextureGold.png');
+const wallPowTexture = textureLoader.load('Images/powerup/powerUp2Texture.png');
 
 // Power Up Materials
 const speedMat = new THREE.MeshBasicMaterial({ 
