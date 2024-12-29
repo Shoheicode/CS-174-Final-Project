@@ -127,7 +127,7 @@ let currentDeaths = 0;
 //Scene Code
 const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
-const bgTexture = textureLoader.load('Assets/Images/39608.jpg');
+const bgTexture = textureLoader.load('/Images/39608.jpg');
 // https://wallpaperaccess.com/universe-landscape (where we found the background)
 
 // Sets the background
@@ -144,23 +144,23 @@ const music = new THREE.Audio(audListener);
 const finishSound = new THREE.Audio(audListener);
 const audLoader = new THREE.AudioLoader();
 // Load sounds
-audLoader.load('Assets/Sounds/carStart.mp3', function (buffer) {
+audLoader.load('/Sounds/carStart.mp3', function (buffer) {
     engineSound.setBuffer(buffer);
     engineSound.setLoop(false);
     engineSound.setVolume(0.5);
 });
-audLoader.load('Assets/Sounds/powerUp.mp3', function (buffer) {
+audLoader.load('/Sounds/powerUp.mp3', function (buffer) {
     powerUpSound.setBuffer(buffer);
     powerUpSound.setLoop(false);
     powerUpSound.setVolume(0.5);
 });
-audLoader.load('Assets/Sounds/ta-da-brass-band-soundroll-1-00-04.mp3', function (buffer) {
+audLoader.load('/Sounds/ta-da-brass-band-soundroll-1-00-04.mp3', function (buffer) {
     finishSound.setBuffer(buffer);
     finishSound.setLoop(false);
     finishSound.setVolume(0.5);
 });
 let isSoundLoaded = false;
-audLoader.load('Assets/Sounds/spaceMusic.mp3', function (buffer) {
+audLoader.load('/Sounds/spaceMusic.mp3', function (buffer) {
     music.setBuffer(buffer);
     music.setLoop(true);
     music.setVolume(0.4);
@@ -202,11 +202,11 @@ const wallPowMat = new THREE.MeshBasicMaterial({
 	opacity: 0.8
 });
 
-const timeIncTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
-const timeDecTexture = textureLoader.load('Assets/Images/powerup/powerUp2Texture.png');
+const timeIncTexture = textureLoader.load('/Images/powerup/powerUp2Texture.png');
+const timeDecTexture = textureLoader.load('/Images/powerup/powerUp2Texture.png');
 
 // Finish Line Texture
-const finishTexture = textureLoader.load('Assets/Images/finishline.jpg');
+const finishTexture = textureLoader.load('/Images/finishline.jpg');
 
 finishTexture.wrapS = THREE.RepeatWrapping;
 finishTexture.wrapT = THREE.RepeatWrapping;
@@ -215,7 +215,7 @@ finishTexture.repeat.set(1, 1);
 
 // Creates the car mesh
 let carMesh;
-let carChoice = 'Assets/Models/car.glb'
+let carChoice = '/Models/car.glb'
 let carPlayer = ""
 
 function loadGLTF() {
@@ -355,7 +355,7 @@ const wall_material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 let walls = [];
 
 // create wall texture
-const wallTexture = new THREE.TextureLoader().load('Assets/Images/wall.png');
+const wallTexture = new THREE.TextureLoader().load('/Images/wall.png');
 
 wallTexture.wrapS = THREE.RepeatWrapping;
 wallTexture.wrapT = THREE.RepeatWrapping;
@@ -519,10 +519,10 @@ let floorCopy = new THREE.Mesh(
 )
 
 // Import the floor texture from the map
-const floorTexture = new THREE.TextureLoader().load('Assets/Images/road/road.png');
+const floorTexture = new THREE.TextureLoader().load('/Images/road/road.png');
 
 // Import the rock texture from the assets
-const rockTexture = new THREE.TextureLoader().load('Assets/Images/road/rockmap.png')
+const rockTexture = new THREE.TextureLoader().load('/Images/road/rockmap.png')
 
 floorTexture.wrapS = THREE.RepeatWrapping;
 floorTexture.wrapT = THREE.RepeatWrapping;
@@ -1406,7 +1406,7 @@ document.getElementById("novaButton").onclick = function() {{
 	document.getElementById("bodyContainer2").style.display = "none";
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
-	carChoice = 'Assets/Models/car.glb';
+	carChoice = '/Models/car.glb';
 	carPlayer = "nova"
 }}
 
@@ -1415,7 +1415,7 @@ document.getElementById("zenithButton").onclick = function() {{
 	document.getElementById("bodyContainer2").style.display = "none";
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
-	carChoice = 'Assets/Models/carMag.glb';
+	carChoice = '/Models/carMag.glb';
 	carPlayer = "zenith"
 }}
 
@@ -1424,7 +1424,7 @@ document.getElementById("fluxButton").onclick = function() {{
 	document.getElementById("bodyContainer2").style.display = "none";
 	currentState = "Level Select";
 	document.getElementById("bodyContainer").style.display = "flex";
-	carChoice = 'Assets/Models/carTeal.glb';
+	carChoice = '/Models/carTeal.glb';
 	carPlayer = "flux"
 }}
 
