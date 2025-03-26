@@ -1,4 +1,4 @@
-let m = [
+let map = [
 	["FCLU","FR","FR","DR","FR","FR","FR","FR","IR","C1R","FR","FR","PR","FR","DR","FR","FR","FR","FCUR","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","FF","ES"],
 	["FF","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","ES","IF","ES"],
@@ -21,7 +21,7 @@ let m = [
 	["FCDL","FR","FR","FR","FCRD","ES","ES","FCDL","IR","C4R","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
-let m2 = [
+let map2 = [
 	["FCLU","FR","IR","FR","FCUR","ES","FCLU","FR","C1R","FR","FCUR","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","IF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
@@ -44,7 +44,7 @@ let m2 = [
 	["FCDL","FR","C4R","FR","FR","FR","FR","DR","FR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
-let m3 = [
+let map3 = [
 	["FCLU","FR","FR","IR","FCUR","ES","FCLU","FR","C1R","DR","FCUR","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 	["FF","ES","ES","ES","FF","ES","FF","ES","ES","ES","FF","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
@@ -67,4 +67,4 @@ let m3 = [
 	["FCDL","FR","C4R","DR","FCRD","ES","ES","FCDL","IR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
-export {m, m2, m3}
+export {map, map2, map3}

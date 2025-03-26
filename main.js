@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { addData, checkDocumentExists, getBestLapTimes } from './JSHelperFiles/firebase';
 import { updateleaderboard } from './JSHelperFiles/startpage';
 // import { TrackObject } from './GameObjects/TrackObject';
-import { m, m2, m3 } from './JSHelperFiles/constants';
+import { map, map2, map3 } from './JSHelperFiles/constants';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -432,11 +432,6 @@ floorGeo.setAttribute(
 // |
 
 // Create our 3 maps
-let map = m;
-
-let map2 = m2;
-
-let map3 = m3;
 
 // Sets the current tile for our game to keep track when player falls off
 let currentTile = null;
