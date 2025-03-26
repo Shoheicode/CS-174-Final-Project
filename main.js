@@ -6,6 +6,7 @@ import { addData, checkDocumentExists, getBestLapTimes } from './JSHelperFiles/f
 import { updateleaderboard } from './JSHelperFiles/startpage';
 // import { TrackObject } from './GameObjects/TrackObject';
 import { map, map2, map3 } from './JSHelperFiles/constants';
+import PlayerObject from './GameObjects/Player';
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -117,6 +118,9 @@ let run = false; // Controls the run time
 let brake = false;
 let touchGround = true;
 let waitTime = 0;
+
+let play = new PlayerObject();
+console.log(play.acceleration)
 
 // Asteroid Speeds
 let astFast = 0;
