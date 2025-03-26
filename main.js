@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { myFunction } from './Start/introduction';
 import { addData, checkDocumentExists, getBestLapTimes } from './JSHelperFiles/firebase';
 import { updateleaderboard } from './JSHelperFiles/startpage';
+import
 // import { GUI } from 'dat.gui'
 
 // Translation Matrices
@@ -15,6 +16,7 @@ function translationMatrix(tx, ty, tz) {
 		0, 0, 0, 1
 	);
 }
+import { TrackObject } from './GameObjects/TrackObject';
 
 // Rotation Matirx around X-axis
 function rotationMatrixX(theta) {
@@ -253,8 +255,11 @@ minimapCamera.position.set(0, 800, 0); // Position above the track
 
 //Creates the plane for the track for the minimap
 const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x404040 });
-const planeForTrack = new THREE.PlaneGeometry(20, 20)
-const plane = new THREE.Mesh(planeForTrack, trackMaterial)
+const planeForTrack = new THREE.PlaneGeometry(20, 20);
+const plane = new THREE.Mesh(planeForTrack, trackMaterial);
+
+let t = new TrackObject();
+
 
 // Sets the plane position for the track
 plane.position.y = 500
