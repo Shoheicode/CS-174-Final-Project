@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // import { myFunction } from './Start/introduction';
 import { addData, checkDocumentExists, getBestLapTimes } from './JSHelperFiles/firebase';
 import { updateleaderboard } from './JSHelperFiles/startpage';
-import { TrackObject } from './GameObjects/TrackObject';
+// import { TrackObject } from './GameObjects/TrackObject';
 import { m, m2, m3 } from './JSHelperFiles/constants';
 // import { GUI } from 'dat.gui'
 
@@ -258,7 +258,7 @@ const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x404040 });
 const planeForTrack = new THREE.PlaneGeometry(20, 20);
 const plane = new THREE.Mesh(planeForTrack, trackMaterial);
 
-let t = new TrackObject();
+// let t = new TrackObject();
 
 
 // Sets the plane position for the track

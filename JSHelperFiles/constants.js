@@ -67,4 +67,4 @@ let m3 = [
 	["FCDL","FR","C4R","DR","FCRD","ES","ES","FCDL","IR","FR","FCRD","ES","ES","ES","ES","ES","ES","ES","ES","ES"],
 ]
 
-export {map, map2, map3}
+export {m, m2, m3}
